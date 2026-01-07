@@ -18,9 +18,9 @@ function ParentDashboardScreen() {
   };
 
   const essentials = [
-    { label: 'Attendance', icon: Calendar, color: '#2962FF', screen: '/attendance' },
-    { label: 'Fee Details', icon: Wallet, color: '#FF7043', screen: '/fee-details' },
-    { label: 'Homework', icon: BookOpen, color: '#43A047', screen: '/homework' },
+    { label: 'Attendance', icon: Calendar, color: '#2962FF', screen: '/parent/attendance' },
+    { label: 'Fee Details', icon: Wallet, color: '#FF7043', screen: '/parent/fee-details' },
+    { label: 'Homework', icon: BookOpen, color: '#43A047', screen: '/parent/homework' },
     { label: 'Exam & Progress Reports', icon: FileText, color: '#7C4DFF', screen: '/exam-reports' },
   ];
 
@@ -50,10 +50,10 @@ function ParentDashboardScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="p-6">
       {/* Header */}
-      <div className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="bg-white shadow-sm rounded-lg mb-6">
+        <div className="px-6 py-4 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-blue-600">
               Welcome, {parentName} <span className="text-2xl">👋</span>
@@ -66,7 +66,7 @@ function ParentDashboardScreen() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="space-y-6">
         {/* Student Card */}
         <div className="bg-white rounded-2xl shadow-md p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
@@ -86,7 +86,7 @@ function ParentDashboardScreen() {
           
          <div
   className="flex gap-4 mt-4 pt-4 border-t border-gray-100 cursor-pointer hover:bg-gray-50 rounded-lg"
-  onClick={() => navigate("/src/screens/both/attendance/AttendanceCalendarScreen.tsx")}
+  onClick={() => navigate("/parent/attendance")}
 >
   <div className="flex-1 text-center">
     <div className="text-3xl font-bold text-blue-600">
@@ -164,10 +164,6 @@ function ParentDashboardScreen() {
   );
 };
 export default ParentDashboardScreen;
-
-
-
-
 
 
 

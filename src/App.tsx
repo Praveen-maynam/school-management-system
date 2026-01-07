@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Layout from "./components/layout/AdminLayout";
+import { AttendanceProvider } from "./context/AttendanceContext";
+import Layout from "./components/layout/AppLayout";
 import TeacherDashboard from "./screens/teacher/dashboard/TeacherDashboardScreen";
 import MarkAttendanceScreen from "./screens/teacher/attendance/MarkAttendanceScreen";
 import CreateHomeWorkScreen from "./screens/teacher/homework/CreateHomeWorkScreen";
@@ -22,10 +23,15 @@ import HelpPage from "./screens/teacher/privacy/Help";
 import LoginScreen from "./screens/auth/LoginScreen"; 
 import ParentDashboardScreen from "./screens/parent/ParentdashBoard";
 import AttendanceScreen from "./screens/parent/AttendanceScreen";
+import Homework from "./screens/parent/HomeWork";
+import FeeDetails from "./screens/parent/FeeDetails";
+import ParentProfile from "./screens/parent/Profile";
+import Ticketmodel from "./screens/teacher/privacy/Ticketmodel";
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
+        <AttendanceProvider>
+            <BrowserRouter>
+                <Routes>
                 <Route path="/" element={<LoginScreen />} />
                 <Route path="/teacher" element={<Layout />}>
                     <Route path="dashboard" element={<TeacherDashboard />} />
@@ -45,15 +51,22 @@ function App() {
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="Help" element={<HelpPage />} />
+                    <Route path="ticket-modal" element={<Ticketmodel />} />
                     <Route path="*" element={<Navigate to="/teacher/dashboard" replace />} />
                 </Route>
-                <Route path="/parent/dashboard" element={<ParentDashboardScreen />} />
-                <Route path="/parent/attendance" element={<AttendanceScreen />} />
-                 <Route path="*" element={<Navigate to="/" replace />} />
-                 <Route path="/attendance" element={<AttendanceScreen />} />
-                
+                <Route path="/parent" element={<Layout />}>
+                    <Route path="dashboard" element={<ParentDashboardScreen />} />
+                    <Route path="attendance" element={<AttendanceScreen />} />
+                    <Route path="fee-details" element={<FeeDetails />} />
+                    <Route path="homework" element={<Homework />} />
+                    <Route path="profile" element={<ParentProfile />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+                    <Route path="about-us" element={<AboutUsPage />} />
+                    <Route path="help" element={<HelpPage />} />
+                </Route>
             </Routes>
         </BrowserRouter>
+        </AttendanceProvider>
     );
 };
 

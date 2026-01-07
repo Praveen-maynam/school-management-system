@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Camera, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import TicketModal from '../privacy/Ticketmodel';
 
 interface Photo {
   id: number;
@@ -8,9 +10,11 @@ interface Photo {
 }
 
 function RaiseIssueScreen() {
+  const navigate = useNavigate();
   const [issueType, setIssueType] = useState('');
   const [description, setDescription] = useState('');
  const [photos, setPhotos] = useState<Photo[]>([]);
+ const [showTicketModal, setShowTicketModal] = useState(false);
 
 
  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +45,8 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     photos: photos.map((p) => p.name),
   });
 
-  alert("Issue submitted successfully!");
+  // Show ticket modal
+  setShowTicketModal(true);
 };
 
     
@@ -173,6 +178,15 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         <div className="mt-8 text-center text-gray-600">
           <p>Need immediate assistance? Contact us at <a href="mailto:support@school.com" className="text-blue-600 hover:underline font-medium">support@school.com</a></p>
         </div>
+
+        {/* Ticket Modal */}
+        <TicketModal 
+          isOpen={showTicketModal} 
+          onClose={() => {
+            setShowTicketModal(false);
+            navigate('/teacher/dashboard');
+          }} 
+        />
       </main>
     </div>
   );

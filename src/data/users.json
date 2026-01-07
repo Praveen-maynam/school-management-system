@@ -1,0 +1,10 @@
+{
+  "parents": [
+    { "email": "parent1@example.com", "password": "parentpass1", "name": "Parent One" },
+    { "email": "parent2@example.com", "password": "parentpass2", "name": "Parent Two" }
+  ],
+  "teachers": [
+    { "email": "teacher1@example.com", "password": "teacherpass1", "name": "Teacher One" },
+    { "email": "teacher2@example.com", "password": "teacherpass2", "name": "Teacher Two" }
+  ]
+}
