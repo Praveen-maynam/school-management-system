@@ -26,7 +26,7 @@ const Sidebar = () => {
         { path: "/parent/attendance", icon: Calendar, label: "Attendance" },
         { path: "/parent/fee-details", icon: Wallet, label: "Fee Details" },
         { path: "/parent/homework", icon: BookOpen, label: "Homework" },
-        { path: "/parent/exam-reports", icon: FileText, label: "Exam Reports" },
+        { path: "/teacher/exam-reports", icon: FileText, label: "Exam Reports" },
         { path: "/parent/profile", icon: User, label: "Profile" },
       ];
     } else {

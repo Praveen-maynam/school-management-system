@@ -218,6 +218,9 @@ function TeacherProfile() {
                 if (option.label === 'Help') {
                     navigate('/teacher/Help');
                 }
+                if (option.label === 'Logout') {
+                    navigate('/');
+                }
               }}
               className={`flex items-center justify-between p-4 md:p-5 lg:p-6 hover:bg-gray-50 transition-colors cursor-pointer ${
                 index !== profileOptions.length - 1 ? 'border-b border-gray-100' : ''
