@@ -1,6 +1,6 @@
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Users, User, Calendar, Wallet, BookOpen, FileText } from "lucide-react";
+import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Briefcase, Bus, Building2, Book, Settings, BarChart2, ClipboardList } from "lucide-react";
 
 interface MenuItem {
   path: string;
@@ -14,7 +14,23 @@ const Sidebar = () => {
 
   // Determine menu items based on current path
   const getMenuItems = (): MenuItem[] => {
-    if (location.pathname.startsWith('/teacher')) {
+    if (location.pathname.startsWith('/admin')) {
+      return [
+        { label: 'Dashboard', path: '/admin/dashboard', icon: Home },
+        { label: 'Students', path: '/admin/students', icon: Users },
+        { label: 'Teachers', path: '/admin/teachers', icon: Briefcase },
+        { label: 'Classes', path: '/admin/classes', icon: School },
+        { label: 'Attendance', path: '/admin/attendance', icon: Calendar },
+        { label: 'Exams & Grades', path: '/admin/exams', icon: ClipboardList },
+        { label: 'Finance', path: '/admin/finance', icon: Wallet },
+        { label: 'Library', path: '/admin/library', icon: Book },
+        { label: 'Transport', path: '/admin/transport', icon: Bus },
+        // { label: 'Hostel', path: '/admin/hostel', icon: Building2 },
+        { label: 'Inventory', path: '/admin/inventory', icon: FileText },
+        { label: 'Settings', path: '/admin/settings', icon: Settings },
+        { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
+      ];
+    } else if (location.pathname.startsWith('/teacher')) {
       return [
         { path: "/teacher/dashboard", icon: Home, label: "Dashboard" },
         { path: "/teacher/students/studentlist", icon: Users, label: "Students" },

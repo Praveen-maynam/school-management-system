@@ -6,5 +6,8 @@
   "teachers": [
     { "email": "teacher1@example.com", "password": "teacherpass1", "name": "Teacher One" },
     { "email": "teacher2@example.com", "password": "teacherpass2", "name": "Teacher Two" }
+  ],
+  "admins": [
+    { "email": "admin@school.com", "password": "admin123", "name": "School Admin" }
   ]
 }

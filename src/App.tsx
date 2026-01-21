@@ -1,4 +1,10 @@
 import React from "react";
+import AdminDashboardScreen from "./screens/admin/dashboard/AdminDashboardScreen";
+import StudentListScreen from "./screens/admin/student/StudentListScreen";
+import  ExamListScreen  from "./screens/admin/exam/ExamListScreen";
+import TransportRoutesScreen from "./screens/admin/transport/TransportRoutesScreen";
+import { InventoryListScreen } from "./screens/admin/inventory/InventoryListScreen";
+import TeacherListScreen from "./screens/admin/teacher/TeacherListScreen";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AttendanceProvider } from "./context/AttendanceContext";
 import Layout from "./components/layout/AppLayout";
@@ -16,9 +22,10 @@ import RaiseIssueScreen from "./screens/teacher/messaging/IssuesScreen";
 import StudentListByClassScreen from "./screens/teacher/students/StudentListByClassScreen";
 import StudentProfileScreen from "./screens/teacher/students/StudentProfileScreen";
 import EnterMarkScreen from "./screens/teacher/exams/EnterMarksScreen";
-
+import AttendanceReportsScreen from "./screens/admin/attendance/AttendanceReportsScreen";
 import PrivacyPolicyPage from "./screens/teacher/privacy/Privacy&Policy";
 import AboutUsPage from "./screens/teacher/privacy/aboutus";
+import ClassListScreen from "./screens/admin/class/ClassListScreen";
 import HelpPage from "./screens/teacher/privacy/Help";  
 import LoginScreen from "./screens/auth/LoginScreen"; 
 import ParentDashboardScreen from "./screens/parent/ParentdashBoard";
@@ -27,12 +34,31 @@ import Homework from "./screens/parent/HomeWork";
 import FeeDetails from "./screens/parent/FeeDetails";
 import ParentProfile from "./screens/parent/Profile";
 import Ticketmodel from "./screens/teacher/privacy/Ticketmodel";
+import FeeReportsScreen from "./screens/admin/reports/FeeReportsScreen";
+import BookListScreen from "./screens/admin/library/BookListScreen";
 function App() {
     return (
         <AttendanceProvider>
             <BrowserRouter>
                 <Routes>
                 <Route path="/" element={<LoginScreen />} />
+                <Route path="/admin" element={<Layout />}>
+                    <Route path="dashboard" element={<AdminDashboardScreen />} />
+                    <Route path="students" element={<StudentListScreen />} />
+                    <Route path="exams" element={<ExamListScreen />} />
+                     <Route path="teachers" element={<TeacherListScreen />} />
+                    <Route path="transport" element={<TransportRoutesScreen />} />
+                    <Route path="inventory" element={<InventoryListScreen />} /> 
+                    <Route path="settings" element={<div>Admin Settings Screen</div>} />
+                    <Route path="reports" element={<FeeReportsScreen />} />
+                    <Route path="finance" element={<div>Admin Finance Screen</div>} />
+                    <Route path="library" element={<BookListScreen />} />
+                    <Route path="hostel" element={<div>Admin Hostel Screen</div>} />
+                    <Route path="classes" element={<ClassListScreen />} />
+                    <Route path="attendance" element={<AttendanceReportsScreen />} />
+                    {/* Add more admin routes here as needed */}
+                    <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+                </Route>
                 <Route path="/teacher" element={<Layout />}>
                     <Route path="dashboard" element={<TeacherDashboard />} />
                     <Route path="attendance/mark" element={<MarkAttendanceScreen />} />

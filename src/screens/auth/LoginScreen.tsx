@@ -20,9 +20,18 @@ function LoginScreen() {
   const handleLogin = () => {
     setErrorMessage('');
 
+    // Check in admins
+    const admin = usersData.admins && usersData.admins.find(a => a.email === email && a.password === password);
+    if (admin) {
+      localStorage.setItem('adminEmail', admin.email);
+      navigate('/admin/dashboard', { replace: true });
+      return;
+    }
+
     // Check in parents
     const parent = usersData.parents.find(p => p.email === email && p.password === password);
     if (parent) {
+      localStorage.setItem('parentEmail', parent.email);
       setModalVisible(true);
       return;
     }
@@ -30,6 +39,7 @@ function LoginScreen() {
     // Check in teachers
     const teacher = usersData.teachers.find(t => t.email === email && t.password === password);
     if (teacher) {
+      localStorage.setItem('teacherEmail', teacher.email);
       navigate('/teacher/dashboard', { replace: true });
       return;
     }
