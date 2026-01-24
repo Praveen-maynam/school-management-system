@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { SidebarProvider, useSidebar } from "../../context/SidebarContext";
 import Topbar from "./Topbar";
 import SearchBar from "../ui/SearchBar";
 import { Bell } from "lucide-react";
@@ -22,33 +23,17 @@ const Layout = () => {
         const adminEmail = localStorage.getItem('adminEmail');
         admin = usersData.admins && usersData.admins.find(a => a.email === adminEmail);
     }
+    const { isOpen } = useSidebar();
     return (
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar */}
             <Sidebar />
 
             {/* RIGHT SECTION */}
-            <div className="flex-1 flex flex-col">
+            <div className={`flex-1 flex flex-col transition-all duration-300 ${isOpen ? 'ml-64' : 'ml-20'}`}>
                 {/* TOPBAR (Reusable) */}
-                <Topbar
-                    leftContent={<SearchBar />}
-                    rightContent={
-                        <div className="flex items-center gap-4">
-                            <button className="relative p-2 rounded-full hover:bg-gray-100">
-                                <Bell size={22} className="text-gray-600" />
-                                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1">3</span>
-                            </button>
-                            <div className="flex items-center gap-2">
-                                <Avatar />
-                                <span className="font-medium text-gray-700">
-                                    {teacher?.name || parent?.name || admin?.name || 'User'}
-                                </span>
-                            </div>
-                        </div>
-                    }
-                />
                 {/* Main Content */}
-                <main className="flex-1 overflow-auto">
+                <main className="flex-1 overflow-auto main-content">
                     <Outlet />
                 </main>
             </div>
@@ -56,4 +41,10 @@ const Layout = () => {
     );
 };
 
-export default Layout;
+const LayoutWithSidebarProvider = () => (
+    <SidebarProvider>
+        <Layout />
+    </SidebarProvider>
+);
+
+export default LayoutWithSidebarProvider;

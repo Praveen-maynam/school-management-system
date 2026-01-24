@@ -1,106 +1,83 @@
 
 import React, { useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
-interface Teacher {
-    firstName: string;
-    lastName: string;
-    email: string;
-    subject: string;
-}
-
-// Simulate fetching teacher data
-const mockTeacher: Teacher = {
-    firstName: 'Alice',
-    lastName: 'Johnson',
-    email: 'alice.j@email.com',
-    subject: 'Math',
-};
+// Dummy data for demonstration
+const teachers = [
+    {
+        id: 1,
+        employeeId: 'EMP-001',
+        firstName: 'Alice',
+        lastName: 'Johnson',
+        email: 'alice.j@email.com',
+        department: 'Math',
+        phone: '9876543210',
+        status: 'Active',
+        subjects: 'Algebra, Geometry',
+        classes: '6A, 7B',
+    },
+    {
+        id: 2,
+        employeeId: 'EMP-002',
+        firstName: 'Bob',
+        lastName: 'Smith',
+        email: 'bob.s@email.com',
+        department: 'Science',
+        phone: '9123456789',
+        status: 'Inactive',
+        subjects: 'Physics',
+        classes: '8A',
+    },
+];
 
 const EditTeacherScreen: React.FC = () => {
-    const [teacher, setTeacher] = useState<Teacher>(mockTeacher);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [success, setSuccess] = useState(false);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const teacher = teachers.find(t => String(t.id) === id);
+    const [form, setForm] = useState(teacher || {
+        firstName: '', lastName: '', employeeId: '', email: '', department: '', phone: '', status: 'Active', subjects: '', classes: ''
+    });
+
+    if (!teacher) return <div className="p-6">Teacher not found.</div>;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setTeacher({ ...teacher, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-        setSuccess(false);
-        // Simulate API call
-        setTimeout(() => {
-            setLoading(false);
-            setSuccess(true);
-        }, 1200);
+        alert('Teacher updated (dummy)');
+        navigate('/admin/teachers');
     };
 
     return (
         <div className="max-w-xl mx-auto bg-white rounded-xl shadow p-6 mt-6">
             <h2 className="text-2xl font-bold mb-4">Edit Teacher</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block font-medium mb-1">First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={teacher.firstName}
-                        onChange={handleChange}
-                        className="w-full border rounded px-3 py-2"
-                        required
-                    />
+                <div className="flex gap-2">
+                    <input className="input w-1/2" name="firstName" placeholder="First Name" value={form.firstName} onChange={handleChange} required />
+                    <input className="input w-1/2" name="lastName" placeholder="Last Name" value={form.lastName} onChange={handleChange} required />
                 </div>
-                <div>
-                    <label className="block font-medium mb-1">Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={teacher.lastName}
-                        onChange={handleChange}
-                        className="w-full border rounded px-3 py-2"
-                        required
-                    />
+                <input className="input w-full" name="employeeId" placeholder="Employee ID" value={form.employeeId} onChange={handleChange} required />
+                <input className="input w-full" name="email" placeholder="Email" value={form.email} onChange={handleChange} required type="email" />
+                <input className="input w-full" name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} required />
+                <select className="input w-full" name="department" value={form.department} onChange={handleChange} required>
+                    <option value="">Select Department</option>
+                    <option value="Math">Math</option>
+                    <option value="Science">Science</option>
+                    <option value="English">English</option>
+                </select>
+                <input className="input w-full" name="subjects" placeholder="Subjects (comma separated)" value={form.subjects} onChange={handleChange} />
+                <input className="input w-full" name="classes" placeholder="Classes (comma separated)" value={form.classes} onChange={handleChange} />
+                <select className="input w-full" name="status" value={form.status} onChange={handleChange} required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                <div className="flex gap-2 mt-6">
+                    <button type="submit" className="btn-primary">Update</button>
+                    <button type="button" className="btn-secondary ml-auto" onClick={() => navigate('/admin/teachers')}>Cancel</button>
                 </div>
-                <div>
-                    <label className="block font-medium mb-1">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={teacher.email}
-                        onChange={handleChange}
-                        className="w-full border rounded px-3 py-2"
-                        required
-                    />
-                </div>
-                <div>
-                    <label className="block font-medium mb-1">Subject</label>
-                    <select
-                        name="subject"
-                        value={teacher.subject}
-                        onChange={handleChange}
-                        className="w-full border rounded px-3 py-2"
-                        required
-                    >
-                        <option value="">Select Subject</option>
-                        <option value="Math">Math</option>
-                        <option value="Science">Science</option>
-                        <option value="English">English</option>
-                        <option value="History">History</option>
-                        <option value="Art">Art</option>
-                    </select>
-                </div>
-                {error && <div className="text-red-500">{error}</div>}
-                {success && <div className="text-green-600">Teacher updated successfully!</div>}
-                <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:bg-blue-700"
-                    disabled={loading}
-                >
-                    {loading ? 'Saving...' : 'Save Changes'}
-                </button>
             </form>
         </div>
     );

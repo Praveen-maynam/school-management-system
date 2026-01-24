@@ -1,98 +1,98 @@
-import React, { useState } from 'react';
+// // import React, { useState } from 'react';
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  available: boolean;
-}
+// // interface Book {
+// //   id: number;
+// //   title: string;
+// //   author: string;
+// //   available: boolean;
+// // }
 
-const mockBooks: Book[] = [
-  { id: 1, title: 'Mathematics 101', author: 'John Smith', available: true },
-  { id: 2, title: 'Physics for Beginners', author: 'Jane Doe', available: false },
-  { id: 3, title: 'Chemistry Essentials', author: 'Albert Lee', available: true },
-];
+// // const mockBooks: Book[] = [
+// //   { id: 1, title: 'Mathematics 101', author: 'John Smith', available: true },
+// //   { id: 2, title: 'Physics for Beginners', author: 'Jane Doe', available: false },
+// //   { id: 3, title: 'Chemistry Essentials', author: 'Albert Lee', available: true },
+// // ];
 
-const BookListScreen: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>(mockBooks);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+// // const BookListScreen: React.FC = () => {
+// //   const [books, setBooks] = useState<Book[]>(mockBooks);
+// //   const [loading, setLoading] = useState(false);
+// //   const [error, setError] = useState<string | null>(null);
+// //   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
-  const handleView = (book: Book) => {
-    setSelectedBook(book);
-  };
+// //   const handleView = (book: Book) => {
+// //     setSelectedBook(book);
+// //   };
 
-  const handleCloseModal = () => {
-    setSelectedBook(null);
-  };
+// //   const handleCloseModal = () => {
+// //     setSelectedBook(null);
+// //   };
 
-  return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Library Book List</h2>
-      {loading && <div className="mb-4 text-blue-600">Processing...</div>}
-      {error && <div className="mb-4 text-red-600">{error}</div>}
-      <table className="min-w-full bg-gray-50 rounded-md overflow-hidden">
-        <thead>
-          <tr>
-            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Title</th>
-            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Author</th>
-            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
-            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.length === 0 ? (
-            <tr>
-              <td colSpan={4} className="px-4 py-2 text-center text-gray-400">No books found.</td>
-            </tr>
-          ) : (
-            books.map((book) => (
-              <tr key={book.id}>
-                <td className="px-4 py-2 text-gray-700">{book.title}</td>
-                <td className="px-4 py-2 text-gray-700">{book.author}</td>
-                <td className="px-4 py-2 text-gray-700">{book.available ? 'Available' : 'Issued'}</td>
-                <td className="px-4 py-2">
-                  <button
-                    className="mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    onClick={() => handleView(book)}
-                  >
-                    View
-                  </button>
-                  <button
-                    className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                    disabled
-                  >
-                    Issue
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-      {/* Modal for viewing book details */}
-      {selectedBook && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h3 className="text-xl font-bold mb-2">Book Details</h3>
-            <p><span className="font-semibold">Title:</span> {selectedBook.title}</p>
-            <p><span className="font-semibold">Author:</span> {selectedBook.author}</p>
-            <p><span className="font-semibold">Status:</span> {selectedBook.available ? 'Available' : 'Issued'}</p>
-            <button
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              onClick={handleCloseModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+// //   return (
+// //     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
+// //       <h2 className="text-2xl font-bold mb-4 text-gray-800">Library Book List</h2>
+// //       {loading && <div className="mb-4 text-blue-600">Processing...</div>}
+// //       {error && <div className="mb-4 text-red-600">{error}</div>}
+// //       <table className="min-w-full bg-gray-50 rounded-md overflow-hidden">
+// //         <thead>
+// //           <tr>
+// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Title</th>
+// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Author</th>
+// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
+// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Actions</th>
+// //           </tr>
+// //         </thead>
+// //         <tbody>
+// //           {books.length === 0 ? (
+// //             <tr>
+// //               <td colSpan={4} className="px-4 py-2 text-center text-gray-400">No books found.</td>
+// //             </tr>
+// //           ) : (
+// //             books.map((book) => (
+// //               <tr key={book.id}>
+// //                 <td className="px-4 py-2 text-gray-700">{book.title}</td>
+// //                 <td className="px-4 py-2 text-gray-700">{book.author}</td>
+// //                 <td className="px-4 py-2 text-gray-700">{book.available ? 'Available' : 'Issued'}</td>
+// //                 <td className="px-4 py-2">
+// //                   <button
+// //                     className="mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+// //                     onClick={() => handleView(book)}
+// //                   >
+// //                     View
+// //                   </button>
+// //                   <button
+// //                     className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+// //                     disabled
+// //                   >
+// //                     Issue
+// //                   </button>
+// //                 </td>
+// //               </tr>
+// //             ))
+// //           )}
+// //         </tbody>
+// //       </table>
+// //       {/* Modal for viewing book details */}
+// //       {selectedBook && (
+// //         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+// //           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+// //             <h3 className="text-xl font-bold mb-2">Book Details</h3>
+// //             <p><span className="font-semibold">Title:</span> {selectedBook.title}</p>
+// //             <p><span className="font-semibold">Author:</span> {selectedBook.author}</p>
+// //             <p><span className="font-semibold">Status:</span> {selectedBook.available ? 'Available' : 'Issued'}</p>
+// //             <button
+// //               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+// //               onClick={handleCloseModal}
+// //             >
+// //               Close
+// //             </button>
+// //           </div>
+// //         </div>
+// //       )}
+// //     </div>
+// //   );
+// // };
 
-export default BookListScreen;
+// // export default BookListScreen;
 
 
 // import React, { useState } from 'react';
@@ -101,7 +101,7 @@ export default BookListScreen;
 // export default function SchoolAdminApp() {
 //   const [currentPage, setCurrentPage] = useState('dashboard');
 //   const [sidebarOpen, setSidebarOpen] = useState(true);
-//   const [expandedMenus, setExpandedMenus] = useState({ library: true });
+//   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({ library: true });
 //   const [searchQuery, setSearchQuery] = useState('');
 //   const [selectedFilter, setSelectedFilter] = useState('all');
 
@@ -155,14 +155,21 @@ export default BookListScreen;
 //     { id: 'settings', label: 'Settings', icon: Settings }
 //   ];
 
-//   const toggleSubmenu = (id) => {
+//   const toggleSubmenu = (id: string) => {
 //     setExpandedMenus(prev => ({
 //       ...prev,
 //       [id]: !prev[id]
 //     }));
 //   };
 
-//   const handleMenuClick = (item, subItem = null) => {
+//   type MenuItem = {
+//     id: string;
+//     label: string;
+//     icon: React.ElementType;
+//     submenu?: MenuItem[];
+//   };
+
+//   const handleMenuClick = (item: MenuItem, subItem: MenuItem | null = null) => {
 //     if (item.submenu && !subItem) {
 //       toggleSubmenu(item.id);
 //       if (!expandedMenus[item.id]) {
@@ -661,3 +668,441 @@ export default BookListScreen;
 //     </div>
 //   );
 // }
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, BookMarked, UserCheck, RefreshCw, AlertCircle } from 'lucide-react';
+
+const SchoolAdminDashboard = () => {
+  const [activeScreen, setActiveScreen] = useState('dashboard');
+  const [activeLibrarySection, setActiveLibrarySection] = useState('overview');
+  type LibraryBook = {
+    id: number;
+    title: string;
+    author: string;
+    isbn: string;
+    category: string;
+    copies: number;
+    available: number;
+    issued: number;
+  };
+  
+  const [selectedBook, setSelectedBook] = useState<LibraryBook | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Library Data
+  const libraryBooks = [
+    { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0-06-112008-4', category: 'Fiction', copies: 5, available: 3, issued: 2 },
+    { id: 2, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', isbn: '978-0-7432-7356-5', category: 'Fiction', copies: 4, available: 1, issued: 3 },
+    { id: 3, title: 'Physics Volume 1', author: 'HC Verma', isbn: '978-81-7709-859-3', category: 'Science', copies: 15, available: 8, issued: 7 },
+    { id: 4, title: 'Mathematics Class 10', author: 'R.D. Sharma', isbn: '978-93-5201-254-8', category: 'Mathematics', copies: 20, available: 12, issued: 8 },
+    { id: 5, title: '1984', author: 'George Orwell', isbn: '978-0-452-28423-4', category: 'Fiction', copies: 6, available: 4, issued: 2 },
+    { id: 6, title: 'Chemistry Today', author: 'G.R. Bathla', isbn: '978-93-5201-445-0', category: 'Science', copies: 12, available: 7, issued: 5 },
+  ];
+
+  const libraryMembers = [
+    { id: 1, name: 'Aarav Sharma', class: '10-A', roll: '101', booksIssued: 2, status: 'Active', joinDate: '2024-04-15' },
+    { id: 2, name: 'Priya Patel', class: '10-B', roll: '205', booksIssued: 1, status: 'Active', joinDate: '2024-03-20' },
+    { id: 3, name: 'Rahul Kumar', class: '9-A', roll: '045', booksIssued: 0, status: 'Active', joinDate: '2024-05-10' },
+    { id: 4, name: 'Sneha Reddy', class: '10-A', roll: '115', booksIssued: 3, status: 'Active', joinDate: '2024-02-28' },
+  ];
+
+  const issueRecords = [
+    { id: 1, student: 'Aarav Sharma', book: 'Physics Volume 1', issueDate: '2026-01-15', dueDate: '2026-01-29', status: 'Issued', fine: 0 },
+    { id: 2, student: 'Priya Patel', book: 'The Great Gatsby', issueDate: '2026-01-10', dueDate: '2026-01-24', status: 'Issued', fine: 0 },
+    { id: 3, student: 'Sneha Reddy', book: 'To Kill a Mockingbird', issueDate: '2026-01-08', dueDate: '2026-01-22', status: 'Overdue', fine: 20 },
+    { id: 4, student: 'Rahul Kumar', book: 'Mathematics Class 10', issueDate: '2025-12-20', dueDate: '2026-01-03', status: 'Returned', fine: 0 },
+  ];
+
+  const LibraryOverview = () => (
+    <div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Library Overview</h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+          <BookOpen className="w-8 h-8 text-blue-600 mb-3" />
+          <p className="text-sm text-gray-600">Total Books</p>
+          <p className="text-3xl font-bold text-gray-900">1,247</p>
+        </div>
+        <div className="bg-green-50 rounded-lg p-6 border border-green-200">
+          <BookMarked className="w-8 h-8 text-green-600 mb-3" />
+          <p className="text-sm text-gray-600">Available</p>
+          <p className="text-3xl font-bold text-gray-900">892</p>
+        </div>
+        <div className="bg-purple-50 rounded-lg p-6 border border-purple-200">
+          <RefreshCw className="w-8 h-8 text-purple-600 mb-3" />
+          <p className="text-sm text-gray-600">Books Issued</p>
+          <p className="text-3xl font-bold text-gray-900">355</p>
+        </div>
+        <div className="bg-orange-50 rounded-lg p-6 border border-orange-200">
+          <AlertCircle className="w-8 h-8 text-orange-600 mb-3" />
+          <p className="text-sm text-gray-600">Overdue</p>
+          <p className="text-3xl font-bold text-gray-900">23</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="space-y-3">
+            <button onClick={() => setActiveLibrarySection('books')} className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 border border-gray-200">
+              <BookOpen className="w-5 h-5 text-blue-600" />
+              <div className="text-left flex-1">
+                <p className="font-medium text-gray-900">Manage Books</p>
+                <p className="text-sm text-gray-500">Add, edit, or remove books</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </button>
+            <button onClick={() => setActiveLibrarySection('issue')} className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 border border-gray-200">
+              <RefreshCw className="w-5 h-5 text-green-600" />
+              <div className="text-left flex-1">
+                <p className="font-medium text-gray-900">Issue/Return Books</p>
+                <p className="text-sm text-gray-500">Manage book transactions</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </button>
+            <button onClick={() => setActiveLibrarySection('members')} className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 border border-gray-200">
+              <UserCheck className="w-5 h-5 text-purple-600" />
+              <div className="text-left flex-1">
+                <p className="font-medium text-gray-900">Library Members</p>
+                <p className="text-sm text-gray-500">View and manage members</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400" />
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+          <div className="space-y-3">
+            {issueRecords.slice(0, 5).map((record) => (
+              <div key={record.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <p className="font-medium text-gray-900 text-sm">{record.student}</p>
+                  <p className="text-xs text-gray-500">{record.book}</p>
+                </div>
+                <span className={`px-2 py-1 rounded text-xs font-medium ${
+                  record.status === 'Issued' ? 'bg-blue-100 text-blue-700' :
+                  record.status === 'Returned' ? 'bg-green-100 text-green-700' :
+                  'bg-red-100 text-red-700'
+                }`}>
+                  {record.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const BooksManagement = () => (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Books Management</h2>
+        <div className="flex gap-3">
+          <div className="relative">
+            <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search books..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <Filter className="w-4 h-4" />
+            Filter
+          </button>
+          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <Plus className="w-4 h-4" />
+            Add Book
+          </button>
+        </div>
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Book Details</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ISBN</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Copies</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Available</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {libraryBooks.filter(book => 
+              book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              book.author.toLowerCase().includes(searchTerm.toLowerCase())
+            ).map((book) => (
+              <tr key={book.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4">
+                  <div>
+                    <p className="font-medium text-gray-900">{book.title}</p>
+                    <p className="text-sm text-gray-500">{book.author}</p>
+                  </div>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900">{book.isbn}</td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                    {book.category}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900">{book.copies}</td>
+                <td className="px-6 py-4">
+                  <span className={`font-medium ${book.available > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {book.available}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex gap-2">
+                    <button onClick={() => setSelectedBook(book)} className="p-1 hover:bg-gray-100 rounded">
+                      <Eye className="w-4 h-4 text-gray-600" />
+                    </button>
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Edit className="w-4 h-4 text-blue-600" />
+                    </button>
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Trash2 className="w-4 h-4 text-red-600" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {selectedBook && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-2xl w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-gray-900">Book Details</h3>
+              <button onClick={() => setSelectedBook(null)} className="text-gray-400 hover:text-gray-600">
+                ✕
+              </button>
+            </div>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-500">Title</p>
+                  <p className="font-medium text-gray-900">{selectedBook.title}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Author</p>
+                  <p className="font-medium text-gray-900">{selectedBook.author}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">ISBN</p>
+                  <p className="font-medium text-gray-900">{selectedBook.isbn}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Category</p>
+                  <p className="font-medium text-gray-900">{selectedBook.category}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Total Copies</p>
+                  <p className="font-medium text-gray-900">{selectedBook.copies}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Available</p>
+                  <p className="font-medium text-green-600">{selectedBook.available}</p>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-6">
+                <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                  Issue Book
+                </button>
+                <button className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                  Edit Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const MembersManagement = () => (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Library Members</h2>
+        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <Plus className="w-4 h-4" />
+          Add Member
+        </button>
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Class</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Roll No</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Books Issued</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {libraryMembers.map((member) => (
+              <tr key={member.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 font-medium text-gray-900">{member.name}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.class}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.roll}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.booksIssued}</td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                    {member.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex gap-2">
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Eye className="w-4 h-4 text-gray-600" />
+                    </button>
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Edit className="w-4 h-4 text-blue-600" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
+  const IssueReturn = () => (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Issue & Return Records</h2>
+        <div className="flex gap-3">
+          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+            <Download className="w-4 h-4" />
+            Export
+          </button>
+          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <Plus className="w-4 h-4" />
+            Issue Book
+          </button>
+        </div>
+      </div>
+
+      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Student</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Book Title</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Issue Date</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due Date</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fine</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {issueRecords.map((record) => (
+              <tr key={record.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 font-medium text-gray-900">{record.student}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{record.book}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{record.issueDate}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{record.dueDate}</td>
+                <td className="px-6 py-4">
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${
+                    record.status === 'Issued' ? 'bg-blue-100 text-blue-700' :
+                    record.status === 'Returned' ? 'bg-green-100 text-green-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {record.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm">
+                  {record.fine > 0 ? (
+                    <span className="text-red-600 font-medium">₹{record.fine}</span>
+                  ) : (
+                    <span className="text-gray-400">-</span>
+                  )}
+                </td>
+                <td className="px-6 py-4">
+                  {record.status !== 'Returned' && (
+                    <button className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">
+                      Return
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+
+  const renderLibraryContent = () => {
+    switch (activeLibrarySection) {
+      case 'overview':
+        return <LibraryOverview />;
+      case 'books':
+        return <BooksManagement />;
+      case 'members':
+        return <MembersManagement />;
+      case 'issue':
+        return <IssueReturn />;
+      default:
+        return <LibraryOverview />;
+    }
+  };
+
+  const renderContent = () => {
+    if (activeScreen === 'library') {
+      return renderLibraryContent();
+    }
+
+    return (
+      <div className="text-center py-12">
+       {renderLibraryContent()}
+      </div>
+    );
+  };
+
+  const menuItems = [
+    
+    { id: 'library', label: 'Library', icon: <BookOpen className="w-5 h-5" /> },
+   
+  ];
+
+  const librarySubMenu = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'books', label: 'Books' },
+    { id: 'members', label: 'Members' },
+    { id: 'issue', label: 'Issue/Return' },
+  ];
+
+  return (
+    <div className="flex h-screen bg-gray-100">
+    
+
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        <div className="p-8">
+          {renderContent()}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SchoolAdminDashboard;
