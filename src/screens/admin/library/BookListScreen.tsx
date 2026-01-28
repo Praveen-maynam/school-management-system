@@ -1,683 +1,21 @@
-// // import React, { useState } from 'react';
-
-// // interface Book {
-// //   id: number;
-// //   title: string;
-// //   author: string;
-// //   available: boolean;
-// // }
-
-// // const mockBooks: Book[] = [
-// //   { id: 1, title: 'Mathematics 101', author: 'John Smith', available: true },
-// //   { id: 2, title: 'Physics for Beginners', author: 'Jane Doe', available: false },
-// //   { id: 3, title: 'Chemistry Essentials', author: 'Albert Lee', available: true },
-// // ];
-
-// // const BookListScreen: React.FC = () => {
-// //   const [books, setBooks] = useState<Book[]>(mockBooks);
-// //   const [loading, setLoading] = useState(false);
-// //   const [error, setError] = useState<string | null>(null);
-// //   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-
-// //   const handleView = (book: Book) => {
-// //     setSelectedBook(book);
-// //   };
-
-// //   const handleCloseModal = () => {
-// //     setSelectedBook(null);
-// //   };
-
-// //   return (
-// //     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
-// //       <h2 className="text-2xl font-bold mb-4 text-gray-800">Library Book List</h2>
-// //       {loading && <div className="mb-4 text-blue-600">Processing...</div>}
-// //       {error && <div className="mb-4 text-red-600">{error}</div>}
-// //       <table className="min-w-full bg-gray-50 rounded-md overflow-hidden">
-// //         <thead>
-// //           <tr>
-// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Title</th>
-// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Author</th>
-// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
-// //             <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Actions</th>
-// //           </tr>
-// //         </thead>
-// //         <tbody>
-// //           {books.length === 0 ? (
-// //             <tr>
-// //               <td colSpan={4} className="px-4 py-2 text-center text-gray-400">No books found.</td>
-// //             </tr>
-// //           ) : (
-// //             books.map((book) => (
-// //               <tr key={book.id}>
-// //                 <td className="px-4 py-2 text-gray-700">{book.title}</td>
-// //                 <td className="px-4 py-2 text-gray-700">{book.author}</td>
-// //                 <td className="px-4 py-2 text-gray-700">{book.available ? 'Available' : 'Issued'}</td>
-// //                 <td className="px-4 py-2">
-// //                   <button
-// //                     className="mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-// //                     onClick={() => handleView(book)}
-// //                   >
-// //                     View
-// //                   </button>
-// //                   <button
-// //                     className="px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-// //                     disabled
-// //                   >
-// //                     Issue
-// //                   </button>
-// //                 </td>
-// //               </tr>
-// //             ))
-// //           )}
-// //         </tbody>
-// //       </table>
-// //       {/* Modal for viewing book details */}
-// //       {selectedBook && (
-// //         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-// //           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-// //             <h3 className="text-xl font-bold mb-2">Book Details</h3>
-// //             <p><span className="font-semibold">Title:</span> {selectedBook.title}</p>
-// //             <p><span className="font-semibold">Author:</span> {selectedBook.author}</p>
-// //             <p><span className="font-semibold">Status:</span> {selectedBook.available ? 'Available' : 'Issued'}</p>
-// //             <button
-// //               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-// //               onClick={handleCloseModal}
-// //             >
-// //               Close
-// //             </button>
-// //           </div>
-// //         </div>
-// //       )}
-// //     </div>
-// //   );
-// // };
-
-// // export default BookListScreen;
-
-
-// import React, { useState } from 'react';
-// import { BookOpen, LayoutDashboard, Users, GraduationCap, Calendar, FileText, Settings, Bell, Menu, X, ChevronDown, Search, Plus, Filter, Download, Edit, Trash2, Eye, BookMarked, UserCheck, Clock, TrendingUp, MoreVertical, AlertCircle, CheckCircle } from 'lucide-react';
-
-// export default function SchoolAdminApp() {
-//   const [currentPage, setCurrentPage] = useState('dashboard');
-//   const [sidebarOpen, setSidebarOpen] = useState(true);
-//   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({ library: true });
-//   const [searchQuery, setSearchQuery] = useState('');
-//   const [selectedFilter, setSelectedFilter] = useState('all');
-
-//   const [books] = useState([
-//     { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0-06-112008-4', category: 'Fiction', total: 15, available: 12, issued: 3 },
-//     { id: 2, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', isbn: '978-0-7432-7356-5', category: 'Fiction', total: 20, available: 18, issued: 2 },
-//     { id: 3, title: 'Introduction to Algorithms', author: 'Thomas H. Cormen', isbn: '978-0-262-03384-8', category: 'Computer Science', total: 10, available: 7, issued: 3 },
-//     { id: 4, title: 'Physics for Scientists', author: 'Raymond A. Serway', isbn: '978-1-133-95405-7', category: 'Science', total: 25, available: 20, issued: 5 },
-//     { id: 5, title: 'Pride and Prejudice', author: 'Jane Austen', isbn: '978-0-14-143951-8', category: 'Fiction', total: 12, available: 10, issued: 2 },
-//     { id: 6, title: 'Chemistry Principles', author: 'Peter Atkins', isbn: '978-1-429-23815-5', category: 'Science', total: 18, available: 15, issued: 3 },
-//     { id: 7, title: 'Data Structures', author: 'Seymour Lipschutz', isbn: '978-0-07-013596-6', category: 'Computer Science', total: 14, available: 11, issued: 3 },
-//     { id: 8, title: '1984', author: 'George Orwell', isbn: '978-0-452-28423-4', category: 'Fiction', total: 16, available: 14, issued: 2 }
-//   ]);
-
-//   const [issuedBooks] = useState([
-//     { id: 1, bookTitle: 'To Kill a Mockingbird', studentName: 'Emma Johnson', studentId: 'S2024001', issueDate: '2026-01-10', dueDate: '2026-01-24', status: 'active' },
-//     { id: 2, bookTitle: 'Introduction to Algorithms', studentName: 'Liam Smith', studentId: 'S2024002', issueDate: '2026-01-08', dueDate: '2026-01-22', status: 'overdue' },
-//     { id: 3, bookTitle: 'Physics for Scientists', studentName: 'Olivia Brown', studentId: 'S2024003', issueDate: '2026-01-15', dueDate: '2026-01-29', status: 'active' },
-//     { id: 4, bookTitle: 'The Great Gatsby', studentName: 'Noah Davis', studentId: 'S2024004', issueDate: '2026-01-12', dueDate: '2026-01-26', status: 'active' },
-//     { id: 5, bookTitle: 'Chemistry Principles', studentName: 'Ava Wilson', studentId: 'S2024005', issueDate: '2026-01-05', dueDate: '2026-01-19', status: 'overdue' },
-//     { id: 6, bookTitle: 'Data Structures', studentName: 'James Miller', studentId: 'S2024006', issueDate: '2026-01-18', dueDate: '2026-02-01', status: 'active' }
-//   ]);
-
-//   const [libraryMembers] = useState([
-//     { id: 1, name: 'Emma Johnson', memberId: 'L2024001', type: 'Student', booksIssued: 2, joinDate: '2024-09-01', status: 'active' },
-//     { id: 2, name: 'Liam Smith', memberId: 'L2024002', type: 'Student', booksIssued: 1, joinDate: '2024-09-01', status: 'active' },
-//     { id: 3, name: 'Dr. Sarah Williams', memberId: 'L2024003', type: 'Teacher', booksIssued: 3, joinDate: '2024-09-01', status: 'active' },
-//     { id: 4, name: 'Olivia Brown', memberId: 'L2024004', type: 'Student', booksIssued: 1, joinDate: '2024-09-05', status: 'active' },
-//     { id: 5, name: 'Noah Davis', memberId: 'L2024005', type: 'Student', booksIssued: 1, joinDate: '2024-09-10', status: 'active' },
-//     { id: 6, name: 'Prof. Michael Chen', memberId: 'L2024006', type: 'Teacher', booksIssued: 2, joinDate: '2024-09-01', status: 'active' }
-//   ]);
-
-//   const menuItems = [
-//     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-//     { id: 'students', label: 'Students', icon: Users },
-//     { id: 'teachers', label: 'Teachers', icon: GraduationCap },
-//     { 
-//       id: 'library', 
-//       label: 'Library', 
-//       icon: BookOpen,
-//       submenu: [
-//         { id: 'library-overview', label: 'Overview', icon: TrendingUp },
-//         { id: 'library-catalog', label: 'Books Catalog', icon: BookMarked },
-//         { id: 'library-issued', label: 'Issued Books', icon: BookOpen },
-//         { id: 'library-members', label: 'Members', icon: UserCheck },
-//         { id: 'library-reports', label: 'Reports', icon: FileText }
-//       ]
-//     },
-//     { id: 'calendar', label: 'Calendar', icon: Calendar },
-//     { id: 'reports', label: 'Reports', icon: FileText },
-//     { id: 'settings', label: 'Settings', icon: Settings }
-//   ];
-
-//   const toggleSubmenu = (id: string) => {
-//     setExpandedMenus(prev => ({
-//       ...prev,
-//       [id]: !prev[id]
-//     }));
-//   };
-
-//   type MenuItem = {
-//     id: string;
-//     label: string;
-//     icon: React.ElementType;
-//     submenu?: MenuItem[];
-//   };
-
-//   const handleMenuClick = (item: MenuItem, subItem: MenuItem | null = null) => {
-//     if (item.submenu && !subItem) {
-//       toggleSubmenu(item.id);
-//       if (!expandedMenus[item.id]) {
-//         setCurrentPage(item.submenu[0].id);
-//       }
-//     } else {
-//       setCurrentPage(subItem ? subItem.id : item.id);
-//     }
-//   };
-
-//   const LibraryOverview = () => (
-//     <div className="space-y-6">
-//       <div className="flex items-center justify-between">
-//         <h1 className="text-3xl font-bold text-gray-800">Library Overview</h1>
-//         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-//           <Download size={18} />
-//           Export Report
-//         </button>
-//       </div>
-
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-//         <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
-//           <div className="flex items-center justify-between mb-4">
-//             <BookMarked size={32} />
-//             <span className="text-blue-100 text-sm">Total</span>
-//           </div>
-//           <h3 className="text-3xl font-bold mb-1">12,450</h3>
-//           <p className="text-blue-100">Total Books</p>
-//         </div>
-
-//         <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
-//           <div className="flex items-center justify-between mb-4">
-//             <BookOpen size={32} />
-//             <span className="text-green-100 text-sm">Active</span>
-//           </div>
-//           <h3 className="text-3xl font-bold mb-1">3,267</h3>
-//           <p className="text-green-100">Books Issued</p>
-//         </div>
-
-//         <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-xl shadow-lg">
-//           <div className="flex items-center justify-between mb-4">
-//             <Clock size={32} />
-//             <span className="text-orange-100 text-sm">Pending</span>
-//           </div>
-//           <h3 className="text-3xl font-bold mb-1">142</h3>
-//           <p className="text-orange-100">Overdue Books</p>
-//         </div>
-
-//         <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg">
-//           <div className="flex items-center justify-between mb-4">
-//             <UserCheck size={32} />
-//             <span className="text-purple-100 text-sm">Active</span>
-//           </div>
-//           <h3 className="text-3xl font-bold mb-1">1,842</h3>
-//           <p className="text-purple-100">Members</p>
-//         </div>
-//       </div>
-
-//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-//         <div className="bg-white rounded-xl shadow-md p-6">
-//           <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Issues</h2>
-//           <div className="space-y-3">
-//             {issuedBooks.slice(0, 5).map(item => (
-//               <div key={item.id} className="flex items-center justify-between py-3 border-b last:border-0">
-//                 <div>
-//                   <p className="font-semibold text-gray-800">{item.bookTitle}</p>
-//                   <p className="text-sm text-gray-500">{item.studentName}</p>
-//                 </div>
-//                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-//                   item.status === 'overdue' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
-//                 }`}>
-//                   {item.status === 'overdue' ? 'Overdue' : 'Active'}
-//                 </span>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//         <div className="bg-white rounded-xl shadow-md p-6">
-//           <h2 className="text-xl font-bold text-gray-800 mb-4">Popular Categories</h2>
-//           <div className="space-y-4">
-//             <div>
-//               <div className="flex justify-between mb-2">
-//                 <span className="text-gray-700">Fiction</span>
-//                 <span className="font-semibold">35%</span>
-//               </div>
-//               <div className="w-full bg-gray-200 rounded-full h-2">
-//                 <div className="bg-blue-600 h-2 rounded-full" style={{ width: '35%' }}></div>
-//               </div>
-//             </div>
-//             <div>
-//               <div className="flex justify-between mb-2">
-//                 <span className="text-gray-700">Science</span>
-//                 <span className="font-semibold">28%</span>
-//               </div>
-//               <div className="w-full bg-gray-200 rounded-full h-2">
-//                 <div className="bg-green-600 h-2 rounded-full" style={{ width: '28%' }}></div>
-//               </div>
-//             </div>
-//             <div>
-//               <div className="flex justify-between mb-2">
-//                 <span className="text-gray-700">Computer Science</span>
-//                 <span className="font-semibold">22%</span>
-//               </div>
-//               <div className="w-full bg-gray-200 rounded-full h-2">
-//                 <div className="bg-purple-600 h-2 rounded-full" style={{ width: '22%' }}></div>
-//               </div>
-//             </div>
-//             <div>
-//               <div className="flex justify-between mb-2">
-//                 <span className="text-gray-700">Others</span>
-//                 <span className="font-semibold">15%</span>
-//               </div>
-//               <div className="w-full bg-gray-200 rounded-full h-2">
-//                 <div className="bg-orange-600 h-2 rounded-full" style={{ width: '15%' }}></div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//       <div className="bg-white rounded-xl shadow-md p-6">
-//         <h2 className="text-xl font-bold text-gray-800 mb-4">Quick Statistics</h2>
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-//           <div className="text-center p-4 bg-blue-50 rounded-lg">
-//             <p className="text-sm text-gray-600 mb-1">Books Added This Month</p>
-//             <p className="text-2xl font-bold text-blue-600">148</p>
-//           </div>
-//           <div className="text-center p-4 bg-green-50 rounded-lg">
-//             <p className="text-sm text-gray-600 mb-1">New Members This Month</p>
-//             <p className="text-2xl font-bold text-green-600">52</p>
-//           </div>
-//           <div className="text-center p-4 bg-purple-50 rounded-lg">
-//             <p className="text-sm text-gray-600 mb-1">Average Daily Issues</p>
-//             <p className="text-2xl font-bold text-purple-600">87</p>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-
-//   const BooksCatalog = () => {
-//     const filteredBooks = books.filter(book => {
-//       const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//                            book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-//                            book.isbn.includes(searchQuery);
-//       const matchesFilter = selectedFilter === 'all' || 
-//                            book.category.toLowerCase() === selectedFilter.toLowerCase().replace('-', ' ');
-//       return matchesSearch && matchesFilter;
-//     });
-
-//     return (
-//       <div className="space-y-6">
-//         <div className="flex items-center justify-between">
-//           <h1 className="text-3xl font-bold text-gray-800">Books Catalog</h1>
-//           <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-//             <Plus size={18} />
-//             Add New Book
-//           </button>
-//         </div>
-
-//         <div className="bg-white rounded-xl shadow-md p-4">
-//           <div className="flex flex-col md:flex-row gap-4">
-//             <div className="flex-1 relative">
-//               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-//               <input
-//                 type="text"
-//                 placeholder="Search books by title, author, or ISBN..."
-//                 value={searchQuery}
-//                 onChange={(e) => setSearchQuery(e.target.value)}
-//                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//               />
-//             </div>
-//             <select
-//               value={selectedFilter}
-//               onChange={(e) => setSelectedFilter(e.target.value)}
-//               className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-//             >
-//               <option value="all">All Categories</option>
-//               <option value="fiction">Fiction</option>
-//               <option value="science">Science</option>
-//               <option value="computer-science">Computer Science</option>
-//             </select>
-//             <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-//               <Filter size={18} />
-//               More Filters
-//             </button>
-//           </div>
-//         </div>
-
-//         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-//           <div className="overflow-x-auto">
-//             <table className="w-full">
-//               <thead className="bg-gray-50 border-b">
-//                 <tr>
-//                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Book Details</th>
-//                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">ISBN</th>
-//                   <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Category</th>
-//                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Total</th>
-//                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Available</th>
-//                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Issued</th>
-//                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Actions</th>
-//                 </tr>
-//               </thead>
-//               <tbody className="divide-y">
-//                 {filteredBooks.map(book => (
-//                   <tr key={book.id} className="hover:bg-gray-50 transition-colors">
-//                     <td className="px-6 py-4">
-//                       <div>
-//                         <p className="font-semibold text-gray-800">{book.title}</p>
-//                         <p className="text-sm text-gray-500">{book.author}</p>
-//                       </div>
-//                     </td>
-//                     <td className="px-6 py-4 text-sm text-gray-600">{book.isbn}</td>
-//                     <td className="px-6 py-4">
-//                       <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">
-//                         {book.category}
-//                       </span>
-//                     </td>
-//                     <td className="px-6 py-4 text-center font-semibold">{book.total}</td>
-//                     <td className="px-6 py-4 text-center">
-//                       <span className="text-green-600 font-semibold">{book.available}</span>
-//                     </td>
-//                     <td className="px-6 py-4 text-center">
-//                       <span className="text-orange-600 font-semibold">{book.issued}</span>
-//                     </td>
-//                     <td className="px-6 py-4">
-//                       <div className="flex items-center justify-center gap-2">
-//                         <button className="p-2 hover:bg-blue-50 rounded-lg text-blue-600" title="View">
-//                           <Eye size={18} />
-//                         </button>
-//                         <button className="p-2 hover:bg-green-50 rounded-lg text-green-600" title="Edit">
-//                           <Edit size={18} />
-//                         </button>
-//                         <button className="p-2 hover:bg-red-50 rounded-lg text-red-600" title="Delete">
-//                           <Trash2 size={18} />
-//                         </button>
-//                       </div>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//           {filteredBooks.length === 0 && (
-//             <div className="text-center py-12">
-//               <p className="text-gray-500">No books found matching your search criteria.</p>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   const IssuedBooks = () => (
-//     <div className="space-y-6">
-//       <div className="flex items-center justify-between">
-//         <h1 className="text-3xl font-bold text-gray-800">Issued Books</h1>
-//         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-//           <Plus size={18} />
-//           Issue Book
-//         </button>
-//       </div>
-
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-green-500">
-//           <p className="text-sm text-gray-600">Active Issues</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">
-//             {issuedBooks.filter(b => b.status === 'active').length}
-//           </p>
-//         </div>
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-red-500">
-//           <p className="text-sm text-gray-600">Overdue</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">
-//             {issuedBooks.filter(b => b.status === 'overdue').length}
-//           </p>
-//         </div>
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
-//           <p className="text-sm text-gray-600">Total Issued</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">{issuedBooks.length}</p>
-//         </div>
-//       </div>
-
-//       <div className="bg-white rounded-xl shadow-md overflow-hidden">
-//         <div className="overflow-x-auto">
-//           <table className="w-full">
-//             <thead className="bg-gray-50 border-b">
-//               <tr>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Book Title</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Student</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Student ID</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Issue Date</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Due Date</th>
-//                 <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Status</th>
-//                 <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Actions</th>
-//               </tr>
-//             </thead>
-//             <tbody className="divide-y">
-//               {issuedBooks.map(issue => (
-//                 <tr key={issue.id} className="hover:bg-gray-50 transition-colors">
-//                   <td className="px-6 py-4 font-semibold text-gray-800">{issue.bookTitle}</td>
-//                   <td className="px-6 py-4 text-gray-600">{issue.studentName}</td>
-//                   <td className="px-6 py-4 text-gray-600">{issue.studentId}</td>
-//                   <td className="px-6 py-4 text-sm text-gray-600">{issue.issueDate}</td>
-//                   <td className="px-6 py-4 text-sm text-gray-600">{issue.dueDate}</td>
-//                   <td className="px-6 py-4 text-center">
-//                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-//                       issue.status === 'overdue' 
-//                         ? 'bg-red-100 text-red-700' 
-//                         : 'bg-green-100 text-green-700'
-//                     }`}>
-//                       {issue.status === 'overdue' ? 'Overdue' : 'Active'}
-//                     </span>
-//                   </td>
-//                   <td className="px-6 py-4">
-//                     <div className="flex items-center justify-center gap-2">
-//                       <button className="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
-//                         Return
-//                       </button>
-//                       <button className="px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
-//                         Renew
-//                       </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-
-//   const LibraryMembers = () => (
-//     <div className="space-y-6">
-//       <div className="flex items-center justify-between">
-//         <h1 className="text-3xl font-bold text-gray-800">Library Members</h1>
-//         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-//           <Plus size={18} />
-//           Add Member
-//         </button>
-//       </div>
-
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-blue-500">
-//           <p className="text-sm text-gray-600">Total Members</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">{libraryMembers.length}</p>
-//         </div>
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-purple-500">
-//           <p className="text-sm text-gray-600">Teachers</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">
-//             {libraryMembers.filter(m => m.type === 'Teacher').length}
-//           </p>
-//         </div>
-//         <div className="bg-white rounded-lg shadow-sm p-4 border-l-4 border-green-500">
-//           <p className="text-sm text-gray-600">Students</p>
-//           <p className="text-2xl font-bold text-gray-800 mt-1">
-//             {libraryMembers.filter(m => m.type === 'Student').length}
-//           </p>
-//         </div>
-//       </div>
-
-//       <div className="bg-white rounded-xl shadow-md overflow-hidden">
-//         <div className="overflow-x-auto">
-//           <table className="w-full">
-//             <thead className="bg-gray-50 border-b">
-//               <tr>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Member ID</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Type</th>
-//                 <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Books Issued</th>
-//                 <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Join Date</th>
-//                 <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Status</th>
-//                 <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Actions</th>
-//               </tr>
-//             </thead>
-//             <tbody className="divide-y">
-//               {libraryMembers.map(member => (
-//                 <tr key={member.id} className="hover:bg-gray-50 transition-colors">
-//                   <td className="px-6 py-4 font-semibold text-gray-800">{member.name}</td>
-//                   <td className="px-6 py-4 text-gray-600">{member.memberId}</td>
-//                   <td className="px-6 py-4">
-//                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-//                       member.type === 'Teacher' 
-//                         ? 'bg-purple-100 text-purple-700' 
-//                         : 'bg-blue-100 text-blue-700'
-//                     }`}>
-//                       {member.type}
-//                     </span>
-//                   </td>
-//                   <td className="px-6 py-4 text-center font-semibold">{member.booksIssued}</td>
-//                   <td className="px-6 py-4 text-sm text-gray-600">{member.joinDate}</td>
-//                   <td className="px-6 py-4 text-center">
-//                     <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">
-//                       Active
-//                     </span>
-//                   </td>
-//                   <td className="px-6 py-4">
-//                     <div className="flex items-center justify-center gap-2">
-//                       <button className="p-2 hover:bg-blue-50 rounded-lg text-blue-600" title="View">
-//                         <Eye size={18} />
-//                       </button>
-//                                           <button className="p-2 hover:bg-green-50 rounded-lg text-green-600" title="Edit">
-//                         <Edit size={18} />
-//                       </button>
-//                       <button className="p-2 hover:bg-red-50 rounded-lg text-red-600" title="Delete">
-//                         <Trash2 size={18} />
-//                       </button>
-//                     </div>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-//   const renderPage = () => {
-//     switch (currentPage) {
-//       case 'library-overview':
-//         return <LibraryOverview />;
-//       case 'library-catalog':
-//         return <BooksCatalog />;
-//       case 'library-issued':
-//         return <IssuedBooks />;
-//       case 'library-members':
-//         return <LibraryMembers />;
-//       default:
-//         return <LibraryOverview />;
-//     }
-//   };
-//   const Sidebar = () => (
-//     <div className={`bg-white border-r h-screen transition-all ${sidebarOpen ? 'w-72' : 'w-20'}`}>
-//       <div className="flex items-center justify-between px-4 py-4 border-b">
-//         {sidebarOpen && <h2 className="text-xl font-bold text-blue-600">School Admin</h2>}
-//         <button onClick={() => setSidebarOpen(!sidebarOpen)}>
-//           {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
-//         </button>
-//       </div>
-
-//       <nav className="p-3 space-y-1">
-//         {menuItems.map(item => (
-//           <div key={item.id}>
-//             <button
-//               onClick={() => handleMenuClick(item)}
-//               className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-blue-50 ${
-//                 currentPage === item.id ? 'bg-blue-100 text-blue-700' : 'text-gray-700'
-//               }`}
-//             >
-//               <item.icon size={20} />
-//               {sidebarOpen && <span>{item.label}</span>}
-//               {item.submenu && sidebarOpen && (
-//                 <ChevronDown
-//                   size={16}
-//                   className={`ml-auto transition-transform ${
-//                     expandedMenus[item.id] ? 'rotate-180' : ''
-//                   }`}
-//                 />
-//               )}
-//             </button>
-
-//             {item.submenu && expandedMenus[item.id] && sidebarOpen && (
-//               <div className="ml-8 mt-1 space-y-1">
-//                 {item.submenu.map(sub => (
-//                   <button
-//                     key={sub.id}
-//                     onClick={() => handleMenuClick(item, sub)}
-//                     className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${
-//                       currentPage === sub.id
-//                         ? 'bg-blue-100 text-blue-700'
-//                         : 'text-gray-600 hover:bg-gray-100'
-//                     }`}
-//                   >
-//                     <sub.icon size={16} />
-//                     {sub.label}
-//                   </button>
-//                 ))}
-//               </div>
-//             )}
-//           </div>
-//         ))}
-//       </nav>
-//     </div>
-//   );
- 
-//   return (
-//     <div className="flex h-screen bg-gray-100">
-      
-//       <div className="flex-1 flex flex-col overflow-hidden">
-     
-//         <main className="flex-1 overflow-y-auto p-6">
-//           {renderPage()}
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
 
 import React, { useState } from 'react';
 import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, BookMarked, UserCheck, RefreshCw, AlertCircle } from 'lucide-react';
-
 const SchoolAdminDashboard = () => {
+  // Search state for Issue/Return
+  const [issueReturnSearch, setIssueReturnSearch] = useState('');
+  // Return Book Modal State
+  const [showReturnBookModal, setShowReturnBookModal] = useState(false);
+  const [returnBookRecord, setReturnBookRecord] = useState<any>(null);
+  const [returnBookError, setReturnBookError] = useState<string | null>(null);
+  const [returnBookSuccess, setReturnBookSuccess] = useState<string | null>(null);
+  const [returnBookLoading, setReturnBookLoading] = useState(false);
+  // Issue Book Modal State (for + button)
+  const [showIssueBookModal, setShowIssueBookModal] = useState(false);
+  const [issueBookForm, setIssueBookForm] = useState({ bookId: '', studentId: '' });
+  const [issueBookError, setIssueBookError] = useState<string | null>(null);
+  const [issueBookSuccess, setIssueBookSuccess] = useState<string | null>(null);
+  const [issueBookLoading, setIssueBookLoading] = useState(false);
   const [activeScreen, setActiveScreen] = useState('dashboard');
   const [activeLibrarySection, setActiveLibrarySection] = useState('overview');
   type LibraryBook = {
@@ -695,32 +33,303 @@ const SchoolAdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Library Data
-  const libraryBooks = [
+  const [libraryBooks, setLibraryBooks] = useState<LibraryBook[]>([
     { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', isbn: '978-0-06-112008-4', category: 'Fiction', copies: 5, available: 3, issued: 2 },
     { id: 2, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', isbn: '978-0-7432-7356-5', category: 'Fiction', copies: 4, available: 1, issued: 3 },
     { id: 3, title: 'Physics Volume 1', author: 'HC Verma', isbn: '978-81-7709-859-3', category: 'Science', copies: 15, available: 8, issued: 7 },
     { id: 4, title: 'Mathematics Class 10', author: 'R.D. Sharma', isbn: '978-93-5201-254-8', category: 'Mathematics', copies: 20, available: 12, issued: 8 },
     { id: 5, title: '1984', author: 'George Orwell', isbn: '978-0-452-28423-4', category: 'Fiction', copies: 6, available: 4, issued: 2 },
     { id: 6, title: 'Chemistry Today', author: 'G.R. Bathla', isbn: '978-93-5201-445-0', category: 'Science', copies: 12, available: 7, issued: 5 },
-  ];
+  ]);
 
-  const libraryMembers = [
+  // Add Book Modal State
+  const [showAddBookModal, setShowAddBookModal] = useState(false);
+  const [addBookForm, setAddBookForm] = useState({
+    title: '',
+    author: '',
+    isbn: '',
+    category: '',
+    copies: '',
+    available: '',
+  });
+  const [addBookError, setAddBookError] = useState<string | null>(null);
+
+  // Add Book Modal
+  const AddBookModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-8 relative">
+        <button
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+          onClick={() => {
+            setShowAddBookModal(false);
+            setAddBookForm({ title: '', author: '', isbn: '', category: '', copies: '', available: '' });
+            setAddBookError(null);
+          }}
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-bold mb-6 text-gray-900">Add New Book</h2>
+        {addBookError && <div className="mb-4 text-red-600 text-sm">{addBookError}</div>}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            if (!addBookForm.title.trim() || !addBookForm.author.trim() || !addBookForm.isbn.trim() || !addBookForm.category.trim() || !addBookForm.copies.trim() || !addBookForm.available.trim()) {
+              setAddBookError('All fields are required.');
+              return;
+            }
+            if (isNaN(Number(addBookForm.copies)) || isNaN(Number(addBookForm.available))) {
+              setAddBookError('Copies and Available must be numbers.');
+              return;
+            }
+            if (Number(addBookForm.available) > Number(addBookForm.copies)) {
+              setAddBookError('Available cannot exceed Copies.');
+              return;
+            }
+            setLibraryBooks(prev => [
+              ...prev,
+              {
+                id: prev.length ? Math.max(...prev.map(b => b.id)) + 1 : 1,
+                title: addBookForm.title,
+                author: addBookForm.author,
+                isbn: addBookForm.isbn,
+                category: addBookForm.category,
+                copies: Number(addBookForm.copies),
+                available: Number(addBookForm.available),
+                issued: Number(addBookForm.copies) - Number(addBookForm.available),
+              },
+            ]);
+            setShowAddBookModal(false);
+            setAddBookForm({ title: '', author: '', isbn: '', category: '', copies: '', available: '' });
+            setAddBookError(null);
+          }}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Title</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.title}
+              onChange={e => setAddBookForm(f => ({ ...f, title: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Author</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.author}
+              onChange={e => setAddBookForm(f => ({ ...f, author: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">ISBN</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.isbn}
+              onChange={e => setAddBookForm(f => ({ ...f, isbn: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Category</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.category}
+              onChange={e => setAddBookForm(f => ({ ...f, category: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Total Copies</label>
+            <input
+              type="number"
+              min="1"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.copies}
+              onChange={e => setAddBookForm(f => ({ ...f, copies: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-1">Available Copies</label>
+            <input
+              type="number"
+              min="0"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addBookForm.available}
+              onChange={e => setAddBookForm(f => ({ ...f, available: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                setShowAddBookModal(false);
+                setAddBookForm({ title: '', author: '', isbn: '', category: '', copies: '', available: '' });
+                setAddBookError(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+            >
+              Add Book
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+
+  const [libraryMembers, setLibraryMembers] = useState([
     { id: 1, name: 'Aarav Sharma', class: '10-A', roll: '101', booksIssued: 2, status: 'Active', joinDate: '2024-04-15' },
     { id: 2, name: 'Priya Patel', class: '10-B', roll: '205', booksIssued: 1, status: 'Active', joinDate: '2024-03-20' },
     { id: 3, name: 'Rahul Kumar', class: '9-A', roll: '045', booksIssued: 0, status: 'Active', joinDate: '2024-05-10' },
     { id: 4, name: 'Sneha Reddy', class: '10-A', roll: '115', booksIssued: 3, status: 'Active', joinDate: '2024-02-28' },
-  ];
+  ]);
 
-  const issueRecords = [
+  // Add Member Modal State
+  const [showAddMemberModal, setShowAddMemberModal] = useState(false);
+  const [addMemberForm, setAddMemberForm] = useState({
+    name: '',
+    class: '',
+    roll: '',
+    joinDate: '',
+  });
+  const [addMemberError, setAddMemberError] = useState<string | null>(null);
+  const [addMemberSuccess, setAddMemberSuccess] = useState<string | null>(null);
+
+  // Add Member Modal
+  const AddMemberModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-8 relative">
+        <button
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+          onClick={() => {
+            setShowAddMemberModal(false);
+            setAddMemberForm({ name: '', class: '', roll: '', joinDate: '' });
+            setAddMemberError(null);
+            setAddMemberSuccess(null);
+          }}
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-bold mb-6 text-gray-900">Add New Member</h2>
+        {addMemberError && <div className="mb-4 text-red-600 text-sm">{addMemberError}</div>}
+        {addMemberSuccess && <div className="mb-4 text-green-600 text-sm">{addMemberSuccess}</div>}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            setAddMemberError(null);
+            setAddMemberSuccess(null);
+            if (!addMemberForm.name.trim() || !addMemberForm.class.trim() || !addMemberForm.roll.trim() || !addMemberForm.joinDate.trim()) {
+              setAddMemberError('All fields are required.');
+              return;
+            }
+            // Optionally, add more validation here
+            setLibraryMembers(prev => [
+              ...prev,
+              {
+                id: prev.length ? Math.max(...prev.map(m => m.id)) + 1 : 1,
+                name: addMemberForm.name,
+                class: addMemberForm.class,
+                roll: addMemberForm.roll,
+                booksIssued: 0,
+                status: 'Active',
+                joinDate: addMemberForm.joinDate,
+              },
+            ]);
+            setAddMemberSuccess('Member added successfully.');
+            setTimeout(() => {
+              setShowAddMemberModal(false);
+              setAddMemberForm({ name: '', class: '', roll: '', joinDate: '' });
+              setAddMemberSuccess(null);
+            }, 1200);
+          }}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Name</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addMemberForm.name}
+              onChange={e => setAddMemberForm(f => ({ ...f, name: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Class</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addMemberForm.class}
+              onChange={e => setAddMemberForm(f => ({ ...f, class: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Roll No</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addMemberForm.roll}
+              onChange={e => setAddMemberForm(f => ({ ...f, roll: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-1">Join Date</label>
+            <input
+              type="date"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addMemberForm.joinDate}
+              onChange={e => setAddMemberForm(f => ({ ...f, joinDate: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                setShowAddMemberModal(false);
+                setAddMemberForm({ name: '', class: '', roll: '', joinDate: '' });
+                setAddMemberError(null);
+                setAddMemberSuccess(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+            >
+              Add Member
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+
+  const [issueRecords, setIssueRecords] = useState([
     { id: 1, student: 'Aarav Sharma', book: 'Physics Volume 1', issueDate: '2026-01-15', dueDate: '2026-01-29', status: 'Issued', fine: 0 },
     { id: 2, student: 'Priya Patel', book: 'The Great Gatsby', issueDate: '2026-01-10', dueDate: '2026-01-24', status: 'Issued', fine: 0 },
     { id: 3, student: 'Sneha Reddy', book: 'To Kill a Mockingbird', issueDate: '2026-01-08', dueDate: '2026-01-22', status: 'Overdue', fine: 20 },
     { id: 4, student: 'Rahul Kumar', book: 'Mathematics Class 10', issueDate: '2025-12-20', dueDate: '2026-01-03', status: 'Returned', fine: 0 },
-  ];
+  ]);
 
   const LibraryOverview = () => (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Library Overview</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-left">Library Overview</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
@@ -819,7 +428,10 @@ const SchoolAdminDashboard = () => {
             <Filter className="w-4 h-4" />
             Filter
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={() => setShowAddBookModal(true)}
+          >
             <Plus className="w-4 h-4" />
             Add Book
           </button>
@@ -932,14 +544,32 @@ const SchoolAdminDashboard = () => {
     </div>
   );
 
+  const [memberSearch, setMemberSearch] = useState("");
   const MembersManagement = () => (
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Library Members</h2>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          onClick={() => {
+            setShowAddMemberModal(true);
+            setAddMemberError(null);
+            setAddMemberSuccess(null);
+          }}
+        >
           <Plus className="w-4 h-4" />
           Add Member
         </button>
+      </div>
+
+      <div className="mb-4 flex justify-end">
+        <input
+          type="text"
+          className="w-full max-w-xs border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Search by member name..."
+          value={memberSearch}
+          onChange={e => setMemberSearch(e.target.value)}
+        />
       </div>
 
       <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
@@ -955,32 +585,37 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {libraryMembers.map((member) => (
-              <tr key={member.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4 font-medium text-gray-900">{member.name}</td>
-                <td className="px-6 py-4 text-sm text-gray-900">{member.class}</td>
-                <td className="px-6 py-4 text-sm text-gray-900">{member.roll}</td>
-                <td className="px-6 py-4 text-sm text-gray-900">{member.booksIssued}</td>
-                <td className="px-6 py-4">
-                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
-                    {member.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex gap-2">
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <Eye className="w-4 h-4 text-gray-600" />
-                    </button>
-                    <button className="p-1 hover:bg-gray-100 rounded">
-                      <Edit className="w-4 h-4 text-blue-600" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {libraryMembers
+              .filter(member =>
+                member.name.toLowerCase().includes(memberSearch.toLowerCase())
+              )
+              .map((member) => (
+                <tr key={member.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-gray-900">{member.name}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{member.class}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{member.roll}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{member.booksIssued}</td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                      {member.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex gap-2">
+                      <button className="p-1 hover:bg-gray-100 rounded">
+                        <Eye className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 rounded">
+                        <Edit className="w-4 h-4 text-blue-600" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
+      {showAddMemberModal && <AddMemberModal />}
     </div>
   );
 
@@ -988,15 +623,119 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Issue & Return Records</h2>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
+          <div className="relative">
+            <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search by student name..."
+              value={issueReturnSearch}
+              onChange={e => setIssueReturnSearch(e.target.value)}
+              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
             <Download className="w-4 h-4" />
             Export
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={() => {
+              setShowIssueBookModal(true);
+              setIssueBookError(null);
+              setIssueBookSuccess(null);
+              setIssueBookForm({ bookId: '', studentId: '' });
+            }}
+          >
             <Plus className="w-4 h-4" />
             Issue Book
           </button>
+          {/* Issue Book Modal (for + button) */}
+          {showIssueBookModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+              <div className="bg-white rounded-lg max-w-md w-full p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900">Issue Book</h3>
+                  <button onClick={() => setShowIssueBookModal(false)} className="text-gray-400 hover:text-gray-600">✕</button>
+                </div>
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    setIssueBookError(null);
+                    setIssueBookSuccess(null);
+                    setIssueBookLoading(true);
+                    if (!issueBookForm.bookId.trim() || !issueBookForm.studentId.trim()) {
+                      setIssueBookError('Both Book ID and Student ID are required.');
+                      setIssueBookLoading(false);
+                      return;
+                    }
+                    const book = libraryBooks.find(b => b.id === Number(issueBookForm.bookId));
+                    if (!book) {
+                      setIssueBookError('Book not found.');
+                      setIssueBookLoading(false);
+                      return;
+                    }
+                    if (book.available < 1) {
+                      setIssueBookError('No available copies to issue.');
+                      setIssueBookLoading(false);
+                      return;
+                    }
+                    // Simulate API call
+                    setTimeout(() => {
+                      setLibraryBooks(prev => prev.map(b => b.id === book.id ? { ...b, available: b.available - 1, issued: b.issued + 1 } : b));
+                      setIssueBookSuccess('Book issued successfully.');
+                      setIssueBookLoading(false);
+                      setTimeout(() => {
+                        setShowIssueBookModal(false);
+                        setIssueBookForm({ bookId: '', studentId: '' });
+                        setIssueBookSuccess(null);
+                      }, 1200);
+                    }, 1000);
+                  }}
+                >
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-1">Book ID</label>
+                    <input
+                      type="number"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={issueBookForm.bookId}
+                      onChange={e => setIssueBookForm(f => ({ ...f, bookId: e.target.value }))}
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-1">Student ID</label>
+                    <input
+                      type="text"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={issueBookForm.studentId}
+                      onChange={e => setIssueBookForm(f => ({ ...f, studentId: e.target.value }))}
+                      required
+                    />
+                  </div>
+                  {issueBookError && <div className="mb-2 text-red-600 text-sm">{issueBookError}</div>}
+                  {issueBookSuccess && <div className="mb-2 text-green-600 text-sm">{issueBookSuccess}</div>}
+                  <div className="flex justify-end gap-2 mt-4">
+                    <button
+                      type="button"
+                      className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                      onClick={() => setShowIssueBookModal(false)}
+                      disabled={issueBookLoading}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+                      disabled={issueBookLoading}
+                    >
+                      {issueBookLoading ? 'Issuing...' : 'Issue Book'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -1014,7 +753,11 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {issueRecords.map((record) => (
+            {issueRecords
+              .filter(record =>
+                record.student.toLowerCase().includes(issueReturnSearch.toLowerCase())
+              )
+              .map((record) => (
               <tr key={record.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-gray-900">{record.student}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{record.book}</td>
@@ -1038,10 +781,68 @@ const SchoolAdminDashboard = () => {
                 </td>
                 <td className="px-6 py-4">
                   {record.status !== 'Returned' && (
-                    <button className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">
+                    <button
+                      className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+                      onClick={() => {
+                        setShowReturnBookModal(true);
+                        setReturnBookRecord(record);
+                        setReturnBookError(null);
+                        setReturnBookSuccess(null);
+                      }}
+                    >
                       Return
                     </button>
                   )}
+                      {/* Return Book Modal */}
+                      {showReturnBookModal && returnBookRecord && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                          <div className="bg-white rounded-lg max-w-md w-full p-6">
+                            <div className="flex items-center justify-between mb-4">
+                              <h3 className="text-lg font-bold text-gray-900">Return Book</h3>
+                              <button onClick={() => setShowReturnBookModal(false)} className="text-gray-400 hover:text-gray-600">✕</button>
+                            </div>
+                            <div className="mb-4">
+                              <p className="text-gray-700 mb-2">Are you sure you want to mark <span className="font-semibold">{returnBookRecord.book}</span> as returned for <span className="font-semibold">{returnBookRecord.student}</span>?</p>
+                            </div>
+                            {returnBookError && <div className="mb-2 text-red-600 text-sm">{returnBookError}</div>}
+                            {returnBookSuccess && <div className="mb-2 text-green-600 text-sm">{returnBookSuccess}</div>}
+                            <div className="flex justify-end gap-2 mt-4">
+                              <button
+                                type="button"
+                                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                                onClick={() => setShowReturnBookModal(false)}
+                                disabled={returnBookLoading}
+                              >
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 font-semibold"
+                                disabled={returnBookLoading}
+                                onClick={() => {
+                                  setReturnBookError(null);
+                                  setReturnBookSuccess(null);
+                                  setReturnBookLoading(true);
+                                  // Simulate API call
+                                  setTimeout(() => {
+                                    // Mark as returned in issueRecords (if stateful, update state)
+                                    setIssueRecords((prev: any[]) => prev.map(r => r.id === returnBookRecord.id ? { ...r, status: 'Returned' } : r));
+                                    setReturnBookSuccess('Book marked as returned.');
+                                    setReturnBookLoading(false);
+                                    setTimeout(() => {
+                                      setShowReturnBookModal(false);
+                                      setReturnBookRecord(null);
+                                      setReturnBookSuccess(null);
+                                    }, 1200);
+                                  }, 1000);
+                                }}
+                              >
+                                {returnBookLoading ? 'Returning...' : 'Confirm Return'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                 </td>
               </tr>
             ))}
@@ -1093,8 +894,7 @@ const SchoolAdminDashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-    
-
+      {showAddBookModal && <AddBookModal />}
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="p-8">

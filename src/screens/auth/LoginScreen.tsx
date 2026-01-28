@@ -20,11 +20,46 @@ function LoginScreen() {
   const handleLogin = () => {
     setErrorMessage('');
 
+
+    // Check in super admins
+    const superAdmin = usersData.superAdmins && usersData.superAdmins.find(sa => sa.email === email && sa.password === password);
+    if (superAdmin) {
+      localStorage.setItem('superAdminEmail', superAdmin.email);
+      navigate('/super-admin/dashboard', { replace: true });
+      return;
+    }
+
     // Check in admins
     const admin = usersData.admins && usersData.admins.find(a => a.email === email && a.password === password);
     if (admin) {
       localStorage.setItem('adminEmail', admin.email);
       navigate('/admin/dashboard', { replace: true });
+      return;
+    }
+
+
+
+    // Check in transport managers
+    const transportManager = usersData.transportManagers && usersData.transportManagers.find(tm => tm.email === email && tm.password === password);
+    if (transportManager) {
+      localStorage.setItem('transportManagerEmail', transportManager.email);
+      navigate('/transport-manager/dashboard', { replace: true });
+      return;
+    }
+
+    // Check in library managers
+    const libraryManager = usersData.libraryManagers && usersData.libraryManagers.find(lm => lm.email === email && lm.password === password);
+    if (libraryManager) {
+      localStorage.setItem('libraryManagerEmail', libraryManager.email);
+      navigate('/library-manager/dashboard', { replace: true });
+      return;
+    }
+
+    // Check in finance managers
+    const financeManager = usersData.financeManagers && usersData.financeManagers.find(fm => fm.email === email && fm.password === password);
+    if (financeManager) {
+      localStorage.setItem('financeManagerEmail', financeManager.email);
+      navigate('/finance-manager/dashboard', { replace: true });
       return;
     }
 

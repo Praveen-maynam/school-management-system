@@ -1,455 +1,6 @@
 
-
-// // import React, { useState } from 'react';
-
-// // interface InventoryItem {
-// // 	id: number;
-// // 	name: string;
-// // 	category: string;
-// // 	quantity: number;
-// // 	location: string;
-// // }
-
-// // const sampleItems: InventoryItem[] = [
-// // 	{ id: 1, name: 'Projector', category: 'Electronics', quantity: 5, location: 'Room 101' },
-// // 	{ id: 2, name: 'Desk', category: 'Furniture', quantity: 20, location: 'Room 201' },
-// // 	{ id: 3, name: 'Whiteboard', category: 'Stationery', quantity: 10, location: 'Room 102' },
-// // ];
-
-// // export const InventoryListScreen: React.FC = () => {
-// // 	const [items, setItems] = useState<InventoryItem[]>(sampleItems);
-// // 	const [loading, setLoading] = useState(false);
-// // 	const [error, setError] = useState<string | null>(null);
-
-// // 	// Simulate delete action
-// // 	const handleDelete = (id: number) => {
-// // 		setLoading(true);
-// // 		setTimeout(() => {
-// // 			setItems((prev) => prev.filter((i) => i.id !== id));
-// // 			setLoading(false);
-// // 		}, 800);
-// // 	};
-
-// // 	return (
-// // 		<div className="max-w-4xl mx-auto bg-white rounded-xl shadow p-6 mt-6">
-// // 			<h2 className="text-2xl font-bold mb-4">Inventory List</h2>
-// // 			{error && <div className="text-red-500 mb-2">{error}</div>}
-// // 			{loading && <div className="text-blue-600 mb-2">Processing...</div>}
-// // 			{items.length === 0 ? (
-// // 				<div className="text-gray-500 py-8 text-center">No inventory items found.</div>
-// // 			) : (
-// // 				<div className="overflow-x-auto">
-// // 					<table className="min-w-full border">
-// // 						<thead>
-// // 							<tr className="bg-gray-100">
-// // 								<th className="px-4 py-2 text-left">Name</th>
-// // 								<th className="px-4 py-2 text-left">Category</th>
-// // 								<th className="px-4 py-2 text-left">Quantity</th>
-// // 								<th className="px-4 py-2 text-left">Location</th>
-// // 								<th className="px-4 py-2 text-left">Actions</th>
-// // 							</tr>
-// // 						</thead>
-// // 						<tbody>
-// // 							{items.map((item) => (
-// // 								<tr key={item.id} className="border-b">
-// // 									<td className="px-4 py-2">{item.name}</td>
-// // 									<td className="px-4 py-2">{item.category}</td>
-// // 									<td className="px-4 py-2">{item.quantity}</td>
-// // 									<td className="px-4 py-2">{item.location}</td>
-// // 									<td className="px-4 py-2 flex gap-2">
-// // 										<button className="text-blue-600 hover:underline text-sm">Edit</button>
-// // 										<button
-// // 											className="text-red-600 hover:underline text-sm"
-// // 											onClick={() => handleDelete(item.id)}
-// // 											disabled={loading}
-// // 										>
-// // 											Delete
-// // 										</button>
-// // 									</td>
-// // 								</tr>
-// // 							))}
-// // 						</tbody>
-// // 					</table>
-// // 				</div>
-// // 			)}
-// // 		</div>
-// // 	);
-// // }
-
-
-
-// import React, { useState } from 'react';
-// import { Package, CheckCircle, AlertTriangle, DollarSign, Search, Filter, Download, Plus, MoreVertical, ChevronDown } from 'lucide-react';
-
-// const InventorySystem = () => {
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [activeTab, setActiveTab] = useState('All Items');
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
-//   const stats = [
-//     { label: 'Total Items', value: '1,847', icon: Package, bgColor: 'bg-blue-50', iconColor: 'text-blue-600', change: '+12%' },
-//     { label: 'Available', value: '1,542', icon: CheckCircle, bgColor: 'bg-green-50', iconColor: 'text-green-600', badge: 'In Stock' },
-//     { label: 'Low Stock', value: '23', icon: AlertTriangle, bgColor: 'bg-orange-50', iconColor: 'text-orange-600', badge: 'Alert' },
-//     { label: 'Inventory Value', value: '$284,920', icon: DollarSign, bgColor: 'bg-purple-50', iconColor: 'text-purple-600', badge: 'Total' }
-//   ];
-
-//   const tabs = [
-//     { name: 'All Items', count: 1847 },
-//     { name: 'Textbooks', count: 342 },
-//     { name: 'Lab Equipment', count: 156 },
-//     { name: 'Sports', count: 89 },
-//     { name: 'Electronics', count: 234 },
-//     { name: 'Furniture', count: 412 }
-//   ];
-
-//   const items = [
-//     {
-//       id: 1,
-//       name: 'Mathematics Textbook Grade 10',
-//       publisher: 'Publisher: McGraw Hill',
-//       category: 'Textbooks',
-//       categoryColor: 'bg-blue-100 text-blue-700',
-//       sku: 'TXT-MTH-G10-001',
-//       location: 'Library - Section A',
-//       quantity: 145,
-//       unitPrice: '$45.00',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '📘'
-//     },
-//     {
-//       id: 2,
-//       name: 'Laboratory Microscope',
-//       publisher: 'Model: BioVision Pro',
-//       category: 'Lab Equipment',
-//       categoryColor: 'bg-purple-100 text-purple-700',
-//       sku: 'LAB-MIC-BV-845',
-//       location: 'Science Lab 2',
-//       quantity: 18,
-//       total: 20,
-//       unitPrice: '$325.00',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '🔬'
-//     },
-//     {
-//       id: 3,
-//       name: 'Basketball Official Size',
-//       publisher: 'Brand: Spalding',
-//       category: 'Sports',
-//       categoryColor: 'bg-green-100 text-green-700',
-//       sku: 'SPT-BBL-SPL-023',
-//       location: 'Sports Storage',
-//       quantity: 8,
-//       total: 25,
-//       unitPrice: '$28.50',
-//       status: 'Low Stock',
-//       statusColor: 'bg-orange-100 text-orange-700',
-//       icon: '🏀'
-//     },
-//     {
-//       id: 4,
-//       name: 'Student Laptop Dell Latitude',
-//       publisher: 'Model: 5420 | 8GB RAM',
-//       category: 'Electronics',
-//       categoryColor: 'bg-indigo-100 text-indigo-700',
-//       sku: 'ELC-LAP-DL-5420',
-//       location: 'IT Storage Room',
-//       quantity: 52,
-//       total: 60,
-//       unitPrice: '$850.00',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '💻'
-//     },
-//     {
-//       id: 5,
-//       name: 'Student Desk with Chair',
-//       publisher: 'Model: Adjustable Height',
-//       category: 'Furniture',
-//       categoryColor: 'bg-yellow-100 text-yellow-700',
-//       sku: 'FRN-DSK-ADJ-B89',
-//       location: 'Warehouse B',
-//       quantity: 234,
-//       total: 250,
-//       unitPrice: '$165.00',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '🪑'
-//     },
-//     {
-//       id: 6,
-//       name: 'Chemistry Beaker Set 500ml',
-//       publisher: 'Borosilicate Glass',
-//       category: 'Lab Equipment',
-//       categoryColor: 'bg-purple-100 text-purple-700',
-//       sku: 'LAB-BKR-500-012',
-//       location: 'Science Lab 1',
-//       quantity: 5,
-//       total: 30,
-//       unitPrice: '$12.75',
-//       status: 'Low Stock',
-//       statusColor: 'bg-orange-100 text-orange-700',
-//       icon: '🧪'
-//     },
-//     {
-//       id: 7,
-//       name: 'Smart Board Interactive Display',
-//       publisher: '75" 4K Touch Screen',
-//       category: 'Electronics',
-//       categoryColor: 'bg-indigo-100 text-indigo-700',
-//       sku: 'ELC-SMB-75-4K',
-//       location: 'Classrooms',
-//       quantity: 15,
-//       total: 15,
-//       unitPrice: '$2,450.00',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '📺'
-//     },
-//     {
-//       id: 8,
-//       name: 'Art Supplies Starter Kit',
-//       publisher: 'Paint, Brushes & Canvas',
-//       category: 'Art Supplies',
-//       categoryColor: 'bg-pink-100 text-pink-700',
-//       sku: 'ART-KIT-STR-034',
-//       location: 'Art Room Storage',
-//       quantity: 67,
-//       total: 75,
-//       unitPrice: '$34.99',
-//       status: 'In Stock',
-//       statusColor: 'bg-green-100 text-green-700',
-//       icon: '🎨'
-//     }
-//   ];
-
-//   const toggleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.checked) {
-//       setSelectedItems(items.map(item => item.id));
-//     } else {
-//       setSelectedItems([]);
-//     }
-//   };
-
-//   const toggleItem = (id: number) => {
-//     setSelectedItems(prev => 
-//       prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
-//     );
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-6">
-//       <div className="max-w-7xl mx-auto">
-//         {/* Header */}
-//         <div className="mb-8">
-//           <div className="flex items-center justify-between mb-2">
-//             <h1 className="text-2xl font-bold text-gray-900">All Inventory Items</h1>
-           
-//           </div>
-//           <p className="text-gray-600 text-sm">Manage and track all school inventory</p>
-//         </div>
-
-//         {/* Stats Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-//           {stats.map((stat, index) => (
-//             <div key={index} className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-//               <div className="flex items-start justify-between mb-4">
-//                 <div className={`${stat.bgColor} p-3 rounded-lg`}>
-//                   <stat.icon className={`w-5 h-5 ${stat.iconColor}`} />
-//                 </div>
-//                 {stat.change && (
-//                   <span className="text-sm font-medium text-green-600">{stat.change}</span>
-//                 )}
-//                 {stat.badge && (
-//                   <span className={`text-xs px-2 py-1 rounded-full ${
-//                     stat.badge === 'In Stock' ? 'bg-green-100 text-green-700' :
-//                     stat.badge === 'Alert' ? 'bg-orange-100 text-orange-700' :
-//                     'bg-purple-100 text-purple-700'
-//                   }`}>{stat.badge}</span>
-//                 )}
-//               </div>
-//               <h3 className="text-sm text-gray-600 mb-1">{stat.label}</h3>
-//               <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* Search and Actions Bar */}
-//         <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100 mb-6">
-//           <div className="flex flex-wrap items-center gap-4">
-//             <div className="flex-1 min-w-64">
-//               <div className="relative">
-//                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-//                 <input 
-//                   type="text"
-//                   placeholder="Search by name, SKU, or barcode..."
-//                   value={searchTerm}
-//                   onChange={(e) => setSearchTerm(e.target.value)}
-//                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//                 />
-//               </div>
-//             </div>
-//             <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50">
-//               <Filter className="w-4 h-4" />
-//               <span>Filters</span>
-//             </button>
-//             <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm hover:bg-gray-50">
-//               <Download className="w-4 h-4" />
-//               <span>Export</span>
-//             </button>
-//             <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600">
-//               <Plus className="w-4 h-4" />
-//               <span>Add New Item</span>
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Tabs */}
-//         <div className="flex flex-wrap gap-2 mb-6">
-//           {tabs.map((tab) => (
-//             <button
-//               key={tab.name}
-//               onClick={() => setActiveTab(tab.name)}
-//               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-//                 activeTab === tab.name
-//                   ? 'bg-blue-100 text-blue-700'
-//                   : 'bg-white text-gray-700 hover:bg-gray-50'
-//               }`}
-//             >
-//               {tab.name} ({tab.count})
-//             </button>
-//           ))}
-//         </div>
-
-//         {/* Inventory Table */}
-//         <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-//           <div className="overflow-x-auto">
-//             <table className="w-full">
-//               <thead className="bg-gray-50 border-b border-gray-200">
-//                 <tr>
-//                   <th className="px-6 py-3 text-left">
-//                     <input 
-//                       type="checkbox" 
-//                       className="w-4 h-4 rounded border-gray-300"
-//                       checked={selectedItems.length === items.length}
-//                       onChange={toggleSelectAll}
-//                     />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     Item Details <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     Category <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     SKU/Barcode <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     Location <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     Quantity <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-//                     Unit Price <ChevronDown className="inline w-3 h-3 ml-1" />
-//                   </th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-//                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-//                 </tr>
-//               </thead>
-//               <tbody className="divide-y divide-gray-200">
-//                 {items.map((item) => (
-//                   <tr key={item.id} className="hover:bg-gray-50">
-//                     <td className="px-6 py-4">
-//                       <input 
-//                         type="checkbox" 
-//                         className="w-4 h-4 rounded border-gray-300"
-//                         checked={selectedItems.includes(item.id)}
-//                         onChange={() => toggleItem(item.id)}
-//                       />
-//                     </td>
-//                     <td className="px-6 py-4">
-//                       <div className="flex items-center gap-3">
-//                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-2xl">
-//                           {item.icon}
-//                         </div>
-//                         <div>
-//                           <p className="text-sm font-medium text-gray-900">{item.name}</p>
-//                           <p className="text-xs text-gray-500">{item.publisher}</p>
-//                         </div>
-//                       </div>
-//                     </td>
-//                     <td className="px-6 py-4">
-//                       <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${item.categoryColor}`}>
-//                         {item.category}
-//                       </span>
-//                     </td>
-//                     <td className="px-6 py-4 text-sm text-gray-900">{item.sku}</td>
-//                     <td className="px-6 py-4 text-sm text-gray-900">{item.location}</td>
-//                     <td className="px-6 py-4">
-//                       <span className="text-sm font-medium text-gray-900">{item.quantity}</span>
-//                       {item.total && <span className="text-sm text-gray-500"> /{item.total}</span>}
-//                     </td>
-//                     <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.unitPrice}</td>
-//                     <td className="px-6 py-4">
-//                       <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${item.statusColor}`}>
-//                         {item.status}
-//                       </span>
-//                     </td>
-//                     <td className="px-6 py-4">
-//                       <button className="p-1 hover:bg-gray-100 rounded">
-//                         <MoreVertical className="w-4 h-4 text-gray-400" />
-//                       </button>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-
-//           {/* Pagination */}
-//           <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-//             <p className="text-sm text-gray-500">
-//               Showing 1-8 of 1,847 items
-//             </p>
-//             <div className="flex items-center gap-2">
-//               <button 
-//                 className="p-2 hover:bg-gray-100 rounded disabled:opacity-50"
-//                 disabled={currentPage === 1}
-//               >
-//                 <ChevronDown className="w-4 h-4 rotate-90" />
-//               </button>
-              
-//               <button className="w-8 h-8 bg-blue-500 text-white rounded font-medium text-sm">1</button>
-//               <button className="w-8 h-8 hover:bg-gray-100 rounded font-medium text-sm">2</button>
-//               <button className="w-8 h-8 hover:bg-gray-100 rounded font-medium text-sm">3</button>
-//               <span className="text-gray-400">...</span>
-//               <button className="w-8 h-8 hover:bg-gray-100 rounded font-medium text-sm">231</button>
-              
-//               <button className="p-2 hover:bg-gray-100 rounded">
-//                 <ChevronDown className="w-4 h-4 -rotate-90" />
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default InventorySystem;
-
-
-
-
-
-
-
-
-
 import React, { useState } from 'react';
+import Modal from '../../../components/ui/Modal';
 import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, Package, TrendingUp, TrendingDown, ShoppingCart, FileCheck, DollarSign, Receipt, CreditCard, AlertTriangle, Printer, Send } from 'lucide-react';
 
 const SchoolAdminDashboard = () => {
@@ -460,8 +11,8 @@ const SchoolAdminDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  // Products Data
-  const productsData = [
+  // Products Data (stateful)
+  const [productsData, setProductsData] = useState([
     { id: 1, name: 'White Board Marker', sku: 'WBM-001', category: 'Stationery', stock: 150, minStock: 50, price: 25, supplier: 'ABC Supplies', lastRestocked: '2026-01-15' },
     { id: 2, name: 'A4 Paper Ream', sku: 'PPR-002', category: 'Paper', stock: 85, minStock: 30, price: 250, supplier: 'Paper World', lastRestocked: '2026-01-10' },
     { id: 3, name: 'Chemistry Lab Beaker 250ml', sku: 'LAB-003', category: 'Lab Equipment', stock: 45, minStock: 20, price: 120, supplier: 'Lab Supplies Co', lastRestocked: '2026-01-12' },
@@ -470,7 +21,56 @@ const SchoolAdminDashboard = () => {
     { id: 6, name: 'Classroom Desk', sku: 'FRN-006', category: 'Furniture', stock: 120, minStock: 20, price: 3500, supplier: 'Furniture Hub', lastRestocked: '2025-12-15' },
     { id: 7, name: 'Projector Lamp', sku: 'PRJ-007', category: 'IT Equipment', stock: 5, minStock: 8, price: 2500, supplier: 'Tech Solutions', lastRestocked: '2026-01-05' },
     { id: 8, name: 'Science Textbook Class 10', sku: 'BKS-008', category: 'Books', stock: 200, minStock: 100, price: 350, supplier: 'Book Depot', lastRestocked: '2026-01-18' },
-  ];
+  ]);
+
+  // Add Product Modal State
+  const [addProductModalOpen, setAddProductModalOpen] = useState(false);
+  const [addProductLoading, setAddProductLoading] = useState(false);
+  const [addProductError, setAddProductError] = useState<string | null>(null);
+  const [addProductForm, setAddProductForm] = useState({
+    name: '',
+    sku: '',
+    category: '',
+    stock: '',
+    minStock: '',
+    price: '',
+    supplier: '',
+    lastRestocked: '',
+  });
+
+  const handleAddProductChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddProductForm({ ...addProductForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddProductSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddProductError(null);
+    // Validation
+    if (!addProductForm.name || !addProductForm.sku || !addProductForm.category || !addProductForm.stock || !addProductForm.minStock || !addProductForm.price || !addProductForm.supplier || !addProductForm.lastRestocked) {
+      setAddProductError('All fields are required.');
+      return;
+    }
+    setAddProductLoading(true);
+    setTimeout(() => {
+      setProductsData([
+        ...productsData,
+        {
+          id: productsData.length + 1,
+          name: addProductForm.name,
+          sku: addProductForm.sku,
+          category: addProductForm.category,
+          stock: Number(addProductForm.stock),
+          minStock: Number(addProductForm.minStock),
+          price: Number(addProductForm.price),
+          supplier: addProductForm.supplier,
+          lastRestocked: addProductForm.lastRestocked,
+        },
+      ]);
+      setAddProductLoading(false);
+      setAddProductModalOpen(false);
+      setAddProductForm({ name: '', sku: '', category: '', stock: '', minStock: '', price: '', supplier: '', lastRestocked: '' });
+    }, 1200);
+  };
 
   // Stock Movements
   const stockMovements = [
@@ -482,41 +82,273 @@ const SchoolAdminDashboard = () => {
   ];
 
   // Quotations
-  const quotationsData = [
+  const [quotationsData, setQuotationsData] = useState([
     { id: 'QT-2026-001', customer: 'ABC Public School', date: '2026-01-20', validTill: '2026-02-20', items: 5, total: 125000, status: 'Pending' },
     { id: 'QT-2026-002', customer: 'XYZ International School', date: '2026-01-18', validTill: '2026-02-18', items: 3, total: 85000, status: 'Approved' },
     { id: 'QT-2026-003', customer: 'Delhi Public School', date: '2026-01-15', validTill: '2026-02-15', items: 8, total: 245000, status: 'Pending' },
-  ];
+  ]);
+
+  // Create Quotation Modal State
+  const [addQuotationModalOpen, setAddQuotationModalOpen] = useState(false);
+  const [addQuotationLoading, setAddQuotationLoading] = useState(false);
+  const [addQuotationError, setAddQuotationError] = useState<string | null>(null);
+  const [addQuotationForm, setAddQuotationForm] = useState({
+    customer: '',
+    date: '',
+    validTill: '',
+    items: '',
+    total: '',
+    status: 'Pending',
+  });
+
+  const handleAddQuotationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setAddQuotationForm({ ...addQuotationForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddQuotationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddQuotationError(null);
+    // Validation
+    if (!addQuotationForm.customer || !addQuotationForm.date || !addQuotationForm.validTill || !addQuotationForm.items || !addQuotationForm.total) {
+      setAddQuotationError('All fields are required.');
+      return;
+    }
+    setAddQuotationLoading(true);
+    setTimeout(() => {
+      setQuotationsData([
+        ...quotationsData,
+        {
+          id: `QT-${Date.now()}`,
+          customer: addQuotationForm.customer,
+          date: addQuotationForm.date,
+          validTill: addQuotationForm.validTill,
+          items: Number(addQuotationForm.items),
+          total: Number(addQuotationForm.total),
+          status: addQuotationForm.status,
+        },
+      ]);
+      setAddQuotationLoading(false);
+      setAddQuotationModalOpen(false);
+      setAddQuotationForm({ customer: '', date: '', validTill: '', items: '', total: '', status: 'Pending' });
+    }, 1200);
+  };
 
   // Proforma Invoices
-  const proformaInvoices = [
+  // Proforma Invoices (stateful)
+  const [proformaInvoicesData, setProformaInvoicesData] = useState([
     { id: 'PI-2026-001', customer: 'ABC Public School', date: '2026-01-22', dueDate: '2026-02-22', items: 5, total: 125000, status: 'Pending' },
     { id: 'PI-2026-002', customer: 'Modern High School', date: '2026-01-19', dueDate: '2026-02-19', items: 4, total: 95000, status: 'Converted' },
-  ];
+  ]);
+
+  // Create Proforma Invoice Modal State
+  const [addProformaModalOpen, setAddProformaModalOpen] = useState(false);
+  const [addProformaLoading, setAddProformaLoading] = useState(false);
+  const [addProformaError, setAddProformaError] = useState<string | null>(null);
+  const [addProformaForm, setAddProformaForm] = useState({
+    customer: '',
+    date: '',
+    dueDate: '',
+    items: '',
+    total: '',
+    status: 'Pending',
+  });
+
+  const handleAddProformaChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setAddProformaForm({ ...addProformaForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddProformaSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddProformaError(null);
+    // Validation
+    if (!addProformaForm.customer || !addProformaForm.date || !addProformaForm.dueDate || !addProformaForm.items || !addProformaForm.total) {
+      setAddProformaError('All fields are required.');
+      return;
+    }
+    setAddProformaLoading(true);
+    setTimeout(() => {
+      setProformaInvoicesData([
+        ...proformaInvoicesData,
+        {
+          id: `PI-${Date.now()}`,
+          customer: addProformaForm.customer,
+          date: addProformaForm.date,
+          dueDate: addProformaForm.dueDate,
+          items: Number(addProformaForm.items),
+          total: Number(addProformaForm.total),
+          status: addProformaForm.status,
+        },
+      ]);
+      setAddProformaLoading(false);
+      setAddProformaModalOpen(false);
+      setAddProformaForm({ customer: '', date: '', dueDate: '', items: '', total: '', status: 'Pending' });
+    }, 1200);
+  };
 
   // Sale Invoices
-  const saleInvoices = [
+  // Sale Invoices (stateful)
+  const [saleInvoicesData, setSaleInvoicesData] = useState([
     { id: 'INV-2026-001', customer: 'ABC Public School', date: '2026-01-23', dueDate: '2026-02-23', items: 5, total: 125000, paid: 125000, status: 'Paid' },
     { id: 'INV-2026-002', customer: 'XYZ International School', date: '2026-01-21', dueDate: '2026-02-21', items: 3, total: 85000, paid: 50000, status: 'Partial' },
     { id: 'INV-2026-003', customer: 'Delhi Public School', date: '2026-01-20', dueDate: '2026-02-20', items: 8, total: 245000, paid: 0, status: 'Unpaid' },
-  ];
+  ]);
+
+  // Create Sale Invoice Modal State
+  const [addSaleInvoiceModalOpen, setAddSaleInvoiceModalOpen] = useState(false);
+  const [addSaleInvoiceLoading, setAddSaleInvoiceLoading] = useState(false);
+  const [addSaleInvoiceError, setAddSaleInvoiceError] = useState<string | null>(null);
+  const [addSaleInvoiceForm, setAddSaleInvoiceForm] = useState({
+    customer: '',
+    date: '',
+    dueDate: '',
+    items: '',
+    total: '',
+    paid: '',
+    status: 'Unpaid',
+  });
+
+  const handleAddSaleInvoiceChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setAddSaleInvoiceForm({ ...addSaleInvoiceForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddSaleInvoiceSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddSaleInvoiceError(null);
+    // Validation
+    if (!addSaleInvoiceForm.customer || !addSaleInvoiceForm.date || !addSaleInvoiceForm.dueDate || !addSaleInvoiceForm.items || !addSaleInvoiceForm.total || addSaleInvoiceForm.paid === '') {
+      setAddSaleInvoiceError('All fields are required.');
+      return;
+    }
+    setAddSaleInvoiceLoading(true);
+    setTimeout(() => {
+      setSaleInvoicesData([
+        ...saleInvoicesData,
+        {
+          id: `INV-${Date.now()}`,
+          customer: addSaleInvoiceForm.customer,
+          date: addSaleInvoiceForm.date,
+          dueDate: addSaleInvoiceForm.dueDate,
+          items: Number(addSaleInvoiceForm.items),
+          total: Number(addSaleInvoiceForm.total),
+          paid: Number(addSaleInvoiceForm.paid),
+          status:
+            Number(addSaleInvoiceForm.paid) >= Number(addSaleInvoiceForm.total)
+              ? 'Paid'
+              : Number(addSaleInvoiceForm.paid) > 0
+              ? 'Partial'
+              : 'Unpaid',
+        },
+      ]);
+      setAddSaleInvoiceLoading(false);
+      setAddSaleInvoiceModalOpen(false);
+      setAddSaleInvoiceForm({ customer: '', date: '', dueDate: '', items: '', total: '', paid: '', status: 'Unpaid' });
+    }, 1200);
+  };
 
   // Credit Notes
-  const creditNotes = [
+  // Credit Notes (stateful)
+  const [creditNotesData, setCreditNotesData] = useState([
     { id: 'CN-2026-001', customer: 'ABC Public School', invoice: 'INV-2026-001', date: '2026-01-24', amount: 5000, reason: 'Damaged goods return' },
     { id: 'CN-2026-002', customer: 'XYZ International School', invoice: 'INV-2025-098', date: '2026-01-22', amount: 12000, reason: 'Pricing error correction' },
-  ];
+  ]);
+
+  // Create Credit Note Modal State
+  const [addCreditNoteModalOpen, setAddCreditNoteModalOpen] = useState(false);
+  const [addCreditNoteLoading, setAddCreditNoteLoading] = useState(false);
+  const [addCreditNoteError, setAddCreditNoteError] = useState<string | null>(null);
+  const [addCreditNoteForm, setAddCreditNoteForm] = useState({
+    customer: '',
+    invoice: '',
+    date: '',
+    amount: '',
+    reason: '',
+  });
+
+  const handleAddCreditNoteChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setAddCreditNoteForm({ ...addCreditNoteForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddCreditNoteSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddCreditNoteError(null);
+    // Validation
+    if (!addCreditNoteForm.customer || !addCreditNoteForm.invoice || !addCreditNoteForm.date || !addCreditNoteForm.amount || !addCreditNoteForm.reason) {
+      setAddCreditNoteError('All fields are required.');
+      return;
+    }
+    setAddCreditNoteLoading(true);
+    setTimeout(() => {
+      setCreditNotesData([
+        ...creditNotesData,
+        {
+          id: `CN-${Date.now()}`,
+          customer: addCreditNoteForm.customer,
+          invoice: addCreditNoteForm.invoice,
+          date: addCreditNoteForm.date,
+          amount: Number(addCreditNoteForm.amount),
+          reason: addCreditNoteForm.reason,
+        },
+      ]);
+      setAddCreditNoteLoading(false);
+      setAddCreditNoteModalOpen(false);
+      setAddCreditNoteForm({ customer: '', invoice: '', date: '', amount: '', reason: '' });
+    }, 1200);
+  };
 
   // Debit Notes
-  const debitNotes = [
+  // Debit Notes (stateful)
+  const [debitNotesData, setDebitNotesData] = useState([
     { id: 'DN-2026-001', supplier: 'ABC Supplies', invoice: 'SUPP-2026-015', date: '2026-01-23', amount: 3000, reason: 'Short delivery' },
     { id: 'DN-2026-002', supplier: 'Paper World', invoice: 'SUPP-2026-012', date: '2026-01-21', amount: 8500, reason: 'Quality issue' },
-  ];
+  ]);
+
+  // Create Debit Note Modal State
+  const [addDebitNoteModalOpen, setAddDebitNoteModalOpen] = useState(false);
+  const [addDebitNoteLoading, setAddDebitNoteLoading] = useState(false);
+  const [addDebitNoteError, setAddDebitNoteError] = useState<string | null>(null);
+  const [addDebitNoteForm, setAddDebitNoteForm] = useState({
+    supplier: '',
+    invoice: '',
+    date: '',
+    amount: '',
+    reason: '',
+  });
+
+  const handleAddDebitNoteChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setAddDebitNoteForm({ ...addDebitNoteForm, [e.target.name]: e.target.value });
+  };
+
+  const handleAddDebitNoteSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddDebitNoteError(null);
+    // Validation
+    if (!addDebitNoteForm.supplier || !addDebitNoteForm.invoice || !addDebitNoteForm.date || !addDebitNoteForm.amount || !addDebitNoteForm.reason) {
+      setAddDebitNoteError('All fields are required.');
+      return;
+    }
+    setAddDebitNoteLoading(true);
+    setTimeout(() => {
+      setDebitNotesData([
+        ...debitNotesData,
+        {
+          id: `DN-${Date.now()}`,
+          supplier: addDebitNoteForm.supplier,
+          invoice: addDebitNoteForm.invoice,
+          date: addDebitNoteForm.date,
+          amount: Number(addDebitNoteForm.amount),
+          reason: addDebitNoteForm.reason,
+        },
+      ]);
+      setAddDebitNoteLoading(false);
+      setAddDebitNoteModalOpen(false);
+      setAddDebitNoteForm({ supplier: '', invoice: '', date: '', amount: '', reason: '' });
+    }, 1200);
+  };
 
   // Inventory Overview
   const InventoryOverview = () => (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Inventory Overview</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-6 text-left">Inventory Overview</h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
@@ -604,10 +436,135 @@ const SchoolAdminDashboard = () => {
             <Filter className="w-4 h-4" />
             Filter
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={() => setAddProductModalOpen(true)}
+          >
             <Plus className="w-4 h-4" />
             Add Product
           </button>
+              {/* Add Product Modal */}
+              <Modal
+                isOpen={addProductModalOpen}
+                onClose={() => setAddProductModalOpen(false)}
+                title="Add Product"
+                widthClass="max-w-xl"
+              >
+                <form onSubmit={handleAddProductSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Product Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={addProductForm.name}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+                      <input
+                        type="text"
+                        name="sku"
+                        value={addProductForm.sku}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                      <input
+                        type="text"
+                        name="category"
+                        value={addProductForm.category}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Supplier</label>
+                      <input
+                        type="text"
+                        name="supplier"
+                        value={addProductForm.supplier}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
+                      <input
+                        type="number"
+                        name="stock"
+                        value={addProductForm.stock}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        min="0"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Min Stock</label>
+                      <input
+                        type="number"
+                        name="minStock"
+                        value={addProductForm.minStock}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        min="0"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Price</label>
+                      <input
+                        type="number"
+                        name="price"
+                        value={addProductForm.price}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        min="0"
+                        step="0.01"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Last Restocked</label>
+                      <input
+                        type="date"
+                        name="lastRestocked"
+                        value={addProductForm.lastRestocked}
+                        onChange={handleAddProductChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        required
+                      />
+                    </div>
+                  </div>
+                  {addProductError && <div className="text-red-600 text-sm">{addProductError}</div>}
+                  <div className="flex justify-end gap-2 pt-2">
+                    <button
+                      type="button"
+                      className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+                      onClick={() => setAddProductModalOpen(false)}
+                      disabled={addProductLoading}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-60"
+                      disabled={addProductLoading}
+                    >
+                      {addProductLoading ? 'Adding...' : 'Add Product'}
+                    </button>
+                  </div>
+                </form>
+              </Modal>
         </div>
       </div>
 
@@ -739,10 +696,114 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Quotations</h2>
-        <button onClick={() => { setModalType('quotation'); setShowModal(true); }} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          onClick={() => setAddQuotationModalOpen(true)}
+        >
           <Plus className="w-4 h-4" />
           Create Quotation
         </button>
+            {/* Create Quotation Modal */}
+            <Modal
+              isOpen={addQuotationModalOpen}
+              onClose={() => setAddQuotationModalOpen(false)}
+              title="Create Quotation"
+              widthClass="max-w-xl"
+            >
+              <form onSubmit={handleAddQuotationSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Customer</label>
+                    <input
+                      type="text"
+                      name="customer"
+                      value={addQuotationForm.customer}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input
+                      type="date"
+                      name="date"
+                      value={addQuotationForm.date}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Valid Till</label>
+                    <input
+                      type="date"
+                      name="validTill"
+                      value={addQuotationForm.validTill}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Items</label>
+                    <input
+                      type="number"
+                      name="items"
+                      value={addQuotationForm.items}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      min="1"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Total (₹)</label>
+                    <input
+                      type="number"
+                      name="total"
+                      value={addQuotationForm.total}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select
+                      name="status"
+                      value={addQuotationForm.status}
+                      onChange={handleAddQuotationChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Approved">Approved</option>
+                    </select>
+                  </div>
+                </div>
+                {addQuotationError && <div className="text-red-600 text-sm">{addQuotationError}</div>}
+                <div className="flex justify-end gap-2 pt-2">
+                  <button
+                    type="button"
+                    className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    onClick={() => setAddQuotationModalOpen(false)}
+                    disabled={addQuotationLoading}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-60"
+                    disabled={addQuotationLoading}
+                  >
+                    {addQuotationLoading ? 'Creating...' : 'Create Quotation'}
+                  </button>
+                </div>
+              </form>
+            </Modal>
       </div>
 
       <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
@@ -803,7 +864,10 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Proforma Invoices</h2>
-        <button onClick={() => { setModalType('proforma'); setShowModal(true); }} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          onClick={() => setAddProformaModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
           <Plus className="w-4 h-4" />
           Create Proforma Invoice
         </button>
@@ -824,7 +888,7 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {proformaInvoices.map((invoice) => (
+            {proformaInvoicesData.map((invoice) => (
               <tr key={invoice.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-blue-600">{invoice.id}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{invoice.customer}</td>
@@ -834,8 +898,8 @@ const SchoolAdminDashboard = () => {
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{invoice.total.toLocaleString()}</td>
                 <td className="px-6 py-4">
                   <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    invoice.status === 'Converted' 
-                      ? 'bg-green-100 text-green-700' 
+                    invoice.status === 'Converted'
+                      ? 'bg-green-100 text-green-700'
                       : 'bg-yellow-100 text-yellow-700'
                   }`}>
                     {invoice.status}
@@ -859,6 +923,104 @@ const SchoolAdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Create Proforma Invoice */}
+      <Modal isOpen={addProformaModalOpen} onClose={() => setAddProformaModalOpen(false)} title="Create Proforma Invoice" widthClass="max-w-lg">
+        <form onSubmit={handleAddProformaSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Customer</label>
+            <input
+              type="text"
+              name="customer"
+              value={addProformaForm.customer}
+              onChange={handleAddProformaChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={addProformaForm.date}
+                onChange={handleAddProformaChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Due Date</label>
+              <input
+                type="date"
+                name="dueDate"
+                value={addProformaForm.dueDate}
+                onChange={handleAddProformaChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Items</label>
+              <input
+                type="number"
+                name="items"
+                value={addProformaForm.items}
+                onChange={handleAddProformaChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={1}
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Total (₹)</label>
+              <input
+                type="number"
+                name="total"
+                value={addProformaForm.total}
+                onChange={handleAddProformaChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={0}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Status</label>
+            <select
+              name="status"
+              value={addProformaForm.status}
+              onChange={handleAddProformaChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            >
+              <option value="Pending">Pending</option>
+              <option value="Converted">Converted</option>
+            </select>
+          </div>
+          {addProformaError && <div className="text-red-600 text-sm">{addProformaError}</div>}
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+              onClick={() => setAddProformaModalOpen(false)}
+              disabled={addProformaLoading}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+              disabled={addProformaLoading}
+            >
+              {addProformaLoading ? 'Saving...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 
@@ -867,7 +1029,10 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Sale Invoices</h2>
-        <button onClick={() => { setModalType('saleinvoice'); setShowModal(true); }} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          onClick={() => setAddSaleInvoiceModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
           <Plus className="w-4 h-4" />
           Create Sale Invoice
         </button>
@@ -881,6 +1046,7 @@ const SchoolAdminDashboard = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Due Date</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Paid</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Balance</th>
@@ -889,12 +1055,13 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {saleInvoices.map((invoice) => (
+            {saleInvoicesData.map((invoice) => (
               <tr key={invoice.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-blue-600">{invoice.id}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{invoice.customer}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{invoice.date}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{invoice.dueDate}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{invoice.items}</td>
                 <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{invoice.total.toLocaleString()}</td>
                 <td className="px-6 py-4 text-sm text-green-600">₹{invoice.paid.toLocaleString()}</td>
                 <td className="px-6 py-4 text-sm text-red-600">₹{(invoice.total - invoice.paid).toLocaleString()}</td>
@@ -925,6 +1092,120 @@ const SchoolAdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Create Sale Invoice */}
+      <Modal isOpen={addSaleInvoiceModalOpen} onClose={() => setAddSaleInvoiceModalOpen(false)} title="Create Sale Invoice" widthClass="max-w-lg">
+        <form onSubmit={handleAddSaleInvoiceSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Customer</label>
+            <input
+              type="text"
+              name="customer"
+              value={addSaleInvoiceForm.customer}
+              onChange={handleAddSaleInvoiceChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={addSaleInvoiceForm.date}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Due Date</label>
+              <input
+                type="date"
+                name="dueDate"
+                value={addSaleInvoiceForm.dueDate}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Items</label>
+              <input
+                type="number"
+                name="items"
+                value={addSaleInvoiceForm.items}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={1}
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Total (₹)</label>
+              <input
+                type="number"
+                name="total"
+                value={addSaleInvoiceForm.total}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={0}
+                required
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Paid (₹)</label>
+              <input
+                type="number"
+                name="paid"
+                value={addSaleInvoiceForm.paid}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={0}
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Status</label>
+              <select
+                name="status"
+                value={addSaleInvoiceForm.status}
+                onChange={handleAddSaleInvoiceChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+                disabled
+              >
+                <option value="Paid">Paid</option>
+                <option value="Partial">Partial</option>
+                <option value="Unpaid">Unpaid</option>
+              </select>
+            </div>
+          </div>
+          {addSaleInvoiceError && <div className="text-red-600 text-sm">{addSaleInvoiceError}</div>}
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+              onClick={() => setAddSaleInvoiceModalOpen(false)}
+              disabled={addSaleInvoiceLoading}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+              disabled={addSaleInvoiceLoading}
+            >
+              {addSaleInvoiceLoading ? 'Saving...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 
@@ -933,7 +1214,10 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Credit Notes</h2>
-        <button onClick={() => { setModalType('creditnote'); setShowModal(true); }} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          onClick={() => setAddCreditNoteModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
           <Plus className="w-4 h-4" />
           Create Credit Note
         </button>
@@ -953,7 +1237,7 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {creditNotes.map((note) => (
+            {creditNotesData.map((note) => (
               <tr key={note.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-blue-600">{note.id}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{note.customer}</td>
@@ -976,6 +1260,88 @@ const SchoolAdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Create Credit Note */}
+      <Modal isOpen={addCreditNoteModalOpen} onClose={() => setAddCreditNoteModalOpen(false)} title="Create Credit Note" widthClass="max-w-lg">
+        <form onSubmit={handleAddCreditNoteSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Customer</label>
+            <input
+              type="text"
+              name="customer"
+              value={addCreditNoteForm.customer}
+              onChange={handleAddCreditNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Invoice Ref.</label>
+            <input
+              type="text"
+              name="invoice"
+              value={addCreditNoteForm.invoice}
+              onChange={handleAddCreditNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={addCreditNoteForm.date}
+                onChange={handleAddCreditNoteChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Amount (₹)</label>
+              <input
+                type="number"
+                name="amount"
+                value={addCreditNoteForm.amount}
+                onChange={handleAddCreditNoteChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={0}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Reason</label>
+            <input
+              type="text"
+              name="reason"
+              value={addCreditNoteForm.reason}
+              onChange={handleAddCreditNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          {addCreditNoteError && <div className="text-red-600 text-sm">{addCreditNoteError}</div>}
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+              onClick={() => setAddCreditNoteModalOpen(false)}
+              disabled={addCreditNoteLoading}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+              disabled={addCreditNoteLoading}
+            >
+              {addCreditNoteLoading ? 'Saving...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 
@@ -984,7 +1350,10 @@ const SchoolAdminDashboard = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Debit Notes</h2>
-        <button onClick={() => { setModalType('debitnote'); setShowModal(true); }} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          onClick={() => setAddDebitNoteModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+        >
           <Plus className="w-4 h-4" />
           Create Debit Note
         </button>
@@ -1004,7 +1373,7 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {debitNotes.map((note) => (
+            {debitNotesData.map((note) => (
               <tr key={note.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-blue-600">{note.id}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{note.supplier}</td>
@@ -1027,6 +1396,88 @@ const SchoolAdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Modal for Create Debit Note */}
+      <Modal isOpen={addDebitNoteModalOpen} onClose={() => setAddDebitNoteModalOpen(false)} title="Create Debit Note" widthClass="max-w-lg">
+        <form onSubmit={handleAddDebitNoteSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Supplier</label>
+            <input
+              type="text"
+              name="supplier"
+              value={addDebitNoteForm.supplier}
+              onChange={handleAddDebitNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Invoice Ref.</label>
+            <input
+              type="text"
+              name="invoice"
+              value={addDebitNoteForm.invoice}
+              onChange={handleAddDebitNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Date</label>
+              <input
+                type="date"
+                name="date"
+                value={addDebitNoteForm.date}
+                onChange={handleAddDebitNoteChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                required
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Amount (₹)</label>
+              <input
+                type="number"
+                name="amount"
+                value={addDebitNoteForm.amount}
+                onChange={handleAddDebitNoteChange}
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                min={0}
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Reason</label>
+            <input
+              type="text"
+              name="reason"
+              value={addDebitNoteForm.reason}
+              onChange={handleAddDebitNoteChange}
+              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+              required
+            />
+          </div>
+          {addDebitNoteError && <div className="text-red-600 text-sm">{addDebitNoteError}</div>}
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300"
+              onClick={() => setAddDebitNoteModalOpen(false)}
+              disabled={addDebitNoteLoading}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+              disabled={addDebitNoteLoading}
+            >
+              {addDebitNoteLoading ? 'Saving...' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 
@@ -1083,58 +1534,33 @@ const SchoolAdminDashboard = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
-       
-        
-        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          {menuItems.map((item) => (
-            <div key={item.id}>
-              <button
-                onClick={() => {
-                  setActiveScreen(item.id);
-                  if (item.id === 'inventory') {
-                    setActiveInventorySection('overview');
-                  }
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  activeScreen === item.id
-                    ? 'bg-blue-50 text-blue-600 font-medium'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </button>
-              
-              {item.id === 'inventory' && activeScreen === 'inventory' && (
-                <div className="ml-4 mt-1 space-y-1">
-                  {inventorySubMenu.map((subItem) => (
-                    <button
-                      key={subItem.id}
-                      onClick={() => setActiveInventorySection(subItem.id)}
-                      className={`w-full text-left px-4 py-2 rounded-lg text-sm transition-colors ${
-                        activeInventorySection === subItem.id
-                          ? 'bg-blue-50 text-blue-600 font-medium'
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`}
-                    >
-                      {subItem.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
+    <div className="h-screen bg-gray-100 flex flex-col">
+      {/* Horizontal Top Navigation Bar */}
 
-        
-      </div>
+
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="p-8">
+          {/* Inventory submenus always below top nav bar */}
+          <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-2">
+            {inventorySubMenu.map((subItem) => (
+              <button
+                key={subItem.id}
+                onClick={() => {
+                  setActiveScreen('inventory');
+                  setActiveInventorySection(subItem.id);
+                }}
+                className={`px-4 py-2 rounded-t-lg text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${
+                  activeScreen === 'inventory' && activeInventorySection === subItem.id
+                    ? 'border-blue-600 text-blue-700 bg-blue-50'
+                    : 'border-transparent text-gray-600 hover:bg-gray-100'
+                }`}
+              >
+                {subItem.label}
+              </button>
+            ))}
+          </div>
           {renderContent()}
         </div>
       </div>

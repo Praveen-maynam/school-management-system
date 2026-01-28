@@ -1,170 +1,3 @@
-// import React, { useState, useMemo } from 'react';
-
-// interface FeeReport {
-// 	id: number;
-// 	month: string;
-// 	collected: number;
-// 	pending: number;
-// 	downloadUrl: string;
-// }
-
-// const mockReports: FeeReport[] = [
-// 	{ id: 1, month: 'January', collected: 50000, pending: 2000, downloadUrl: '#' },
-// 	{ id: 2, month: 'December', collected: 48000, pending: 3500, downloadUrl: '#' },
-// 	{ id: 3, month: 'November', collected: 47000, pending: 4000, downloadUrl: '#' },
-// 	{ id: 4, month: 'October', collected: 46000, pending: 4200, downloadUrl: '#' },
-// 	{ id: 5, month: 'September', collected: 45500, pending: 3900, downloadUrl: '#' },
-// 	{ id: 6, month: 'August', collected: 47000, pending: 4100, downloadUrl: '#' },
-// 	{ id: 7, month: 'July', collected: 48000, pending: 3000, downloadUrl: '#' },
-// 	{ id: 8, month: 'June', collected: 49000, pending: 2500, downloadUrl: '#' },
-// 	{ id: 9, month: 'May', collected: 50000, pending: 2000, downloadUrl: '#' },
-// 	{ id: 10, month: 'April', collected: 51000, pending: 1800, downloadUrl: '#' },
-// 	{ id: 11, month: 'March', collected: 52000, pending: 1600, downloadUrl: '#' },
-// 	{ id: 12, month: 'February', collected: 53000, pending: 1400, downloadUrl: '#' },
-// ];
-
-
-// const months = [
-// 	'January', 'February', 'March', 'April', 'May', 'June',
-// 	'July', 'August', 'September', 'October', 'November', 'December'
-// ];
-
-// const FeeReportsScreen: React.FC = () => {
-// 	const [reports] = useState<FeeReport[]>(mockReports);
-// 	const [loading, setLoading] = useState(false);
-// 	const [error, setError] = useState<string | null>(null);
-// 	const [search, setSearch] = useState('');
-// 	const [monthFilter, setMonthFilter] = useState('');
-// 	const [page, setPage] = useState(1);
-// 	const pageSize = 5;
-
-// 	// Filtered and searched reports
-// 	const filteredReports = useMemo(() => {
-// 		let data = reports;
-// 		if (monthFilter) {
-// 			data = data.filter(r => r.month === monthFilter);
-// 		}
-// 		if (search) {
-// 			data = data.filter(r =>
-// 				r.month.toLowerCase().includes(search.toLowerCase()) ||
-// 				r.collected.toString().includes(search) ||
-// 				r.pending.toString().includes(search)
-// 			);
-// 		}
-// 		return data;
-// 	}, [reports, monthFilter, search]);
-
-// 	const paginatedReports = useMemo(() => {
-// 		const start = (page - 1) * pageSize;
-// 		return filteredReports.slice(start, start + pageSize);
-// 	}, [filteredReports, page]);
-
-// 	const totalPages = Math.ceil(filteredReports.length / pageSize);
-
-// 	const handleDownload = (id: number) => {
-// 		setLoading(true);
-// 		setTimeout(() => {
-// 			setLoading(false);
-// 			window.alert('Fee report downloaded!');
-// 		}, 800);
-// 	};
-
-// 	return (
-// 		<div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
-// 			<h2 className="text-2xl font-bold mb-4 text-gray-800">Fee Reports</h2>
-
-// 			<div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-// 				<div className="flex gap-2">
-// 					<select
-// 						className="border rounded px-2 py-1"
-// 						value={monthFilter}
-// 						onChange={e => { setMonthFilter(e.target.value); setPage(1); }}
-// 					>
-// 						<option value="">All Months</option>
-// 						{months.map(m => (
-// 							<option key={m} value={m}>{m}</option>
-// 						))}
-// 					</select>
-// 					<input
-// 						type="text"
-// 						className="border rounded px-2 py-1"
-// 						placeholder="Search by month or amount..."
-// 						value={search}
-// 						onChange={e => { setSearch(e.target.value); setPage(1); }}
-// 					/>
-// 				</div>
-// 				<div>
-// 					<span className="text-sm text-gray-500">Total: {filteredReports.length}</span>
-// 				</div>
-// 			</div>
-
-// 			{loading && <div className="mb-4 text-blue-600">Processing...</div>}
-// 			{error && <div className="mb-4 text-red-600">{error}</div>}
-
-// 			<div className="overflow-x-auto">
-// 				<table className="min-w-full bg-gray-50 rounded-md overflow-hidden">
-// 					<thead>
-// 						<tr>
-// 							<th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Month</th>
-// 							<th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Collected</th>
-// 							<th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Pending</th>
-// 							<th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Actions</th>
-// 						</tr>
-// 					</thead>
-// 					<tbody>
-// 						{paginatedReports.length === 0 ? (
-// 							<tr>
-// 								<td colSpan={4} className="px-4 py-2 text-center text-gray-400">No fee reports found.</td>
-// 							</tr>
-// 						) : (
-// 							paginatedReports.map((report) => (
-// 								<tr key={report.id}>
-// 									<td className="px-4 py-2 text-gray-700">{report.month}</td>
-// 									<td className="px-4 py-2 text-gray-700">₹{report.collected.toLocaleString()}</td>
-// 									<td className="px-4 py-2 text-gray-700">₹{report.pending.toLocaleString()}</td>
-// 									<td className="px-4 py-2">
-// 										<button
-// 											className="px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-// 											onClick={() => handleDownload(report.id)}
-// 											disabled={loading}
-// 										>
-// 											Download
-// 										</button>
-// 									</td>
-// 								</tr>
-// 							))
-// 						)}
-// 					</tbody>
-// 				</table>
-// 			</div>
-
-// 			{/* Pagination */}
-// 			{totalPages > 1 && (
-// 				<div className="flex justify-center items-center gap-2 mt-4">
-// 					<button
-// 						className="px-2 py-1 border rounded disabled:opacity-50"
-// 						onClick={() => setPage(p => Math.max(1, p - 1))}
-// 						disabled={page === 1}
-// 					>
-// 						Prev
-// 					</button>
-// 					<span className="text-sm">Page {page} of {totalPages}</span>
-// 					<button
-// 						className="px-2 py-1 border rounded disabled:opacity-50"
-// 						onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-// 						disabled={page === totalPages}
-// 					>
-// 						Next
-// 					</button>
-// 				</div>
-// 			)}
-// 		</div>
-// 	);
-// };
-
-// export default FeeReportsScreen;
-
-
 import React, { useState } from 'react';
 import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, ChevronRight, Download, Filter, Search } from 'lucide-react';
 
@@ -276,6 +109,47 @@ const SchoolAdminDashboard = () => {
     );
   };
 
+  // Print and Download handlers for selected report
+  const handlePrint = () => {
+    if (!selectedReport) return;
+    const data = sampleData[selectedReport.id];
+    const printWindow = window.open('', '', 'width=800,height=600');
+    if (printWindow) {
+      printWindow.document.write('<html><head><title>Print Report</title></head><body>');
+      printWindow.document.write(`<h2>${selectedReport.name}</h2>`);
+      printWindow.document.write(`<p>${selectedReport.description}</p>`);
+      if (data && data.length > 0) {
+        printWindow.document.write('<table border="1" cellpadding="8" style="border-collapse:collapse;">');
+        printWindow.document.write('<tr>' + Object.keys(data[0]).map(k => `<th>${k}</th>`).join('') + '</tr>');
+        data.forEach(row => {
+          printWindow.document.write('<tr>' + Object.values(row).map(v => `<td>${v}</td>`).join('') + '</tr>');
+        });
+        printWindow.document.write('</table>');
+      }
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
+  const handleDownload = () => {
+    if (!selectedReport) return;
+    const data = sampleData[selectedReport.id];
+    let csv = '';
+    if (data && data.length > 0) {
+      csv += Object.keys(data[0]).join(',') + '\n';
+      data.forEach(row => {
+        csv += Object.values(row).join(',') + '\n';
+      });
+    }
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${selectedReport.name.replace(/\s+/g, '_')}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
   const renderContent = () => {
     switch (activeScreen) {
      
@@ -340,10 +214,10 @@ const SchoolAdminDashboard = () => {
                     <p className="text-sm text-gray-500 mt-1">{selectedReport.description}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
+                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm" onClick={handlePrint}>
                       Print
                     </button>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm flex items-center gap-2">
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm flex items-center gap-2" onClick={handleDownload}>
                       <Download className="w-4 h-4" />
                       Download PDF
                     </button>
@@ -417,10 +291,10 @@ const SchoolAdminDashboard = () => {
                     <p className="text-sm text-gray-500 mt-1">{selectedReport.description}</p>
                   </div>
                   <div className="flex gap-2">
-                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm">
+                    <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm" onClick={handlePrint}>
                       Print
                     </button>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm flex items-center gap-2">
+                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm flex items-center gap-2" onClick={handleDownload}>
                       <Download className="w-4 h-4" />
                       Download PDF
                     </button>

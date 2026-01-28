@@ -88,25 +88,7 @@ const FinanceDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">☰ Finance Management</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-6">
-            <button className="text-sm text-gray-600 hover:text-gray-900">Dashboard</button>
-            <button className="text-sm text-gray-600 hover:text-gray-900">Reports</button>
-            <button className="text-sm text-blue-600 font-medium border-b-2 border-blue-600 pb-4 -mb-4">Finance</button>
-            <button className="text-sm text-gray-600 hover:text-gray-900">Settings</button>
-            <Bell className="w-5 h-5 text-gray-600" />
-            <Settings className="w-5 h-5 text-gray-600" />
-            <div className="w-8 h-8 rounded-full bg-gray-300"></div>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">

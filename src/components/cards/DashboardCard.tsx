@@ -16,7 +16,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 const DashboardCard: React.FC<DashboardCardProps> = ({ title, value, icon, className }) => {
-	return (
+	return ( 
 		<div className={`bg-white rounded-xl shadow p-5 flex items-center gap-4 ${className || ''}`}>
 			<div className="flex-shrink-0">
 				{iconMap[icon] || <BarChart2 className="text-gray-400" size={32} />}

@@ -946,7 +946,7 @@ const SchoolAdminDashboard = () => {
     headOfDepartment: string;
   }
 
-  const departmentsData: DepartmentData[] = [
+  const [departmentsData, setDepartmentsData] = useState<DepartmentData[]>([
     { 
       id: 1, 
       name: 'Administration', 
@@ -1019,7 +1019,7 @@ const SchoolAdminDashboard = () => {
       positions: ['IT Technician', 'Network Administrator', 'IT Support'],
       headOfDepartment: 'Mr. Arjun Patel'
     },
-  ];
+  ]);
 
   // Staff Data by Department
   const staffData = {
@@ -1081,6 +1081,41 @@ const SchoolAdminDashboard = () => {
     indigo: 'bg-indigo-50 border-indigo-200 text-indigo-600',
   };
 
+  // Add Department Modal State
+  const [showAddDepartmentModal, setShowAddDepartmentModal] = useState(false);
+  const [addDepartmentForm, setAddDepartmentForm] = useState({
+    name: '',
+    headOfDepartment: '',
+    color: 'blue',
+    icon: 'Building',
+  });
+  const [addDepartmentError, setAddDepartmentError] = useState<string | null>(null);
+  const [addDepartmentSuccess, setAddDepartmentSuccess] = useState<string | null>(null);
+  const iconOptions = [
+    { label: 'Building', value: 'Building' },
+    { label: 'UserCog', value: 'UserCog' },
+    { label: 'Home', value: 'Home' },
+    { label: 'Award', value: 'Award' },
+    { label: 'Clock', value: 'Clock' },
+  ];
+  const colorOptions = [
+    { label: 'Blue', value: 'blue' },
+    { label: 'Orange', value: 'orange' },
+    { label: 'Red', value: 'red' },
+    { label: 'Green', value: 'green' },
+    { label: 'Purple', value: 'purple' },
+    { label: 'Pink', value: 'pink' },
+    { label: 'Teal', value: 'teal' },
+    { label: 'Indigo', value: 'indigo' },
+  ];
+  const iconMap: Record<string, React.ReactNode> = {
+    Building: <Building className="w-6 h-6" />,
+    UserCog: <UserCog className="w-6 h-6" />,
+    Home: <Home className="w-6 h-6" />,
+    Award: <Award className="w-6 h-6" />,
+    Clock: <Clock className="w-6 h-6" />,
+  };
+
   // Departments Overview
   const DepartmentsOverview = () => (
     <div>
@@ -1089,11 +1124,127 @@ const SchoolAdminDashboard = () => {
           <h2 className="text-2xl font-bold text-gray-900">Non-Teaching Staff</h2>
           <p className="text-gray-500 mt-1">Manage departments and staff members</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          onClick={() => {
+            setShowAddDepartmentModal(true);
+            setAddDepartmentError(null);
+            setAddDepartmentSuccess(null);
+            setAddDepartmentForm({ name: '', headOfDepartment: '', color: 'blue', icon: 'Building' });
+          }}
+        >
           <Plus className="w-4 h-4" />
           Add department
         </button>
       </div>
+
+      {/* Add Department Modal */}
+      {showAddDepartmentModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+              onClick={() => setShowAddDepartmentModal(false)}
+            >✕</button>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Add Department</h3>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                setAddDepartmentError(null);
+                setAddDepartmentSuccess(null);
+                if (!addDepartmentForm.name.trim()) {
+                  setAddDepartmentError('Department name is required.');
+                  return;
+                }
+                if (!addDepartmentForm.headOfDepartment.trim()) {
+                  setAddDepartmentError('Head of Department is required.');
+                  return;
+                }
+                // Add department to departmentsData
+                setDepartmentsData(prev => [
+                  ...prev,
+                  {
+                    id: prev.length + 1,
+                    name: addDepartmentForm.name,
+                    icon: iconMap[addDepartmentForm.icon],
+                    color: addDepartmentForm.color as ColorKey,
+                    totalStaff: 0,
+                    positions: [] as string[],
+                    headOfDepartment: addDepartmentForm.headOfDepartment,
+                  },
+                ]);
+                setAddDepartmentSuccess('Department added successfully!');
+                setTimeout(() => {
+                  setShowAddDepartmentModal(false);
+                  setAddDepartmentSuccess(null);
+                }, 1200);
+              }}
+            >
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-1">Department Name</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={addDepartmentForm.name}
+                  onChange={e => setAddDepartmentForm(f => ({ ...f, name: e.target.value }))}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-1">Head of Department</label>
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={addDepartmentForm.headOfDepartment}
+                  onChange={e => setAddDepartmentForm(f => ({ ...f, headOfDepartment: e.target.value }))}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-1">Color</label>
+                <select
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={addDepartmentForm.color}
+                  onChange={e => setAddDepartmentForm(f => ({ ...f, color: e.target.value }))}
+                >
+                  {colorOptions.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-medium mb-1">Icon</label>
+                <select
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={addDepartmentForm.icon}
+                  onChange={e => setAddDepartmentForm(f => ({ ...f, icon: e.target.value }))}
+                >
+                  {iconOptions.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+              {addDepartmentError && <div className="mb-2 text-red-600 text-sm">{addDepartmentError}</div>}
+              {addDepartmentSuccess && <div className="mb-2 text-green-600 text-sm">{addDepartmentSuccess}</div>}
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  type="button"
+                  className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                  onClick={() => setShowAddDepartmentModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+                >
+                  Add Department
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
