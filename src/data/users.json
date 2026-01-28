@@ -9,5 +9,17 @@
   ],
   "admins": [
     { "email": "admin@school.com", "password": "admin123", "name": "School Admin" }
+  ],
+  "financeManagers": [
+    { "email": "financemgr@school.com", "password": "fin123", "name": "Finance Manager" }
+  ],
+  "superAdmins": [
+    { "email": "superadmin@school.com", "password": "super123", "name": "Super Admin" }
+  ],
+  "libraryManagers": [
+    { "email": "librarymgr@school.com", "password": "lib123", "name": "Library Manager" }
+  ],
+  "transportManagers": [
+    { "email": "transportmgr@school.com", "password": "trans123", "name": "Transport Manager" }
   ]
 }

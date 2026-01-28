@@ -1,410 +1,193 @@
-// // import React, { useState } from 'react';
-
-// // interface SchoolClass {
-// //     id: number;
-// //     name: string;
-// //     sectionCount: number;
-// //     classTeacher: string;
-// // }
-
-// // const mockClasses: SchoolClass[] = [
-// //     { id: 1, name: 'Class 1', sectionCount: 2, classTeacher: 'Mr. Smith' },
-// //     { id: 2, name: 'Class 2', sectionCount: 3, classTeacher: 'Ms. Johnson' },
-// //     { id: 3, name: 'Class 3', sectionCount: 1, classTeacher: 'Mrs. Lee' },
-// // ];
-
-// // const ClassListScreen: React.FC = () => {
-// //     const [classes, setClasses] = useState<SchoolClass[]>(mockClasses);
-// //     const [loading, setLoading] = useState(false);
-// //     const [error, setError] = useState<string | null>(null);
-// //     const [selectedClass, setSelectedClass] = useState<SchoolClass | null>(null);
-
-// //     const handleDelete = (id: number) => {
-// //         setLoading(true);
-// //         setError(null);
-// //         setTimeout(() => {
-// //             setClasses((prev) => prev.filter((cls) => cls.id !== id));
-// //             setLoading(false);
-// //         }, 1000);
-// //     };
-
-// //     const handleView = (cls: SchoolClass) => {
-// //         setSelectedClass(cls);
-// //     };
-
-// //     const handleCloseModal = () => {
-// //         setSelectedClass(null);
-// //     };
-
-// //     return (
-// //         <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
-// //             <h2 className="text-2xl font-bold mb-4 text-gray-800">Class List</h2>
-// //             {loading && <div className="mb-4 text-blue-600">Processing...</div>}
-// //             {error && <div className="mb-4 text-red-600">{error}</div>}
-// //             <table className="min-w-full bg-gray-50 rounded-md overflow-hidden">
-// //                 <thead>
-// //                     <tr>
-// //                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Class Name</th>
-// //                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Sections</th>
-// //                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Class Teacher</th>
-// //                         <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Actions</th>
-// //                     </tr>
-// //                 </thead>
-// //                 <tbody>
-// //                     {classes.length === 0 ? (
-// //                         <tr>
-// //                             <td colSpan={4} className="px-4 py-2 text-center text-gray-400">No classes found.</td>
-// //                         </tr>
-// //                     ) : (
-// //                         classes.map((cls) => (
-// //                             <tr key={cls.id}>
-// //                                 <td className="px-4 py-2 text-gray-700">{cls.name}</td>
-// //                                 <td className="px-4 py-2 text-gray-700">{cls.sectionCount}</td>
-// //                                 <td className="px-4 py-2 text-gray-700">{cls.classTeacher}</td>
-// //                                 <td className="px-4 py-2">
-// //                                     <button
-// //                                         className="mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-// //                                         onClick={() => handleView(cls)}
-// //                                     >
-// //                                         View
-// //                                     </button>
-// //                                     <button
-// //                                         className="mr-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-// //                                         // onClick={() => handleEdit(cls.id)}
-// //                                         disabled
-// //                                     >
-// //                                         Edit
-// //                                     </button>
-// //                                     <button
-// //                                         className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-// //                                         onClick={() => handleDelete(cls.id)}
-// //                                         disabled={loading}
-// //                                     >
-// //                                         Delete
-// //                                     </button>
-// //                                 </td>
-// //                             </tr>
-// //                         ))
-// //                     )}
-// //                 </tbody>
-// //             </table>
-// //             {/* Modal for viewing class details */}
-// //             {selectedClass && (
-// //                 <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-// //                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-// //                         <h3 className="text-xl font-bold mb-2">Class Details</h3>
-// //                         <p><span className="font-semibold">Name:</span> {selectedClass.name}</p>
-// //                         <p><span className="font-semibold">Sections:</span> {selectedClass.sectionCount}</p>
-// //                         <p><span className="font-semibold">Class Teacher:</span> {selectedClass.classTeacher}</p>
-// //                         <button
-// //                             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-// //                             onClick={handleCloseModal}
-// //                         >
-// //                             Close
-// //                         </button>
-// //                     </div>
-// //                 </div>
-// //             )}
-// //         </div>
-// //     );
-// // };
-
-// // export default ClassListScreen;
-
-
-
-
-// import React, { useState } from 'react';
-// import { BookOpen, Users, UserCheck, TrendingUp, ChevronDown, Plus, MoreVertical, ExternalLink } from 'lucide-react';
-
-// const Dashboard = () => {
-//   const [gradeFilter, setGradeFilter] = useState('All Grades');
-//   const [subjectFilter, setSubjectFilter] = useState('All Subjects');
-//   const [statusFilter, setStatusFilter] = useState('All Status');
-
-//   const stats = [
-//     { label: 'Total Classes', value: '24', change: '+2%', period: 'from last term', icon: BookOpen, color: 'bg-blue-500' },
-//     { label: 'Total Students', value: '486', change: '+8%', period: 'from last term', icon: Users, color: 'bg-green-500' },
-//     { label: 'Total Teachers', value: '42', change: '+5%', period: 'from last term', icon: UserCheck, color: 'bg-purple-500' },
-//     { label: 'Avg Attendance', value: '94.2%', change: '-2%', period: 'from last week', icon: TrendingUp, color: 'bg-orange-500', isNegative: true }
-//   ];
-
-//   const classes = [
-//     {
-//       subject: 'Mathematics',
-//       grade: 'Grade 10-A',
-//       students: 32,
-//       teacher: { name: 'Mr. Robert Chen', role: 'Lead Teacher', avatar: '👨‍🏫' },
-//       attendance: '96%',
-//       avgScore: '85.4',
-//       schedule: 'Mon, Wed, Fri',
-//       color: 'bg-blue-500'
-//     },
-//     {
-//       subject: 'Chemistry',
-//       grade: 'Grade 11-B',
-//       students: 28,
-//       teacher: { name: 'Dr. Emily Watson', role: 'Lead Teacher', avatar: '👩‍🔬' },
-//       attendance: '94%',
-//       avgScore: '82.1',
-//       schedule: 'Tue, Thu',
-//       color: 'bg-green-500'
-//     },
-//     {
-//       subject: 'English Literature',
-//       grade: 'Grade 9-C',
-//       students: 30,
-//       teacher: { name: 'Ms. Sarah Mitchell', role: 'Lead Teacher', avatar: '👩‍🏫' },
-//       attendance: '97%',
-//       avgScore: '88.7',
-//       schedule: 'Mon, Thu, Fri',
-//       color: 'bg-purple-500'
-//     },
-//     {
-//       subject: 'World History',
-//       grade: 'Grade 10-B',
-//       students: 26,
-//       teacher: { name: 'Mr. David Thompson', role: 'Lead Teacher', avatar: '👨‍💼' },
-//       attendance: '93%',
-//       avgScore: '86.3',
-//       schedule: 'Tue, Wed, Fri',
-//       color: 'bg-orange-500'
-//     },
-//     {
-//       subject: 'Physics',
-//       grade: 'Grade 12-A',
-//       students: 24,
-//       teacher: { name: 'Dr. James Anderson', role: 'Lead Teacher', avatar: '👨‍🔬' },
-//       attendance: '95%',
-//       avgScore: '91.2',
-//       schedule: 'Mon, Tue, Thu',
-//       color: 'bg-teal-500'
-//     },
-//     {
-//       subject: 'Visual Arts',
-//       grade: 'Grade 9-A',
-//       students: 22,
-//       teacher: { name: 'Ms. Lisa Martinez', role: 'Lead Teacher', avatar: '👩‍🎨' },
-//       attendance: '98%',
-//       avgScore: '90.5',
-//       schedule: 'Wed, Fri',
-//       color: 'bg-pink-500'
-//     },
-//     {
-//       subject: 'Computer Science',
-//       grade: 'Grade 11-A',
-//       students: 29,
-//       teacher: { name: 'Mr. Alex Kumar', role: 'Lead Teacher', avatar: '👨‍💻' },
-//       attendance: '96%',
-//       avgScore: '89.3',
-//       schedule: 'Mon, Wed, Thu',
-//       color: 'bg-indigo-500'
-//     },
-//     {
-//       subject: 'Spanish',
-//       grade: 'Grade 10-C',
-//       students: 27,
-//       teacher: { name: 'Ms. Maria Rodriguez', role: 'Lead Teacher', avatar: '👩‍🏫' },
-//       attendance: '92%',
-//       avgScore: '84.9',
-//       schedule: 'Tue, Thu, Fri',
-//       color: 'bg-red-500'
-//     },
-//     {
-//       subject: 'Music Theory',
-//       grade: 'Grade 9-B',
-//       students: 20,
-//       teacher: { name: 'Mr. Michael Brown', role: 'Lead Teacher', avatar: '👨‍🎤' },
-//       attendance: '97%',
-//       avgScore: '87.3',
-//       schedule: 'Mon, Wed',
-//       color: 'bg-yellow-600'
-//     }
-//   ];
-
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const itemsPerPage = 6;
-//   const totalPages = Math.ceil(classes.length / itemsPerPage);
-//   const displayedClasses = classes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-6">
-//       <div className="max-w-7xl mx-auto">
-//         {/* Stats Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-//           {stats.map((stat, index) => (
-//             <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-//               <div className="flex items-start justify-between mb-4">
-//                 <div>
-//                   <p className="text-gray-500 text-sm mb-2">{stat.label}</p>
-//                   <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
-//                 </div>
-//                 <div className={`${stat.color} p-3 rounded-lg`}>
-//                   <stat.icon className="w-6 h-6 text-white" />
-//                 </div>
-//               </div>
-//               <p className={`text-sm flex items-center gap-1 ${stat.isNegative ? 'text-red-500' : 'text-green-500'}`}>
-//                 <span>{stat.change}</span>
-//                 <span className="text-gray-400">{stat.period}</span>
-//               </p>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* Filters and Actions */}
-//         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-//           <div className="flex flex-wrap items-center gap-3">
-//             <div className="relative">
-//               <select 
-//                 value={gradeFilter}
-//                 onChange={(e) => setGradeFilter(e.target.value)}
-//                 className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//               >
-//                 <option>All Grades</option>
-//                 <option>Grade 9</option>
-//                 <option>Grade 10</option>
-//                 <option>Grade 11</option>
-//                 <option>Grade 12</option>
-//               </select>
-//               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-//             </div>
-
-//             <div className="relative">
-//               <select 
-//                 value={subjectFilter}
-//                 onChange={(e) => setSubjectFilter(e.target.value)}
-//                 className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//               >
-//                 <option>All Subjects</option>
-//                 <option>Mathematics</option>
-//                 <option>Science</option>
-//                 <option>Languages</option>
-//                 <option>Arts</option>
-//               </select>
-//               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-//             </div>
-
-//             <div className="relative">
-//               <select 
-//                 value={statusFilter}
-//                 onChange={(e) => setStatusFilter(e.target.value)}
-//                 className="appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//               >
-//                 <option>All Status</option>
-//                 <option>Active</option>
-//                 <option>Completed</option>
-//               </select>
-//               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-//             </div>
-
-//             <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm hover:bg-gray-50">
-//               <span>More Filters</span>
-//             </button>
-//           </div>
-
-//           <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600">
-//             <Plus className="w-4 h-4" />
-//             <span>Add New Class</span>
-//           </button>
-//         </div>
-
-//         {/* Classes Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-//           {displayedClasses.map((cls, index) => (
-//             <div key={index} className={`${cls.color} rounded-xl p-6 text-white shadow-lg`}>
-//               <div className="flex items-start justify-between mb-4">
-//                 <div>
-//                   <h3 className="text-xl font-bold mb-1">{cls.subject}</h3>
-//                   <p className="text-white/80 text-sm">{cls.grade}</p>
-//                 </div>
-//                 <button className="p-1 hover:bg-white/10 rounded">
-//                   <MoreVertical className="w-5 h-5" />
-//                 </button>
-//               </div>
-
-//               <div className="flex items-center gap-2 mb-6">
-//                 <Users className="w-4 h-4" />
-//                 <span className="text-sm">{cls.students} Students</span>
-//               </div>
-
-//               <div className="flex items-center gap-3 mb-6 pb-6 border-b border-white/20">
-//                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl">
-//                   {cls.teacher.avatar}
-//                 </div>
-//                 <div>
-//                   <p className="font-semibold text-sm">{cls.teacher.name}</p>
-//                   <p className="text-white/70 text-xs">{cls.teacher.role}</p>
-//                 </div>
-//               </div>
-
-//               <div className="grid grid-cols-3 gap-4 mb-4">
-//                 <div>
-//                   <p className="text-white/70 text-xs mb-1">Attendance</p>
-//                   <p className="font-bold">{cls.attendance}</p>
-//                 </div>
-//                 <div>
-//                   <p className="text-white/70 text-xs mb-1">Avg Score</p>
-//                   <p className="font-bold">{cls.avgScore}</p>
-//                 </div>
-//                 <div>
-//                   <p className="text-white/70 text-xs mb-1">Schedule</p>
-//                   <p className="font-bold text-xs">{cls.schedule}</p>
-//                 </div>
-//               </div>
-
-//               <button className="w-full flex items-center justify-center gap-2 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-sm">
-//                 <span>View Details</span>
-//                 <ExternalLink className="w-4 h-4" />
-//               </button>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* Pagination */}
-//         <div className="flex justify-center items-center gap-2">
-//           <button 
-//             onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-//             className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50"
-//             disabled={currentPage === 1}
-//           >
-//             <ChevronDown className="w-5 h-5 rotate-90" />
-//           </button>
-          
-//           {[...Array(totalPages)].map((_, i) => (
-//             <button
-//               key={i}
-//               onClick={() => setCurrentPage(i + 1)}
-//               className={`w-10 h-10 rounded-lg font-medium ${
-//                 currentPage === i + 1 
-//                   ? 'bg-blue-500 text-white' 
-//                   : 'bg-white text-gray-700 hover:bg-gray-100'
-//               }`}
-//             >
-//               {i + 1}
-//             </button>
-//           ))}
-          
-//           <button 
-//             onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-//             className="p-2 hover:bg-gray-100 rounded-lg disabled:opacity-50"
-//             disabled={currentPage === totalPages}
-//           >
-//             <ChevronDown className="w-5 h-5 -rotate-90" />
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
-
-
 
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, BookMarked, UserCheck, RefreshCw, AlertCircle, School, ClipboardList, UserCircle, Phone, Mail, MapPin, Award, TrendingUp } from 'lucide-react';
+import { Users, Calendar, BookOpen, Search, Plus, Download, Edit, Trash2, ChevronRight, UserCheck, School, ClipboardList, UserCircle, Phone, Mail, MapPin, Award, TrendingUp } from 'lucide-react';
+
+type Section = { id: string; name: string; students: number; teacher: string; room: string; avgAttendance: number };
+
+interface SectionDetailsScreenProps {
+  selectedSection: Section | null;
+  selectedClass: {
+    id: number;
+    name: string;
+    totalStudents: number;
+    sections: number;
+    teachers: number;
+    subjects: string[];
+    classTeacher: string;
+  } | null;
+  setSelectedSection: React.Dispatch<React.SetStateAction<Section | null>>;
+}
+
+const SectionDetailsScreen: React.FC<SectionDetailsScreenProps> = ({ selectedSection, selectedClass, setSelectedSection }) => {
+  if (!selectedSection || !selectedClass) return null;
+  // Example period timings (customize as needed)
+  const periodTimes = [
+    { period: 1, time: '09:00 - 09:45' },
+    { period: 2, time: '09:50 - 10:35' },
+    { period: 3, time: '10:40 - 11:25' },
+    { period: 4, time: '11:30 - 12:15' },
+    { period: 5, time: '12:20 - 01:05' },
+  ];
+  // Timetable with subject and timing for each period
+  const timetable = [
+    {
+      day: 'Monday',
+      periods: [
+        { subject: 'Math', time: periodTimes[0].time },
+        { subject: 'Science', time: periodTimes[1].time },
+        { subject: 'English', time: periodTimes[2].time },
+        { subject: 'PE', time: periodTimes[3].time },
+        { subject: '-', time: periodTimes[4].time },
+      ],
+    },
+    {
+      day: 'Tuesday',
+      periods: [
+        { subject: 'Math', time: periodTimes[0].time },
+        { subject: 'Social Studies', time: periodTimes[1].time },
+        { subject: 'Hindi', time: periodTimes[2].time },
+        { subject: 'Art', time: periodTimes[3].time },
+        { subject: '-', time: periodTimes[4].time },
+      ],
+    },
+    {
+      day: 'Wednesday',
+      periods: [
+        { subject: 'Science', time: periodTimes[0].time },
+        { subject: 'English', time: periodTimes[1].time },
+        { subject: 'Math', time: periodTimes[2].time },
+        { subject: 'Computer', time: periodTimes[3].time },
+        { subject: '-', time: periodTimes[4].time },
+      ],
+    },
+    {
+      day: 'Thursday',
+      periods: [
+        { subject: 'Math', time: periodTimes[0].time },
+        { subject: 'Science', time: periodTimes[1].time },
+        { subject: 'English', time: periodTimes[2].time },
+        { subject: 'Music', time: periodTimes[3].time },
+        { subject: '-', time: periodTimes[4].time },
+      ],
+    },
+    {
+      day: 'Friday',
+      periods: [
+        { subject: 'Math', time: periodTimes[0].time },
+        { subject: 'Social Studies', time: periodTimes[1].time },
+        { subject: 'Hindi', time: periodTimes[2].time },
+        { subject: 'PE', time: periodTimes[3].time },
+        { subject: '-', time: periodTimes[4].time },
+      ],
+    },
+  ];
+  return (
+    <div className="w-full max-w-none min-h-[80vh] bg-white rounded-2xl shadow-xl px-2 sm:px-6 md:px-12 lg:px-20 py-4 md:py-10 mt-8 transition-all duration-300">
+      <div className="flex justify-start mb-8">
+        <button
+          onClick={() => setSelectedSection(null)}
+          className="px-4 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition"
+          aria-label="Back to Sections"
+        >
+          ← Back to Sections
+        </button>
+      </div>
+      <div className="border-b border-gray-200 pb-6 mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 tracking-tight">{selectedClass.name} <span className="text-blue-600">- {selectedSection.name}</span></h1>
+          <p className="text-lg text-gray-500">Room: <span className="font-semibold text-gray-700">{selectedSection.room}</span> &bull; Teacher: <span className="font-semibold text-gray-700">{selectedSection.teacher}</span></p>
+        </div>
+      </div>
+      <div className="space-y-8">
+        {/* Timetable */}
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 shadow-sm overflow-x-auto">
+          <h2 className="font-bold text-xl text-blue-900 mb-4 flex items-center gap-2">
+            <Calendar className="w-6 h-6 text-blue-600" />
+            Timetable
+          </h2>
+          <table className="w-full text-base border-collapse">
+            <thead>
+              <tr>
+                <th className="text-left py-2 px-2 font-semibold text-blue-700">Day</th>
+                {periodTimes.map((p) => (
+                  <th key={p.period} className="text-left py-2 px-2 font-semibold text-blue-700">Period {p.period}<br /><span className='text-xs text-gray-500'>{p.time}</span></th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {timetable.map((row, idx) => (
+                <tr key={idx} className="hover:bg-blue-100 transition">
+                  <td className="py-2 px-2 font-medium text-gray-900 whitespace-nowrap">{row.day}</td>
+                  {row.periods.map((period, pidx) => (
+                    <td key={pidx} className="py-2 px-2 text-gray-700 whitespace-nowrap">{period.subject}<br /><span className='text-xs text-gray-400'>{period.time}</span></td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* Teachers & Subjects */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-green-50 border border-green-200 rounded-xl p-6 shadow-sm">
+            <h2 className="font-bold text-xl text-green-900 mb-4 flex items-center gap-2">
+              <UserCheck className="w-6 h-6 text-green-600" />
+              Section Teacher
+            </h2>
+            <p className="font-medium text-gray-900 text-lg">{selectedSection.teacher}</p>
+          </div>
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-6 shadow-sm">
+            <h2 className="font-bold text-xl text-purple-900 mb-4 flex items-center gap-2">
+              <BookOpen className="w-6 h-6 text-purple-600" />
+              Subjects
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {selectedClass.subjects.map((subject, idx) => (
+                <span key={idx} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium shadow-sm hover:bg-purple-100 transition">{subject}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Section Profile */}
+        <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h2 className="font-bold text-xl text-gray-900 mb-4 flex items-center gap-2">
+            <ClipboardList className="w-6 h-6 text-blue-600" />
+            Section Profile
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <p className="text-sm text-gray-500">Section Name</p>
+              <p className="font-semibold text-gray-900 text-lg">{selectedSection.name}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Room</p>
+              <p className="font-semibold text-gray-900 text-lg">{selectedSection.room}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Average Attendance</p>
+              <p className="font-semibold text-blue-700 text-lg">{selectedSection.avgAttendance}%</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Number of Students</p>
+              <p className="font-semibold text-green-700 text-lg">{selectedSection.students}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SchoolAdminDashboard = () => {
+  // Modal state for Add Class
+  const [showAddClassModal, setShowAddClassModal] = useState(false);
+  const [addClassForm, setAddClassForm] = useState({
+    name: '',
+    sections: '',
+    teachers: '',
+    subjects: '',
+    classTeacher: '',
+  });
+  const [addClassError, setAddClassError] = useState<string | null>(null);
   const [activeScreen, setActiveScreen] = useState('dashboard');
   const [activeLibrarySection, setActiveLibrarySection] = useState('overview');
   const [selectedClass, setSelectedClass] = useState<{
@@ -435,7 +218,7 @@ const SchoolAdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Classes Data
-  const classesData = [
+  const [classesData, setClassesData] = useState([
     { 
       id: 1, 
       name: 'Class 9', 
@@ -490,11 +273,11 @@ const SchoolAdminDashboard = () => {
       subjects: ['Accountancy', 'Business Studies', 'Economics', 'English', 'Mathematics'],
       classTeacher: 'Mrs. Kavita Singh'
     },
-  ];
+  ]);
 
   // Sections Data
   type Section = { id: string; name: string; students: number; teacher: string; room: string; avgAttendance: number };
-  const sectionsData: Record<number, Section[]> = {
+  const [sectionsData, setSectionsData] = useState<Record<number, Section[]>>({
     1: [
       { id: 'A', name: 'Section A', students: 38, teacher: 'Mrs. Meera Joshi', room: '201', avgAttendance: 94 },
       { id: 'B', name: 'Section B', students: 37, teacher: 'Mr. Suresh Nair', room: '202', avgAttendance: 92 },
@@ -525,7 +308,19 @@ const SchoolAdminDashboard = () => {
       { id: 'A', name: 'Section A', students: 38, teacher: 'Mrs. Geeta Malhotra', room: '701', avgAttendance: 97 },
       { id: 'B', name: 'Section B', students: 37, teacher: 'Mr. Ashok Tripathi', room: '702', avgAttendance: 96 },
     ],
-  };
+  });
+
+  // Modal state for Add Section
+  const [showAddSectionModal, setShowAddSectionModal] = useState(false);
+  const [addSectionForm, setAddSectionForm] = useState({
+    id: '',
+    name: '',
+    students: '',
+    teacher: '',
+    room: '',
+    avgAttendance: '',
+  });
+  const [addSectionError, setAddSectionError] = useState<string | null>(null);
 
   // Students Data
   const studentsData: { [key: string]: Student[] } = {
@@ -553,14 +348,17 @@ const SchoolAdminDashboard = () => {
           <h2 className="text-2xl font-bold text-gray-900">Classes Management</h2>
           <p className="text-gray-500 mt-1">Manage all classes, sections, and students</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          onClick={() => setShowAddClassModal(true)}
+        >
           <Plus className="w-4 h-4" />
           Add New Class
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {classesData.map((classItem) => (
+        {classesData.map((classItem: typeof classesData[0]) => (
           <div
             key={classItem.id}
             onClick={() => setSelectedClass(classItem)}
@@ -572,10 +370,8 @@ const SchoolAdminDashboard = () => {
               </div>
               <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
             </div>
-            
             <h3 className="text-xl font-bold text-gray-900 mb-2">{classItem.name}</h3>
             <p className="text-sm text-gray-500 mb-4">Class Teacher: {classItem.classTeacher}</p>
-            
             <div className="grid grid-cols-3 gap-4 mb-4">
               <div>
                 <p className="text-2xl font-bold text-blue-600">{classItem.totalStudents}</p>
@@ -590,11 +386,10 @@ const SchoolAdminDashboard = () => {
                 <p className="text-xs text-gray-500">Teachers</p>
               </div>
             </div>
-
             <div className="pt-4 border-t border-gray-200">
               <p className="text-xs text-gray-500 mb-2">Subjects</p>
               <div className="flex flex-wrap gap-1">
-                {classItem.subjects.slice(0, 3).map((subject, idx) => (
+                {classItem.subjects.slice(0, 3).map((subject: string, idx: number) => (
                   <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
                     {subject}
                   </span>
@@ -612,13 +407,134 @@ const SchoolAdminDashboard = () => {
     </div>
   );
 
+  // Add Class Modal
+  const AddClassModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-8 relative">
+        <button
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+          onClick={() => {
+            setShowAddClassModal(false);
+            setAddClassForm({ name: '', sections: '', teachers: '', subjects: '', classTeacher: '' });
+            setAddClassError(null);
+          }}
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-bold mb-6 text-gray-900">Add New Class</h2>
+        {addClassError && <div className="mb-4 text-red-600 text-sm">{addClassError}</div>}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            // Validation
+            if (!addClassForm.name.trim() || !addClassForm.sections.trim() || !addClassForm.teachers.trim() || !addClassForm.subjects.trim() || !addClassForm.classTeacher.trim()) {
+              setAddClassError('All fields are required.');
+              return;
+            }
+            if (isNaN(Number(addClassForm.sections)) || isNaN(Number(addClassForm.teachers))) {
+              setAddClassError('Sections and Teachers must be numbers.');
+              return;
+            }
+            // Add new class
+            setClassesData((prev: typeof classesData) => [
+              ...prev,
+              {
+                id: prev.length ? Math.max(...prev.map((c: typeof classesData[0]) => c.id)) + 1 : 1,
+                name: addClassForm.name,
+                totalStudents: 0,
+                sections: Number(addClassForm.sections),
+                teachers: Number(addClassForm.teachers),
+                subjects: addClassForm.subjects.split(',').map((s: string) => s.trim()).filter(Boolean),
+                classTeacher: addClassForm.classTeacher,
+              },
+            ]);
+            setShowAddClassModal(false);
+            setAddClassForm({ name: '', sections: '', teachers: '', subjects: '', classTeacher: '' });
+            setAddClassError(null);
+          }}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Class Name</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addClassForm.name}
+              onChange={e => setAddClassForm((f: typeof addClassForm) => ({ ...f, name: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Sections</label>
+            <input
+              type="number"
+              min="1"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addClassForm.sections}
+              onChange={e => setAddClassForm((f: typeof addClassForm) => ({ ...f, sections: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Teachers</label>
+            <input
+              type="number"
+              min="1"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addClassForm.teachers}
+              onChange={e => setAddClassForm((f: typeof addClassForm) => ({ ...f, teachers: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Subjects <span className="text-xs text-gray-400">(comma separated)</span></label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addClassForm.subjects}
+              onChange={e => setAddClassForm((f: typeof addClassForm) => ({ ...f, subjects: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-1">Class Teacher</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addClassForm.classTeacher}
+              onChange={e => setAddClassForm((f: typeof addClassForm) => ({ ...f, classTeacher: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                setShowAddClassModal(false);
+                setAddClassForm({ name: '', sections: '', teachers: '', subjects: '', classTeacher: '' });
+                setAddClassError(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+            >
+              Add Class
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+
   // Sections View Screen
   const SectionsView = () => {
     const sections =
       selectedClass && sectionsData[selectedClass.id]
         ? sectionsData[selectedClass.id]
         : [];
-    
     return (
       <div>
         <div className="mb-6">
@@ -633,15 +549,17 @@ const SchoolAdminDashboard = () => {
               <h2 className="text-2xl font-bold text-gray-900">{selectedClass ? `${selectedClass.name} - Sections` : 'Sections'}</h2>
               <p className="text-gray-500 mt-1">Class Teacher: {selectedClass ? selectedClass.classTeacher : ''}</p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <button
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              onClick={() => setShowAddSectionModal(true)}
+            >
               <Plus className="w-4 h-4" />
               Add Section
             </button>
           </div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sections.map((section) => (
+          {sections.map((section: Section) => (
             <div
               key={section.id}
               onClick={() => setSelectedSection(section)}
@@ -653,11 +571,9 @@ const SchoolAdminDashboard = () => {
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" />
               </div>
-              
               <h3 className="text-xl font-bold text-gray-900 mb-2">{section.name}</h3>
               <p className="text-sm text-gray-500 mb-1">Teacher: {section.teacher}</p>
               <p className="text-sm text-gray-500 mb-4">Room: {section.room}</p>
-              
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
                   <p className="text-2xl font-bold text-blue-600">{section.students}</p>
@@ -668,7 +584,6 @@ const SchoolAdminDashboard = () => {
                   <p className="text-xs text-gray-500">Attendance</p>
                 </div>
               </div>
-
               <div className="pt-4 border-t border-gray-200">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">View Students</span>
@@ -681,6 +596,144 @@ const SchoolAdminDashboard = () => {
       </div>
     );
   };
+
+  // Add Section Modal
+  const AddSectionModal = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-8 relative">
+        <button
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold"
+          onClick={() => {
+            setShowAddSectionModal(false);
+            setAddSectionForm({ id: '', name: '', students: '', teacher: '', room: '', avgAttendance: '' });
+            setAddSectionError(null);
+          }}
+        >
+          ✕
+        </button>
+        <h2 className="text-xl font-bold mb-6 text-gray-900">Add New Section</h2>
+        {addSectionError && <div className="mb-4 text-red-600 text-sm">{addSectionError}</div>}
+        <form
+          onSubmit={e => {
+            e.preventDefault();
+            if (!addSectionForm.id.trim() || !addSectionForm.name.trim() || !addSectionForm.students.trim() || !addSectionForm.teacher.trim() || !addSectionForm.room.trim() || !addSectionForm.avgAttendance.trim()) {
+              setAddSectionError('All fields are required.');
+              return;
+            }
+            if (isNaN(Number(addSectionForm.students)) || isNaN(Number(addSectionForm.avgAttendance))) {
+              setAddSectionError('Students and Attendance must be numbers.');
+              return;
+            }
+            if (!selectedClass) {
+              setAddSectionError('No class selected.');
+              return;
+            }
+            setSectionsData(prev => {
+              const classId = selectedClass.id;
+              const newSection: Section = {
+                id: addSectionForm.id,
+                name: addSectionForm.name,
+                students: Number(addSectionForm.students),
+                teacher: addSectionForm.teacher,
+                room: addSectionForm.room,
+                avgAttendance: Number(addSectionForm.avgAttendance),
+              };
+              return {
+                ...prev,
+                [classId]: prev[classId] ? [...prev[classId], newSection] : [newSection],
+              };
+            });
+            setShowAddSectionModal(false);
+            setAddSectionForm({ id: '', name: '', students: '', teacher: '', room: '', avgAttendance: '' });
+            setAddSectionError(null);
+          }}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Section ID (e.g. A, B, C)</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.id}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, id: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Section Name</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.name}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, name: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Number of Students</label>
+            <input
+              type="number"
+              min="1"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.students}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, students: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Section Teacher</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.teacher}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, teacher: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-1">Room</label>
+            <input
+              type="text"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.room}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, room: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 font-medium mb-1">Average Attendance (%)</label>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={addSectionForm.avgAttendance}
+              onChange={e => setAddSectionForm((f: typeof addSectionForm) => ({ ...f, avgAttendance: e.target.value }))}
+              required
+            />
+          </div>
+          <div className="flex justify-end gap-2">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+              onClick={() => {
+                setShowAddSectionModal(false);
+                setAddSectionForm({ id: '', name: '', students: '', teacher: '', room: '', avgAttendance: '' });
+                setAddSectionError(null);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+            >
+              Add Section
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 
   // Students List Screen
   const StudentsList = () => {
@@ -730,10 +783,10 @@ const SchoolAdminDashboard = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {students.filter(student => 
+          {students.filter((student: Student) => 
             student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             student.roll.includes(searchTerm)
-          ).map((student) => (
+          ).map((student: Student) => (
             <div
               key={student.id}
               onClick={() => setSelectedStudent(student)}
@@ -909,7 +962,7 @@ const SchoolAdminDashboard = () => {
 
   const renderClassesContent = () => {
     if (selectedSection) {
-      return <StudentsList />;
+      return <SectionDetailsScreen selectedSection={selectedSection} selectedClass={selectedClass} setSelectedSection={setSelectedSection} />;
     }
     if (selectedClass) {
       return <SectionsView />;
@@ -937,10 +990,9 @@ const SchoolAdminDashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {selectedStudent && <StudentDetailsModal />}
-      
-     
-
+      {/* Removed StudentDetailsModal - student details are not shown on section click anymore */}
+      {showAddClassModal && <AddClassModal />}
+      {showAddSectionModal && <AddSectionModal />}
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
         <div className="p-8">

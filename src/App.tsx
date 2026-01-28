@@ -1,3 +1,7 @@
+import TransportManagerRoute from "./routes/TransportManagerRoute";
+import LibraryManagerRoute from "./routes/LibraryManagerRoute";
+import SuperAdminRoute from "./routes/SuperAdminRoute";
+import FinanceManagerRoute from "./routes/FinanceManagerRoute";
 import React from "react";
 import AdminDashboardScreen from "./screens/admin/dashboard/AdminDashboardScreen";
 import UserManagementScreen from "./screens/admin/user/UserManagementScreen";
@@ -124,6 +128,18 @@ function App() {
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="about-us" element={<AboutUsPage />} />
                     <Route path="help" element={<HelpPage />} />
+                </Route>
+                <Route path="/finance-manager" element={<Layout />}>
+                    <Route path="*" element={<FinanceManagerRoute />} />
+                </Route>
+                <Route path="/super-admin" element={<Layout />}>
+                    <Route path="*" element={<SuperAdminRoute />} />
+                </Route>
+                <Route path="/library-manager" element={<Layout />}>
+                    <Route path="*" element={<LibraryManagerRoute />} />
+                </Route>
+                <Route path="/transport-manager" element={<Layout />}>
+                    <Route path="*" element={<TransportManagerRoute />} />
                 </Route>
             </Routes>
         </BrowserRouter>
