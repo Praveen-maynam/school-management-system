@@ -167,6 +167,13 @@ const ExamDashboard = () => {
           >
             Grade Config
           </button>
+ <button 
+            onClick={() => navigate('/admin/exams/exam-creation')}
+            className="pb-3 px-1 text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-gray-300"
+          >
+            Exam Creation
+          </button>
+
           <button 
             onClick={() => navigate('/admin/exams/results')}
             className="pb-3 px-1 text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-gray-300"

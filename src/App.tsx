@@ -45,12 +45,12 @@ import ExamResultsBoard from "./screens/admin/exam/ExamResultsBoard";
 import ExamSchedule from "./screens/admin/exam/ExamSchedule";
 import GradeConfiguration from "./screens/admin/exam/GradeConfiguration";
 import MarksControl from "./screens/admin/exam/MarksControl";
+import ExamCreationForm from "./screens/admin/exam/ExamCreationForm";
 import FinanceDashboard from "./screens/admin/finance/FinanceDashBoard";
 import CleaningFinance from "./screens/admin/finance/CleaningFinance";
 import TransportFinance from "./screens/admin/finance/TransportFinance";
 import InventoryManagement from "./screens/admin/finance/InventoryManagement";
 import LibraryFinance from "./screens/admin/finance/LibraryFinance";
-import PayslipHistoryScreen from "./screens/teacher/payroll/PayslipHistoryScreen";
 import SecurityFinance from "./screens/admin/finance/SecurityFinance";
 import StudentDuesDetail from "./screens/admin/finance/StudentDuesDetail";
 import TeachingStaffDetails from "./screens/admin/finance/TeachingStaffDetails";
@@ -82,6 +82,7 @@ function App() {
                     <Route path="exams/marks" element={<MarksControl />} />
                     <Route path="exams/grade-config" element={<GradeConfiguration />} />
                     <Route path="exams/results" element={<ExamResultsBoard />} />
+                    <Route path="exams/exam-creation" element={<ExamCreationForm />} />
                      <Route path="finance" element={<FinanceDashboard />} />
                     <Route path="finance/students" element={<StudentDuesDetail />} />
                     <Route path="finance/teaching-staff" element={<TeachingStaffDetails />} />
