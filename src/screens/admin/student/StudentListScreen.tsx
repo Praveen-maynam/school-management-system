@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Users, BookOpen, Calendar, DollarSign, FileText, BarChart3, Settings, LogOut, Menu, X, Search, Plus, Edit2, Trash2, Eye, Download, Filter, Bell, Home, UserPlus, GraduationCap, TrendingUp, ChevronDown } from 'lucide-react';
+import DashboardCard from '../../../components/cards/DashboardCard';
 
 const SchoolAdminPanel = () => {
   const [currentScreen, setCurrentScreen] = useState('students');
@@ -308,6 +309,7 @@ const SchoolAdminPanel = () => {
           iconBg="bg-blue-50"
           iconColor="text-blue-600"
         />
+        {/* <DashboardCard title="Total Students" value={2847} icon="Users" /> */}
         <StatCard
           icon={UserPlus}
           label="Active Students"

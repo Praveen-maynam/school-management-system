@@ -11,6 +11,10 @@ import TransportRoutesScreen from "./screens/admin/transport/TransportRoutesScre
 
 import InventoryListScreen from "./screens/admin/inventory/InventoryListScreen";
 import StaffListScreen from "./screens/admin/staff/StaffListScreen";
+import ExaminationScreen from "./screens/non-teaching-staff/examination/ExaminationScreen";
+import InventoryScreen from "./screens/non-teaching-staff/inventory/InventoryScreen";
+import SportsScreen from "./screens/non-teaching-staff/sports/SportsScreen";
+import SecurityScreen from "./screens/non-teaching-staff/security/SecurityScreen";
 import TeacherListScreen from "./screens/admin/teacher/TeacherListScreen";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AttendanceProvider } from "./context/AttendanceContext";
@@ -66,37 +70,41 @@ function App() {
             <BrowserRouter>
                 <Routes>
                 <Route path="/" element={<LoginScreen />} />
-                <Route path="/admin" element={<Layout />}>
-                    <Route path="dashboard" element={<AdminDashboardScreen />} />
-                    <Route path="students" element={<StudentListScreen />} />
-                    <Route path="exams" element={<ExamDashboard />} />
-                     <Route path="teachers" element={<TeacherListScreen />} />
-                    <Route path="transport" element={<TransportRoutesScreen />} />
-                    <Route path="inventory" element={<InventoryListScreen />} /> 
-                    <Route path="settings" element={<SettingsScreen />} />
-                    <Route path="reports" element={<FeeReportsScreen />} />
-                    <Route path="finance" element={<FinanceDashboard />} />
-                    <Route path="library" element={<BookListScreen />} />
-                    <Route path="hostel" element={<div>Admin Hostel Screen</div>} />
-                    <Route path="classes" element={<ClassListScreen />} />
-                    <Route path="users" element={<UserManagementScreen />} />
-                    <Route path="attendance" element={<AttendanceReportsScreen />} />
-                    <Route path="non-teaching-staff" element={<StaffListScreen />} />
-                      <Route path="exams/schedule" element={<ExamSchedule />} />
-                    <Route path="exams/marks" element={<MarksControl />} />
-                    <Route path="exams/grade-config" element={<GradeConfiguration />} />
-                    <Route path="exams/results" element={<ExamResultsBoard />} />
-                     <Route path="finance" element={<FinanceDashboard />} />
-                    <Route path="finance/students" element={<StudentDuesDetail />} />
-                    <Route path="finance/teaching-staff" element={<TeachingStaffDetails />} />
-                    <Route path="finance/library" element={<LibraryFinance />} />
-                    <Route path="finance/transport" element={<TransportFinance />} />
-                    <Route path="finance/cleaning" element={<CleaningFinance />} />
-                    <Route path="finance/security" element={<SecurityFinance />} />
-                    <Route path="finance/inventory" element={<InventoryManagement />} />
-                    {/* Add more admin routes here as needed */}
-                    <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
-                </Route>
+                                <Route path="/admin" element={<Layout />}>
+                                        <Route path="dashboard" element={<AdminDashboardScreen />} />
+                                        <Route path="students" element={<StudentListScreen />} />
+                                        <Route path="exams" element={<ExamDashboard />} />
+                                        <Route path="teachers" element={<TeacherListScreen />} />
+                                        <Route path="transport" element={<TransportRoutesScreen />} />
+                                        <Route path="inventory" element={<InventoryListScreen />} /> 
+                                        <Route path="settings" element={<SettingsScreen />} />
+                                        <Route path="reports" element={<FeeReportsScreen />} />
+                                        <Route path="finance" element={<FinanceDashboard />} />
+                                        <Route path="library" element={<BookListScreen />} />
+                                        <Route path="hostel" element={<div>Admin Hostel Screen</div>} />
+                                        <Route path="classes" element={<ClassListScreen />} />
+                                        <Route path="users" element={<UserManagementScreen />} />
+                                        <Route path="attendance" element={<AttendanceReportsScreen />} />
+                                        <Route path="non-teaching-staff" element={<StaffListScreen />} />
+                                        <Route path="non-teaching-staff/examination" element={<ExaminationScreen />} />
+                                        <Route path="non-teaching-staff/inventory" element={<InventoryScreen />} />
+                                        <Route path="non-teaching-staff/sports" element={<SportsScreen />} />
+                                        <Route path="non-teaching-staff/security" element={<SecurityScreen />} />
+                                        <Route path="exams/schedule" element={<ExamSchedule />} />
+                                        <Route path="exams/marks" element={<MarksControl />} />
+                                        <Route path="exams/grade-config" element={<GradeConfiguration />} />
+                                        <Route path="exams/results" element={<ExamResultsBoard />} />
+                                        <Route path="finance" element={<FinanceDashboard />} />
+                                        <Route path="finance/students" element={<StudentDuesDetail />} />
+                                        <Route path="finance/teaching-staff" element={<TeachingStaffDetails />} />
+                                        <Route path="finance/library" element={<LibraryFinance />} />
+                                        <Route path="finance/transport" element={<TransportFinance />} />
+                                        <Route path="finance/cleaning" element={<CleaningFinance />} />
+                                        <Route path="finance/security" element={<SecurityFinance />} />
+                                        <Route path="finance/inventory" element={<InventoryManagement />} />
+                                        {/* Add more admin routes here as needed */}
+                                        <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
+                                </Route>
                 <Route path="/teacher" element={<Layout />}>
                     <Route path="dashboard" element={<TeacherDashboard />} />
                     <Route path="attendance/mark" element={<MarkAttendanceScreen />} />

@@ -21,5 +21,11 @@
   ],
   "transportManagers": [
     { "email": "transportmgr@school.com", "password": "trans123", "name": "Transport Manager" }
+  ],
+  "nonTeachingStaff": [
+    { "email": "examstaff@school.com", "password": "exam123", "name": "Exam Staff", "role": "examination" },
+    { "email": "inventorystaff@school.com", "password": "inv123", "name": "Inventory Staff", "role": "inventory" },
+    { "email": "sportsstaff@school.com", "password": "sports123", "name": "Sports Staff", "role": "sports" },
+    { "email": "securitystaff@school.com", "password": "sec123", "name": "Security Staff", "role": "security" }
   ]
 }

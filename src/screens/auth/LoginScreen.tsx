@@ -63,6 +63,27 @@ function LoginScreen() {
       return;
     }
 
+    // Check in non-teaching staff
+    const nonTeaching = usersData.nonTeachingStaff && usersData.nonTeachingStaff.find(
+      nts => nts.email === email && nts.password === password
+    );
+    if (nonTeaching) {
+      localStorage.setItem('nonTeachingStaffEmail', nonTeaching.email);
+      localStorage.setItem('nonTeachingStaffRole', nonTeaching.role);
+      if (nonTeaching.role === 'examination') {
+        navigate('/admin/non-teaching-staff/examination', { replace: true });
+      } else if (nonTeaching.role === 'inventory') {
+        navigate('/admin/non-teaching-staff/inventory', { replace: true });
+      } else if (nonTeaching.role === 'sports') {
+        navigate('/admin/non-teaching-staff/sports', { replace: true });
+      } else if (nonTeaching.role === 'security') {
+        navigate('/admin/non-teaching-staff/security', { replace: true });
+      } else {
+        navigate('/admin/non-teaching-staff', { replace: true });
+      }
+      return;
+    }
+
     // Check in parents
     const parent = usersData.parents.find(p => p.email === email && p.password === password);
     if (parent) {

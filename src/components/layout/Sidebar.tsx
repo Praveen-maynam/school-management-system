@@ -19,7 +19,31 @@ const Sidebar = () => {
 
   // Menu structure with submenu for Students
   const getMenuItems = (): MenuItem[] => {
-    if (location.pathname.startsWith('/admin')) {
+    // Role-based sidebar for non-teaching staff
+    if (location.pathname.startsWith('/admin/non-teaching-staff')) {
+      const role = localStorage.getItem('nonTeachingStaffRole');
+      if (role === 'examination') {
+        return [
+          { label: 'Examination Dashboard', path: '/admin/non-teaching-staff/examination', icon: ClipboardList },
+        ];
+      } else if (role === 'inventory') {
+        return [
+          { label: 'Inventory Dashboard', path: '/admin/non-teaching-staff/inventory', icon: FileText },
+        ];
+      } else if (role === 'sports') {
+        return [
+          { label: 'Sports Dashboard', path: '/admin/non-teaching-staff/sports', icon: BarChart2 },
+        ];
+      } else if (role === 'security') {
+        return [
+          { label: 'Security Dashboard', path: '/admin/non-teaching-staff/security', icon: Users },
+        ];
+      } else {
+        return [
+          { label: 'Dashboard', path: '/admin/non-teaching-staff', icon: Home },
+        ];
+      }
+    } else if (location.pathname.startsWith('/admin')) {
       return [
         { label: 'Dashboard', path: '/admin/dashboard', icon: Home },
         {
@@ -31,38 +55,30 @@ const Sidebar = () => {
             { label: 'Attendance', path: '/admin/attendance', icon: Calendar },
           ],
         },
-  
         { label: 'Exams & Grades', path: '/admin/exams', icon: ClipboardList },
         { label: 'Finance', path: '/admin/finance', icon: Wallet },
         { label: 'Library', path: '/admin/library', icon: Book },
         { label: 'Transport', path: '/admin/transport', icon: Bus },
         { label: 'Inventory', path: '/admin/inventory', icon: FileText },
         {
-        label: 'Staff',
-        icon: GraduationCap,
-        children: [
-          { label: 'Teacher', path: '/admin/teachers', icon: GraduationCap },
-          { label: 'Non-Teaching Staff', path: '/admin/non-teaching-staff', icon: User },
-        ],
-      },
+          label: 'Staff',
+          icon: GraduationCap,
+          children: [
+            { label: 'Teacher', path: '/admin/teachers', icon: GraduationCap },
+            { label: 'Non-Teaching Staff', path: '/admin/non-teaching-staff', icon: User },
+          ],
+        },
         { label: 'User Management', path: '/admin/users', icon: Users },
         { label: 'Settings', path: '/admin/settings', icon: Settings },
         { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
       ];
     } else if (location.pathname.startsWith('/super-admin')) {
+      // Production-level super admin sidebar
       return [
-        { label: 'Dashboard', path: '/super-admin/dashboard', icon: Home },
-        { label: 'Revenue Trends', path: '/super-admin/dashboard/revenue', icon: BarChart2 },
-        { label: 'User Statistics', path: '/super-admin/dashboard/users', icon: Users },
-        { label: 'Storage Usage', path: '/super-admin/dashboard/storage', icon: FileText },
-        { label: 'Login Analytics', path: '/super-admin/dashboard/login-analytics', icon: BarChart2 },
-        { label: 'System Health', path: '/super-admin/dashboard/system-health', icon: BarChart2 },
-        { label: 'Support Tickets', path: '/super-admin/dashboard/support-tickets', icon: ClipboardList },
-        { label: 'Schools', path: '/super-admin/schools', icon: School },
-        { label: 'Billing Plans', path: '/super-admin/billing/plans', icon: Wallet },
-        { label: 'Invoices', path: '/super-admin/billing/invoices', icon: Wallet },
+        { label: 'Dashboard & Analytics', path: '/super-admin/dashboard', icon: BarChart2 },
+        { label: 'School Management', path: '/super-admin/schools', icon: School },
+        { label: 'Billing & Plans', path: '/super-admin/billing/plans', icon: Wallet },
         { label: 'Admin Management', path: '/super-admin/admins', icon: Users },
-        { label: 'Audit Logs', path: '/super-admin/admins/audit-logs', icon: FileText },
         { label: 'Support Center', path: '/super-admin/support-center', icon: ClipboardList },
         { label: 'Data Management', path: '/super-admin/data-management', icon: FileText },
         { label: 'Platform Settings', path: '/super-admin/settings', icon: Settings },
