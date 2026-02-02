@@ -1,0 +1,13 @@
+/* Tooltip styles */
+.tooltip-box {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.toggle-button {
+  height: 22px;
+}
+
+.toggle-span {
+  width: 18px;
+  height: 18px;
+}

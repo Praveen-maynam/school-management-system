@@ -87,18 +87,11 @@ const Sidebar = () => {
       return [
         { label: 'Dashboard', path: '/finance-manager/dashboard', icon: Home },
         { label: 'Fee Structure', path: '/finance-manager/fee-configuration/structure', icon: FileText },
-        { label: 'Fee Category', path: '/finance-manager/fee-configuration/category', icon: FileText },
-        { label: 'Fee Discount', path: '/finance-manager/fee-configuration/discount', icon: FileText },
-        { label: 'Late Fee Config', path: '/finance-manager/fee-configuration/late-fee', icon: FileText },
-        { label: 'Installment Plan', path: '/finance-manager/fee-configuration/installment', icon: FileText },
+  
         { label: 'Online Payments', path: '/finance-manager/payment-management/online', icon: Wallet },
-        { label: 'Manual Payments', path: '/finance-manager/payment-management/manual', icon: Wallet },
-        { label: 'Cash/Cheque Entry', path: '/finance-manager/payment-management/cash-cheque', icon: Wallet },
-        { label: 'Payment Verification', path: '/finance-manager/payment-management/verification', icon: Wallet },
-        { label: 'Refund Processing', path: '/finance-manager/payment-management/refund', icon: Wallet },
+       
         { label: 'Defaulter List', path: '/finance-manager/dues-defaulters/defaulters', icon: Users },
-        { label: 'Due Tracking', path: '/finance-manager/dues-defaulters/due-tracking', icon: Users },
-        { label: 'Payment Reminders', path: '/finance-manager/dues-defaulters/reminders', icon: Users },
+       
         { label: 'Follow Up System', path: '/finance-manager/dues-defaulters/follow-up', icon: Users },
         { label: 'Collection Reports', path: '/finance-manager/dues-defaulters/collection-reports', icon: BarChart2 },
         { label: 'Daily Collection', path: '/finance-manager/financial-reports/daily', icon: BarChart2 },
