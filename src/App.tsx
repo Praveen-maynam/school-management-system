@@ -58,7 +58,7 @@ import LibraryFinance from "./screens/admin/finance/LibraryFinance";
 import SecurityFinance from "./screens/admin/finance/SecurityFinance";
 import StudentDuesDetail from "./screens/admin/finance/StudentDuesDetail";
 import TeachingStaffDetails from "./screens/admin/finance/TeachingStaffDetails";
-
+import AddNewBook from "./screens/non-teaching-staff/library-tools/AddNewBook";
 
 function App() {
     return (
@@ -137,6 +137,7 @@ function App() {
                 </Route>
                 <Route path="/library-manager" element={<Layout />}>
                     <Route path="*" element={<LibraryManagerRoute />} />
+                    <Route path="add-new-book" element={<AddNewBook />} />
                 </Route>
                 <Route path="/transport-manager" element={<Layout />}>
                     <Route path="*" element={<TransportManagerRoute />} />

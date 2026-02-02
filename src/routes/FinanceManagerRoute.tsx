@@ -2,18 +2,8 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import FinanceDashboardScreen from '../screens/finance-manager/dashboard/FinanceDashboardScreen';
 import FeeStructureScreen from '../screens/finance-manager/fee-configuration/FeeStructureScreen';
-import FeeCategoryScreen from '../screens/finance-manager/fee-configuration/FeeCategoryScreen';
-import FeeDiscountScreen from '../screens/finance-manager/fee-configuration/FeeDiscountScreen';
-import LateFeeConfigScreen from '../screens/finance-manager/fee-configuration/LateFeeConfigScreen';
-import InstallmentPlanScreen from '../screens/finance-manager/fee-configuration/InstallmentPlanScreen';
 import OnlinePaymentsScreen from '../screens/finance-manager/payment-management/OnlinePaymentsScreen';
-import ManualPaymentsScreen from '../screens/finance-manager/payment-management/ManualPaymentsScreen';
-import CashChequeEntryScreen from '../screens/finance-manager/payment-management/CashChequeEntryScreen';
-import PaymentVerificationScreen from '../screens/finance-manager/payment-management/PaymentVerificationScreen';
-import RefundProcessingScreen from '../screens/finance-manager/payment-management/RefundProcessingScreen';
 import DefaulterListScreen from '../screens/finance-manager/dues-defaulters/DefaulterListScreen';
-import DueTrackingScreen from '../screens/finance-manager/dues-defaulters/DueTrackingScreen';
-import PaymentRemindersScreen from '../screens/finance-manager/dues-defaulters/PaymentRemindersScreen';
 import FollowUpSystemScreen from '../screens/finance-manager/dues-defaulters/FollowUpSystemScreen';
 import CollectionReportsScreen from '../screens/finance-manager/dues-defaulters/CollectionReportsScreen';
 import DailyCollectionReportScreen from '../screens/finance-manager/financial-reports/DailyCollectionReportScreen';
@@ -37,20 +27,13 @@ const FinanceManagerRoute = () => (
     <Route path="dashboard" element={<FinanceDashboardScreen />} />
     {/* Fee Configuration */}
     <Route path="fee-configuration/structure" element={<FeeStructureScreen />} />
-    <Route path="fee-configuration/category" element={<FeeCategoryScreen />} />
-    <Route path="fee-configuration/discount" element={<FeeDiscountScreen />} />
-    <Route path="fee-configuration/late-fee" element={<LateFeeConfigScreen />} />
-    <Route path="fee-configuration/installment" element={<InstallmentPlanScreen />} />
+   
     {/* Payment Management */}
     <Route path="payment-management/online" element={<OnlinePaymentsScreen />} />
-    <Route path="payment-management/manual" element={<ManualPaymentsScreen />} />
-    <Route path="payment-management/cash-cheque" element={<CashChequeEntryScreen />} />
-    <Route path="payment-management/verification" element={<PaymentVerificationScreen />} />
-    <Route path="payment-management/refund" element={<RefundProcessingScreen />} />
+  
     {/* Dues & Defaulters */}
     <Route path="dues-defaulters/defaulters" element={<DefaulterListScreen />} />
-    <Route path="dues-defaulters/due-tracking" element={<DueTrackingScreen />} />
-    <Route path="dues-defaulters/reminders" element={<PaymentRemindersScreen />} />
+   
     <Route path="dues-defaulters/follow-up" element={<FollowUpSystemScreen />} />
     <Route path="dues-defaulters/collection-reports" element={<CollectionReportsScreen />} />
     {/* Financial Reports */}
