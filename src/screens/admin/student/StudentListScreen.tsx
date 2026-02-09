@@ -300,7 +300,11 @@ const SchoolAdminPanel = () => {
   const StudentsScreen = () => (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard
+        <DashboardCard title="Total Students" value={2847} icon={Users} trend={12} />
+        <DashboardCard title="Active Students" value={2734} icon={UserPlus} trend={8} />
+        <DashboardCard title="New Admissions" value={156} icon={Users} trend={5} />
+        <DashboardCard title="Graduated" value={423} icon={GraduationCap} trend={-3} />
+        {/* <StatCard
           icon={Users}
           label="Total Students"
           value="2,847"
@@ -309,7 +313,7 @@ const SchoolAdminPanel = () => {
           iconBg="bg-blue-50"
           iconColor="text-blue-600"
         />
-        {/* <DashboardCard title="Total Students" value={2847} icon="Users" /> */}
+       
         <StatCard
           icon={UserPlus}
           label="Active Students"
@@ -334,7 +338,7 @@ const SchoolAdminPanel = () => {
           changeLabel="Last year"
           iconBg="bg-purple-50"
           iconColor="text-purple-600"
-        />
+        /> */}
       </div>
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-100">

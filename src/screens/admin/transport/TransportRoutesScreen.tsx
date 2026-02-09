@@ -1,78 +1,5 @@
 
 
-// import React, { useState } from 'react';
-
-// interface Route {
-// 	id: number;
-// 	name: string;
-// 	stops: string[];
-// 	driver: string;
-// }
-
-// const sampleRoutes: Route[] = [
-// 	{ id: 1, name: 'Route 1', stops: ['Stop A', 'Stop B', 'Stop C'], driver: 'John Doe' },
-// 	{ id: 2, name: 'Route 2', stops: ['Stop D', 'Stop E'], driver: 'Jane Smith' },
-// ];
-
-// export const TransportRoutesScreen: React.FC = () => {
-// 	const [routes, setRoutes] = useState<Route[]>(sampleRoutes);
-// 	const [loading, setLoading] = useState(false);
-// 	const [error, setError] = useState<string | null>(null);
-
-// 	// Simulate delete action
-// 	const handleDelete = (id: number) => {
-// 		setLoading(true);
-// 		setTimeout(() => {
-// 			setRoutes((prev) => prev.filter((r) => r.id !== id));
-// 			setLoading(false);
-// 		}, 800);
-// 	};
-
-// 	return (
-// 		<div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6 mt-6">
-// 			<h2 className="text-2xl font-bold mb-4">Transport Routes</h2>
-// 			{error && <div className="text-red-500 mb-2">{error}</div>}
-// 			{loading && <div className="text-blue-600 mb-2">Processing...</div>}
-// 			{routes.length === 0 ? (
-// 				<div className="text-gray-500 py-8 text-center">No routes found.</div>
-// 			) : (
-// 				<div className="overflow-x-auto">
-// 					<table className="min-w-full border">
-// 						<thead>
-// 							<tr className="bg-gray-100">
-// 								<th className="px-4 py-2 text-left">Route Name</th>
-// 								<th className="px-4 py-2 text-left">Stops</th>
-// 								<th className="px-4 py-2 text-left">Driver</th>
-// 								<th className="px-4 py-2 text-left">Actions</th>
-// 							</tr>
-// 						</thead>
-// 						<tbody>
-// 							{routes.map((route) => (
-// 								<tr key={route.id} className="border-b">
-// 									<td className="px-4 py-2">{route.name}</td>
-// 									<td className="px-4 py-2">{route.stops.join(', ')}</td>
-// 									<td className="px-4 py-2">{route.driver}</td>
-// 									<td className="px-4 py-2 flex gap-2">
-// 										<button className="text-blue-600 hover:underline text-sm">View</button>
-// 										<button className="text-green-600 hover:underline text-sm">Edit</button>
-// 										<button
-// 											className="text-red-600 hover:underline text-sm"
-// 											onClick={() => handleDelete(route.id)}
-// 											disabled={loading}
-// 										>
-// 											Delete
-// 										</button>
-// 									</td>
-// 								</tr>
-// 							))}
-// 						</tbody>
-// 					</table>
-// 				</div>
-// 			)}
-// 		</div>
-// 	);
-// };
-
 
 
 
@@ -80,6 +7,159 @@ import React, { useState, useEffect } from 'react';
 import { Bus, MapPin, Users, Clock, AlertCircle, CheckCircle, Settings, Plus, Edit2, Trash2, Eye, Download, Upload, Filter, Search, Phone, Mail, Navigation, Calendar, FileText, TrendingUp, Activity, User, Route, Map, Fuel, Wrench, X, Save } from 'lucide-react';
 
 const AdminTransportSystem = () => {
+            // Student form state and handlers
+            const [studentFormData, setStudentFormData] = useState({
+              name: '',
+              rollNumber: '',
+              class: '',
+              section: '',
+              parent: '',
+              contact: '',
+              address: '',
+              route: '',
+              status: 'active'
+            });
+            const [studentFormError, setStudentFormError] = useState('');
+
+            const handleStudentFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+              setStudentFormData({ ...studentFormData, [e.target.name]: e.target.value });
+            };
+
+            const handleAddStudent = (e: React.FormEvent) => {
+              e.preventDefault();
+              if (!studentFormData.name || !studentFormData.rollNumber || !studentFormData.class) {
+                setStudentFormError('Name, Roll Number, and Class are required.');
+                return;
+              }
+              setStudentFormError('');
+              setShowModal(false);
+              setStudentFormData({
+                name: '', rollNumber: '', class: '', section: '', parent: '', contact: '', address: '', route: '', status: 'active'
+              });
+            };
+          // Maintenance form state and handlers
+          const [maintenanceFormData, setMaintenanceFormData] = useState({
+            busNo: '',
+            type: '',
+            date: '',
+            cost: '',
+            status: 'completed',
+            nextDue: '',
+            description: ''
+          });
+          const [maintenanceFormError, setMaintenanceFormError] = useState('');
+
+          const handleMaintenanceFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+            setMaintenanceFormData({ ...maintenanceFormData, [e.target.name]: e.target.value });
+          };
+
+          const handleAddMaintenance = (e: React.FormEvent) => {
+            e.preventDefault();
+            if (!maintenanceFormData.busNo || !maintenanceFormData.type || !maintenanceFormData.date || !maintenanceFormData.cost) {
+              setMaintenanceFormError('Bus No, Type, Date, and Cost are required.');
+              return;
+            }
+            setMaintenanceFormError('');
+            setShowModal(false);
+            setMaintenanceFormData({ busNo: '', type: '', date: '', cost: '', status: 'completed', nextDue: '', description: '' });
+          };
+        // Route form state and handlers
+        const [routeFormData, setRouteFormData] = useState({
+          name: '',
+          code: '',
+          totalStops: '',
+          distance: '',
+          duration: '',
+          students: '',
+          buses: '',
+          morningStart: '',
+          afternoonStart: '',
+          status: 'active'
+        });
+        const [routeFormError, setRouteFormError] = useState('');
+
+        const handleRouteFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+          setRouteFormData({ ...routeFormData, [e.target.name]: e.target.value });
+        };
+
+        const handleAddRoute = (e: React.FormEvent) => {
+          e.preventDefault();
+          if (!routeFormData.name || !routeFormData.code || !routeFormData.totalStops) {
+            setRouteFormError('Route Name, Code, and Total Stops are required.');
+            return;
+          }
+          setRouteFormError('');
+          setShowModal(false);
+          setRouteFormData({
+            name: '', code: '', totalStops: '', distance: '', duration: '', students: '', buses: '', morningStart: '', afternoonStart: '', status: 'active'
+          });
+        };
+      // Bus form state and handlers
+      const [busFormData, setBusFormData] = useState({
+        busNo: '',
+        registrationNo: '',
+        capacity: '',
+        model: '',
+        year: '',
+        driver: '',
+        route: '',
+        status: 'active',
+        fuelLevel: '',
+        nextMaintenance: '',
+        gpsStatus: 'online'
+      });
+      const [busFormError, setBusFormError] = useState('');
+
+      const handleBusFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setBusFormData({ ...busFormData, [e.target.name]: e.target.value });
+      };
+
+      const handleAddBus = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!busFormData.busNo || !busFormData.registrationNo || !busFormData.capacity) {
+          setBusFormError('Bus No, Registration No, and Capacity are required.');
+          return;
+        }
+        setBusFormError('');
+        setShowModal(false);
+        setBusFormData({
+          busNo: '', registrationNo: '', capacity: '', model: '', year: '', driver: '', route: '', status: 'active', fuelLevel: '', nextMaintenance: '', gpsStatus: 'online'
+        });
+      };
+    // Driver form state and handlers (move outside DriversTab)
+    const [formData, setFormData] = useState({
+      name: '',
+      phone: '',
+      email: '',
+      licenseNo: '',
+      licenseExpiry: '',
+      experience: '',
+      rating: '',
+      assignedBus: '',
+      status: 'active',
+      address: '',
+      emergencyContact: '',
+      joiningDate: '',
+      totalTrips: ''
+    });
+    const [formError, setFormError] = useState('');
+
+    const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleAddDriver = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!formData.name || !formData.phone || !formData.licenseNo) {
+        setFormError('Name, Phone, and License No are required.');
+        return;
+      }
+      setFormError('');
+      setShowModal(false);
+      setFormData({
+        name: '', phone: '', email: '', licenseNo: '', licenseExpiry: '', experience: '', rating: '', assignedBus: '', status: 'active', address: '', emergencyContact: '', joiningDate: '', totalTrips: ''
+      });
+    };
   const [activeTab, setActiveTab] = useState('overview');
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -760,6 +840,69 @@ const AdminTransportSystem = () => {
 
   // Drivers Management Tab
   const DriversTab = () => {
+        // Driver form state
+        const [formData, setFormData] = useState({
+          name: '',
+          phone: '',
+          email: '',
+          licenseNo: '',
+          licenseExpiry: '',
+          experience: '',
+          rating: '',
+          assignedBus: '',
+          status: 'active',
+          address: '',
+          emergencyContact: '',
+          joiningDate: '',
+          totalTrips: ''
+        });
+        const [formError, setFormError] = useState('');
+
+        const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+          setFormData({ ...formData, [e.target.name]: e.target.value });
+        };
+
+        const handleAddDriver = (e: React.FormEvent) => {
+          e.preventDefault();
+          // Simple validation
+          if (!formData.name || !formData.phone || !formData.licenseNo) {
+            setFormError('Name, Phone, and License No are required.');
+            return;
+          }
+          setFormError('');
+          // Here you would send formData to your backend API
+          // For demo, just close modal
+          setShowModal(false);
+          setFormData({
+            name: '', phone: '', email: '', licenseNo: '', licenseExpiry: '', experience: '', rating: '', assignedBus: '', status: 'active', address: '', emergencyContact: '', joiningDate: '', totalTrips: ''
+          });
+        };
+    // Date filter state
+    const [selectedDate, setSelectedDate] = useState(() => {
+      const today = new Date();
+      return today.toISOString().split('T')[0];
+    });
+
+    // Demo attendance data for each driver
+    const driverAttendance: Record<number, Record<string, 'present' | 'absent'>> = {
+      1: { '2026-02-04': 'present', '2026-02-03': 'absent' },
+      2: { '2026-02-04': 'absent', '2026-02-03': 'present' },
+      3: { '2026-02-04': 'present', '2026-02-03': 'present' },
+      4: { '2026-02-04': 'absent', '2026-02-03': 'absent' }
+    };
+
+    interface AttendanceStatus {
+      label: string;
+      color: string;
+    }
+
+    const getAttendanceStatus = (driverId: number): AttendanceStatus => {
+      const status = driverAttendance[driverId]?.[selectedDate];
+      if (status === 'present') return { label: 'Present', color: 'bg-green-100 text-green-700' };
+      if (status === 'absent') return { label: 'Absent', color: 'bg-red-100 text-red-700' };
+      return { label: 'Not Marked', color: 'bg-gray-100 text-gray-700' };
+    };
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -773,6 +916,17 @@ const AdminTransportSystem = () => {
           </button>
         </div>
 
+        {/* Date Filter */}
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-sm text-gray-600">Date</span>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={e => setSelectedDate(e.target.value)}
+            className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-40 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -783,69 +937,78 @@ const AdminTransportSystem = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assigned Bus</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Experience</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rating</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Attendance</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {drivers.map(driver => (
-                <tr key={driver.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-blue-600" />
+              {drivers.map(driver => {
+                const attendance = getAttendanceStatus(driver.id);
+                return (
+                  <tr key={driver.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                          <User className="w-5 h-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{driver.name}</p>
+                          <p className="text-sm text-gray-500">ID: {driver.id}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-gray-900">{driver.name}</p>
-                        <p className="text-sm text-gray-500">ID: {driver.id}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="space-y-1">
+                        <p className="text-sm text-gray-900">{driver.phone}</p>
+                        <p className="text-xs text-gray-500">{driver.email}</p>
                       </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-gray-900">{driver.phone}</p>
-                      <p className="text-xs text-gray-500">{driver.email}</p>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="space-y-1">
-                      <p className="text-sm text-gray-900">{driver.licenseNo}</p>
-                      <p className="text-xs text-gray-500">Exp: {driver.licenseExpiry}</p>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded">
-                      {driver.assignedBus}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="text-sm text-gray-900">{driver.experience} years</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1">
-                      <span className="text-yellow-500">★</span>
-                      <span className="text-sm font-medium text-gray-900">{driver.rating}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      driver.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                    }`}>
-                      {driver.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <button className="p-1 text-blue-600 hover:bg-blue-50 rounded">
-                        <Eye className="w-4 h-4" />
-                      </button>
-                      <button className="p-1 text-green-600 hover:bg-green-50 rounded">
-                        <Edit2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="space-y-1">
+                        <p className="text-sm text-gray-900">{driver.licenseNo}</p>
+                        <p className="text-xs text-gray-500">Exp: {driver.licenseExpiry}</p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="px-2 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded">
+                        {driver.assignedBus}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="text-sm text-gray-900">{driver.experience} years</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-1">
+                        <span className="text-yellow-500">★</span>
+                        <span className="text-sm font-medium text-gray-900">{driver.rating}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${attendance.color}`}>
+                        {attendance.label}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        driver.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {driver.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        <button className="p-1 text-blue-600 hover:bg-blue-50 rounded">
+                          <Eye className="w-4 h-4" />
+                        </button>
+                        <button className="p-1 text-green-600 hover:bg-green-50 rounded">
+                          <Edit2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -864,7 +1027,13 @@ const AdminTransportSystem = () => {
               <Download className="w-4 h-4" />
               Export
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <button
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              onClick={() => {
+                setModalType('addStudent');
+                setShowModal(true);
+              }}
+            >
               <Plus className="w-4 h-4" />
               Add Student
             </button>
@@ -937,7 +1106,13 @@ const AdminTransportSystem = () => {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">Maintenance Records</h2>
-          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            onClick={() => {
+              setModalType('addMaintenance');
+              setShowModal(true);
+            }}
+          >
             <Plus className="w-4 h-4" />
             Add Record
           </button>
@@ -1108,18 +1283,303 @@ const AdminTransportSystem = () => {
       </div>
 
       {/* Modal Placeholder */}
-      {showModal && (
+                              {showModal && modalType === 'addStudent' && (
+                                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                                  <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                                    <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+                                      <h2 className="text-xl font-bold text-gray-900">Add New Student</h2>
+                                      <button 
+                                        onClick={() => setShowModal(false)}
+                                        className="p-2 hover:bg-gray-100 rounded-lg"
+                                      >
+                                        <X className="w-5 h-5 text-gray-600" />
+                                      </button>
+                                    </div>
+                                    <form className="p-6 space-y-4" onSubmit={handleAddStudent}>
+                                      {studentFormError && <div className="text-red-600 text-sm mb-2">{studentFormError}</div>}
+                                      <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                                          <input name="name" value={studentFormData.name} onChange={handleStudentFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Roll Number *</label>
+                                          <input name="rollNumber" value={studentFormData.rollNumber} onChange={handleStudentFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Class *</label>
+                                          <input name="class" value={studentFormData.class} onChange={handleStudentFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Section</label>
+                                          <input name="section" value={studentFormData.section} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Parent</label>
+                                          <input name="parent" value={studentFormData.parent} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Contact</label>
+                                          <input name="contact" value={studentFormData.contact} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                          <input name="address" value={studentFormData.address} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Route</label>
+                                          <input name="route" value={studentFormData.route} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                        </div>
+                                        <div>
+                                          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                          <select name="status" value={studentFormData.status} onChange={handleStudentFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div className="mt-6 flex gap-3 justify-end">
+                                        <button 
+                                          type="button"
+                                          onClick={() => setShowModal(false)}
+                                          className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                        >
+                                          Cancel
+                                        </button>
+                                        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                          Save
+                                        </button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              )}
+                        {showModal && modalType === 'addMaintenance' && (
+                          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                            <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                              <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+                                <h2 className="text-xl font-bold text-gray-900">Add Maintenance Record</h2>
+                                <button 
+                                  onClick={() => setShowModal(false)}
+                                  className="p-2 hover:bg-gray-100 rounded-lg"
+                                >
+                                  <X className="w-5 h-5 text-gray-600" />
+                                </button>
+                              </div>
+                              <form className="p-6 space-y-4" onSubmit={handleAddMaintenance}>
+                                {maintenanceFormError && <div className="text-red-600 text-sm mb-2">{maintenanceFormError}</div>}
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Bus No *</label>
+                                    <input name="busNo" value={maintenanceFormData.busNo} onChange={handleMaintenanceFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                  </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Type *</label>
+                                    <input name="type" value={maintenanceFormData.type} onChange={handleMaintenanceFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                  </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                                    <input name="date" value={maintenanceFormData.date} onChange={handleMaintenanceFormChange} type="date" required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                  </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Cost *</label>
+                                    <input name="cost" value={maintenanceFormData.cost} onChange={handleMaintenanceFormChange} type="number" min="0" required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                  </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                                    <select name="status" value={maintenanceFormData.status} onChange={handleMaintenanceFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                      <option value="completed">Completed</option>
+                                      <option value="in-progress">In Progress</option>
+                                    </select>
+                                  </div>
+                                  <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Next Due</label>
+                                    <input name="nextDue" value={maintenanceFormData.nextDue} onChange={handleMaintenanceFormChange} type="date" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                                  </div>
+                                  <div className="col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                    <textarea name="description" value={maintenanceFormData.description} onChange={handleMaintenanceFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" rows={3} />
+                                  </div>
+                                </div>
+                                <div className="mt-6 flex gap-3 justify-end">
+                                  <button 
+                                    type="button"
+                                    onClick={() => setShowModal(false)}
+                                    className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                  >
+                                    Cancel
+                                  </button>
+                                  <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Save
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        )}
+                  {showModal && modalType === 'addRoute' && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                      <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+                          <h2 className="text-xl font-bold text-gray-900">Add New Route</h2>
+                          <button 
+                            onClick={() => setShowModal(false)}
+                            className="p-2 hover:bg-gray-100 rounded-lg"
+                          >
+                            <X className="w-5 h-5 text-gray-600" />
+                          </button>
+                        </div>
+                        <form className="p-6 space-y-4" onSubmit={handleAddRoute}>
+                          {routeFormError && <div className="text-red-600 text-sm mb-2">{routeFormError}</div>}
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Route Name *</label>
+                              <input name="name" value={routeFormData.name} onChange={handleRouteFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Route Code *</label>
+                              <input name="code" value={routeFormData.code} onChange={handleRouteFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Total Stops *</label>
+                              <input name="totalStops" value={routeFormData.totalStops} onChange={handleRouteFormChange} type="number" min="1" required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Distance (km)</label>
+                              <input name="distance" value={routeFormData.distance} onChange={handleRouteFormChange} type="number" min="0" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Duration (min)</label>
+                              <input name="duration" value={routeFormData.duration} onChange={handleRouteFormChange} type="number" min="0" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Students</label>
+                              <input name="students" value={routeFormData.students} onChange={handleRouteFormChange} type="number" min="0" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Assigned Buses</label>
+                              <input name="buses" value={routeFormData.buses} onChange={handleRouteFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" placeholder="Comma separated" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Morning Start</label>
+                              <input name="morningStart" value={routeFormData.morningStart} onChange={handleRouteFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Afternoon Start</label>
+                              <input name="afternoonStart" value={routeFormData.afternoonStart} onChange={handleRouteFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                              <select name="status" value={routeFormData.status} onChange={handleRouteFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                                <option value="active">Active</option>
+                                <option value="maintenance">Maintenance</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div className="mt-6 flex gap-3 justify-end">
+                            <button 
+                              type="button"
+                              onClick={() => setShowModal(false)}
+                              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                              Cancel
+                            </button>
+                            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                              Save
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
+            {showModal && modalType === 'addBus' && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                  <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h2 className="text-xl font-bold text-gray-900">Add New Bus</h2>
+                    <button 
+                      onClick={() => setShowModal(false)}
+                      className="p-2 hover:bg-gray-100 rounded-lg"
+                    >
+                      <X className="w-5 h-5 text-gray-600" />
+                    </button>
+                  </div>
+                  <form className="p-6 space-y-4" onSubmit={handleAddBus}>
+                    {busFormError && <div className="text-red-600 text-sm mb-2">{busFormError}</div>}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Bus No *</label>
+                        <input name="busNo" value={busFormData.busNo} onChange={handleBusFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Registration No *</label>
+                        <input name="registrationNo" value={busFormData.registrationNo} onChange={handleBusFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Capacity *</label>
+                        <input name="capacity" value={busFormData.capacity} onChange={handleBusFormChange} type="number" min="1" required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
+                        <input name="model" value={busFormData.model} onChange={handleBusFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                        <input name="year" value={busFormData.year} onChange={handleBusFormChange} type="number" min="2000" max="2100" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Driver</label>
+                        <input name="driver" value={busFormData.driver} onChange={handleBusFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Route</label>
+                        <input name="route" value={busFormData.route} onChange={handleBusFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <select name="status" value={busFormData.status} onChange={handleBusFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                          <option value="active">Active</option>
+                          <option value="maintenance">Maintenance</option>
+                          <option value="inactive">Inactive</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Fuel Level (%)</label>
+                        <input name="fuelLevel" value={busFormData.fuelLevel} onChange={handleBusFormChange} type="number" min="0" max="100" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Next Maintenance</label>
+                        <input name="nextMaintenance" value={busFormData.nextMaintenance} onChange={handleBusFormChange} type="date" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">GPS Status</label>
+                        <select name="gpsStatus" value={busFormData.gpsStatus} onChange={handleBusFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                          <option value="online">Online</option>
+                          <option value="offline">Offline</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="mt-6 flex gap-3 justify-end">
+                      <button 
+                        type="button"
+                        onClick={() => setShowModal(false)}
+                        className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      >
+                        Cancel
+                      </button>
+                      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+      {showModal && modalType === 'addDriver' && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">
-                {modalType === 'addBus' && 'Add New Bus'}
-                {modalType === 'editBus' && 'Edit Bus Details'}
-                {modalType === 'viewBus' && 'Bus Details'}
-                {modalType === 'addRoute' && 'Add New Route'}
-                {modalType === 'viewRoute' && 'Route Details'}
-                {modalType === 'addDriver' && 'Add New Driver'}
-              </h2>
+              <h2 className="text-xl font-bold text-gray-900">Add New Driver</h2>
               <button 
                 onClick={() => setShowModal(false)}
                 className="p-2 hover:bg-gray-100 rounded-lg"
@@ -1127,20 +1587,78 @@ const AdminTransportSystem = () => {
                 <X className="w-5 h-5 text-gray-600" />
               </button>
             </div>
-            <div className="p-6">
-              <p className="text-gray-600">Form content would go here...</p>
+            <form className="p-6 space-y-4" onSubmit={handleAddDriver}>
+              {formError && <div className="text-red-600 text-sm mb-2">{formError}</div>}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                  <input name="name" value={formData.name} onChange={handleFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+                  <input name="phone" value={formData.phone} onChange={handleFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input name="email" value={formData.email} onChange={handleFormChange} type="email" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">License No *</label>
+                  <input name="licenseNo" value={formData.licenseNo} onChange={handleFormChange} required className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">License Expiry</label>
+                  <input name="licenseExpiry" value={formData.licenseExpiry} onChange={handleFormChange} type="date" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Experience (years)</label>
+                  <input name="experience" value={formData.experience} onChange={handleFormChange} type="number" min="0" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                  <input name="rating" value={formData.rating} onChange={handleFormChange} type="number" min="0" max="5" step="0.1" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Assigned Bus</label>
+                  <input name="assignedBus" value={formData.assignedBus} onChange={handleFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                  <select name="status" value={formData.status} onChange={handleFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg">
+                    <option value="active">Active</option>
+                    <option value="on-leave">On Leave</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                  <input name="address" value={formData.address} onChange={handleFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
+                  <input name="emergencyContact" value={formData.emergencyContact} onChange={handleFormChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Joining Date</label>
+                  <input name="joiningDate" value={formData.joiningDate} onChange={handleFormChange} type="date" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Total Trips</label>
+                  <input name="totalTrips" value={formData.totalTrips} onChange={handleFormChange} type="number" min="0" className="w-full px-3 py-2 border border-gray-300 rounded-lg" />
+                </div>
+              </div>
               <div className="mt-6 flex gap-3 justify-end">
                 <button 
+                  type="button"
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                 >
                   Cancel
                 </button>
-                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
                   Save
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       )}

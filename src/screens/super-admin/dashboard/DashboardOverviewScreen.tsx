@@ -146,6 +146,27 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, change }) => (
 );
 
 export default function SuperAdminDashboard() {
+  const [showReportModal, setShowReportModal] = React.useState(false);
+  const [reportType, setReportType] = React.useState('overview');
+  const [dateRange, setDateRange] = React.useState({ from: '', to: '' });
+
+  const handleGenerateReport = () => {
+    setShowReportModal(true);
+  };
+
+  const handleDownload = () => {
+    // Simulate report download
+    const reportContent = `Report Type: ${reportType}\nFrom: ${dateRange.from}\nTo: ${dateRange.to}\nGenerated: ${new Date().toLocaleString()}`;
+    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `super-admin-report-${reportType}-${dateRange.from}-${dateRange.to}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setShowReportModal(false);
+  };
+
   return (
     <div className="p-6 bg-slate-50 min-h-screen">
       {/* Header */}
@@ -156,10 +177,77 @@ export default function SuperAdminDashboard() {
             Platform overview & system analytics
           </p>
         </div>
-        <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700">
+        <button
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700"
+          onClick={handleGenerateReport}
+        >
           Generate Report
         </button>
       </div>
+
+      {/* Generate Report Modal */}
+      {showReportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-lg relative">
+            <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-700" onClick={() => setShowReportModal(false)}>
+              <span className="text-2xl">×</span>
+            </button>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900">Generate Report</h2>
+            <form className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Report Type</label>
+                <select
+                  value={reportType}
+                  onChange={e => setReportType(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                >
+                  <option value="overview">Platform Overview</option>
+                  <option value="schools">Schools Report</option>
+                  <option value="users">Users Report</option>
+                  <option value="revenue">Revenue Report</option>
+                  <option value="system">System Health</option>
+                </select>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
+                  <input
+                    type="date"
+                    value={dateRange.from}
+                    onChange={e => setDateRange({ ...dateRange, from: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
+                  <input
+                    type="date"
+                    value={dateRange.to}
+                    onChange={e => setDateRange({ ...dateRange, to: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 pt-4 border-t">
+                <button
+                  type="button"
+                  onClick={() => setShowReportModal(false)}
+                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownload}
+                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                >
+                  Download Report
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

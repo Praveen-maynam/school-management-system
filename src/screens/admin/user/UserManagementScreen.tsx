@@ -1,7 +1,13 @@
+
 import React, { useState } from 'react';
 import { Users, UserPlus, Shield, Settings, BarChart3, BookOpen, Calendar, FileText, ChevronRight, Search, Filter, Edit, Trash2, Lock, X, Check } from 'lucide-react';
 
+
 const SchoolAdminSystem = () => {
+    // Delete user handler
+    const handleDeleteUser = (userId: number) => {
+      setUsers(prev => prev.filter((u) => u.id !== userId));
+    };
   const [activePage, setActivePage] = useState('users');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [showUserModal, setShowUserModal] = useState(false);
@@ -400,6 +406,7 @@ const SchoolAdminSystem = () => {
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
+                            onClick={() => handleDeleteUser(user.id)}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                             title="Delete User"
                           >

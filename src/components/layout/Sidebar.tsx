@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, use } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Bus, Book, Settings, BarChart2, ClipboardList, ChevronLeft, ChevronRight, GraduationCap, ChevronDown, ChevronUp } from "lucide-react";
+import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Bus, Book, Settings, BarChart2, ClipboardList, ChevronLeft, ChevronRight, GraduationCap, ChevronDown, ChevronUp,Megaphone, Package, Trophy, MapPin } from "lucide-react";
 import { useSidebar } from "../../context/SidebarContext";
 import Avatar from "../ui/Avatar";
 
@@ -33,6 +33,14 @@ const Sidebar = () => {
       } else if (role === 'sports') {
         return [
           { label: 'Sports Dashboard', path: '/admin/non-teaching-staff/sports', icon: BarChart2 },
+          { label: 'Sports Management', path: '/admin/non-teaching-staff/sports/sportsmanagement', icon: Trophy },
+          { label: 'Athlete Management', path: '/admin/non-teaching-staff/sports/athlete', icon: Users },
+          // { label: 'Coaches & Staff', path: '/admin/non-teaching-staff/sports/results', icon: ClipboardList },
+          { label: 'Events & Schedules', path: '/admin/non-teaching-staff/sports/events', icon: Calendar },
+          // { label: 'Facilities Management', path: '/admin/non-teaching-staff/sports/coaches', icon: MapPin},
+          { label: 'Equipment & Inventory', path: '/admin/non-teaching-staff/sports/equipment', icon: Package },
+          // { label: 'Reports & Analytics', path: '/admin/non-teaching-staff/sports/reports', icon: FileText },
+          { label: 'Settings', path: '/admin/non-teaching-staff/sports/settings', icon: Settings },
         ];
       } else if (role === 'security') {
         return [
@@ -65,9 +73,10 @@ const Sidebar = () => {
           icon: GraduationCap,
           children: [
             { label: 'Teacher', path: '/admin/teachers', icon: GraduationCap },
-            { label: 'Non-Teaching Staff', path: '/admin/non-teaching-staff', icon: User },
+            { label: 'Non-Teaching Staff', path: '/admin/non-teaching-staf', icon: User },
           ],
         },
+        {label: 'Announcements', path: '/admin/announcements', icon: Megaphone },
         { label: 'User Management', path: '/admin/users', icon: Users },
         { label: 'Settings', path: '/admin/settings', icon: Settings },
         { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
@@ -153,10 +162,10 @@ const Sidebar = () => {
   const itemClass = (path?: string) => {
     const isActive = path && location.pathname.startsWith(path);
     return `
-      flex items-center ${isOpen ? 'gap-3 px-6' : 'justify-center'} py-3 cursor-pointer transition-all rounded-l-full
+      flex items-center ${isOpen ? 'gap-2 px-6' : 'justify-center'} py-2 cursor-pointer transition-all duration-200 rounded-md
       ${isActive
-        ? "bg-blue-600 text-white border-l-4 border-white"
-        : "text-gray-300 hover:bg-[#23265a] hover:text-blue-400"}
+        ? "bg-blue-600 text-white ml-2 mr-4"
+        : "text-gray-300 hover:bg-[#23265a] hover:text-blue-400 mr-4"}
     `;
   };
 
@@ -170,23 +179,28 @@ const Sidebar = () => {
 
   return (
     <aside className={`fixed top-0 left-0 h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#1a1d3b] text-white flex flex-col z-50 shadow-lg transition-all duration-300`}>
-      {/* Toggle Button */}
-      <div className={`flex justify-end items-center pl-500 ${isOpen ? 'p-2' : 'pt-2 pr-2'}`}>
-        <button onClick={toggleSidebar} aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'} className="p-2 rounded-full hover:bg-[#23265a]">
-          {isOpen ? <ChevronRight size={24} /> : <ChevronLeft size={24} />}
-        </button>
-      </div>
-      {/* Logo / Brand */}
-      <div className={`border-b border-[#23265a] ${isOpen ? 'p-6' : 'p-2 flex justify-center'}`}>
+
+      
+      {/* Logo / Brand and Toggle Button on same line */}
+      <div className={`flex items-center justify-between border-b border-[#23265a] ${isOpen ? 'p-2' : 'p-2'}`}>
+        <button
+  onClick={toggleSidebar}
+  className="flex absolute -right-3 top-2 bg-blue-600 text-white rounded-full p-1 shadow-lg hover:bg-blue-700 transition-colors z-50 lg:flex"
+  aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+>
+  {isOpen ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
+</button>
+
         {isOpen ? (
-          <h1 className="text-2xl font-bold text-blue-400 tracking-wide">SchoolApp</h1>
+          <h1 className="text-lg font-bold text-blue-400 tracking-wide">SchoolApp</h1>
         ) : (
-          <h1 className="text-xl font-bold text-blue-400 tracking-wide">S</h1>
+          <h1 className="text-base font-bold text-blue-400 tracking-wide">S</h1>
         )}
+       
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4">
+      <nav className="flex-1 py-1">
         {menuItems.map((item) => {
           const Icon = item.icon;
           const hasChildren = !!item.children;
@@ -197,8 +211,8 @@ const Sidebar = () => {
                 onClick={() => handleMenuClick(item)}
                 title={!isOpen ? item.label : undefined}
               >
-                <Icon size={22} />
-                {isOpen && <span className="font-medium">{item.label}</span>}
+                <Icon size={12} />
+                {isOpen && <span className="font-medium text-sm">{item.label}</span>}
                 {hasChildren && isOpen && (
                   openSubmenu === item.label
                     ? <ChevronUp className="ml-auto" size={18} />
@@ -240,6 +254,7 @@ export default Sidebar;
 const UserDropdown = ({ isOpen }: { isOpen: boolean }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -291,7 +306,10 @@ const UserDropdown = ({ isOpen }: { isOpen: boolean }) => {
           </button>
           <button
             className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
-            onClick={() => {/* Implement logout logic */}}
+            onClick={() => {
+              setOpen(false);
+              navigate('/');
+            }}
           >
             <span role="img" aria-label="logout">🚪</span> Logout
           </button>

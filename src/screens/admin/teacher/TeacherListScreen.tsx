@@ -1,167 +1,4 @@
 
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { Download, Filter, Plus, Upload, Archive } from 'lucide-react';
-// // import AddTeacherScreen from './AddTeacherScreen'; // Uncomment if you have this
-
-
-// interface Teacher {
-//     id: number;
-//     employeeId: string;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     department: string;
-//     phone: string;
-//     status: 'Active' | 'Inactive';
-// }
-
-// const sampleTeachers: Teacher[] = [
-//     { id: 1, employeeId: 'EMP-001', firstName: 'Alice', lastName: 'Johnson', email: 'alice.j@email.com', department: 'Math', phone: '9876543210', status: 'Active' },
-//     { id: 2, employeeId: 'EMP-002', firstName: 'Bob', lastName: 'Smith', email: 'bob.s@email.com', department: 'Science', phone: '9123456789', status: 'Inactive' },
-//     { id: 3, employeeId: 'EMP-003', firstName: 'Carol', lastName: 'Brown', email: 'carol.b@email.com', department: 'English', phone: '9988776655', status: 'Active' },
-// ];
-
-
-// const TeacherListScreen: React.FC = () => {
-//     const [teachers, setTeachers] = useState<Teacher[]>(sampleTeachers);
-//     const [loading, setLoading] = useState(false);
-//     const [search, setSearch] = useState('');
-//     const [department, setDepartment] = useState('');
-//     const [status, setStatus] = useState('');
-//     const navigate = useNavigate();
-
-//     // Dummy filter logic
-//     const filtered = teachers.filter(t =>
-//         (t.firstName + ' ' + t.lastName).toLowerCase().includes(search.toLowerCase()) ||
-//         t.employeeId.toLowerCase().includes(search.toLowerCase())
-//     ).filter(t =>
-//         (department ? t.department === department : true) &&
-//         (status ? t.status === status : true)
-//     );
-
-//     // Simulate delete action
-//     const handleDelete = (id: number) => {
-//         setLoading(true);
-//         setTimeout(() => {
-//             setTeachers((prev) => prev.filter((t) => t.id !== id));
-//             setLoading(false);
-//         }, 800);
-//     };
-
-//     // Dummy export
-//     const handleExport = () => {
-//         alert('Exported (dummy)');
-//     };
-
-//     return (
-//         <div className="max-w-7xl mx-auto bg-white rounded-xl shadow p-4 sm:p-6 mt-6">
-//             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-//                 <h2 className="text-xl sm:text-2xl font-bold">Teachers</h2>
-//                 <div className="flex flex-wrap gap-2">
-//                     <button
-//                         className="btn-primary flex items-center gap-1"
-//                         onClick={() => navigate('/admin/teachers/add')}
-//                     >
-//                         <Plus size={16} /> Add Teacher
-//                     </button>
-//                     <button
-//                         className="btn-secondary flex items-center gap-1"
-//                         onClick={() => navigate('/admin/teachers/bulk-upload')}
-//                     >
-//                         <Upload size={16} /> Bulk Upload
-//                     </button>
-//                     <button
-//                         className="btn-secondary flex items-center gap-1"
-//                         onClick={handleExport}
-//                     >
-//                         <Download size={16} /> Export
-//                     </button>
-//                     <button
-//                         className="btn-secondary flex items-center gap-1"
-//                         onClick={() => navigate('/admin/teachers/archived')}
-//                     >
-//                         <Archive size={16} /> Archived
-//                     </button>
-//                 </div>
-//             </div>
-//             <div className="flex flex-col sm:flex-row gap-2 mb-4">
-//                 <input
-//                     className="input w-full sm:w-64"
-//                     placeholder="Search Name or Employee ID"
-//                     value={search}
-//                     onChange={e => setSearch(e.target.value)}
-//                 />
-//                 <select
-//                     className="input w-full sm:w-48"
-//                     value={department}
-//                     onChange={e => setDepartment(e.target.value)}
-//                 >
-//                     <option value="">All Departments</option>
-//                     <option value="Math">Math</option>
-//                     <option value="Science">Science</option>
-//                     <option value="English">English</option>
-//                 </select>
-//                 <select
-//                     className="input w-full sm:w-40"
-//                     value={status}
-//                     onChange={e => setStatus(e.target.value)}
-//                 >
-//                     <option value="">All Status</option>
-//                     <option value="Active">Active</option>
-//                     <option value="Inactive">Inactive</option>
-//                 </select>
-//             </div>
-//             {loading && <div className="text-blue-600 mb-2">Processing...</div>}
-//             {filtered.length === 0 ? (
-//                 <div className="text-gray-500 py-8 text-center">No teachers found.</div>
-//             ) : (
-//                 <div className="overflow-x-auto">
-//                     <table className="min-w-[800px] w-full border text-sm sm:text-base">
-//                         <thead>
-//                             <tr className="bg-gray-100">
-//                                 <th className="px-4 py-2 text-left">Employee ID</th>
-//                                 <th className="px-4 py-2 text-left">Name</th>
-//                                 <th className="px-4 py-2 text-left">Department</th>
-//                                 <th className="px-4 py-2 text-left">Phone</th>
-//                                 <th className="px-4 py-2 text-left">Status</th>
-//                                 <th className="px-4 py-2 text-left">Actions</th>
-//                             </tr>
-//                         </thead>
-//                         <tbody>
-//                             {filtered.map((teacher) => (
-//                                 <tr key={teacher.id} className="border-b">
-//                                     <td className="px-4 py-2">{teacher.employeeId}</td>
-//                                     <td className="px-4 py-2">{teacher.firstName} {teacher.lastName}</td>
-//                                     <td className="px-4 py-2">{teacher.department}</td>
-//                                     <td className="px-4 py-2">{teacher.phone}</td>
-//                                     <td className="px-4 py-2">
-//                                         <span className={`px-2 py-1 rounded text-xs font-semibold ${teacher.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>
-//                                             {teacher.status}
-//                                         </span>
-//                                     </td>
-//                                     <td className="px-4 py-2 flex gap-2">
-//                                         <button className="text-blue-600 hover:underline text-sm" onClick={() => navigate(`/admin/teachers/${teacher.id}`)}>View</button>
-//                                         <button className="text-yellow-600 hover:underline text-sm" onClick={() => navigate(`/admin/teachers/${teacher.id}/edit`)}>Edit</button>
-//                                         <button
-//                                             className="text-red-600 hover:underline text-sm"
-//                                             onClick={() => handleDelete(teacher.id)}
-//                                             disabled={loading}
-//                                         >
-//                                             Delete
-//                                         </button>
-//                                     </td>
-//                                 </tr>
-//                             ))}
-//                         </tbody>
-//                     </table>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default TeacherListScreen;
 
 import React, { useState } from 'react';
 import { Users, BookOpen, Calendar, DollarSign, FileText, BarChart3, Settings, LogOut, Menu, X, Search, Plus, Edit2, Trash2, Eye, Download, Filter, Bell, Home, UserPlus, GraduationCap, TrendingUp, ChevronDown, Award, Clock, Mail, Phone, MapPin, Briefcase } from 'lucide-react';
@@ -854,8 +691,21 @@ const SchoolAdminPanel = () => {
     );
   };
 
-  const TeachersScreen = () => (
+  const TeachersScreen = () => {
+    const [selectedDate, setSelectedDate] = useState(() => {
+      const today = new Date();
+      return today.toISOString().split('T')[0];
+    });
+    // Demo attendance logic: alternate present/absent by id and date
+    const getAttendanceStatus = (id: string) => {
+      const hash = id.charCodeAt(0) + selectedDate.charCodeAt(selectedDate.length - 1);
+      return hash % 2 === 0 ? 'Present' : 'Absent';
+    };
+
+    return (
     <div className="space-y-6">
+      {/* Date Filter */}
+    
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
           icon={Users}
@@ -912,6 +762,15 @@ const SchoolAdminPanel = () => {
           <button className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
             <Download className="w-4 h-4" /> Export
           </button>
+            <div className="flex items-center gap-3 mb-2">
+        <span className="text-sm text-gray-600">Date</span>
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={e => setSelectedDate(e.target.value)}
+          className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-40 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
         </div>
 
         <button
@@ -933,6 +792,7 @@ const SchoolAdminPanel = () => {
               <th className="p-4">Teacher</th>
               <th className="p-4">Department</th>
               <th className="p-4">Experience</th>
+              <th className="p-4">Attendance</th>
               <th className="p-4">Status</th>
               <th className="p-4">Actions</th>
             </tr>
@@ -958,6 +818,9 @@ const SchoolAdminPanel = () => {
                 </td>
                 <td className="p-4">{teacher.department}</td>
                 <td className="p-4">{teacher.experience}</td>
+                <td className="p-4">
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${getAttendanceStatus(teacher.id) === 'Present' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{getAttendanceStatus(teacher.id)}</span>
+                </td>
                 <td className="p-4">
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                     teacher.status === 'Active'
@@ -1013,6 +876,7 @@ const SchoolAdminPanel = () => {
       <TeacherFormModal isEdit />
     </div>
   );
+  }
   
 // ...existing code above...
 

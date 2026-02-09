@@ -1,14 +1,27 @@
-export function FilterableTable<T extends object>({
+import React, { useState } from 'react';
+import { Table } from './Table';
+
+export type Column<T> = {
+  key: keyof T;
+  label: string;
+};
+
+export type TableProps<T> = {
+  columns: Column<T>[];
+  data: T[];
+};
+
+export function Filtertable<T extends Record<string, any>>({
   columns,
   data
 }: TableProps<T>) {
-  const [query, setQuery] = React.useState('')
+  const [query, setQuery] = useState('');
 
-  const filtered = data.filter(row =>
+  const filtered = data.filter((row: T) =>
     Object.values(row).some(val =>
       String(val).toLowerCase().includes(query.toLowerCase())
     )
-  )
+  );
 
   return (
     <>
@@ -19,5 +32,5 @@ export function FilterableTable<T extends object>({
       />
       <Table columns={columns} data={filtered} />
     </>
-  )
+  );
 }

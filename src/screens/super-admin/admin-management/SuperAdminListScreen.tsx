@@ -1370,13 +1370,19 @@ import type {
   IPRestriction,
   ActiveSession,
   AdminNotification
-} from './admin-types';
+} from '../../../types/admin.types';
 
 // ============================================================================
 // CONSTANTS & MOCK DATA
 // ============================================================================
 
-const ROLE_CONFIGS = {
+const ROLE_CONFIGS: Record<AdminRole, {
+  label: string;
+  color: string;
+  icon: string;
+  description: string;
+  level: number;
+}> = {
   owner: {
     label: 'Owner',
     color: 'from-rose-500 to-pink-600',
@@ -2096,7 +2102,7 @@ const AdminManagement: React.FC = () => {
                       {/* Avatar */}
                       <div className="relative">
                         <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-md">
-                          {admin.name.split(' ').map(n => n[0]).join('')}
+                          {admin.name.split(' ').map((n: string) => n[0]).join('')}
                         </div>
                         {admin.status === 'active' && (
                           <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full" />

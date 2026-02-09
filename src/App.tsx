@@ -62,8 +62,12 @@ import PayslipHistoryScreen from "./screens/teacher/payroll/PayslipHistoryScreen
 import SecurityFinance from "./screens/admin/finance/SecurityFinance";
 import StudentDuesDetail from "./screens/admin/finance/StudentDuesDetail";
 import TeachingStaffDetails from "./screens/admin/finance/TeachingStaffDetails";
-
-
+import AnnouncementListScreen from "./screens/admin/announcements/AnnouncementListScreen";
+import SportsManagement from "./screens/non-teaching-staff/sports/SportsManagement";
+import AthleteScreen from "./screens/non-teaching-staff/sports/Athelet";
+import Events from "./screens/non-teaching-staff/sports/Events";
+import Achievement from "./screens/non-teaching-staff/sports/Achievement";
+import Equipment from "./screens/non-teaching-staff/sports/Equipment";
 function App() {
     return (
         <AttendanceProvider>
@@ -85,11 +89,17 @@ function App() {
                                         <Route path="classes" element={<ClassListScreen />} />
                                         <Route path="users" element={<UserManagementScreen />} />
                                         <Route path="attendance" element={<AttendanceReportsScreen />} />
-                                        <Route path="non-teaching-staff" element={<StaffListScreen />} />
+                                        <Route path="announcements" element={<AnnouncementListScreen />} />
+                                        <Route path="non-teaching-staf" element={<StaffListScreen />} />
                                         <Route path="non-teaching-staff/examination" element={<ExaminationScreen />} />
                                         <Route path="non-teaching-staff/inventory" element={<InventoryScreen />} />
                                         <Route path="non-teaching-staff/sports" element={<SportsScreen />} />
                                         <Route path="non-teaching-staff/security" element={<SecurityScreen />} />
+                                        <Route path="non-teaching-staff/sports/sportsmanagement" element={<SportsManagement />} />
+                                        <Route path="non-teaching-staff/sports/Athlete" element={<AthleteScreen />} />
+                                        <Route path="non-teaching-staff/sports/events" element={<Events />} />
+                                        <Route path="non-teaching-staff/sports/achievements" element={<Achievement />} />
+                                        <Route path="non-teaching-staff/sports/equipment" element={<Equipment />} />
                                         <Route path="exams/schedule" element={<ExamSchedule />} />
                                         <Route path="exams/marks" element={<MarksControl />} />
                                         <Route path="exams/grade-config" element={<GradeConfiguration />} />

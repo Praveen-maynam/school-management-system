@@ -1,4 +1,3 @@
-
 // import React, { useState } from 'react';
 // import Modal from '../../../components/ui/Modal';
 
@@ -221,6 +220,58 @@ interface BillingStats {
   churnRate: number;
 }
 
+// Move mock data above component
+const plans: Plan[] = [
+  {
+    id: 'p1',
+    name: 'Basic',
+    description: 'Perfect for small schools starting out',
+    price: 49,
+    billingCycle: 'monthly',
+    features: ['Up to 500 students', '25 teachers', 'Basic attendance', 'Grade management', 'Email support', '5GB storage'],
+    maxStudents: 500,
+    maxTeachers: 25,
+    storage: '5GB',
+    support: 'Email',
+    isPopular: false,
+    isActive: true,
+    subscribersCount: 45,
+    revenue: 2205
+  },
+  {
+    id: 'p2',
+    name: 'Premium',
+    description: 'Most popular plan for growing schools',
+    price: 149,
+    billingCycle: 'monthly',
+    features: ['Up to 2000 students', '100 teachers', 'Advanced analytics', 'Parent portal', 'SMS notifications', '24/7 support', '50GB storage', 'Custom reports'],
+    maxStudents: 2000,
+    maxTeachers: 100,
+    storage: '50GB',
+    support: '24/7 Phone & Chat',
+    isPopular: true,
+    isActive: true,
+    subscribersCount: 78,
+    revenue: 11622
+  },
+  {
+    id: 'p3',
+    name: 'Enterprise',
+    description: 'Unlimited power for large institutions',
+    price: 399,
+    billingCycle: 'monthly',
+    features: ['Unlimited students', 'Unlimited teachers', 'White-label option', 'API access', 'Dedicated support', 'Custom integrations', 'Unlimited storage', 'SLA guarantee', 'Training sessions'],
+    maxStudents: 999999,
+    maxTeachers: 999999,
+    storage: 'Unlimited',
+    support: 'Dedicated Account Manager',
+    isPopular: false,
+    isActive: true,
+    subscribersCount: 24,
+    revenue: 9576
+  }
+];
+
 // Component
 const SuperAdminBillingPlans: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'plans' | 'subscriptions' | 'transactions'>('overview');
@@ -229,6 +280,21 @@ const SuperAdminBillingPlans: React.FC = () => {
   const [showSubModal, setShowSubModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [showCreatePlanModal, setShowCreatePlanModal] = useState(false);
+  const [createPlanForm, setCreatePlanForm] = useState({
+    name: '',
+    description: '',
+    price: 0,
+    billingCycle: 'monthly' as Plan['billingCycle'],
+    features: '',
+    maxStudents: 0,
+    maxTeachers: 0,
+    storage: '',
+    support: '',
+    isPopular: false,
+    isActive: true,
+  });
+  const [plansList, setPlansList] = useState<Plan[]>(plans);
 
   // Mock Data
   const stats: BillingStats = {
@@ -241,57 +307,6 @@ const SuperAdminBillingPlans: React.FC = () => {
     averageRevenuePerSchool: 608,
     churnRate: 3.2
   };
-
-  const plans: Plan[] = [
-    {
-      id: 'p1',
-      name: 'Basic',
-      description: 'Perfect for small schools starting out',
-      price: 49,
-      billingCycle: 'monthly',
-      features: ['Up to 500 students', '25 teachers', 'Basic attendance', 'Grade management', 'Email support', '5GB storage'],
-      maxStudents: 500,
-      maxTeachers: 25,
-      storage: '5GB',
-      support: 'Email',
-      isPopular: false,
-      isActive: true,
-      subscribersCount: 45,
-      revenue: 2205
-    },
-    {
-      id: 'p2',
-      name: 'Premium',
-      description: 'Most popular plan for growing schools',
-      price: 149,
-      billingCycle: 'monthly',
-      features: ['Up to 2000 students', '100 teachers', 'Advanced analytics', 'Parent portal', 'SMS notifications', '24/7 support', '50GB storage', 'Custom reports'],
-      maxStudents: 2000,
-      maxTeachers: 100,
-      storage: '50GB',
-      support: '24/7 Phone & Chat',
-      isPopular: true,
-      isActive: true,
-      subscribersCount: 78,
-      revenue: 11622
-    },
-    {
-      id: 'p3',
-      name: 'Enterprise',
-      description: 'Unlimited power for large institutions',
-      price: 399,
-      billingCycle: 'monthly',
-      features: ['Unlimited students', 'Unlimited teachers', 'White-label option', 'API access', 'Dedicated support', 'Custom integrations', 'Unlimited storage', 'SLA guarantee', 'Training sessions'],
-      maxStudents: 999999,
-      maxTeachers: 999999,
-      storage: 'Unlimited',
-      support: 'Dedicated Account Manager',
-      isPopular: false,
-      isActive: true,
-      subscribersCount: 24,
-      revenue: 9576
-    }
-  ];
 
   const subscriptions: Subscription[] = [
     {
@@ -551,6 +566,45 @@ const SuperAdminBillingPlans: React.FC = () => {
     </div>
   );
 
+  const handleCreatePlan = () => {
+    setShowCreatePlanModal(true);
+  };
+
+  const handleCreatePlanSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newPlan: Plan = {
+      id: (plansList.length + 1).toString(),
+      name: createPlanForm.name,
+      description: createPlanForm.description,
+      price: createPlanForm.price,
+      billingCycle: createPlanForm.billingCycle,
+      features: createPlanForm.features.split(',').map(f => f.trim()),
+      maxStudents: createPlanForm.maxStudents,
+      maxTeachers: createPlanForm.maxTeachers,
+      storage: createPlanForm.storage, 
+      support: createPlanForm.support,
+      isPopular: createPlanForm.isPopular,
+      isActive: createPlanForm.isActive,
+      subscribersCount: 0,
+      revenue: 0
+    };
+    setPlansList([...plansList, newPlan]);
+    setShowCreatePlanModal(false);
+    setCreatePlanForm({
+      name: '',
+      description: '',
+      price: 0,
+      billingCycle: 'monthly',
+      features: '',
+      maxStudents: 0,
+      maxTeachers: 0,
+      storage: '',
+      support: '',
+      isPopular: false,
+      isActive: true,
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -566,12 +620,167 @@ const SuperAdminBillingPlans: React.FC = () => {
                 <Download className="w-4 h-4" />
                 Export Report
               </button>
-              <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2">
+              <button
+                className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                onClick={handleCreatePlan}
+              >
                 <Plus className="w-4 h-4" />
                 Create Plan
               </button>
             </div>
           </div>
+
+          {/* Create Plan Modal */}
+          {showCreatePlanModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+              <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-lg relative">
+                <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-700" onClick={() => setShowCreatePlanModal(false)}>
+                  <span className="text-2xl">×</span>
+                </button>
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">Create New Plan</h2>
+                <form onSubmit={handleCreatePlanSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Plan Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={createPlanForm.name}
+                      onChange={e => setCreatePlanForm({ ...createPlanForm, name: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="e.g., Premium"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+                    <input
+                      type="text"
+                      required
+                      value={createPlanForm.description}
+                      onChange={e => setCreatePlanForm({ ...createPlanForm, description: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="e.g., Best for growing schools"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Price (USD) *</label>
+                      <input
+                        type="number"
+                        min={0}
+                        required
+                        value={createPlanForm.price}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, price: Number(e.target.value) })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Billing Cycle *</label>
+                      <select
+                        value={createPlanForm.billingCycle}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, billingCycle: e.target.value as Plan['billingCycle'] })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="monthly">Monthly</option>
+                        <option value="yearly">Yearly</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Features (comma separated) *</label>
+                    <input
+                      type="text"
+                      required
+                      value={createPlanForm.features}
+                      onChange={e => setCreatePlanForm({ ...createPlanForm, features: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="e.g., Unlimited students, 24/7 support"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Max Students *</label>
+                      <input
+                        type="number"
+                        min={0}
+                        required
+                        value={createPlanForm.maxStudents}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, maxStudents: Number(e.target.value) })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Max Teachers *</label>
+                      <input
+                        type="number"
+                        min={0}
+                        required
+                        value={createPlanForm.maxTeachers}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, maxTeachers: Number(e.target.value) })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Storage *</label>
+                    <input
+                      type="text"
+                      required
+                      value={createPlanForm.storage}
+                      onChange={e => setCreatePlanForm({ ...createPlanForm, storage: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="e.g., 50GB"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Support *</label>
+                    <input
+                      type="text"
+                      required
+                      value={createPlanForm.support}
+                      onChange={e => setCreatePlanForm({ ...createPlanForm, support: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                      placeholder="e.g., 24/7 Phone & Chat"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={createPlanForm.isPopular}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, isPopular: e.target.checked })}
+                        className="accent-indigo-600"
+                      />
+                      <span className="text-sm text-gray-700">Mark as Popular</span>
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        checked={createPlanForm.isActive}
+                        onChange={e => setCreatePlanForm({ ...createPlanForm, isActive: e.target.checked })}
+                        className="accent-green-600"
+                      />
+                      <span className="text-sm text-gray-700">Active</span>
+                    </label>
+                  </div>
+                  <div className="flex justify-end gap-3 pt-4 border-t">
+                    <button
+                      type="button"
+                      onClick={() => setShowCreatePlanModal(false)}
+                      className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                    >
+                      Create Plan
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
 
           {/* Tabs */}
           <div className="flex gap-6 border-b border-gray-200">
