@@ -450,6 +450,7 @@ const RouteManagementScreen: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowAddModal(false)}
+                title="Close route modal"
                 className="p-2 hover:bg-blue-800 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
@@ -527,6 +528,7 @@ const RouteManagementScreen: React.FC = () => {
                     <select
                       value={formData.driverId}
                       onChange={(e) => setFormData({ ...formData, driverId: e.target.value })}
+                      title="Assign Driver"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Select Driver</option>
@@ -544,6 +546,7 @@ const RouteManagementScreen: React.FC = () => {
                     <select
                       value={formData.vehicleNumber}
                       onChange={(e) => setFormData({ ...formData, vehicleNumber: e.target.value })}
+                      title="Assign Vehicle"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Select Vehicle</option>
@@ -616,6 +619,7 @@ const RouteManagementScreen: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => handleRemoveStop(stop.id)}
+                            title="Delete stop"
                             className="text-red-600 hover:text-red-700 p-1"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -631,6 +635,7 @@ const RouteManagementScreen: React.FC = () => {
                               type="text"
                               value={stop.name}
                               onChange={(e) => handleUpdateStop(stop.id, 'name', e.target.value)}
+                              title="Stop name"
                               placeholder="e.g., Green Park"
                               className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                             />
@@ -647,6 +652,7 @@ const RouteManagementScreen: React.FC = () => {
                                 type="time"
                                 value={stop.pickupTime}
                                 onChange={(e) => handleUpdateStop(stop.id, 'pickupTime', e.target.value)}
+                                title="Pickup time"
                                 className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                               />
                             </div>
@@ -663,6 +669,7 @@ const RouteManagementScreen: React.FC = () => {
                                 type="time"
                                 value={stop.dropTime}
                                 onChange={(e) => handleUpdateStop(stop.id, 'dropTime', e.target.value)}
+                                title="Drop time"
                                 className="w-full pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                               />
                             </div>

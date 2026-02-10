@@ -22,12 +22,15 @@ import Layout from "./components/layout/AppLayout";
 import TeacherDashboard from "./screens/teacher/dashboard/TeacherDashboardScreen";
 import MarkAttendanceScreen from "./screens/teacher/attendance/MarkAttendanceScreen";
 import CreateHomeWorkScreen from "./screens/teacher/homework/CreateHomeWorkScreen";
+import ClassScreen from "./screens/teacher/class/ClassScreen";
 import AddHomeWorkScreen from "./screens/teacher/homework/AddHomeWorkScreen";
 import AnnouncementScreen from "./screens/teacher/announcements/AnnouncementScreen";
 import CreateAnnouncement from "./screens/teacher/announcements/CreateAnnouncementScreen";
+import TeacherTimetable from "./screens/teacher/timetable/TeacherTimetableScreen";
 import TeacherProfileScreen from "./screens/teacher/dashboard/TeacherProfileScreen";
 import PaySlipsPage from "./screens/teacher/payroll/PayslipHistoryScreen";
 import ApplyLeaveScreen from "./screens/teacher/leave/ApplyLeaveScreen";
+import NotificationsScreen from "./screens/teacher/messaging/NotificationsScreen";
 import AppliedLeavesPage from "./screens/teacher/leave/LeaveHistoryScreen"; 
 import RaiseIssueScreen from "./screens/teacher/messaging/IssuesScreen";
 import StudentListByClassScreen from "./screens/teacher/students/StudentListByClassScreen";
@@ -36,12 +39,14 @@ import EnterMarkScreen from "./screens/teacher/exams/EnterMarksScreen";
 import AttendanceReportsScreen from "./screens/admin/attendance/AttendanceReportsScreen";
 import PrivacyPolicyPage from "./screens/teacher/privacy/Privacy&Policy";
 import AboutUsPage from "./screens/teacher/privacy/aboutus";
+import ExamReportsScreen from "./screens/admin/reports/ExamReportsScreen";
 import ClassListScreen from "./screens/admin/class/ClassListScreen";
 import HelpPage from "./screens/teacher/privacy/Help";  
 import LoginScreen from "./screens/auth/LoginScreen"; 
 import ParentDashboardScreen from "./screens/parent/ParentdashBoard";
 import AttendanceScreen from "./screens/parent/AttendanceScreen";
 import Homework from "./screens/parent/HomeWork";
+import ExamsScreen from "./screens/parent/ExamsScreen";
 import FeeDetails from "./screens/parent/FeeDetails";
 import ParentProfile from "./screens/parent/Profile";
 import Ticketmodel from "./screens/teacher/privacy/Ticketmodel";
@@ -58,7 +63,6 @@ import CleaningFinance from "./screens/admin/finance/CleaningFinance";
 import TransportFinance from "./screens/admin/finance/TransportFinance";
 import InventoryManagement from "./screens/admin/finance/InventoryManagement";
 import LibraryFinance from "./screens/admin/finance/LibraryFinance";
-import PayslipHistoryScreen from "./screens/teacher/payroll/PayslipHistoryScreen";
 import SecurityFinance from "./screens/admin/finance/SecurityFinance";
 import StudentDuesDetail from "./screens/admin/finance/StudentDuesDetail";
 import TeachingStaffDetails from "./screens/admin/finance/TeachingStaffDetails";
@@ -108,17 +112,24 @@ function App() {
                 <Route path="/teacher" element={<Layout />}>
                     <Route path="dashboard" element={<TeacherDashboard />} />
                     <Route path="attendance/mark" element={<MarkAttendanceScreen />} />
+                    <Route path="homework" element={<CreateHomeWorkScreen />} />
+                    <Route path="class" element={<ClassScreen />} />
                     <Route path="homework/create" element={<CreateHomeWorkScreen />} />
                     <Route path="homework/add" element={<AddHomeWorkScreen />} />
                     <Route path="announcements" element={<AnnouncementScreen />} />
                     <Route path ="announcements/create" element={<CreateAnnouncement />} />
                     <Route path="profile" element={<TeacherProfileScreen />} />
                     <Route path="payroll/payslips" element={<PaySlipsPage />} />
+                    <Route path="leave" element={<ApplyLeaveScreen />} />
                     <Route path="leave/apply" element={<ApplyLeaveScreen />} />
                     <Route path="leave/history" element={<AppliedLeavesPage />} />
+                    <Route path="reports" element={<ExamReportsScreen />} />
                     <Route path="messaging/issues" element={<RaiseIssueScreen />} />
+                    <Route path="notifications" element={<NotificationsScreen />} />
                     <Route path="students/studentlist" element={<StudentListByClassScreen />} />
                     <Route path="students/profile/:id" element={<StudentProfileScreen />} />
+                    <Route path="exams" element={<EnterMarkScreen />} />
+                    <Route path="timetable" element={<TeacherTimetable />} />
                     <Route path="exams/entermarks" element={<EnterMarkScreen />} />
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="about-us" element={<AboutUsPage />} />
@@ -131,6 +142,7 @@ function App() {
                     <Route path="attendance" element={<AttendanceScreen />} />
                     <Route path="fee-details" element={<FeeDetails />} />
                     <Route path="homework" element={<Homework />} />
+                    <Route path="exams" element={<ExamsScreen />} />
                     <Route path="profile" element={<ParentProfile />} />
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="about-us" element={<AboutUsPage />} />

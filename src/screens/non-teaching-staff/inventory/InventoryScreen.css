@@ -1,0 +1,38 @@
+/* Progress Bar Styles */
+.inventory-progress-bar {
+  width: 100%;
+  height: 0.75rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.inventory-progress-segment {
+  height: 100%;
+  transition: all 0.5s ease;
+}
+
+.inventory-progress-damaged {
+  background-color: #f43f5e;
+}
+
+.inventory-progress-available {
+  background-color: #10b981;
+}
+
+/* Status Distribution Chart */
+.inventory-status-bar {
+  width: 100%;
+  height: 0.625rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.inventory-status-segment {
+  height: 100%;
+  border-radius: 9999px;
+  transition: all 0.5s ease;
+}

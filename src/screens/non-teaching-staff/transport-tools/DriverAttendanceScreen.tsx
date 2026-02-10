@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Users, UserCheck, UserX, AlertTriangle, Calendar, 
-  Search, Filter, Clock, CheckCircle, XCircle, 
-  History, Bus, Navigation, X, ChevronRight 
+  Filter, Clock, CheckCircle, XCircle, 
+  History, Bus, Navigation, X 
 } from 'lucide-react';
 
 // Types
@@ -342,6 +342,8 @@ const DriverAttendanceScreen: React.FC = () => {
                 type="date"
                 value={selectedDate}
                 onChange={(e) => setSelectedDate(e.target.value)}
+                title="Select date"
+                placeholder="Select date"
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
@@ -355,6 +357,7 @@ const DriverAttendanceScreen: React.FC = () => {
             <select
               value={routeFilter}
               onChange={(e) => setRouteFilter(e.target.value)}
+              title="Filter by Route"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">All Routes</option>
@@ -372,6 +375,7 @@ const DriverAttendanceScreen: React.FC = () => {
             <select
               value={busFilter}
               onChange={(e) => setBusFilter(e.target.value)}
+              title="Filter by Bus"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">All Buses</option>
@@ -389,6 +393,7 @@ const DriverAttendanceScreen: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
+              title="Filter by Attendance Status"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="all">All Status</option>
@@ -581,6 +586,7 @@ const DriverAttendanceScreen: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowHistory(false)}
+                title="Close attendance history"
                 className="p-2 hover:bg-blue-800 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />

@@ -113,6 +113,21 @@ const Sidebar = () => {
     } else if (location.pathname.startsWith('/teacher')) {
       return [
         { path: "/teacher/dashboard", icon: Home, label: "Dashboard" },
+        {path: "/teacher/attendance", icon: School, label: "Attendance",
+          children: [
+            { path: "/teacher/attendance/attendance-list", label: "Attendance List", icon: Calendar },
+            { path: "/teacher/attendance/attendance-report", label: "Attendance Report", icon: BarChart2 },
+          ]
+        },
+
+        {path: "/teacher/homework", icon: BookOpen, label: "Homework" },
+        {path: "/teacher/exams", icon: FileText, label: "Exams" },
+        {path: "/teacher/class", icon: GraduationCap, label: "Class" },
+        {path: "/teacher/notifications", icon: Settings, label: "Notifications" },
+        {path: "/teacher/reports", icon: BarChart2, label: "Reports" },
+        {path: "/teacher/timetable", icon: BookOpen, label: "Time Table" },
+        {path: "/teacher/leave", icon: Book, label: "Leave" },  
+
         { path: "/teacher/students/studentlist", icon: Users, label: "Students" },
         { path: "/teacher/profile", icon: User, label: "Profile" },
       ];
@@ -122,7 +137,7 @@ const Sidebar = () => {
         { path: "/parent/attendance", icon: Calendar, label: "Attendance" },
         { path: "/parent/fee-details", icon: Wallet, label: "Fee Details" },
         { path: "/parent/homework", icon: BookOpen, label: "Homework" },
-        { path: "/teacher/exam-reports", icon: FileText, label: "Exam Reports" },
+        { path: "/parent/exams", icon: FileText, label: "Exams" },
         { path: "/parent/profile", icon: User, label: "Profile" },
       ];
     } else if (location.pathname.startsWith('/transport-manager')) {

@@ -1299,6 +1299,7 @@
 
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import './SuperAdminListScreen.css';
 import {
   Shield,
   Users,
@@ -1350,6 +1351,7 @@ import {
   ExternalLink,
   ShieldCheck,
   ShieldAlert,
+  ShieldOff,
   Fingerprint,
   Monitor,
   Laptop,
@@ -1762,7 +1764,7 @@ interface RoleBadgeProps {
 }
 
 const RoleBadge: React.FC<RoleBadgeProps> = ({ role }) => {
-  const config = ROLE_CONFIGS[role];
+  const config = ROLE_CONFIGS[role as keyof typeof ROLE_CONFIGS];
   return (
     <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r ${config.color} text-white text-xs font-bold uppercase tracking-wide shadow-md`}>
       <span>{config.icon}</span>
@@ -1839,14 +1841,14 @@ const AdminManagement: React.FC = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     setAdmins(prev => prev.map(a => 
       a.id === admin.id 
-        ? { ...a, twoFactor: { ...a.twoFactor, enabled: !a.twoFactor.enabled } }
+        ? { ...a, twoFactor: { ...(a.twoFactor || { enabled: false }), enabled: !(a.twoFactor?.enabled ?? false) } }
         : a
     ));
     setIsSaving(false);
     addNotification(
-      'success', 
+      'security', 
       '2FA Updated', 
-      `Two-factor authentication ${!admin.twoFactor.enabled ? 'enabled' : 'disabled'} for ${admin.name}`
+      `Two-factor authentication ${!(admin.twoFactor?.enabled ?? false) ? 'enabled' : 'disabled'} for ${admin.name}`
     );
   }, [addNotification]);
 
@@ -1870,10 +1872,7 @@ const AdminManagement: React.FC = () => {
       
       {/* Subtle Pattern Background */}
       <div className="fixed inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, #0ea5e9 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
+        <div className="admin-pattern-background absolute inset-0" />
       </div>
 
       {/* Notifications */}
@@ -1903,6 +1902,7 @@ const AdminManagement: React.FC = () => {
               </div>
               <button
                 onClick={() => setNotifications(prev => prev.filter(n => n.id !== notif.id))}
+                title="Close notification"
                 className="p-1 hover:bg-slate-100 rounded-lg transition-colors"
               >
                 <X className="w-4 h-4 text-slate-500" />
@@ -1913,7 +1913,7 @@ const AdminManagement: React.FC = () => {
       </div>
 
       {/* Header */}
-      <header className="relative sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b-2 border-blue-200 shadow-sm">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b-2 border-blue-200 shadow-sm">
         <div className="max-w-[1800px] mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-5">
@@ -1978,19 +1978,19 @@ const AdminManagement: React.FC = () => {
           <MetricCard
             icon={ShieldCheck}
             label="2FA Enabled"
-            value={stats.twoFactorEnabled}
+            value={stats.twoFactorEnabled ?? 0}
             trend={15}
           />
           <MetricCard
             icon={AlertTriangle}
             label="Security Alerts"
-            value={stats.securityAlertsToday}
+            value={stats.securityAlertsToday ?? 0}
             trend={-25}
           />
           <MetricCard
             icon={Database}
             label="Audit Logs"
-            value={stats.auditLogsToday}
+            value={stats.auditLogsToday ?? 0}
             trend={5}
           />
         </div>
@@ -2057,6 +2057,7 @@ const AdminManagement: React.FC = () => {
                 <select
                   value={roleFilter}
                   onChange={(e) => setRoleFilter(e.target.value as any)}
+                  title="Filter by role"
                   className="px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-blue-400 transition-colors"
                 >
                   <option value="all">All Roles</option>
@@ -2068,6 +2069,7 @@ const AdminManagement: React.FC = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value as any)}
+                  title="Filter by status"
                   className="px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-blue-400 transition-colors"
                 >
                   <option value="all">All Status</option>
@@ -2096,7 +2098,7 @@ const AdminManagement: React.FC = () => {
                       {/* Avatar */}
                       <div className="relative">
                         <div className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-md">
-                          {admin.name.split(' ').map(n => n[0]).join('')}
+                          {admin.name.split(' ').map((n: string) => n[0]).join('')}
                         </div>
                         {admin.status === 'active' && (
                           <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full" />
@@ -2116,13 +2118,13 @@ const AdminManagement: React.FC = () => {
                             <Mail className="w-4 h-4 text-blue-500" />
                             <span>{admin.email}</span>
                           </div>
-                          {admin.metadata.phone && (
+                          {admin.metadata?.phone && (
                             <div className="flex items-center gap-2">
                               <Phone className="w-4 h-4 text-blue-500" />
                               <span>{admin.metadata.phone}</span>
                             </div>
                           )}
-                          {admin.metadata.department && (
+                          {admin.metadata?.department && (
                             <div className="flex items-center gap-2">
                               <Award className="w-4 h-4 text-blue-500" />
                               <span>{admin.metadata.department}</span>
@@ -2133,15 +2135,15 @@ const AdminManagement: React.FC = () => {
                         <div className="flex items-center gap-6 text-xs text-slate-500 font-bold">
                           <div className="flex items-center gap-2">
                             <Clock className="w-4 h-4" />
-                            <span>Last login: {formatRelativeTime(admin.lastLoginAt!)}</span>
+                            <span>Last login: {admin.lastLoginAt ? formatRelativeTime(admin.lastLoginAt) : 'Never'}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <MapPin className="w-4 h-4" />
-                            <span>{admin.lastLoginLocation}</span>
+                            <span>{admin.lastLoginLocation ?? 'Unknown'}</span>
                           </div>
                           <div className="flex items-center gap-2">
                             <Globe className="w-4 h-4" />
-                            <span>{admin.lastLoginIp}</span>
+                            <span>{admin.lastLoginIp ?? 'N/A'}</span>
                           </div>
                         </div>
                       </div>
@@ -2150,15 +2152,15 @@ const AdminManagement: React.FC = () => {
                     {/* Actions */}
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 rounded-xl border-2 border-slate-200">
-                        {admin.twoFactor.enabled ? (
+                        {admin.twoFactor?.enabled ? (
                           <>
                             <ShieldCheck className="w-4 h-4 text-emerald-600" />
                             <span className="text-xs font-bold text-emerald-600">2FA ON</span>
                           </>
                         ) : (
                           <>
-                            <ShieldAlert className="w-4 h-4 text-amber-600" />
-                            <span className="text-xs font-bold text-amber-600">2FA OFF</span>
+                            <ShieldOff className="w-4 h-4 text-slate-500" />
+                            <span className="text-xs font-bold text-slate-500">2FA OFF</span>
                           </>
                         )}
                       </div>
@@ -2168,7 +2170,7 @@ const AdminManagement: React.FC = () => {
                         disabled={isSaving}
                         className="p-3 bg-slate-50 hover:bg-slate-100 border-2 border-slate-200 rounded-xl transition-colors disabled:opacity-50"
                       >
-                        {admin.twoFactor.enabled ? (
+                        {admin.twoFactor?.enabled ? (
                           <Unlock className="w-5 h-5 text-blue-600" />
                         ) : (
                           <Lock className="w-5 h-5 text-amber-600" />
@@ -2192,6 +2194,7 @@ const AdminManagement: React.FC = () => {
                           setSelectedAdmin(admin);
                           setShowDeleteModal(true);
                         }}
+                        title="Delete admin"
                         className="p-3 bg-red-50 hover:bg-red-100 border-2 border-red-200 rounded-xl transition-colors"
                       >
                         <Trash2 className="w-5 h-5 text-red-600" />
@@ -2222,11 +2225,11 @@ const AdminManagement: React.FC = () => {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase border ${getSeverityColor(log.severity)}`}>
-                            {log.severity}
+                          <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase border ${getSeverityColor(log.severity ?? 'low')}`}>
+                            {log.severity ?? 'low'}
                           </span>
                           <span className="px-3 py-1 rounded-lg text-xs font-bold uppercase bg-slate-200 text-slate-700 border border-slate-300">
-                            {log.category}
+                            {log.category ?? 'system'}
                           </span>
                           <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">
                             {log.action.replace(/_/g, ' ')}
@@ -2234,7 +2237,7 @@ const AdminManagement: React.FC = () => {
                         </div>
                         
                         <div className="text-sm text-slate-900 font-semibold mb-2">
-                          <span className="text-blue-600">{log.actor.name}</span>
+                          <span className="text-blue-600">{log.actor?.name ?? 'System'}</span>
                           {' '}performed{' '}
                           <span className="text-purple-600">{log.action.replace(/_/g, ' ')}</span>
                           {log.target && (
@@ -2248,9 +2251,9 @@ const AdminManagement: React.FC = () => {
                         <div className="flex items-center gap-4 text-xs text-slate-500 font-bold">
                           <span>{formatDate(log.timestamp)}</span>
                           <span>•</span>
-                          <span>{log.metadata.ipAddress}</span>
+                          <span>{log.metadata?.ipAddress}</span>
                           <span>•</span>
-                          <span>{log.metadata.location}</span>
+                          <span>{log.metadata?.location}</span>
                         </div>
                       </div>
                     </div>

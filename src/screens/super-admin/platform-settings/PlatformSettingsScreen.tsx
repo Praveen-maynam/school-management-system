@@ -226,6 +226,17 @@
 
 // PlatformSettings.tsx - Production-level React + TypeScript + Tailwind CSS
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import type {
+  SettingStatus,
+  SettingsTab,
+  SMSProvider,
+  EmailProvider,
+  PaymentGateway,
+  LoginMethodConfig,
+  WhiteLabelConfig,
+  SecurityConfig,
+  NotificationMessage,
+} from './platform-settings.types';
 import {
   Settings,
   MessageSquare,
@@ -677,8 +688,8 @@ const PlatformSettings: React.FC = () => {
         text: '#0f172a',
       },
       fonts: {
-        heading: 'Cal Sans',
-        body: 'DM Sans',
+        primary: 'Cal Sans',
+        secondary: 'DM Sans',
       },
     },
     customization: {
@@ -812,6 +823,7 @@ const PlatformSettings: React.FC = () => {
               </div>
               <button
                 onClick={() => setNotifications(prev => prev.filter(n => n.id !== notif.id))}
+                title="Dismiss notification"
                 className="p-1 hover:bg-slate-200 rounded-lg transition-colors"
               >
                 <X className="w-4 h-4 text-slate-600" />
@@ -909,10 +921,10 @@ const PlatformSettings: React.FC = () => {
               onClick={() => setActiveTab('login')}
             />
             <TabButton
-              active={activeTab === 'whitelabel'}
+              active={activeTab === 'whiteLabel'}
               icon={Palette}
               label="White-Labeling"
-              onClick={() => setActiveTab('whitelabel')}
+              onClick={() => setActiveTab('whiteLabel')}
             />
             <TabButton
               active={activeTab === 'security'}
@@ -979,6 +991,7 @@ const PlatformSettings: React.FC = () => {
                     SMS Provider
                   </label>
                   <select
+                    title="Select SMS provider"
                     value={smsProvider.provider}
                     onChange={(e) => setSmsProvider({ ...smsProvider, provider: e.target.value as any })}
                     className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
@@ -997,6 +1010,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="tel"
+                    placeholder="+1 (555) 000-0000"
                     value={smsProvider.config.phoneNumber}
                     onChange={(e) => setSmsProvider({
                       ...smsProvider,
@@ -1144,6 +1158,7 @@ const PlatformSettings: React.FC = () => {
                     Email Provider
                   </label>
                   <select
+                    title="Select email provider"
                     value={emailProvider.provider}
                     onChange={(e) => setEmailProvider({ ...emailProvider, provider: e.target.value as any })}
                     className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
@@ -1173,6 +1188,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="email"
+                    placeholder="noreply@example.edu"
                     value={emailProvider.config.fromEmail}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -1188,6 +1204,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="text"
+                    placeholder="School Management System"
                     value={emailProvider.config.fromName}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -1203,6 +1220,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="email"
+                    placeholder="support@example.edu"
                     value={emailProvider.config.replyTo}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -1218,6 +1236,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="text"
+                    placeholder="example.edu"
                     value={emailProvider.config.domain}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -1323,7 +1342,7 @@ const PlatformSettings: React.FC = () => {
           </div>
         )}
 
-        {activeTab === 'whitelabel' && (
+        {activeTab === 'whiteLabel' && (
           <div className="space-y-6 animate-fadeIn">
             <div className="bg-white rounded-2xl border-2 border-slate-200 p-8 shadow-sm">
               <h2 className="text-2xl font-black text-slate-900 mb-4">White-Labeling Options</h2>

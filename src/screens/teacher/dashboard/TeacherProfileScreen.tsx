@@ -1,121 +1,5 @@
-
-
-
-// import React, { useState } from 'react';
-// import { Bell, Calendar, DollarSign, FileText, AlertCircle, Shield, Info, ChevronRight } from 'lucide-react';
-
-// function TeacherProfile() {
-//   const [notificationEnabled, setNotificationEnabled] = useState(true);
-
-//   const profileOptions = [
-//     { icon: Bell, label: 'Notification', hasToggle: true },
-//     { icon: Calendar, label: 'Timetable' },
-//     { icon: DollarSign, label: 'Pay Slips' },
-//     { icon: FileText, label: 'Apply Leave' },
-//     { icon: AlertCircle, label: 'Raise an Issue' },
-//     { icon: Shield, label: 'Privacy Policy' },
-//     { icon: Info, label: 'About Us' },
-//     { icon: Info, label: 'Help' },
-//     { icon: Info, label: 'Logout' }
-//   ];
-
-//   return (
-//     <div className="w-full h-screen bg-gray-50 overflow-y-auto">
-//       <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
-//         {/* Profile Card */}
-//         <div className="bg-blue-600 rounded-xl shadow-lg p-6 md:p-8 lg:p-10 mb-6">
-//           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">Profile</h2>
-          
-//           <div className="bg-white rounded-xl p-6 md:p-8">
-//             <div className="flex flex-col items-center">
-//               {/* Avatar */}
-//               <div className="w-20 h-20 md:w-28 md:h-28 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl md:text-5xl font-bold mb-4 md:mb-6">
-//                 S
-//               </div>
-              
-//               {/* Name and Subject */}
-//               <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-1 md:mb-2">Teacher Name</h3>
-//               <p className="text-gray-500 text-sm md:text-base mb-6 md:mb-8">Subject Name</p>
-              
-//               {/* Contact Info */}
-//               <div className="w-full max-w-2xl space-y-4">
-//                 <div className="flex items-center bg-purple-50 rounded-xl p-4 md:p-5">
-//                   <div className="w-12 h-12 md:w-14 md:h-14 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-//                     <svg className="w-6 h-6 md:w-7 md:h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-//                     </svg>
-//                   </div>
-//                   <div className="ml-4 overflow-hidden">
-//                     <p className="text-xs md:text-sm text-gray-500 mb-1">Email</p>
-//                     <p className="text-sm md:text-base lg:text-lg text-gray-800 truncate">Example@gmail.com</p>
-//                   </div>
-//                 </div>
-                
-//                 <div className="flex items-center bg-green-50 rounded-xl p-4 md:p-5">
-//                   <div className="w-12 h-12 md:w-14 md:h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-//                     <svg className="w-6 h-6 md:w-7 md:h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-//                     </svg>
-//                   </div>
-//                   <div className="ml-4">
-//                     <p className="text-xs md:text-sm text-gray-500 mb-1">Phone</p>
-//                     <p className="text-sm md:text-base lg:text-lg text-gray-800">+91 1234567890</p>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Options List */}
-//         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-//           {profileOptions.map((option, index) => (
-//             <div
-//               key={index}
-//               className={`flex items-center justify-between p-4 md:p-5 lg:p-6 hover:bg-gray-50 transition-colors cursor-pointer ${
-//                 index !== profileOptions.length - 1 ? 'border-b border-gray-100' : ''
-//               }`}
-//             >
-//               <div className="flex items-center">
-//                 <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-//                   <option.icon className="text-blue-600" size={20} />
-//                 </div>
-//                 <span className="ml-4 text-gray-700 font-medium text-sm md:text-base lg:text-lg">{option.label}</span>
-//               </div>
-              
-//               {option.hasToggle ? (
-//                 <button
-//                   onClick={() => setNotificationEnabled(!notificationEnabled)}
-//                   className={`relative inline-flex h-7 w-12 md:h-8 md:w-14 items-center rounded-full transition-colors flex-shrink-0 ${
-//                     notificationEnabled ? 'bg-blue-600' : 'bg-gray-300'
-//                   }`}
-//                 >
-//                   <span
-//                     className={`inline-block h-5 w-5 md:h-6 md:w-6 transform rounded-full bg-white transition-transform ${
-//                       notificationEnabled ? 'translate-x-6 md:translate-x-7' : 'translate-x-1'
-//                     }`}
-//                   />
-//                 </button>
-//               ) : (
-//                 <ChevronRight className="text-gray-400 flex-shrink-0" size={20} />
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-// export default TeacherProfile;
-
-
-
-
-
-
-
 import React, { useState } from 'react';
-import { Bell, Calendar, DollarSign, FileText, AlertCircle, Shield, Info, ChevronRight } from 'lucide-react';
+import { Bell, Calendar, DollarSign, FileText, AlertCircle, Shield, Info, ChevronRight, LogOut, HelpCircle, Mail, Phone, User, GraduationCap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 function TeacherProfile() {
@@ -123,66 +7,167 @@ function TeacherProfile() {
   const navigate = useNavigate();
 
   const profileOptions = [
-    { icon: Bell, label: 'Notification', hasToggle: true },
-    { icon: Calendar, label: 'Timetable' },
-    { icon: DollarSign, label: 'Pay Slips' },
-    { icon: FileText, label: 'Apply Leave' },
-    { icon: AlertCircle, label: 'Raise an Issue' },
-    { icon: Shield, label: 'Privacy Policy' },
-    { icon: Info, label: 'About Us' },
-    { icon: Info, label: 'Help' },
-    { icon: Info, label: 'Logout' }
+    { 
+      icon: Bell, 
+      label: 'Notifications', 
+      hasToggle: true,
+      color: 'from-amber-500 to-orange-500',
+      bgColor: 'bg-amber-50',
+      iconColor: 'text-amber-600'
+    },
+    { 
+      icon: Calendar, 
+      label: 'My Timetable',
+      color: 'from-blue-500 to-indigo-500',
+      bgColor: 'bg-blue-50',
+      iconColor: 'text-blue-600',
+      route: '/teacher/timetable'
+    },
+    { 
+      icon: DollarSign, 
+      label: 'Pay Slips',
+      color: 'from-emerald-500 to-teal-500',
+      bgColor: 'bg-emerald-50',
+      iconColor: 'text-emerald-600',
+      route: '/teacher/payroll/payslips'
+    },
+    { 
+      icon: FileText, 
+      label: 'Apply Leave',
+      color: 'from-purple-500 to-pink-500',
+      bgColor: 'bg-purple-50',
+      iconColor: 'text-purple-600',
+      route: '/teacher/leave/apply'
+    },
+    { 
+      icon: AlertCircle, 
+      label: 'Raise an Issue',
+      color: 'from-rose-500 to-red-500',
+      bgColor: 'bg-rose-50',
+      iconColor: 'text-rose-600',
+      route: '/teacher/messaging/issues'
+    },
+    { 
+      icon: Shield, 
+      label: 'Privacy Policy',
+      color: 'from-slate-500 to-gray-500',
+      bgColor: 'bg-slate-50',
+      iconColor: 'text-slate-600',
+      route: '/teacher/privacy-policy'
+    },
+    { 
+      icon: Info, 
+      label: 'About Us',
+      color: 'from-cyan-500 to-blue-500',
+      bgColor: 'bg-cyan-50',
+      iconColor: 'text-cyan-600',
+      route: '/teacher/about-us'
+    },
+    { 
+      icon: HelpCircle, 
+      label: 'Help & Support',
+      color: 'from-violet-500 to-purple-500',
+      bgColor: 'bg-violet-50',
+      iconColor: 'text-violet-600',
+      route: '/teacher/help'
+    },
+    { 
+      icon: LogOut, 
+      label: 'Logout',
+      color: 'from-red-500 to-rose-500',
+      bgColor: 'bg-red-50',
+      iconColor: 'text-red-600',
+      route: '/',
+      isDanger: true
+    }
   ];
 
-  return (
-    <div className="w-full h-screen bg-gray-50 overflow-y-auto">
-      <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
-        {/* Profile Card */}
-        <div className="bg-blue-600 rounded-xl shadow-lg p-6 md:p-8 lg:p-10 mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 md:mb-8">Profile</h2>
+  const handleOptionClick = (option: any) => {
+    if (option.route) {
+      navigate(option.route);
+    }
+  };
 
-          <div className="bg-white rounded-xl p-6 md:p-8">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-blue-50">
+      {/* Top Navigation */}
+      <nav className="bg-white border-b border-emerald-100 px-6 py-3 shadow-sm">
+        <div className="flex items-center justify-between max-w-6xl mx-auto">
+          <div className="flex items-center space-x-3">
+            <GraduationCap className="w-8 h-8 text-emerald-600" />
+            <span className="text-xl font-semibold text-slate-800">School ERP</span>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-slate-600">Academic Year: 2025-26</span>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        {/* Profile Header Card */}
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8 border border-emerald-100">
+          {/* Gradient Header */}
+          <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 px-8 py-6">
+            <h2 className="text-3xl font-bold text-white">My Profile</h2>
+            <p className="text-emerald-100 text-sm mt-1">View and manage your account</p>
+          </div>
+
+          {/* Profile Content */}
+          <div className="p-8">
             <div className="flex flex-col items-center">
-              {/* Avatar */}
-              <div className="w-20 h-20 md:w-28 md:h-28 bg-blue-600 rounded-full flex items-center justify-center text-white text-3xl md:text-5xl font-bold mb-4 md:mb-6">
-                S
+              {/* Avatar with Gradient Border */}
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-full blur-md opacity-75"></div>
+                <div className="relative w-32 h-32 bg-gradient-to-br from-emerald-600 to-blue-600 rounded-full flex items-center justify-center text-white text-5xl font-bold shadow-xl border-4 border-white">
+                  R
+                </div>
+                <div className="absolute -bottom-2 -right-2 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full p-2 shadow-lg border-2 border-white">
+                  <User className="w-5 h-5 text-white" />
+                </div>
               </div>
 
-              {/* Name and Subject */}
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800 mb-1 md:mb-2">
-                Teacher Name
+              {/* Name and Role */}
+              <h3 className="text-3xl font-bold text-slate-800 mb-1">
+                Mr. Rajesh Kumar
               </h3>
-              <p className="text-gray-500 text-sm md:text-base mb-6 md:mb-8">
-                Subject Name
-              </p>
+              <div className="flex items-center space-x-3 mb-8">
+                <span className="px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold">
+                  Mathematics Teacher
+                </span>
+                <span className="px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+                  Emp ID: TCH045
+                </span>
+              </div>
 
-              {/* Contact Info */}
-              <div className="w-full max-w-2xl space-y-4">
-                <div className="flex items-center bg-purple-50 rounded-xl p-4 md:p-5">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 md:w-7 md:h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div className="ml-4 overflow-hidden">
-                    <p className="text-xs md:text-sm text-gray-500 mb-1">Email</p>
-                    <p className="text-sm md:text-base lg:text-lg text-gray-800 truncate">
-                      Example@gmail.com
-                    </p>
+              {/* Contact Info Cards */}
+              <div className="w-full max-w-3xl grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Email Card */}
+                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-5 border-2 border-purple-100 hover:shadow-lg transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Mail className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-xs font-medium text-slate-500 mb-1">Email Address</p>
+                      <p className="text-base font-semibold text-slate-800 truncate">
+                        rajesh.kumar@school.edu
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center bg-green-50 rounded-xl p-4 md:p-5">
-                  <div className="w-12 h-12 md:w-14 md:h-14 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6 md:w-7 md:h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <p className="text-xs md:text-sm text-gray-500 mb-1">Phone</p>
-                    <p className="text-sm md:text-base lg:text-lg text-gray-800">
-                      +91 1234567890
-                    </p>
+                {/* Phone Card */}
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-5 border-2 border-green-100 hover:shadow-lg transition-all">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Phone className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-slate-500 mb-1">Phone Number</p>
+                      <p className="text-base font-semibold text-slate-800">
+                        +91 98765 43210
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -191,71 +176,65 @@ function TeacherProfile() {
         </div>
 
         {/* Options List */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          {profileOptions.map((option, index) => (
-            <div
-              key={index}
-              onClick={() => {
-                if (option.label === 'Pay Slips') {
-                    navigate('/teacher/payroll/payslips');
-                }
-                 if (option.label === 'Apply Leave') {
-                    navigate('/teacher/leave/apply');
-                }
-                  if (option.label === 'Raise an Issue') {
-                    navigate('/teacher/messaging/issues');
-                }
-                if (option.label === 'Timetable') {
-                    navigate('/teacher/exams/entermarks');
-                }
-              
-                if (option.label === 'Privacy Policy') {
-                    navigate('/teacher/privacy-policy');
-                }
-                if (option.label === 'About Us') {
-                    navigate('/teacher/about-us');
-                }
-                if (option.label === 'Help') {
-                    navigate('/teacher/Help');
-                }
-                if (option.label === 'Logout') {
-                    navigate('/');
-                }
-              }}
-              className={`flex items-center justify-between p-4 md:p-5 lg:p-6 hover:bg-gray-50 transition-colors cursor-pointer ${
-                index !== profileOptions.length - 1 ? 'border-b border-gray-100' : ''
-              }`}
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <option.icon className="text-blue-600" size={20} />
-                </div>
-                <span className="ml-4 text-gray-700 font-medium text-sm md:text-base lg:text-lg">
-                  {option.label}
-                </span>
-              </div>
+        <div className="bg-white rounded-3xl shadow-lg overflow-hidden border border-emerald-100">
+          <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-8 py-4 border-b border-slate-200">
+            <h3 className="text-lg font-bold text-slate-800">Quick Actions</h3>
+            <p className="text-sm text-slate-600">Manage your account and preferences</p>
+          </div>
 
-              {option.hasToggle ? (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setNotificationEnabled(!notificationEnabled);
-                  }}
-                  className={`relative inline-flex h-7 w-12 md:h-8 md:w-14 items-center rounded-full transition-colors flex-shrink-0 ${
-                    notificationEnabled ? 'bg-blue-600' : 'bg-gray-300'
-                  }`}
-                >
-                  <span
-                    className={`inline-block h-5 w-5 md:h-6 md:w-6 transform rounded-full bg-white transition-transform ${
-                      notificationEnabled ? 'translate-x-6 md:translate-x-7' : 'translate-x-1'
+          <div className="p-4">
+            {profileOptions.map((option, index) => (
+              <div
+                key={index}
+                onClick={() => handleOptionClick(option)}
+                className={`flex items-center justify-between p-5 rounded-2xl mb-3 transition-all cursor-pointer border-2 hover:shadow-lg hover:-translate-y-0.5 ${
+                  option.isDanger 
+                    ? 'bg-gradient-to-br from-red-50 to-rose-50 border-red-100 hover:border-red-300' 
+                    : 'bg-gradient-to-br from-slate-50 to-gray-50 border-slate-100 hover:border-emerald-300'
+                }`}
+              >
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 bg-gradient-to-br ${option.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-md`}>
+                    <option.icon className="text-white" size={22} />
+                  </div>
+                  <span className={`font-semibold text-base ${option.isDanger ? 'text-red-700' : 'text-slate-700'}`}>
+                    {option.label}
+                  </span>
+                </div>
+
+                {option.hasToggle ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setNotificationEnabled(!notificationEnabled);
+                    }}
+                    className={`relative inline-flex h-8 w-14 items-center rounded-full transition-all flex-shrink-0 shadow-inner ${
+                      notificationEnabled 
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500' 
+                        : 'bg-slate-300'
                     }`}
-                  />
-                </button>
-              ) : (
-                <ChevronRight className="text-gray-400 flex-shrink-0" size={20} />
-              )}
-            </div>
-          ))}
+                  >
+                    <span
+                      className={`inline-block h-6 w-6 transform rounded-full bg-white shadow-lg transition-transform ${
+                        notificationEnabled ? 'translate-x-7' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                ) : (
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${option.isDanger ? 'bg-red-100' : 'bg-slate-100'}`}>
+                    <ChevronRight className={option.isDanger ? 'text-red-600' : 'text-slate-400'} size={20} />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-6 text-center">
+          <p className="text-sm text-slate-500">
+            Version 1.0.0 • Made with ❤️ for Teachers
+          </p>
         </div>
       </div>
     </div>

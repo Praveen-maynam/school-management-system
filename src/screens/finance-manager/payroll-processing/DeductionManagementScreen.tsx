@@ -149,8 +149,7 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void 
       className={`toggle-button relative w-10 h-5.5 rounded-full transition-colors duration-300 focus:outline-none ${checked ? "bg-emerald-500" : "bg-slate-300"}`}
     >
       <span
-        className={`absolute top-0.5 left-0.5 w-4.5 h-4.5 bg-white rounded-full shadow-sm transition-transform duration-300 ${checked ? "translate-x-5" : "translate-x-0"}`}
-        style={{ width: "18px", height: "18px" }}
+        className={`toggle-span absolute top-0.5 left-0.5 w-4.5 h-4.5 bg-white rounded-full shadow-sm transition-transform duration-300 ${checked ? "translate-x-5" : "translate-x-0"}`}
       />
     </button>
   );

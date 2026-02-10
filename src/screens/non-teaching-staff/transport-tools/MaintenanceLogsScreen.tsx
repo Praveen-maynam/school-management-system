@@ -456,6 +456,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
+              title="Filter by status"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">All Status</option>
@@ -473,6 +474,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
             <select
               value={issueTypeFilter}
               onChange={(e) => setIssueTypeFilter(e.target.value)}
+              title="Filter by issue type"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">All Types</option>
@@ -494,6 +496,8 @@ const VehicleMaintenanceScreen: React.FC = () => {
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
+              title="Select start date"
+              placeholder="From date"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -507,6 +511,8 @@ const VehicleMaintenanceScreen: React.FC = () => {
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
+              title="Select end date"
+              placeholder="To date"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
@@ -750,6 +756,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowAddModal(false)}
+                title="Close maintenance modal"
                 className="p-2 hover:bg-blue-800 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
@@ -774,6 +781,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.vehicleNumber}
                       onChange={(e) => setFormData({ ...formData, vehicleNumber: e.target.value })}
                       required
+                      title="Select vehicle"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Select Vehicle</option>
@@ -793,6 +801,8 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.serviceDate}
                       onChange={(e) => setFormData({ ...formData, serviceDate: e.target.value })}
                       required
+                      title="Service date"
+                      placeholder="Service date"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -807,6 +817,8 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.nextServiceDue}
                       onChange={(e) => setFormData({ ...formData, nextServiceDue: e.target.value })}
                       required
+                      title="Next service due date"
+                      placeholder="Next service due"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                   </div>
@@ -820,6 +832,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
                       required
+                      title="Select status"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="pending">Pending</option>
@@ -847,6 +860,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.maintenanceType}
                       onChange={(e) => setFormData({ ...formData, maintenanceType: e.target.value })}
                       required
+                      title="Maintenance type"
                       placeholder="e.g., Oil Change, Brake Repair"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
@@ -861,6 +875,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
                       value={formData.issueType}
                       onChange={(e) => setFormData({ ...formData, issueType: e.target.value as any })}
                       required
+                      title="Select issue type"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="engine">Engine</option>
@@ -1072,6 +1087,7 @@ const VehicleMaintenanceScreen: React.FC = () => {
               </div>
               <button
                 onClick={() => setShowHistoryDrawer(false)}
+                title="Close maintenance history"
                 className="p-2 hover:bg-blue-800 rounded-lg transition-colors"
               >
                 <X className="w-5 h-5" />
