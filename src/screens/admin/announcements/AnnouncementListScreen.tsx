@@ -129,7 +129,7 @@ const mockAnnouncements: Announcement[] = [
   },
 ];
 
-const AnnouncementPage = () => {
+const AnnouncementListScreen = () => {
   const [announcements, setAnnouncements] = useState<Announcement[]>(mockAnnouncements);
   const [filteredAnnouncements, setFilteredAnnouncements] = useState<Announcement[]>(mockAnnouncements);
   const [searchQuery, setSearchQuery] = useState("");
@@ -881,4 +881,5 @@ const ViewAnnouncementModal = ({
   );
 };
 
-export default AnnouncementPage;
+
+export default AnnouncementListScreen;

@@ -1,699 +1,290 @@
-// import React, { useState } from 'react';
-// import { ChevronDown, ChevronUp, Download, AlertCircle } from 'lucide-react';
-// import { useNavigate } from 'react-router-dom';
-
-//  function FeeDetails() {
-//   const [activeCategory, setActiveCategory] = useState('Academic');
-//   const [activeTab, setActiveTab] = useState('due');
-  
-// const [expandedFees, setExpandedFees] = useState<Record<number, boolean>>({});
-// const navigate = useNavigate();
-
-// type DueFee = {
-//   id: number;
-//   name: string;
-//   amount: number;
-//   dueDate: string;
-//   status: string;
-//   totalFee: number;
-//   lateFee: number;
-//   feeToBePaid: number;
-// };
-
-// type PaidFee = {
-//   id: number;
-//   name: string;
-//   amount: number;
-//   paidDate: string;
-//   status: string;
-//   totalFee: number;
-//   lateFee: number;
-//   feePaid: number;
-// };
-
-// type Fee = DueFee | PaidFee;
-
-
-
-//   // Sample fee data
-//   const feeData = {
-//     due: [
-//       {
-//         id: 1,
-//         name: 'Academic Fee',
-//         amount: 16000,
-//         dueDate: 'Dec 15, 2025',
-//         status: 'Due',
-//         totalFee: 16000,
-//         lateFee: 0,
-//         feeToBePaid: 16000
-//       },
-//       {
-//         id: 2,
-//         name: 'Academic Fee',
-//         amount: 16000,
-//         dueDate: 'Dec 15, 2025',
-//         status: 'Due',
-//         totalFee: 16000,
-//         lateFee: 0,
-//         feeToBePaid: 16000
-//       }
-//     ],
-//     paid: [
-//       {
-//         id: 3,
-//         name: 'Academic Fee',
-//         amount: 16000,
-//         paidDate: 'Dec 15, 2025',
-//         status: 'Paid',
-//         totalFee: 16000,
-//         lateFee: 0,
-//         feePaid: 16000
-//       },
-//       {
-//         id: 4,
-//         name: 'Academic Fee',
-//         amount: 16000,
-//         paidDate: 'Dec 15, 2025',
-//         status: 'Paid',
-//         totalFee: 16000,
-//         lateFee: 0,
-//         feePaid: 16000
-//       }
-//     ]
-//   };
-
-//   const dueCount = feeData.due.length;
-//   const paidCount = feeData.paid.length;
-// const currentData: Fee[] =
-//   activeTab === 'due' ? feeData.due : feeData.paid;
-
-
-
-//   const toggleExpand = (id: number) => {
-//     setExpandedFees(prev => ({
-//       ...prev,
-//       [id]: !prev[id]
-//     }));
-//   };
-
-//   const categories = ['Academic', 'Exams', 'Transport', 'Activities', 'Others'];
-
-//   return (
-//     <div className="p-6">
-//       {/* Header */}
-//       <div className="bg-blue-600 text-white rounded-lg p-4 mb-6">
-//         <div className="flex items-center mb-4">
-//           <button onClick={() => navigate(-1)} className="mr-4">
-//             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-//             </svg>
-//           </button>
-//           <h1 className="text-xl font-semibold">Fee Details</h1>
-//         </div>
-
-//         {/* Stats Cards */}
-//         <div className="bg-white rounded-lg p-4 flex justify-around">
-//           <div className="text-center">
-//             <div className="text-3xl font-bold text-yellow-500">{dueCount}</div>
-//             <div className="text-sm text-gray-600">Due's</div>
-//           </div>
-//           <div className="text-center">
-//             <div className="text-3xl font-bold text-green-500">{paidCount}</div>
-//             <div className="text-sm text-gray-600">Paid</div>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Category Tabs */}
-//       <div className="bg-white px-4 pt-4 pb-2 overflow-x-auto">
-//         <div className="flex gap-6 border-b border-gray-200">
-//           {categories.map((category) => (
-//             <button
-//               key={category}
-//               onClick={() => setActiveCategory(category)}
-//               className={`pb-3 px-1 whitespace-nowrap font-medium transition-colors relative ${
-//                 activeCategory === category
-//                   ? 'text-blue-600'
-//                   : 'text-gray-600'
-//               }`}
-//             >
-//               {category}
-//               {activeCategory === category && (
-//                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-//               )}
-//             </button>
-//           ))}
-//         </div>
-//       </div>
-
-//       {/* Due/Paid Tab Navigation */}
-//       <div className="bg-white px-4 pt-4 pb-2 flex gap-2">
-//         <button
-//           onClick={() => setActiveTab('due')}
-//           className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-colors ${
-//             activeTab === 'due'
-//               ? 'bg-blue-600 text-white'
-//               : 'bg-gray-100 text-gray-600'
-//           }`}
-//         >
-//           <AlertCircle className="w-4 h-4 inline mr-2" />
-//           Due
-//         </button>
-//         <button
-//           onClick={() => setActiveTab('paid')}
-//           className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-colors ${
-//             activeTab === 'paid'
-//               ? 'bg-blue-600 text-white'
-//               : 'bg-gray-100 text-gray-600'
-//           }`}
-//         >
-//           <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-//           </svg>
-//           Paid
-//         </button>
-//       </div>
-
-//       {/* Fee List */}
-//       <div className="p-4 space-y-3">
-//         {currentData.map((fee) => (
-//           <div key={fee.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
-//             <div className="p-4">
-//               <div className="flex items-start justify-between mb-2">
-//                 <div className="flex-1">
-//                   <p className="text-sm text-gray-600 mb-1">{fee.name}</p>
-//                   <div className="flex items-center gap-2">
-//                     <span className="text-xl font-bold text-gray-900">₹ {fee.amount.toLocaleString()}</span>
-//                     <span className={`text-xs px-2 py-1 rounded-full ${
-//                       fee.status === 'Due' 
-//                         ? 'bg-yellow-100 text-yellow-700' 
-//                         : 'bg-green-100 text-green-700'
-//                     }`}>
-//                       {fee.status}
-//                     </span>
-//                   </div>
-//                 </div>
-//                 <button
-//                   onClick={() => toggleExpand(fee.id)}
-//                   className="p-1 hover:bg-gray-100 rounded"
-//                 >
-//                   {expandedFees[fee.id] ? (
-//                     <ChevronUp className="w-5 h-5 text-gray-600" />
-//                   ) : (
-//                     <ChevronDown className="w-5 h-5 text-gray-600" />
-//                   )}
-//                 </button>
-//               </div>
-//               <p className="text-xs text-gray-500">
-//              {activeTab === 'due'
-//   ? `Due: ${(fee as DueFee).dueDate}`
-//   : `Paid: ${(fee as PaidFee).paidDate}`}
-
-//               </p>
-//             </div>
-
-//             {/* Expanded Details */}
-//             {expandedFees[fee.id] && (
-//               <div className="px-4 pb-4 border-t border-gray-100 pt-3">
-//                 <div className="space-y-2 mb-4">
-//                   <div className="flex justify-between text-sm">
-//                     <span className="text-gray-600">Total Fee</span>
-//                     <span className="text-gray-900">₹ {fee.totalFee.toLocaleString()}</span>
-//                   </div>
-//                   <div className="flex justify-between text-sm">
-//                     <span className="text-gray-600">Late Fee</span>
-//                     <span className="text-gray-900">₹{fee.lateFee}</span>
-//                   </div>
-//                   <div className="flex justify-between text-sm font-semibold pt-2 border-t border-gray-200">
-//                     <span className="text-gray-900">
-//                       {activeTab === 'due' ? 'Fee to be Paid' : 'Fee Paid'}
-//                     </span>
-//                     <span className="text-gray-900">
-//                      ₹ {(activeTab === 'due'
-//   ? (fee as DueFee).feeToBePaid
-//   : (fee as PaidFee).feePaid
-// ).toLocaleString()}
-
-//                     </span>
-//                   </div>
-//                 </div>
-
-//                 {activeTab === 'due' ? (
-//                   <button className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-//                     Pay Now
-//                   </button>
-//                 ) : (
-//                   <button className="w-full bg-blue-600 text-white py-2.5 rounded-lg flex items-center justify-center gap-2 font-medium hover:bg-blue-700 transition-colors">
-//                     <Download className="w-4 h-4" />
-//                     Download Invoice
-//                   </button>
-//                 )}
-//               </div>
-//             )}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-// export default FeeDetails;
-
-
-
-
-
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Download, AlertCircle, ArrowLeft } from 'lucide-react';
+import { CreditCard, Download, AlertCircle, CheckCircle, Clock } from 'lucide-react';
 
-function FeeDetails() {
-  const [activeCategory, setActiveCategory] = useState('Academic');
-  const [activeTab, setActiveTab] = useState('due');
-  const [expandedFees, setExpandedFees] = useState<Record<number, boolean>>({});
+export default function FeesScreen() {
+  const [selectedStudent, setSelectedStudent] = useState('aarav');
+  const [showPaymentHistory, setShowPaymentHistory] = useState(false);
+  const [processingPayment, setProcessingPayment] = useState(false);
 
-  type DueFee = {
-    id: number;
-    name: string;
-    amount: number;
-    dueDate: string;
-    status: string;
-    totalFee: number;
-    lateFee: number;
-    feeToBePaid: number;
+  const students = [
+    { id: 'aarav', name: 'Aarav', class: 'Class 8 A' },
+    { id: 'ananya', name: 'Ananya', class: 'Class 5 B' }
+  ];
+
+  const feeData = {
+    totalFee: 45000,
+    paidAmount: 30000,
+    dueAmount: 15000,
+    academicYear: '2025–26'
   };
 
-  type PaidFee = {
-    id: number;
-    name: string;
-    amount: number;
-    paidDate: string;
-    status: string;
-    totalFee: number;
-    lateFee: number;
-    feePaid: number;
-  };
+  const feeTerms = [
+    { id: 1, term: 'Term 1', amount: 15000, dueDate: '15 Jun 2025', status: 'paid' },
+    { id: 2, term: 'Term 2', amount: 15000, dueDate: '15 Feb 2026', status: 'due' },
+    { id: 3, term: 'Term 3', amount: 15000, dueDate: '15 May 2026', status: 'upcoming' }
+  ];
 
-  type Fee = DueFee | PaidFee;
+  const paymentHistory = [
+    { id: 1, date: '10 Jun 2025', amount: 15000, mode: 'UPI', receipt: 'RCP001' },
+    { id: 2, date: '05 Oct 2025', amount: 15000, mode: 'Net Banking', receipt: 'RCP002' }
+  ];
 
-  // Fee data by category
-  const feeDataByCategory = {
-    Academic: {
-      due: [
-        {
-          id: 1,
-          name: 'Academic Fee - Term 1',
-          amount: 16000,
-          dueDate: 'Dec 15, 2025',
-          status: 'Due',
-          totalFee: 16000,
-          lateFee: 0,
-          feeToBePaid: 16000
-        },
-        {
-          id: 2,
-          name: 'Academic Fee - Term 2',
-          amount: 16000,
-          dueDate: 'Mar 15, 2026',
-          status: 'Due',
-          totalFee: 16000,
-          lateFee: 0,
-          feeToBePaid: 16000
-        }
-      ],
-      paid: [
-        {
-          id: 3,
-          name: 'Academic Fee - Previous Term',
-          amount: 16000,
-          paidDate: 'Sep 15, 2025',
-          status: 'Paid',
-          totalFee: 16000,
-          lateFee: 0,
-          feePaid: 16000
-        }
-      ]
-    },
-    Exams: {
-      due: [
-        {
-          id: 11,
-          name: 'Term 1 Exam Fee',
-          amount: 2500,
-          dueDate: 'Dec 20, 2025',
-          status: 'Due',
-          totalFee: 2500,
-          lateFee: 0,
-          feeToBePaid: 2500
-        },
-        {
-          id: 12,
-          name: 'Term 2 Exam Fee',
-          amount: 2500,
-          dueDate: 'Mar 20, 2026',
-          status: 'Due',
-          totalFee: 2500,
-          lateFee: 0,
-          feeToBePaid: 2500
-        },
-        {
-          id: 13,
-          name: 'Term 3 Exam Fee',
-          amount: 2500,
-          dueDate: 'Jun 20, 2026',
-          status: 'Due',
-          totalFee: 2500,
-          lateFee: 0,
-          feeToBePaid: 2500
-        }
-      ],
-      paid: [
-        {
-          id: 14,
-          name: 'Term 4 Exam Fee',
-          amount: 2500,
-          paidDate: 'Sep 20, 2025',
-          status: 'Paid',
-          totalFee: 2500,
-          lateFee: 0,
-          feePaid: 2500
-        },
-        {
-          id: 15,
-          name: 'Term 5 Exam Fee',
-          amount: 2500,
-          paidDate: 'Jun 20, 2025',
-          status: 'Paid',
-          totalFee: 2500,
-          lateFee: 0,
-          feePaid: 2500
-        }
-      ]
-    },
-    Transport: {
-      due: [
-        {
-          id: 21,
-          name: 'Transport Fee (0-5 km)',
-          amount: 3000,
-          dueDate: 'Dec 25, 2025',
-          status: 'Due',
-          totalFee: 3000,
-          lateFee: 0,
-          feeToBePaid: 3000
-        },
-        {
-          id: 22,
-          name: 'Transport Fee (5-10 km)',
-          amount: 5000,
-          dueDate: 'Jan 25, 2026',
-          status: 'Due',
-          totalFee: 5000,
-          lateFee: 200,
-          feeToBePaid: 5200
-        }
-      ],
-      paid: [
-        {
-          id: 23,
-          name: 'Transport Fee (0-5 km)',
-          amount: 3000,
-          paidDate: 'Sep 25, 2025',
-          status: 'Paid',
-          totalFee: 3000,
-          lateFee: 0,
-          feePaid: 3000
-        },
-        {
-          id: 24,
-          name: 'Transport Fee (10-15 km)',
-          amount: 7000,
-          paidDate: 'Aug 25, 2025',
-          status: 'Paid',
-          totalFee: 7000,
-          lateFee: 0,
-          feePaid: 7000
-        }
-      ]
-    },
-    Activities: {
-      due: [
-        {
-          id: 31,
-          name: 'Annual Sports Day',
-          amount: 1500,
-          dueDate: 'Jan 10, 2026',
-          status: 'Due',
-          totalFee: 1500,
-          lateFee: 0,
-          feeToBePaid: 1500
-        },
-        {
-          id: 32,
-          name: 'Science Exhibition',
-          amount: 2000,
-          dueDate: 'Feb 15, 2026',
-          status: 'Due',
-          totalFee: 2000,
-          lateFee: 0,
-          feeToBePaid: 2000
-        },
-        {
-          id: 33,
-          name: 'Cultural Fest',
-          amount: 2500,
-          dueDate: 'Mar 20, 2026',
-          status: 'Due',
-          totalFee: 2500,
-          lateFee: 0,
-          feeToBePaid: 2500
-        }
-      ],
-      paid: [
-        {
-          id: 34,
-          name: 'Independence Day Event',
-          amount: 1000,
-          paidDate: 'Aug 10, 2025',
-          status: 'Paid',
-          totalFee: 1000,
-          lateFee: 0,
-          feePaid: 1000
-        },
-        {
-          id: 35,
-          name: 'Annual Function',
-          amount: 3000,
-          paidDate: 'Nov 20, 2025',
-          status: 'Paid',
-          totalFee: 3000,
-          lateFee: 0,
-          feePaid: 3000
-        }
-      ]
-    },
-    Others: {
-      due: [
-        {
-          id: 41,
-          name: 'Library Fee',
-          amount: 500,
-          dueDate: 'Jan 30, 2026',
-          status: 'Due',
-          totalFee: 500,
-          lateFee: 0,
-          feeToBePaid: 500
-        }
-      ],
-      paid: [
-        {
-          id: 42,
-          name: 'ID Card Fee',
-          amount: 200,
-          paidDate: 'Sep 05, 2025',
-          status: 'Paid',
-          totalFee: 200,
-          lateFee: 0,
-          feePaid: 200
-        }
-      ]
+  const getStatusStyle = (status: string) => {
+    switch (status) {
+      case 'paid':
+        return 'bg-green-100 text-green-700 border-green-200';
+      case 'due':
+        return 'bg-red-100 text-red-700 border-red-200';
+      case 'partial':
+        return 'bg-amber-100 text-amber-700 border-amber-200';
+      case 'upcoming':
+        return 'bg-gray-100 text-gray-600 border-gray-200';
+      default:
+        return 'bg-gray-100 text-gray-600 border-gray-200';
     }
   };
 
-  // Get current category data
-  const currentCategoryData = feeDataByCategory[activeCategory as keyof typeof feeDataByCategory];
-  const dueCount = currentCategoryData.due.length;
-  const paidCount = currentCategoryData.paid.length;
-  const currentData: Fee[] =
-    activeTab === 'due' ? currentCategoryData.due : currentCategoryData.paid;
-
-  const toggleExpand = (id: number) => {
-    setExpandedFees(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'paid':
+        return <CheckCircle className="w-4 h-4" />;
+      case 'due':
+        return <AlertCircle className="w-4 h-4" />;
+      case 'upcoming':
+        return <Clock className="w-4 h-4" />;
+      default:
+        return null;
+    }
   };
 
-  const categories = ['Academic', 'Exams', 'Transport', 'Activities', 'Others'];
+  const handlePayment = (termId: number) => {
+    setProcessingPayment(true);
+    setTimeout(() => {
+      setProcessingPayment(false);
+    }, 2000);
+  };
+
+  const currentStudent = students.find(s => s.id === selectedStudent);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Header */}
-      <div className="bg-blue-600 text-white rounded-b-lg p-6 mb-6">
-        <div className="flex items-center mb-4">
-          <button className="mr-4 hover:bg-blue-700 p-2 rounded-full transition-colors">
-            <ArrowLeft className="w-6 h-6" />
-          </button>
-          <h1 className="text-xl font-semibold">Fee Details</h1>
-        </div>
-
-        {/* Stats Cards */}
-        <div className="bg-white rounded-lg p-4 flex justify-around">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-yellow-500">{dueCount}</div>
-            <div className="text-sm text-gray-600">Due's</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-green-500">{paidCount}</div>
-            <div className="text-sm text-gray-600">Paid</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Category Tabs */}
-      <div className="bg-white px-4 pt-4 pb-2 overflow-x-auto">
-        <div className="flex gap-6 border-b border-gray-200">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`pb-3 px-1 whitespace-nowrap font-medium transition-colors relative ${
-                activeCategory === category
-                  ? 'text-blue-600'
-                  : 'text-gray-600'
-              }`}
-            >
-              {category}
-              {activeCategory === category && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Due/Paid Tab Navigation */}
-      <div className="bg-white px-4 pt-4 pb-2 flex gap-2">
-        <button
-          onClick={() => setActiveTab('due')}
-          className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-colors ${
-            activeTab === 'due'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-600'
-          }`}
-        >
-          <AlertCircle className="w-4 h-4 inline mr-2" />
-          Due
-        </button>
-        <button
-          onClick={() => setActiveTab('paid')}
-          className={`flex-1 py-2.5 px-4 rounded-lg font-medium transition-colors ${
-            activeTab === 'paid'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-600'
-          }`}
-        >
-          <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Paid
-        </button>
-      </div>
-
-      {/* Fee List */}
-      <div className="p-4 space-y-3">
-        {currentData.length === 0 ? (
-          <div className="bg-white rounded-lg p-8 text-center text-gray-500">
-            No {activeTab} fees in {activeCategory} category
-          </div>
-        ) : (
-          currentData.map((fee) => (
-            <div key={fee.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="p-4">
-                <div className="flex items-start justify-between mb-2">
-                  <div className="flex-1">
-                    <p className="text-sm text-gray-600 mb-1">{fee.name}</p>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-gray-900">₹ {fee.amount.toLocaleString()}</span>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        fee.status === 'Due' 
-                          ? 'bg-yellow-100 text-yellow-700' 
-                          : 'bg-green-100 text-green-700'
-                      }`}>
-                        {fee.status}
-                      </span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => toggleExpand(fee.id)}
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    {expandedFees[fee.id] ? (
-                      <ChevronUp className="w-5 h-5 text-gray-600" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-600" />
-                    )}
-                  </button>
-                </div>
-                <p className="text-xs text-gray-500">
-                  {activeTab === 'due'
-                    ? `Due: ${(fee as DueFee).dueDate}`
-                    : `Paid: ${(fee as PaidFee).paidDate}`}
-                </p>
-              </div>
-
-              {/* Expanded Details */}
-              {expandedFees[fee.id] && (
-                <div className="px-4 pb-4 border-t border-gray-100 pt-3">
-                  <div className="space-y-2 mb-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Total Fee</span>
-                      <span className="text-gray-900">₹ {fee.totalFee.toLocaleString()}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Late Fee</span>
-                      <span className="text-gray-900">₹{fee.lateFee}</span>
-                    </div>
-                    <div className="flex justify-between text-sm font-semibold pt-2 border-t border-gray-200">
-                      <span className="text-gray-900">
-                        {activeTab === 'due' ? 'Fee to be Paid' : 'Fee Paid'}
-                      </span>
-                      <span className="text-gray-900">
-                        ₹ {(activeTab === 'due'
-                          ? (fee as DueFee).feeToBePaid
-                          : (fee as PaidFee).feePaid
-                        ).toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-
-                  {activeTab === 'due' ? (
-                    <button className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                      Pay Now
-                    </button>
-                  ) : (
-                    <button className="w-full bg-blue-600 text-white py-2.5 rounded-lg flex items-center justify-center gap-2 font-medium hover:bg-blue-700 transition-colors">
-                      <Download className="w-4 h-4" />
-                      Download Invoice
-                    </button>
-                  )}
-                </div>
-              )}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      {/* Top Header - Sticky */}
+      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Fees</h1>
+              <p className="text-sm text-gray-600 mt-1">Fee summary & payment details</p>
             </div>
-          ))
+            <div className="flex items-center gap-4">
+              {/* Student Selector */}
+              <select
+                value={selectedStudent}
+                onChange={(e) => setSelectedStudent(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {students.map(student => (
+                  <option key={student.id} value={student.id}>
+                    {student.name} – {student.class}
+                  </option>
+                ))}
+              </select>
+              {/* Academic Year Badge */}
+              <div className="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold">
+                {feeData.academicYear}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Important Alert */}
+        {feeData.dueAmount > 0 && (
+          <div className="mb-6 bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-lg">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+              <div>
+                <p className="font-medium text-orange-900">Fee due by 15 Feb 2026</p>
+                <p className="text-sm text-orange-700 mt-1">Late fee applies after due date</p>
+              </div>
+            </div>
+          </div>
         )}
+
+        {/* Fee Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          {/* Total Fee Card */}
+          <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+            <div className="text-sm font-medium text-gray-600 mb-2">Annual Fee</div>
+            <div className="text-3xl font-bold text-gray-900">₹{feeData.totalFee.toLocaleString('en-IN')}</div>
+            <div className="mt-3 text-xs text-gray-500">Total Fee</div>
+          </div>
+
+          {/* Paid Amount Card */}
+          <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="text-sm font-medium text-gray-600">Paid Amount</div>
+              <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full border border-green-200">
+                Paid
+              </span>
+            </div>
+            <div className="text-3xl font-bold text-green-600">₹{feeData.paidAmount.toLocaleString('en-IN')}</div>
+            <div className="mt-3 text-xs text-gray-500">Amount Received</div>
+          </div>
+
+          {/* Due Amount Card */}
+          <div className="bg-white rounded-2xl shadow-md p-6 border-2 border-red-200 bg-red-50">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="text-sm font-medium text-gray-900">Due Amount</div>
+              <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-medium rounded-full border border-red-200">
+                Payment Pending
+              </span>
+            </div>
+            <div className="text-3xl font-bold text-red-600">₹{feeData.dueAmount.toLocaleString('en-IN')}</div>
+            <div className="mt-3 text-xs text-gray-600">Outstanding Balance</div>
+          </div>
+        </div>
+
+        {/* Processing Payment State */}
+        {processingPayment && (
+          <div className="mb-6 bg-blue-50 border border-blue-200 p-4 rounded-lg">
+            <div className="flex items-center gap-3">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600"></div>
+              <p className="font-medium text-blue-900">Processing payment... please do not refresh</p>
+            </div>
+          </div>
+        )}
+
+        {/* Fee Details Table */}
+        <div className="bg-white rounded-2xl shadow-md overflow-hidden mb-8">
+          <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h2 className="text-lg font-semibold text-gray-900">Fee Details</h2>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
+                <tr>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Term</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Due Date</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Action</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {feeTerms.map((term, index) => (
+                  <tr key={term.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="font-semibold text-gray-900">{term.term}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="font-bold text-gray-900">₹{term.amount.toLocaleString('en-IN')}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-gray-700">{term.dueDate}</div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyle(term.status)}`}>
+                        {getStatusIcon(term.status)}
+                        {term.status.charAt(0).toUpperCase() + term.status.slice(1)}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {term.status === 'due' ? (
+                        <button
+                          onClick={() => handlePayment(term.id)}
+                          disabled={processingPayment}
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <CreditCard className="w-4 h-4" />
+                          Pay Now
+                        </button>
+                      ) : term.status === 'paid' ? (
+                        <span className="text-sm text-green-600 font-medium">✓ Paid</span>
+                      ) : (
+                        <span className="text-sm text-gray-500">Upcoming</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Payment Methods Info */}
+        {feeData.dueAmount > 0 && (
+          <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
+            <h3 className="font-semibold text-gray-900 mb-4">Payment Methods</h3>
+            <div className="flex flex-wrap gap-3">
+              <div className="flex items-center gap-2 px-4 py-2 bg-purple-50 border border-purple-200 rounded-lg">
+                <span className="font-medium text-purple-900">UPI</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+                <span className="font-medium text-blue-900">Debit / Credit Card</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-lg">
+                <span className="font-medium text-green-900">Net Banking</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Empty State - All Paid */}
+        {feeData.dueAmount === 0 && (
+          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl shadow-md p-12 text-center mb-8 border border-green-200">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-green-900 mb-2">🎉 All fees are paid</h3>
+            <p className="text-green-700">for this academic year</p>
+          </div>
+        )}
+
+        {/* Payment History - Collapsible */}
+        <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+          <button
+            onClick={() => setShowPaymentHistory(!showPaymentHistory)}
+            className="w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+          >
+            <h2 className="text-lg font-semibold text-gray-900">Payment History</h2>
+            <svg
+              className={`w-5 h-5 text-gray-600 transition-transform ${showPaymentHistory ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {showPaymentHistory && (
+            <div className="p-6">
+              <div className="space-y-4">
+                {paymentHistory.map((payment) => (
+                  <div key={payment.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 text-green-600" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900">₹{payment.amount.toLocaleString('en-IN')}</div>
+                        <div className="text-sm text-gray-600">{payment.date} • {payment.mode}</div>
+                      </div>
+                    </div>
+                    <button className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                      <Download className="w-4 h-4" />
+                      Download Receipt
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
 }
-
-export default FeeDetails;

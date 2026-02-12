@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, use } from "react";
+import { useState, useRef, useEffect, use, Children } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Bus, Book, Settings, BarChart2, ClipboardList, ChevronLeft, ChevronRight, GraduationCap, ChevronDown, ChevronUp,Megaphone, Package, Trophy, MapPin } from "lucide-react";
 import { useSidebar } from "../../context/SidebarContext";
@@ -126,6 +126,29 @@ const Sidebar = () => {
     } else if (location.pathname.startsWith('/teacher')) {
       return [
         { path: "/teacher/dashboard", icon: Home, label: "Dashboard" },
+        {path: "/teacher/attendance", icon: School, label: "Attendance",
+          children: [
+            { path: "/teacher/attendance/mark", label: "Mark Attendance", icon: Calendar },
+            { path: "/teacher/attendance/view", label: "Attendance Report", icon: BarChart2 },
+            { path: "/teacher/attendance/holiday", label: "Holiday List", icon: Users },
+          ]
+        },
+
+        {path: "/teacher/homework", icon: BookOpen, label: "Homework" },
+        {path: "/teacher/exams", icon: FileText, label: "Exams",
+          children: [
+             {path: "/teacher/exams", icon: FileText, label: "Exams"},
+            { path: "/teacher/exams/offline", label: "Offline Exams", icon: FileText },
+            { path: "/teacher/exams/online", label: "Online Exams", icon: BarChart2 },
+          ]
+        },
+
+        {path: "/teacher/class", icon: GraduationCap, label: "Class" },
+        {path: "/teacher/notifications", icon: Settings, label: "Notifications" },
+        {path: "/teacher/reports", icon: BarChart2, label: "Reports" },
+        {path: "/teacher/timetable", icon: BookOpen, label: "Time Table" },
+        {path: "/teacher/leave", icon: Book, label: "Leave" },  
+
         { path: "/teacher/students/studentlist", icon: Users, label: "Students" },
         { path: "/teacher/profile", icon: User, label: "Profile" },
       ];
@@ -135,7 +158,14 @@ const Sidebar = () => {
         { path: "/parent/attendance", icon: Calendar, label: "Attendance" },
         { path: "/parent/fee-details", icon: Wallet, label: "Fee Details" },
         { path: "/parent/homework", icon: BookOpen, label: "Homework" },
-        { path: "/teacher/exam-reports", icon: FileText, label: "Exam Reports" },
+        { path: "/parent/subjects", icon: BookOpen, label: "Subjects" },
+        { path: "/parent/teacher", icon: Settings, label: "Teacher" },
+        {path: "/parent/academic-calendar", icon: Settings, label: "Academic Calendar" },
+        {path: "/parent/reports", icon: BarChart2, label: "Reports" },
+        {path: "/parent/timetable", icon: BookOpen, label: "Time Table" },
+        {path: "/parent/leave", icon: Book, label: "Leave" },
+        {path: "/parent/result", icon: Megaphone, label: "Result" },
+        { path: "/parent/exams", icon: FileText, label: "Exams" },
         { path: "/parent/profile", icon: User, label: "Profile" },
       ];
     } else if (location.pathname.startsWith('/transport-manager')) {

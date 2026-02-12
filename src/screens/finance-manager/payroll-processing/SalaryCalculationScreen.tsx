@@ -219,7 +219,7 @@ function EditModal({ employee, onClose, onSave }: { employee: Employee; onClose:
             <h3 className="text-lg font-bold text-slate-800">Edit Salary</h3>
             <p className="text-xs text-slate-500">{employee.name}</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg p-1.5 transition-all">
+          <button onClick={onClose} title="Close edit salary modal" className="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg p-1.5 transition-all">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -230,6 +230,8 @@ function EditModal({ employee, onClose, onSave }: { employee: Employee; onClose:
               type="number"
               value={base}
               onChange={(e) => setBase(Number(e.target.value))}
+              title="Enter base salary"
+              placeholder="Enter base salary"
               className="w-full border-2 border-slate-200 focus:border-blue-400 rounded-lg px-4 py-2.5 text-sm font-semibold text-slate-800 outline-none transition-all"
             />
           </div>
@@ -239,6 +241,8 @@ function EditModal({ employee, onClose, onSave }: { employee: Employee; onClose:
               type="number"
               value={ded}
               onChange={(e) => setDed(Number(e.target.value))}
+              title="Enter deductions"
+              placeholder="Enter deductions"
               className="w-full border-2 border-slate-200 focus:border-red-400 rounded-lg px-4 py-2.5 text-sm font-semibold text-slate-800 outline-none transition-all"
             />
           </div>
@@ -272,7 +276,7 @@ function ProcessModal({ employee, onClose, onConfirm }: { employee: Employee; on
             <h3 className="text-lg font-bold text-slate-800">Process Salary</h3>
             <p className="text-xs text-slate-500">{employee.name}</p>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg p-1.5 transition-all">
+          <button onClick={onClose} title="Close process salary modal" className="text-slate-400 hover:text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg p-1.5 transition-all">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -364,6 +368,7 @@ export default function SalaryCollection() {
                   <select
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
+                    title="Select month"
                     className="appearance-none pl-9 pr-8 py-2.5 border-2 border-slate-200 rounded-lg bg-white text-sm font-medium text-slate-700 outline-none focus:border-blue-400 transition-all cursor-pointer"
                   >
                     {MONTHS.map((m) => <option key={m} value={m}>{m} 2026</option>)}
@@ -456,7 +461,7 @@ export default function SalaryCollection() {
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <button onClick={() => setView("overview")} className="bg-slate-100 hover:bg-slate-200 rounded-lg p-2 transition-all">
+                <button onClick={() => setView("overview")} title="Back to overview" className="bg-slate-100 hover:bg-slate-200 rounded-lg p-2 transition-all">
                   <ArrowLeft className="w-5 h-5 text-slate-600" />
                 </button>
                 <div>
@@ -528,6 +533,7 @@ export default function SalaryCollection() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => { setView(isTeaching ? "overview" : "nonteaching"); setSearch(""); }}
+                title="Go back"
                 className="bg-slate-100 hover:bg-slate-200 rounded-lg p-2 transition-all"
               >
                 <ArrowLeft className="w-5 h-5 text-slate-600" />

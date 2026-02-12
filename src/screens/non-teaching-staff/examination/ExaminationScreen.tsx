@@ -1,3 +1,386 @@
+// import React, { useState } from 'react';
+// import { Calendar, TrendingUp, Users, FileText, AlertCircle, Award, Clock, BookOpen, BarChart3, Download, Filter, Search, Plus, Eye, Edit2, Trash2, CheckCircle, XCircle, Bell, Target, Zap, Activity } from 'lucide-react';
+
+// const ExamDashboard = () => {
+//   const [activeTab, setActiveTab] = useState('overview');
+//   const [selectedExam, setSelectedExam] = useState(null);
+//   const [filterStatus, setFilterStatus] = useState('all');
+
+//   // Sample data
+//   const stats = {
+//     totalExams: 12,
+//     upcoming: 4,
+//     ongoing: 2,
+//     completed: 6,
+//     resultsPublished: 5,
+//     avgPassRate: 86,
+//     topClass: '10-A',
+//     lowPerformClasses: 2,
+//     totalStudents: 856,
+//     attendanceRate: 94
+//   };
+
+//   const exams = [
+//     { id: 1, name: 'Mid Term Exam', type: 'Offline', classes: '6-10', startDate: '10 Feb', endDate: '18 Feb', status: 'ongoing', students: 324, completed: 45, passRate: null },
+//     { id: 2, name: 'Final Exam', type: 'Offline', classes: '1-12', startDate: '15 Mar', endDate: '28 Mar', status: 'upcoming', students: 856, completed: 0, passRate: null },
+//     { id: 3, name: 'Unit Test 1', type: 'Online', classes: '6-8', startDate: '20 Jan', endDate: '25 Jan', status: 'completed', students: 245, completed: 100, passRate: 88 },
+//     { id: 4, name: 'Quarterly Exam', type: 'Offline', classes: '9-12', startDate: '15 Dec', endDate: '22 Dec', status: 'completed', students: 387, completed: 100, passRate: 84 },
+//   ];
+
+//   const recentActivity = [
+//     { type: 'publish', message: 'Results published for Unit Test 1 - Class 7A', time: '2 hours ago', class: '7-A' },
+//     { type: 'alert', message: 'Low attendance in Math exam - Class 9B', time: '5 hours ago', class: '9-B' },
+//     { type: 'success', message: 'Marks entry completed for Science - Class 10A', time: '1 day ago', class: '10-A' },
+//     { type: 'warning', message: 'Pending marks submission - English, Class 8C', time: '2 days ago', class: '8-C' },
+//   ];
+
+//   const subjectPerformance = [
+//     { subject: 'Mathematics', avgScore: 78, passRate: 85, trend: '+5%', status: 'good' },
+//     { subject: 'Science', avgScore: 82, passRate: 91, trend: '+8%', status: 'excellent' },
+//     { subject: 'English', avgScore: 74, passRate: 79, trend: '-2%', status: 'warning' },
+//     { subject: 'Social Studies', avgScore: 80, passRate: 88, trend: '+3%', status: 'good' },
+//     { subject: 'Hindi', avgScore: 76, passRate: 82, trend: '+1%', status: 'good' },
+//   ];
+
+//   const upcomingDeadlines = [
+//     { task: 'Marks submission - Mid Term Math', deadline: '2 days', priority: 'high' },
+//     { task: 'Result publication - Unit Test 2', deadline: '5 days', priority: 'medium' },
+//     { task: 'Exam paper submission - Final Exam', deadline: '10 days', priority: 'low' },
+//   ];
+
+//   const getStatusColor = (status) => {
+//     switch(status) {
+//       case 'ongoing': return 'bg-blue-100 text-blue-700 border-blue-200';
+//       case 'upcoming': return 'bg-amber-100 text-amber-700 border-amber-200';
+//       case 'completed': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
+//       default: return 'bg-gray-100 text-gray-700 border-gray-200';
+//     }
+//   };
+
+//   const getPerformanceColor = (status) => {
+//     switch(status) {
+//       case 'excellent': return 'text-emerald-600';
+//       case 'good': return 'text-blue-600';
+//       case 'warning': return 'text-amber-600';
+//       default: return 'text-gray-600';
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+//       {/* Header */}
+//       <div className="bg-white border-b border-gray-200 shadow-sm">
+//         <div className="max-w-7xl mx-auto px-6 py-4">
+//           <div className="flex items-center justify-between">
+//             <div>
+//               <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+//                 <BookOpen className="w-7 h-7 text-indigo-600" />
+//                 Exam Control Center
+//               </h1>
+//               <p className="text-sm text-gray-600 mt-1">Academic Year 2024-25 • Manage & Monitor All Examinations</p>
+//             </div>
+//             <div className="flex gap-3">
+//               <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center gap-2 transition-colors">
+//                 <Download className="w-4 h-4" />
+//                 Export Report
+//               </button>
+//               <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2 transition-colors shadow-sm">
+//                 <Plus className="w-4 h-4" />
+//                 Create Exam
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="max-w-7xl mx-auto px-6 py-6">
+//         {/* Quick Stats Grid */}
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+//           <div className="bg-white rounded-xl p-5 border border-indigo-100 shadow-sm hover:shadow-md transition-shadow">
+//             <div className="flex items-center justify-between mb-2">
+//               <div className="p-2 bg-indigo-100 rounded-lg">
+//                 <FileText className="w-5 h-5 text-indigo-600" />
+//               </div>
+//               <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Total</span>
+//             </div>
+//             <p className="text-2xl font-bold text-gray-900">{stats.totalExams}</p>
+//             <p className="text-sm text-gray-600 mt-1">Total Exams</p>
+//           </div>
+
+//           <div className="bg-white rounded-xl p-5 border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+//             <div className="flex items-center justify-between mb-2">
+//               <div className="p-2 bg-blue-100 rounded-lg">
+//                 <Clock className="w-5 h-5 text-blue-600" />
+//               </div>
+//               <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded">Active</span>
+//             </div>
+//             <p className="text-2xl font-bold text-gray-900">{stats.ongoing}</p>
+//             <p className="text-sm text-gray-600 mt-1">Ongoing Now</p>
+//           </div>
+
+//           <div className="bg-white rounded-xl p-5 border border-amber-100 shadow-sm hover:shadow-md transition-shadow">
+//             <div className="flex items-center justify-between mb-2">
+//               <div className="p-2 bg-amber-100 rounded-lg">
+//                 <Calendar className="w-5 h-5 text-amber-600" />
+//               </div>
+//               <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">Soon</span>
+//             </div>
+//             <p className="text-2xl font-bold text-gray-900">{stats.upcoming}</p>
+//             <p className="text-sm text-gray-600 mt-1">Upcoming</p>
+//           </div>
+
+//           <div className="bg-white rounded-xl p-5 border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
+//             <div className="flex items-center justify-between mb-2">
+//               <div className="p-2 bg-emerald-100 rounded-lg">
+//                 <TrendingUp className="w-5 h-5 text-emerald-600" />
+//               </div>
+//               <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Rate</span>
+//             </div>
+//             <p className="text-2xl font-bold text-gray-900">{stats.avgPassRate}%</p>
+//             <p className="text-sm text-gray-600 mt-1">Avg Pass Rate</p>
+//           </div>
+
+//           <div className="bg-white rounded-xl p-5 border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
+//             <div className="flex items-center justify-between mb-2">
+//               <div className="p-2 bg-purple-100 rounded-lg">
+//                 <Award className="w-5 h-5 text-purple-600" />
+//               </div>
+//               <span className="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded">Top</span>
+//             </div>
+//             <p className="text-2xl font-bold text-gray-900">{stats.topClass}</p>
+//             <p className="text-sm text-gray-600 mt-1">Best Performer</p>
+//           </div>
+//         </div>
+
+//         {/* Main Content Grid */}
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+//           {/* Left Column - Exams List & Performance */}
+//           <div className="lg:col-span-2 space-y-6">
+//             {/* Active Exams */}
+//             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+//               <div className="p-5 border-b border-gray-200">
+//                 <div className="flex items-center justify-between">
+//                   <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+//                     <Activity className="w-5 h-5 text-indigo-600" />
+//                     Exam Management
+//                   </h2>
+//                   <div className="flex gap-2">
+//                     <button className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-1">
+//                       <Filter className="w-4 h-4" />
+//                       Filter
+//                     </button>
+//                     <button className="px-3 py-1.5 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center gap-1">
+//                       <Search className="w-4 h-4" />
+//                       Search
+//                     </button>
+//                   </div>
+//                 </div>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-3">
+//                   {exams.map(exam => (
+//                     <div key={exam.id} className="border border-gray-200 rounded-lg p-4 hover:border-indigo-300 hover:shadow-sm transition-all">
+//                       <div className="flex items-start justify-between mb-3">
+//                         <div>
+//                           <h3 className="font-semibold text-gray-900 mb-1">{exam.name}</h3>
+//                           <div className="flex items-center gap-3 text-sm text-gray-600">
+//                             <span className="flex items-center gap-1">
+//                               <Users className="w-3.5 h-3.5" />
+//                               Classes {exam.classes}
+//                             </span>
+//                             <span className="flex items-center gap-1">
+//                               <Calendar className="w-3.5 h-3.5" />
+//                               {exam.startDate} - {exam.endDate}
+//                             </span>
+//                           </div>
+//                         </div>
+//                         <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getStatusColor(exam.status)}`}>
+//                           {exam.status.charAt(0).toUpperCase() + exam.status.slice(1)}
+//                         </span>
+//                       </div>
+                      
+//                       {/* Progress Bar */}
+//                       <div className="mb-3">
+//                         <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+//                           <span>Progress</span>
+//                           <span>{exam.completed}% Complete</span>
+//                         </div>
+//                         <div className="w-full bg-gray-200 rounded-full h-2">
+//                           <div 
+//                             className={`h-2 rounded-full ${exam.status === 'completed' ? 'bg-emerald-500' : 'bg-blue-500'}`}
+//                             style={{ width: `${exam.completed}%` }}
+//                           ></div>
+//                         </div>
+//                       </div>
+
+//                       <div className="flex items-center justify-between">
+//                         <div className="flex items-center gap-4 text-xs text-gray-600">
+//                           <span className="flex items-center gap-1">
+//                             <Users className="w-3.5 h-3.5" />
+//                             {exam.students} Students
+//                           </span>
+//                           {exam.passRate && (
+//                             <span className="flex items-center gap-1 text-emerald-600 font-medium">
+//                               <TrendingUp className="w-3.5 h-3.5" />
+//                               {exam.passRate}% Pass Rate
+//                             </span>
+//                           )}
+//                         </div>
+//                         <div className="flex gap-1">
+//                           <button className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors" title="View Details">
+//                             <Eye className="w-4 h-4 text-gray-600" />
+//                           </button>
+//                           <button className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors" title="Edit">
+//                             <Edit2 className="w-4 h-4 text-gray-600" />
+//                           </button>
+//                           {exam.status === 'completed' && (
+//                             <button className="p-1.5 hover:bg-emerald-50 rounded-lg transition-colors" title="Publish Results">
+//                               <CheckCircle className="w-4 h-4 text-emerald-600" />
+//                             </button>
+//                           )}
+//                         </div>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Subject Performance Analytics */}
+//             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+//               <div className="p-5 border-b border-gray-200">
+//                 <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+//                   <BarChart3 className="w-5 h-5 text-indigo-600" />
+//                   Subject-wise Performance
+//                 </h2>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-3">
+//                   {subjectPerformance.map((subject, idx) => (
+//                     <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+//                       <div className="flex-1">
+//                         <div className="flex items-center justify-between mb-2">
+//                           <span className="font-medium text-gray-900">{subject.subject}</span>
+//                           <div className="flex items-center gap-4">
+//                             <span className={`text-sm font-semibold ${getPerformanceColor(subject.status)}`}>
+//                               {subject.trend}
+//                             </span>
+//                             <span className="text-sm text-gray-600">{subject.avgScore}/100</span>
+//                           </div>
+//                         </div>
+//                         <div className="flex items-center gap-3">
+//                           <div className="flex-1 bg-gray-200 rounded-full h-2">
+//                             <div 
+//                               className={`h-2 rounded-full ${subject.status === 'excellent' ? 'bg-emerald-500' : subject.status === 'good' ? 'bg-blue-500' : 'bg-amber-500'}`}
+//                               style={{ width: `${subject.passRate}%` }}
+//                             ></div>
+//                           </div>
+//                           <span className="text-xs text-gray-600 w-16 text-right">{subject.passRate}% pass</span>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Right Column - Activity & Alerts */}
+//           <div className="space-y-6">
+//             {/* Upcoming Deadlines */}
+//             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+//               <div className="p-5 border-b border-gray-200">
+//                 <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+//                   <Target className="w-5 h-5 text-indigo-600" />
+//                   Upcoming Deadlines
+//                 </h2>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-3">
+//                   {upcomingDeadlines.map((item, idx) => (
+//                     <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+//                       <div className={`p-2 rounded-lg ${item.priority === 'high' ? 'bg-rose-100' : item.priority === 'medium' ? 'bg-amber-100' : 'bg-blue-100'}`}>
+//                         <Clock className={`w-4 h-4 ${item.priority === 'high' ? 'text-rose-600' : item.priority === 'medium' ? 'text-amber-600' : 'text-blue-600'}`} />
+//                       </div>
+//                       <div className="flex-1">
+//                         <p className="text-sm font-medium text-gray-900 mb-1">{item.task}</p>
+//                         <p className="text-xs text-gray-600">Due in {item.deadline}</p>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Recent Activity Feed */}
+//             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+//               <div className="p-5 border-b border-gray-200">
+//                 <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+//                   <Bell className="w-5 h-5 text-indigo-600" />
+//                   Recent Activity
+//                 </h2>
+//               </div>
+//               <div className="p-5">
+//                 <div className="space-y-3">
+//                   {recentActivity.map((activity, idx) => (
+//                     <div key={idx} className="flex items-start gap-3 pb-3 border-b border-gray-100 last:border-0 last:pb-0">
+//                       <div className={`p-2 rounded-lg ${
+//                         activity.type === 'publish' ? 'bg-emerald-100' :
+//                         activity.type === 'alert' ? 'bg-rose-100' :
+//                         activity.type === 'success' ? 'bg-blue-100' : 'bg-amber-100'
+//                       }`}>
+//                         {activity.type === 'publish' ? <CheckCircle className="w-4 h-4 text-emerald-600" /> :
+//                          activity.type === 'alert' ? <AlertCircle className="w-4 h-4 text-rose-600" /> :
+//                          activity.type === 'success' ? <Zap className="w-4 h-4 text-blue-600" /> :
+//                          <Clock className="w-4 h-4 text-amber-600" />}
+//                       </div>
+//                       <div className="flex-1">
+//                         <p className="text-sm text-gray-900 mb-1">{activity.message}</p>
+//                         <div className="flex items-center gap-2">
+//                           <span className="text-xs text-gray-500">{activity.time}</span>
+//                           <span className="text-xs text-indigo-600 font-medium">{activity.class}</span>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Quick Actions */}
+//             <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-sm p-5 text-white">
+//               <h3 className="font-semibold mb-4 flex items-center gap-2">
+//                 <Zap className="w-5 h-5" />
+//                 Quick Actions
+//               </h3>
+//               <div className="space-y-2">
+//                 <button className="w-full py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-medium transition-all backdrop-blur-sm">
+//                   📝 Enter Marks
+//                 </button>
+//                 <button className="w-full py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-medium transition-all backdrop-blur-sm">
+//                   📊 Generate Report Card
+//                 </button>
+//                 <button className="w-full py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-medium transition-all backdrop-blur-sm">
+//                   📢 Publish Results
+//                 </button>
+//                 <button className="w-full py-2.5 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm font-medium transition-all backdrop-blur-sm">
+//                   ⚙️ Exam Settings
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ExamDashboard;
+
+
+
+
+
 
 // import React, { useState } from 'react';
 // import { ClipboardCheck, FileText, Calendar, Users, BookOpen, BarChart3, Settings, Bell, Search, Menu, X, LogOut, ChevronDown, Clock, AlertCircle, CheckCircle2, FileSpreadsheet, Printer, Download, Upload, UserCheck, Award, TrendingUp, Activity, FilePlus, Edit3, Eye, MapPin, Shield, Plus, Filter, Save, Trash2, RefreshCw } from 'lucide-react';

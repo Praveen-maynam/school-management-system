@@ -3,7 +3,18 @@
 
 
 // PlatformSettings.tsx - Production-level React + TypeScript + Tailwind CSS
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
+import type {
+  SettingStatus,
+  SettingsTab,
+  SMSProvider,
+  EmailProvider,
+  PaymentGateway,
+  LoginMethodConfig,
+  WhiteLabelConfig,
+  SecurityConfig,
+  NotificationMessage,
+} from '../../../types/platform-settings.types';
 import {
   Settings,
   MessageSquare,
@@ -22,50 +33,14 @@ import {
   Check,
   Loader2,
   ExternalLink,
-  RefreshCw,
   Lock,
-  Unlock,
   Zap,
   Activity,
   TrendingUp,
   DollarSign,
-  Users,
-  Globe,
-  Bell,
-  Code,
-  Database,
-  Server,
-  Cloud,
-  Smartphone,
   Info,
-  HelpCircle,
-  ChevronRight,
-  ChevronDown,
-  Plus,
-  Trash2,
-  Edit3,
-  Download,
-  Upload,
-  Search,
-  Filter,
   X
 } from 'lucide-react';
-
-import type {
-  SettingsTab,
-  SMSProvider,
-  EmailProvider,
-  PaymentGateway,
-  LoginMethodConfig,
-  WhiteLabelConfig,
-  SecurityConfig,
-  NotificationMessage,
-  FormState,
-  PlatformStats,
-  SettingStatus
-} from '../../../types/platform-settings.types';
-
-
 
 const PROVIDER_OPTIONS = {
   sms: [
@@ -222,10 +197,8 @@ const getStatusColor = (status: SettingStatus): string => {
   return colors[status] || 'bg-slate-400';
 };
 
-const maskSecret = (secret: string, visibleChars = 4): string => {
-  if (!secret || secret.length <= visibleChars) return secret;
-  return '•'.repeat(secret.length - visibleChars) + secret.slice(-visibleChars);
-};
+// Utility function - currently unused, kept for future use
+// const maskSecret = (secret: string, visibleChars = 4): string => { ... };
 
 // ============================================================================
 // COMPONENTS
@@ -393,7 +366,7 @@ const PlatformSettings: React.FC = () => {
   const [emailProvider, setEmailProvider] = useState<EmailProvider>(INITIAL_EMAIL_PROVIDER);
   
   // Payment State
-  const [paymentGateway, setPaymentGateway] = useState<PaymentGateway>(INITIAL_PAYMENT_GATEWAY);
+  // TODO: Use PaymentGateway configuration
 
   // Login Methods State
   const [loginMethods, setLoginMethods] = useState<LoginMethodConfig[]>([
@@ -588,6 +561,7 @@ const PlatformSettings: React.FC = () => {
               </div>
               <button
                 onClick={() => setNotifications(prev => prev.filter(n => n.id !== notif.id))}
+                title="Dismiss notification"
                 className="p-1 hover:bg-slate-200 rounded-lg transition-colors"
               >
                 <X className="w-4 h-4 text-slate-600" />
@@ -755,6 +729,7 @@ const PlatformSettings: React.FC = () => {
                     SMS Provider
                   </label>
                   <select
+                    title="Select SMS provider"
                     value={smsProvider.provider}
                     onChange={(e) => setSmsProvider({ ...smsProvider, provider: e.target.value as any })}
                     className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
@@ -773,6 +748,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="tel"
+                    placeholder="+1 (555) 000-0000"
                     value={smsProvider.config.phoneNumber}
                     onChange={(e) => setSmsProvider({
                       ...smsProvider,
@@ -920,6 +896,7 @@ const PlatformSettings: React.FC = () => {
                     Email Provider
                   </label>
                   <select
+                    title="Select email provider"
                     value={emailProvider.provider}
                     onChange={(e) => setEmailProvider({ ...emailProvider, provider: e.target.value as any })}
                     className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-900 font-semibold focus:outline-none focus:border-teal-500 focus:bg-white transition-colors"
@@ -949,6 +926,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="email"
+                    placeholder="noreply@example.edu"
                     value={emailProvider.config.fromEmail}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -964,6 +942,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="text"
+                    placeholder="School Management System"
                     value={emailProvider.config.fromName}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -979,6 +958,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="email"
+                    placeholder="support@example.edu"
                     value={emailProvider.config.replyTo}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
@@ -994,6 +974,7 @@ const PlatformSettings: React.FC = () => {
                   </label>
                   <input
                     type="text"
+                    placeholder="example.edu"
                     value={emailProvider.config.domain}
                     onChange={(e) => setEmailProvider({
                       ...emailProvider,
