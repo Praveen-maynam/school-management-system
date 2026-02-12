@@ -3,6 +3,7 @@ import LibraryManagerRoute from "./routes/LibraryManagerRoute";
 import SuperAdminRoute from "./routes/SuperAdminRoute";
 import FinanceManagerRoute from "./routes/FinanceManagerRoute";
 import React from "react";
+import ProductionalLevelImplementation from "./screens/admin/ProductionalLevelImplementation";
 import AdminDashboardScreen from "./screens/admin/dashboard/AdminDashboardScreen";
 import UserManagementScreen from "./screens/admin/user/UserManagementScreen";
 import StudentListScreen from "./screens/admin/student/StudentListScreen";
@@ -68,6 +69,7 @@ import AthleteScreen from "./screens/non-teaching-staff/sports/Athelet";
 import Events from "./screens/non-teaching-staff/sports/Events";
 import Achievement from "./screens/non-teaching-staff/sports/Achievement";
 import Equipment from "./screens/non-teaching-staff/sports/Equipment";
+import CertificateIdCardScreen from "./screens/admin/CertificateIdCardScreen";
 function App() {
     return (
         <AttendanceProvider>
@@ -112,6 +114,8 @@ function App() {
                                         <Route path="finance/cleaning" element={<CleaningFinance />} />
                                         <Route path="finance/security" element={<SecurityFinance />} />
                                         <Route path="finance/inventory" element={<InventoryManagement />} />
+                                        <Route path="subscription" element={<ProductionalLevelImplementation />} />
+                                        <Route path="certificate-idcard" element={<CertificateIdCardScreen />} />
                                         {/* Add more admin routes here as needed */}
                                         <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
                                 </Route>

@@ -17,6 +17,8 @@ import AuditLogsScreen from '../screens/super-admin/admin-management/AuditLogsSc
 import SupportTicketsScreen from '../screens/super-admin/support-center/SupportTicketsScreen';
 import DataExportScreen from '../screens/super-admin/data-management/DataExportScreen';
 import PlatformSettingsScreen from '../screens/super-admin/platform-settings/PlatformSettingsScreen';
+import EmailSchool from '../screens/super-admin/EmailSchool';
+import PersonalManagement from '../screens/super-admin/PersonalManagement';
 
 const SuperAdminRoute = () => (
   <Routes>
@@ -50,6 +52,12 @@ const SuperAdminRoute = () => (
 
     {/* Platform Settings */}
     <Route path="settings" element={<PlatformSettingsScreen />} />
+
+    {/* Personal Management */}
+    <Route path="personal-management" element={<PersonalManagement />} />
+
+    {/* Email School */}
+    <Route path="emailschool" element={<EmailSchool />} />
   </Routes>
 );
 

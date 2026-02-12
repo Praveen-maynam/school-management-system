@@ -78,8 +78,10 @@ const Sidebar = () => {
         },
         {label: 'Announcements', path: '/admin/announcements', icon: Megaphone },
         { label: 'User Management', path: '/admin/users', icon: Users },
-        { label: 'Settings', path: '/admin/settings', icon: Settings },
-        { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
+        { label: 'Certificate & ID Card', path: '/admin/certificate-idcard', icon: FileText },
+                { label: 'Reports', path: '/admin/reports', icon: BarChart2 },
+        { label: 'Subscription', path: '/admin/subscription', icon: Package },
+                { label: 'Settings', path: '/admin/settings', icon: Settings }
       ];
     } else if (location.pathname.startsWith('/super-admin')) {
       // Production-level super admin sidebar
@@ -88,8 +90,10 @@ const Sidebar = () => {
         { label: 'School Management', path: '/super-admin/schools', icon: School },
         { label: 'Billing & Plans', path: '/super-admin/billing/plans', icon: Wallet },
         { label: 'Admin Management', path: '/super-admin/admins', icon: Users },
+        { label: 'Personal Management', path: '/super-admin/personal-management', icon: User },
         { label: 'Support Center', path: '/super-admin/support-center', icon: ClipboardList },
         { label: 'Data Management', path: '/super-admin/data-management', icon: FileText },
+        { label: 'Email School', path: '/super-admin/emailschool', icon: FileText },
         { label: 'Platform Settings', path: '/super-admin/settings', icon: Settings },
       ];
     } else if (location.pathname.startsWith('/finance-manager')) {
@@ -211,8 +215,8 @@ const Sidebar = () => {
                 onClick={() => handleMenuClick(item)}
                 title={!isOpen ? item.label : undefined}
               >
-                <Icon size={12} />
-                {isOpen && <span className="font-medium text-sm">{item.label}</span>}
+                <Icon size={isOpen ? 16 : 12} className="min-w-[16px] min-h-[16px]" />
+                {isOpen && <span className="font-medium text-xs">{item.label}</span>}
                 {hasChildren && isOpen && (
                   openSubmenu === item.label
                     ? <ChevronUp className="ml-auto" size={18} />
@@ -231,8 +235,8 @@ const Sidebar = () => {
                         onClick={() => sub.path && navigate(sub.path)}
                         title={sub.label}
                       >
-                        <SubIcon size={18} />
-                        <span className="ml-2">{sub.label}</span>
+                        <SubIcon size={14} className="min-w-[14px] min-h-[14px]" />
+                        <span className="ml-2 text-xs">{sub.label}</span>
                       </div>
                     );
                   })}

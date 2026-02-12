@@ -1,133 +1,25 @@
-// import React, { useState, useEffect } from 'react';
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-// import { School, Users, DollarSign, HardDrive, LifeBuoy, Activity, LogIn } from 'lucide-react';
-
-// // Mock metrics
-// const metrics = [
-//   { label: 'Total Schools', value: 128 },
-//   { label: 'Active Users', value: 15432 },
-//   { label: 'Revenue (YTD)', value: '$120,500' },
-//   { label: 'Storage Used', value: '2.1 TB' },
-//   { label: 'Open Tickets', value: 34 },
-//   { label: 'System Health', value: 'Healthy' },
-// ];
-
-// // Mock chart data
-// const revenueData = [
-//   { month: 'Jan', revenue: 8000 },
-//   { month: 'Feb', revenue: 9500 },
-//   { month: 'Mar', revenue: 11000 },
-//   { month: 'Apr', revenue: 12000 },
-//   { month: 'May', revenue: 13000 },
-//   { month: 'Jun', revenue: 14000 },
-//   { month: 'Jul', revenue: 15000 },
-//   { month: 'Aug', revenue: 16000 },
-//   { month: 'Sep', revenue: 17000 },
-//   { month: 'Oct', revenue: 18000 },
-//   { month: 'Nov', revenue: 19000 },
-//   { month: 'Dec', revenue: 20000 },
-// ];
-
-// const loginData = [
-//   { day: 'Mon', logins: 1200 },
-//   { day: 'Tue', logins: 1350 },
-//   { day: 'Wed', logins: 1400 },
-//   { day: 'Thu', logins: 1300 },
-//   { day: 'Fri', logins: 1500 },
-//   { day: 'Sat', logins: 900 },
-//   { day: 'Sun', logins: 800 },
-// ];
-
-// const metricIcons: Record<string, React.ReactNode> = {
-//   'Total Schools': <School className="text-blue-600 w-8 h-8 mb-2" />,
-//   'Active Users': <Users className="text-green-600 w-8 h-8 mb-2" />,
-//   'Revenue (YTD)': <DollarSign className="text-yellow-500 w-8 h-8 mb-2" />,
-//   'Storage Used': <HardDrive className="text-purple-600 w-8 h-8 mb-2" />,
-//   'Open Tickets': <LifeBuoy className="text-pink-600 w-8 h-8 mb-2" />,
-//   'System Health': <Activity className="text-emerald-600 w-8 h-8 mb-2" />,
-// };
-
-// const DashboardOverviewScreen: React.FC = () => {
-//   // Simulate loading and error for production readiness
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState<string | null>(null);
-
-//   useEffect(() => {
-//     // Simulate API call
-//     const timer = setTimeout(() => {
-//       setLoading(false);
-//       // setError('Failed to load data'); // Uncomment to test error state
-//     }, 1000);
-//     return () => clearTimeout(timer);
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <div className="flex items-center justify-center h-96">
-//         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-//         <span className="ml-4 text-lg text-gray-500">Loading dashboard...</span>
-//       </div>
-//     );
-//   }
-//   if (error) {
-//     return (
-//       <div className="flex flex-col items-center justify-center h-96 text-red-600">
-//         <LifeBuoy className="w-12 h-12 mb-2" />
-//         <span className="text-lg">{error}</span>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="p-6">
-//       <h1 className="text-2xl font-bold mb-6">Super Admin Dashboard Overview</h1>
-//       {/* Metric Cards */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-//         {metrics.map((m) => (
-//           <div key={m.label} className="bg-white rounded-lg shadow p-6 flex flex-col items-center">
-//             {metricIcons[m.label] || <Activity className="w-8 h-8 mb-2 text-gray-400" />}
-//             <div className="text-3xl font-bold mb-2">{m.value}</div>
-//             <div className="text-gray-500 text-sm text-center">{m.label}</div>
-//           </div>
-//         ))}
-//       </div>
-//       {/* Mini Charts */}
-//       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//         <div className="bg-white rounded-lg shadow p-6">
-//           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-//             <DollarSign className="w-5 h-5 text-yellow-500" /> Revenue Trend (Monthly)
-//           </h2>
-//           <ResponsiveContainer width="100%" height={200}>
-//             <LineChart data={revenueData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-//               <CartesianGrid strokeDasharray="3 3" />
-//               <XAxis dataKey="month" />
-//               <YAxis />
-//               <Tooltip />
-//               <Line type="monotone" dataKey="revenue" stroke="#2563eb" strokeWidth={3} dot={{ r: 4 }} />
-//             </LineChart>
-//           </ResponsiveContainer>
-//         </div>
-//         <div className="bg-white rounded-lg shadow p-6">
-//           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-//             <LogIn className="w-5 h-5 text-emerald-600" /> Login Analytics (This Week)
-//           </h2>
-//           <ResponsiveContainer width="100%" height={200}>
-//             <BarChart data={loginData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-//               <CartesianGrid strokeDasharray="3 3" />
-//               <XAxis dataKey="day" />
-//               <YAxis />
-//               <Tooltip />
-//               <Bar dataKey="logins" fill="#10b981" />
-//             </BarChart>
-//           </ResponsiveContainer>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DashboardOverviewScreen;
 import React from "react";
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 type StatCardProps = {
   title: string;
@@ -264,8 +156,70 @@ export default function SuperAdminDashboard() {
           <h3 className="text-lg font-bold mb-4">
             Platform Analytics (Overview)
           </h3>
-          <div className="h-64 flex items-center justify-center text-gray-400 border rounded-lg">
-            📊 Chart Placeholder (Revenue / Schools / Users)
+          <div className="h-64 flex items-center justify-center text-gray-400 border rounded-lg bg-white">
+            <Line
+              data={{
+                labels: [
+                  'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'
+                ],
+                datasets: [
+                  {
+                    label: 'Revenue (₹L)',
+                    data: [6.2, 6.8, 7.1, 7.5, 7.9, 8.1, 8.3, 8.5, 8.6, 8.7, 8.7, 8.7],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99,102,241,0.1)',
+                    tension: 0.4,
+                    fill: true,
+                  },
+                  {
+                    label: 'Schools',
+                    data: [120, 123, 127, 130, 134, 137, 140, 143, 145, 147, 148, 148],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16,185,129,0.1)',
+                    tension: 0.4,
+                    fill: false,
+                  },
+                  {
+                    label: 'Users',
+                    data: [54000, 55500, 57000, 59000, 61000, 63000, 65000, 66000, 67000, 68000, 68420, 68420],
+                    borderColor: '#f59e42',
+                    backgroundColor: 'rgba(245,158,66,0.1)',
+                    tension: 0.4,
+                    fill: false,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    display: true,
+                    position: 'top',
+                  },
+                  title: {
+                    display: false,
+                  },
+                  tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                  },
+                },
+                interaction: {
+                  mode: 'nearest',
+                  axis: 'x',
+                  intersect: false,
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    grid: { color: '#f3f4f6' },
+                  },
+                  x: {
+                    grid: { color: '#f3f4f6' },
+                  },
+                },
+              }}
+            />
           </div>
         </div>
 

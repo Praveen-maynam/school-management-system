@@ -361,44 +361,76 @@ const SchoolAdminDashboard = () => {
         {classesData.map((classItem: typeof classesData[0]) => (
           <div
             key={classItem.id}
-            onClick={() => setSelectedClass(classItem)}
-            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+            className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow group relative"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="p-3 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
                 <School className="w-6 h-6 text-blue-600" />
               </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+              <div className="flex gap-2">
+                <button
+                  className="p-2 rounded hover:bg-blue-100 text-blue-600"
+                  title="Edit Class"
+                  onClick={e => {
+                    e.stopPropagation();
+                    // Open edit modal (reuse AddClassModal with prefilled values)
+                    setAddClassForm({
+                      name: classItem.name,
+                      sections: String(classItem.sections),
+                      teachers: String(classItem.teachers),
+                      subjects: classItem.subjects.join(', '),
+                      classTeacher: classItem.classTeacher,
+                    });
+                    setShowAddClassModal(true);
+                  }}
+                >
+                  <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  className="p-2 rounded hover:bg-red-100 text-red-600"
+                  title="Delete Class"
+                  onClick={e => {
+                    e.stopPropagation();
+                    if (window.confirm(`Are you sure you want to delete ${classItem.name}?`)) {
+                      setClassesData(prev => prev.filter(c => c.id !== classItem.id));
+                    }
+                  }}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{classItem.name}</h3>
-            <p className="text-sm text-gray-500 mb-4">Class Teacher: {classItem.classTeacher}</p>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div>
-                <p className="text-2xl font-bold text-blue-600">{classItem.totalStudents}</p>
-                <p className="text-xs text-gray-500">Students</p>
+            <div onClick={() => setSelectedClass(classItem)} className="cursor-pointer">
+              <h3 className="text-xl font-bold text-gray-900 mb-2">{classItem.name}</h3>
+              <p className="text-sm text-gray-500 mb-4">Class Teacher: {classItem.classTeacher}</p>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div>
+                  <p className="text-2xl font-bold text-blue-600">{classItem.totalStudents}</p>
+                  <p className="text-xs text-gray-500">Students</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-green-600">{classItem.sections}</p>
+                  <p className="text-xs text-gray-500">Sections</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-purple-600">{classItem.teachers}</p>
+                  <p className="text-xs text-gray-500">Teachers</p>
+                </div>
               </div>
-              <div>
-                <p className="text-2xl font-bold text-green-600">{classItem.sections}</p>
-                <p className="text-xs text-gray-500">Sections</p>
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-purple-600">{classItem.teachers}</p>
-                <p className="text-xs text-gray-500">Teachers</p>
-              </div>
-            </div>
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-xs text-gray-500 mb-2">Subjects</p>
-              <div className="flex flex-wrap gap-1">
-                {classItem.subjects.slice(0, 3).map((subject: string, idx: number) => (
-                  <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                    {subject}
-                  </span>
-                ))}
-                {classItem.subjects.length > 3 && (
-                  <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
-                    +{classItem.subjects.length - 3} more
-                  </span>
-                )}
+              <div className="pt-4 border-t border-gray-200">
+                <p className="text-xs text-gray-500 mb-2">Subjects</p>
+                <div className="flex flex-wrap gap-1">
+                  {classItem.subjects.slice(0, 3).map((subject: string, idx: number) => (
+                    <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                      {subject}
+                    </span>
+                  ))}
+                  {classItem.subjects.length > 3 && (
+                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">
+                      +{classItem.subjects.length - 3} more
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -562,32 +594,73 @@ const SchoolAdminDashboard = () => {
           {sections.map((section: Section) => (
             <div
               key={section.id}
-              onClick={() => setSelectedSection(section)}
-              className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+              className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow group relative"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="p-3 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
                   <Users className="w-6 h-6 text-green-600" />
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{section.name}</h3>
-              <p className="text-sm text-gray-500 mb-1">Teacher: {section.teacher}</p>
-              <p className="text-sm text-gray-500 mb-4">Room: {section.room}</p>
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <p className="text-2xl font-bold text-blue-600">{section.students}</p>
-                  <p className="text-xs text-gray-500">Students</p>
+                <div className="flex gap-2">
+                  <button
+                    className="p-2 rounded hover:bg-green-100 text-green-600"
+                    title="Edit Section"
+                    onClick={e => {
+                      e.stopPropagation();
+                      // Open edit modal (reuse AddSectionModal with prefilled values)
+                      setAddSectionForm({
+                        id: section.id,
+                        name: section.name,
+                        students: String(section.students),
+                        teacher: section.teacher,
+                        room: section.room,
+                        avgAttendance: String(section.avgAttendance),
+                      });
+                      setShowAddSectionModal(true);
+                    }}
+                  >
+                    <Edit className="w-4 h-4" />
+                  </button>
+                  <button
+                    className="p-2 rounded hover:bg-red-100 text-red-600"
+                    title="Delete Section"
+                    onClick={e => {
+                      e.stopPropagation();
+                      if (window.confirm(`Are you sure you want to delete ${section.name}?`)) {
+                        if (selectedClass) {
+                          setSectionsData(prev => {
+                            const classId = selectedClass.id;
+                            return {
+                              ...prev,
+                              [classId]: prev[classId].filter(s => s.id !== section.id),
+                            };
+                          });
+                        }
+                      }
+                    }}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-green-600">{section.avgAttendance}%</p>
-                  <p className="text-xs text-gray-500">Attendance</p>
-                </div>
               </div>
-              <div className="pt-4 border-t border-gray-200">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">View Students</span>
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
+              <div onClick={() => setSelectedSection(section)} className="cursor-pointer">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{section.name}</h3>
+                <p className="text-sm text-gray-500 mb-1">Teacher: {section.teacher}</p>
+                <p className="text-sm text-gray-500 mb-4">Room: {section.room}</p>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <p className="text-2xl font-bold text-blue-600">{section.students}</p>
+                    <p className="text-xs text-gray-500">Students</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-green-600">{section.avgAttendance}%</p>
+                    <p className="text-xs text-gray-500">Attendance</p>
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-500">View Students</span>
+                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                  </div>
                 </div>
               </div>
             </div>

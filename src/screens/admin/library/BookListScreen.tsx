@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, BookMarked, UserCheck, RefreshCw, AlertCircle } from 'lucide-react';
 const SchoolAdminDashboard = () => {
+  const navigate = useNavigate();
   // Search state for Issue/Return
   const [issueReturnSearch, setIssueReturnSearch] = useState('');
   // Return Book Modal State
@@ -411,6 +413,7 @@ const SchoolAdminDashboard = () => {
 
   const BooksManagement = () => (
     <div>
+      
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Books Management</h2>
         <div className="flex gap-3">
@@ -479,10 +482,24 @@ const SchoolAdminDashboard = () => {
                     <button onClick={() => setSelectedBook(book)} className="p-1 hover:bg-gray-100 rounded">
                       <Eye className="w-4 h-4 text-gray-600" />
                     </button>
-                    <button className="p-1 hover:bg-gray-100 rounded">
+                    <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
+                      setAddBookForm({
+                        title: book.title,
+                        author: book.author,
+                        isbn: book.isbn,
+                        category: book.category,
+                        copies: String(book.copies),
+                        available: String(book.available),
+                      });
+                      setShowAddBookModal(true);
+                    }}>
                       <Edit className="w-4 h-4 text-blue-600" />
                     </button>
-                    <button className="p-1 hover:bg-gray-100 rounded">
+                    <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
+                      if (window.confirm(`Are you sure you want to delete '${book.title}'?`)) {
+                        setLibraryBooks(prev => prev.filter(b => b.id !== book.id));
+                      }
+                    }}>
                       <Trash2 className="w-4 h-4 text-red-600" />
                     </button>
                   </div>

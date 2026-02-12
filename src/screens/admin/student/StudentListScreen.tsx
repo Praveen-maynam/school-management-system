@@ -3,6 +3,108 @@ import { Users, BookOpen, Calendar, DollarSign, FileText, BarChart3, Settings, L
 import DashboardCard from '../../../components/cards/DashboardCard';
 
 const SchoolAdminPanel = () => {
+    // Holidays state
+    const [holidays, setHolidays] = useState([
+      { id: 1, name: 'Republic Day', date: '2026-01-26', description: 'National holiday' },
+      { id: 2, name: 'Holi', date: '2026-03-14', description: 'Festival of colors' },
+      { id: 3, name: 'Independence Day', date: '2026-08-15', description: 'National holiday' },
+      { id: 4, name: 'Christmas', date: '2026-12-25', description: 'Festival' },
+    ]);
+    const [showAddHolidayModal, setShowAddHolidayModal] = useState(false);
+    const [addHolidayForm, setAddHolidayForm] = useState({ name: '', date: '', description: '' });
+    const [addHolidayError, setAddHolidayError] = useState<string | null>(null);
+    const [showHolidaysScreen, setShowHolidaysScreen] = useState(false);
+
+    // Holidays UI
+    const HolidaysScreen = () => (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">School Holidays</h2>
+          <button
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+            onClick={() => setShowAddHolidayModal(true)}
+          >
+            <Plus className="w-4 h-4" />
+            Add Holiday
+          </button>
+        </div>
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="py-3 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Holiday Name</th>
+                <th className="py-3 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
+                <th className="py-3 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                <th className="py-3 px-6 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {holidays.map(holiday => (
+                <tr key={holiday.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="py-4 px-6 text-sm font-medium text-gray-900">{holiday.name}</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{holiday.date}</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{holiday.description}</td>
+                  <td className="py-4 px-6">
+                    <button className="p-1.5 hover:bg-red-100 rounded-lg transition-colors" title="Delete" onClick={() => {
+                      if (window.confirm(`Delete holiday '${holiday.name}'?`)) {
+                        setHolidays(prev => prev.filter(h => h.id !== holiday.id));
+                      }
+                    }}>
+                      <Trash2 className="w-4 h-4 text-red-600" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {showAddHolidayModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
+              <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl font-bold" onClick={() => { setShowAddHolidayModal(false); setAddHolidayForm({ name: '', date: '', description: '' }); setAddHolidayError(null); }}>✕</button>
+              <h2 className="text-xl font-bold mb-6 text-gray-900">Add Holiday</h2>
+              {addHolidayError && <div className="mb-4 text-red-600 text-sm">{addHolidayError}</div>}
+              <form onSubmit={e => {
+                e.preventDefault();
+                if (!addHolidayForm.name.trim() || !addHolidayForm.date.trim()) {
+                  setAddHolidayError('Name and date are required.');
+                  return;
+                }
+                setHolidays(prev => [
+                  ...prev,
+                  {
+                    id: prev.length ? Math.max(...prev.map(h => h.id)) + 1 : 1,
+                    name: addHolidayForm.name,
+                    date: addHolidayForm.date,
+                    description: addHolidayForm.description,
+                  },
+                ]);
+                setShowAddHolidayModal(false);
+                setAddHolidayForm({ name: '', date: '', description: '' });
+                setAddHolidayError(null);
+              }}>
+                <div className="mb-4">
+                  <label className="block text-gray-700 font-medium mb-1">Holiday Name</label>
+                  <input type="text" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" value={addHolidayForm.name} onChange={e => setAddHolidayForm(f => ({ ...f, name: e.target.value }))} required />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 font-medium mb-1">Date</label>
+                  <input type="date" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" value={addHolidayForm.date} onChange={e => setAddHolidayForm(f => ({ ...f, date: e.target.value }))} required />
+                </div>
+                <div className="mb-6">
+                  <label className="block text-gray-700 font-medium mb-1">Description</label>
+                  <input type="text" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" value={addHolidayForm.description} onChange={e => setAddHolidayForm(f => ({ ...f, description: e.target.value }))} />
+                </div>
+                <div className="flex justify-end gap-2">
+                  <button type="button" className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100" onClick={() => { setShowAddHolidayModal(false); setAddHolidayForm({ name: '', date: '', description: '' }); setAddHolidayError(null); }}>Cancel</button>
+                  <button type="submit" className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 font-semibold">Add Holiday</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   const [currentScreen, setCurrentScreen] = useState('students');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -572,7 +674,7 @@ const SchoolAdminPanel = () => {
     if (!student) return null;
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-        <div className="bg-white rounded-lg shadow-lg max-w-md w-full relative animate-fadeIn">
+        <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full relative animate-fadeIn">
           <button
             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
             onClick={onClose}
@@ -588,13 +690,54 @@ const SchoolAdminPanel = () => {
                 <div className="text-sm text-gray-500">{student.email}</div>
               </div>
             </div>
-            <div className="space-y-2">
-              <div><span className="font-medium">Student ID:</span> {student.id}</div>
-              <div><span className="font-medium">Grade:</span> {student.grade}</div>
-              <div><span className="font-medium">Class:</span> {student.class}</div>
-              <div><span className="font-medium">Parent/Guardian:</span> {student.parent}</div>
-              <div><span className="font-medium">Contact:</span> {student.contact}</div>
-              <div><span className="font-medium">Status:</span> <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${student.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{student.status}</span></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <div><span className="font-medium">Student ID:</span> {student.id}</div>
+                <div><span className="font-medium">Grade:</span> {student.grade}</div>
+                <div><span className="font-medium">Class:</span> {student.class}</div>
+                <div><span className="font-medium">Parent/Guardian:</span> {student.parent}</div>
+                <div><span className="font-medium">Contact:</span> {student.contact}</div>
+                <div><span className="font-medium">Status:</span> <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${student.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{student.status}</span></div>
+              </div>
+              {/* Assignment Section */}
+              <div className="space-y-2">
+                <h3 className="font-semibold text-gray-900 text-lg mb-2">Assignments</h3>
+                <ul className="list-disc pl-5 text-sm text-gray-700">
+                  <li>Math Homework - Due: 2026-02-15</li>
+                  <li>Science Project - Due: 2026-02-18</li>
+                  <li>English Essay - Due: 2026-02-20</li>
+                </ul>
+              </div>
+            </div>
+            {/* Timetable Section */}
+            <div className="mt-6">
+              <h3 className="font-semibold text-gray-900 text-lg mb-2">Weekly Timetable</h3>
+              <div className="overflow-x-auto">
+                <table className="min-w-full border border-gray-200 rounded-lg bg-white">
+                  <thead>
+                    <tr className="bg-indigo-50">
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Day</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Period 1</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Period 2</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Period 3</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Period 4</th>
+                      <th className="px-4 py-2 text-left text-xs font-semibold text-gray-700">Period 5</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {['Monday','Tuesday','Wednesday','Thursday','Friday'].map((day, i) => (
+                      <tr key={day} className={i%2===0 ? 'bg-white' : 'bg-gray-50'}>
+                        <td className="px-4 py-2 font-medium text-gray-700">{day}</td>
+                        <td className="px-4 py-2">Math</td>
+                        <td className="px-4 py-2">Science</td>
+                        <td className="px-4 py-2">English</td>
+                        <td className="px-4 py-2">History</td>
+                        <td className="px-4 py-2">PE</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -716,21 +859,21 @@ const SchoolAdminPanel = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-     
-
       <main className="flex-1 overflow-auto">
-        
-
         <div className="p-8">
-          <StudentsScreen />
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold text-gray-900">Student Management</h1>
+            <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700" onClick={() => setShowHolidaysScreen(true)}>
+              View Holidays
+            </button>
+          </div>
+          {showHolidaysScreen ? <HolidaysScreen /> : <StudentsScreen />}
         </div>
       </main>
-
       {/* Modal rendering */}
       <Modal open={modal.type === 'add'} onClose={() => setModal({ type: '', student: null })} title="Add Student">
         <AddStudentForm
           onSubmit={data => {
-            // Add student logic (demo only, not persistent)
             setStudents(prev => [
               ...prev,
               {
