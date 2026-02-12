@@ -1372,13 +1372,19 @@ import type {
   IPRestriction,
   ActiveSession,
   AdminNotification
-} from './admin-types';
+} from '../../../types/admin.types';
 
 // ============================================================================
 // CONSTANTS & MOCK DATA
 // ============================================================================
 
-const ROLE_CONFIGS = {
+const ROLE_CONFIGS: Record<AdminRole, {
+  label: string;
+  color: string;
+  icon: string;
+  description: string;
+  level: number;
+}> = {
   owner: {
     label: 'Owner',
     color: 'from-rose-500 to-pink-600',

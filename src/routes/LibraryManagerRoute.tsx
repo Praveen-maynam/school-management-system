@@ -5,7 +5,7 @@ import BookIssueReturnScreen from '../screens/non-teaching-staff/library-tools/B
 import FineCollectionScreen from '../screens/non-teaching-staff/library-tools/FineCollectionScreen';
 import BookSearchScreen from '../screens/non-teaching-staff/library-tools/BookSearchScreen';
 import InventoryManagementScreen from '../screens/non-teaching-staff/library-tools/InventoryManagementScreen';
-import AddNewBook from '../screens/non-teaching-staff/library-tools/AddNewBook';
+import AddBook from '../screens/non-teaching-staff/library-tools/AddBook';
 const LibraryManagerRoute = () => (
   <Routes>
     <Route path="dashboard" element={<LibraryDashBoard />} />
@@ -13,7 +13,7 @@ const LibraryManagerRoute = () => (
     <Route path="fine-collection" element={<FineCollectionScreen />} />
     <Route path="book-search" element={<BookSearchScreen />} />
     <Route path="inventory-management" element={<InventoryManagementScreen />} />
-  <Route path="add-new-book" element={<AddNewBook />} />
+    <Route path="add-book" element={<AddBook />} />
   </Routes>
 );
 

@@ -6,7 +6,7 @@ type ExportButtonProps<T> = {
   label?: string
 }
 
-function convertToCSV<T extends Record<string, any>>(data: T[]) {
+function convertToCSV<T extends object>(data: T[]) {
   if (!data.length) return ''
 
   const headers = Object.keys(data[0]).join(',')
@@ -16,6 +16,16 @@ function convertToCSV<T extends Record<string, any>>(data: T[]) {
       .join(',')
   )
 
+  return [headers, ...rows].join('\n')
+}
+function exportToCSV<T extends Record<string, any>>(data: T[]): string {
+  if (!data.length) return ''
+  const headers = Object.keys(data[0]).join(',')
+  const rows = data.map(row =>
+    Object.values(row)
+      .map(value => `"${String(value).replace(/"/g, '""')}"`)
+      .join(',')
+  )
   return [headers, ...rows].join('\n')
 }
 

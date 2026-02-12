@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { UserCheck, UserX, Clock, TrendingUp, ChevronDown, Download, Search, MoreVertical, Calendar } from 'lucide-react';
 
 const AttendanceSystem = () => {
+  const dateInputRef = React.useRef<HTMLInputElement>(null);
   const [date, setDate] = useState('01/23/2024');
   const [gradeFilter, setGradeFilter] = useState('All Grades');
   const [classFilter, setClassFilter] = useState('All Classes');
@@ -18,19 +19,20 @@ const AttendanceSystem = () => {
   ];
 
   const [students, setStudents] = useState([
-    { id: 1, name: 'James Anderson', email: 'james.anderson@school.edu', studentId: 'STU-2024-001', grade: 'Grade 10', class: 'Class A', status: 'Present', checkIn: '08:15 AM', notes: '-', avatar: '👨‍🎓' },
-    { id: 2, name: 'Emma Wilson', email: 'emma.wilson@school.edu', studentId: 'STU-2024-002', grade: 'Grade 10', class: 'Class A', status: 'Late', checkIn: '08:45 AM', notes: 'Traffic delay', avatar: '👩‍🎓' },
-    { id: 3, name: 'Michael Chen', email: 'michael.chen@school.edu', studentId: 'STU-2024-003', grade: 'Grade 10', class: 'Class A', status: 'Absent', checkIn: '-', notes: 'Sick leave', avatar: '👨‍💼' },
-    { id: 4, name: 'Sophia Martinez', email: 'sophia.martinez@school.edu', studentId: 'STU-2024-004', grade: 'Grade 10', class: 'Class B', status: 'Present', checkIn: '08:10 AM', notes: '-', avatar: '👩‍🦱' },
-    { id: 5, name: 'Daniel Brown', email: 'daniel.brown@school.edu', studentId: 'STU-2024-005', grade: 'Grade 10', class: 'Class B', status: 'Present', checkIn: '08:20 AM', notes: '-', avatar: '👨‍🦰' },
-    { id: 6, name: 'Olivia Taylor', email: 'olivia.taylor@school.edu', studentId: 'STU-2024-006', grade: 'Grade 10', class: 'Class B', status: 'Excused', checkIn: '-', notes: 'Doctor appointment', avatar: '👩‍⚕️' },
-    { id: 7, name: 'Liam Johnson', email: 'liam.johnson@school.edu', studentId: 'STU-2024-007', grade: 'Grade 11', class: 'Class C', status: 'Present', checkIn: '08:12 AM', notes: '-', avatar: '👨‍🔬' },
-    { id: 8, name: 'Ava Davis', email: 'ava.davis@school.edu', studentId: 'STU-2024-008', grade: 'Grade 11', class: 'Class C', status: 'Late', checkIn: '08:50 AM', notes: 'Bus delay', avatar: '👩‍💻' }
+    { id: 1, name: 'James Anderson', email: 'james.anderson@school.edu', studentId: 'STU-2024-001', grade: 'Grade 10', class: 'Class A', status: 'Present', checkIn: '08:15 AM', notes: '-', avatar: '👨‍🎓', date: '01/23/2024' },
+    { id: 2, name: 'Emma Wilson', email: 'emma.wilson@school.edu', studentId: 'STU-2024-002', grade: 'Grade 10', class: 'Class A', status: 'Late', checkIn: '08:45 AM', notes: 'Traffic delay', avatar: '👩‍🎓', date: '01/23/2024' },
+    { id: 3, name: 'Michael Chen', email: 'michael.chen@school.edu', studentId: 'STU-2024-003', grade: 'Grade 10', class: 'Class A', status: 'Absent', checkIn: '-', notes: 'Sick leave', avatar: '👨‍💼', date: '01/23/2024' },
+    { id: 4, name: 'Sophia Martinez', email: 'sophia.martinez@school.edu', studentId: 'STU-2024-004', grade: 'Grade 10', class: 'Class B', status: 'Present', checkIn: '08:10 AM', notes: '-', avatar: '👩‍🦱', date: '01/23/2024' },
+    { id: 5, name: 'Daniel Brown', email: 'daniel.brown@school.edu', studentId: 'STU-2024-005', grade: 'Grade 10', class: 'Class B', status: 'Present', checkIn: '08:20 AM', notes: '-', avatar: '👨‍🦰', date: '01/23/2024' },
+    { id: 6, name: 'Olivia Taylor', email: 'olivia.taylor@school.edu', studentId: 'STU-2024-006', grade: 'Grade 10', class: 'Class B', status: 'Excused', checkIn: '-', notes: 'Doctor appointment', avatar: '👩‍⚕️', date: '01/23/2024' },
+    { id: 7, name: 'Liam Johnson', email: 'liam.johnson@school.edu', studentId: 'STU-2024-007', grade: 'Grade 11', class: 'Class C', status: 'Present', checkIn: '08:12 AM', notes: '-', avatar: '👨‍🔬', date: '01/24/2024' },
+    { id: 8, name: 'Ava Davis', email: 'ava.davis@school.edu', studentId: 'STU-2024-008', grade: 'Grade 11', class: 'Class C', status: 'Late', checkIn: '08:50 AM', notes: 'Bus delay', avatar: '👩‍💻', date: '01/24/2024' }
   ]);
 
   const itemsPerPage = 8;
   // Filtering logic
   const filteredStudents = students.filter(student => {
+    const matchesDate = student.date === date;
     const matchesGrade = gradeFilter === 'All Grades' || student.grade === gradeFilter;
     const matchesClass = classFilter === 'All Classes' || student.class === classFilter;
     const matchesStatus = statusFilter === 'All Status' || student.status === statusFilter;
@@ -38,7 +40,7 @@ const AttendanceSystem = () => {
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.studentId.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student.email.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesGrade && matchesClass && matchesStatus && matchesSearch;
+    return matchesDate && matchesGrade && matchesClass && matchesStatus && matchesSearch;
   });
   const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
   const displayedStudents = filteredStudents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -97,13 +99,32 @@ const AttendanceSystem = () => {
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Date</span>
               <div className="relative">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                   className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <input
+                  type="date"
+                  ref={dateInputRef}
+                  style={{ position: 'absolute', right: 0, top: 0, opacity: 0, width: '100%', height: '100%', cursor: 'pointer' }}
+                  onChange={e => {
+                    // Convert YYYY-MM-DD to MM/DD/YYYY
+                    const [yyyy, mm, dd] = e.target.value.split('-');
+                    setDate(`${mm}/${dd}/${yyyy}`);
+                  }}
+                  tabIndex={-1}
+                />
+                <button
+                  type="button"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 bg-transparent border-none p-0"
+                  style={{ background: 'none', border: 'none' }}
+                  onClick={() => dateInputRef.current && dateInputRef.current.showPicker && dateInputRef.current.showPicker()}
+                  aria-label="Open calendar"
+                >
+                  <Calendar />
+                </button>
               </div>
             </div>
 

@@ -55,18 +55,64 @@ const SchoolAdminDashboard = () => {
       { student: 'Rahul Kumar', class: '10-B', math: 78, science: 82, english: 80, total: 240, avg: 80.0 },
       { student: 'Sneha Reddy', class: '10-B', math: 88, science: 86, english: 90, total: 264, avg: 88.0 },
     ],
+    'grade-distribution': [
+      { subject: 'Math', A: 12, B: 18, C: 5, D: 2, F: 1 },
+      { subject: 'Science', A: 15, B: 14, C: 6, D: 2, F: 1 },
+      { subject: 'English', A: 10, B: 20, C: 6, D: 1, F: 1 },
+    ],
+    'subject-analysis': [
+      { subject: 'Math', avgScore: 85.2, highest: 98, lowest: 65 },
+      { subject: 'Science', avgScore: 82.7, highest: 95, lowest: 70 },
+      { subject: 'English', avgScore: 88.1, highest: 97, lowest: 75 },
+    ],
     'daily-attendance': [
       { class: '9-A', total: 35, present: 33, absent: 2, percentage: 94.3 },
       { class: '9-B', total: 38, present: 36, absent: 2, percentage: 94.7 },
       { class: '10-A', total: 40, present: 38, absent: 2, percentage: 95.0 },
       { class: '10-B', total: 37, present: 35, absent: 2, percentage: 94.6 },
     ],
+    'monthly-trends': [
+      { month: 'Jan', present: 95.2, absent: 4.8 },
+      { month: 'Feb', present: 93.7, absent: 6.3 },
+      { month: 'Mar', present: 96.1, absent: 3.9 },
+    ],
+    'student-attendance': [
+      { student: 'Aarav Sharma', daysPresent: 180, daysAbsent: 5, percentage: 97.3 },
+      { student: 'Priya Patel', daysPresent: 178, daysAbsent: 7, percentage: 96.2 },
+      { student: 'Rahul Kumar', daysPresent: 175, daysAbsent: 10, percentage: 94.6 },
+    ],
+    'enrollment-stats': [
+      { year: 2024, enrolled: 320, graduated: 60, dropped: 5 },
+      { year: 2025, enrolled: 340, graduated: 65, dropped: 3 },
+    ],
+    'class-distribution': [
+      { class: '9-A', students: 35 },
+      { class: '9-B', students: 38 },
+      { class: '10-A', students: 40 },
+      { class: '10-B', students: 37 },
+    ],
+    'demographic-data': [
+      { gender: 'Male', count: 210 },
+      { gender: 'Female', count: 240 },
+      { gender: 'Other', count: 10 },
+    ],
     'fee-collection': [
       { class: '9-A', total: 35, paid: 30, pending: 5, collected: 450000, outstanding: 75000 },
       { class: '9-B', total: 38, paid: 34, pending: 4, collected: 510000, outstanding: 60000 },
       { class: '10-A', total: 40, paid: 38, pending: 2, collected: 570000, outstanding: 30000 },
       { class: '10-B', total: 37, paid: 33, pending: 4, collected: 495000, outstanding: 60000 },
-    ]
+    ],
+    'outstanding-dues': [
+      { student: 'Aarav Sharma', class: '10-A', due: 5000 },
+      { student: 'Priya Patel', class: '10-A', due: 0 },
+      { student: 'Rahul Kumar', class: '10-B', due: 3000 },
+      { student: 'Sneha Reddy', class: '10-B', due: 0 },
+    ],
+    'revenue-analysis': [
+      { month: 'Jan', revenue: 150000 },
+      { month: 'Feb', revenue: 170000 },
+      { month: 'Mar', revenue: 160000 },
+    ],
   };
 
   const ReportViewer: React.FC<{ reportId: string }> = ({ reportId }) => {

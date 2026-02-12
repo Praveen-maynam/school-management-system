@@ -1,641 +1,748 @@
 import React, { useState } from 'react';
-import './InventoryScreen.css';
-import { 
-  Package, CheckCircle, ArrowUpRight, Wrench, AlertTriangle, 
-  XCircle, Trash2, Eye, History, MapPin, Calendar, Search, 
-  Filter, TrendingUp, BarChart3, PieChart, Bell, Zap,
-  ChevronRight, Download, Settings, RefreshCw, Archive,
-  Box, AlertOctagon, Clock, Activity, Target
-} from 'lucide-react';
+import { Package, ShoppingCart, TrendingUp, AlertTriangle, BarChart3, Settings, Bell, Search, Menu, X, LogOut, ChevronDown, Truck, Users, FileText, DollarSign, Archive, RefreshCw, Plus, Filter, Download, Upload, Edit3, Eye, Trash2, Save, CheckCircle2, XCircle, Clock, MapPin, Warehouse, ShoppingBag, ClipboardList, Target, PieChart, Activity, Layers, Box, PackageCheck, PackageX, PackagePlus, PackageSearch, CalendarDays, TrendingDown, ArrowUpDown, Tags, Boxes, Shield } from 'lucide-react';
 
-const InventoryStatusDashboard = () => {
-  const [selectedStatus, setSelectedStatus] = useState('all');
+interface NavItem {
+  id: string;
+  icon: any;
+  label: string;
+  badge?: number | null;
+  subItems?: SubItem[];
+}
 
-  // Status Summary Data
-  const statusSummary = [
-    { 
-      status: 'Available', 
-      count: 820, 
-      icon: CheckCircle, 
-      color: 'from-emerald-500 to-green-600',
-      bgColor: 'bg-emerald-50',
-      iconColor: 'text-emerald-600',
-      borderColor: 'border-emerald-200',
-      badge: 'bg-emerald-100 text-emerald-700',
-      trend: '+15 this week'
-    },
-    { 
-      status: 'Issued', 
-      count: 240, 
-      icon: ArrowUpRight, 
-      color: 'from-blue-500 to-indigo-600',
-      bgColor: 'bg-blue-50',
-      iconColor: 'text-blue-600',
-      borderColor: 'border-blue-200',
-      badge: 'bg-blue-100 text-blue-700',
-      trend: '18 overdue'
-    },
-    { 
-      status: 'Under Repair', 
-      count: 36, 
-      icon: Wrench, 
-      color: 'from-orange-500 to-amber-600',
-      bgColor: 'bg-orange-50',
-      iconColor: 'text-orange-600',
-      borderColor: 'border-orange-200',
-      badge: 'bg-orange-100 text-orange-700',
-      trend: '5 pending >30d'
-    },
-    { 
-      status: 'Damaged', 
-      count: 18, 
-      icon: AlertTriangle, 
-      color: 'from-rose-500 to-red-600',
-      bgColor: 'bg-rose-50',
-      iconColor: 'text-rose-600',
-      borderColor: 'border-rose-200',
-      badge: 'bg-rose-100 text-rose-700',
-      trend: '3 high-value'
-    },
-    { 
-      status: 'Lost', 
-      count: 7, 
-      icon: XCircle, 
-      color: 'from-red-600 to-red-700',
-      bgColor: 'bg-red-50',
-      iconColor: 'text-red-700',
-      borderColor: 'border-red-300',
-      badge: 'bg-red-100 text-red-800',
-      trend: 'Under investigation'
-    },
-    { 
-      status: 'Disposed', 
-      count: 42, 
-      icon: Trash2, 
-      color: 'from-gray-500 to-slate-600',
-      bgColor: 'bg-gray-50',
-      iconColor: 'text-gray-600',
-      borderColor: 'border-gray-300',
-      badge: 'bg-gray-100 text-gray-700',
-      trend: 'This year'
-    },
-  ];
+interface SubItem {
+  id: string;
+  label: string;
+  icon: any;
+}
 
-  // Inventory Items Data
-  const inventoryItems = [
-    { 
-      id: 'INV-012', 
-      name: 'Chemistry Microscope', 
-      category: 'Lab Equipment', 
-      location: 'Lab 2', 
-      state: 'Under Repair',
-      stateColor: 'bg-orange-100 text-orange-700 border-orange-200',
-      lastUpdated: '02 Feb',
-      value: '₹25,000',
-      assignedTo: null,
-      repairDays: 12
-    },
-    { 
-      id: 'INV-101', 
-      name: 'Student Desk', 
-      category: 'Furniture', 
-      location: 'Block A', 
-      state: 'Available',
-      stateColor: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-      lastUpdated: '28 Jan',
-      value: '₹3,500',
-      assignedTo: null,
-      repairDays: 0
-    },
-    { 
-      id: 'INV-078', 
-      name: 'Smart Projector', 
-      category: 'Electronics', 
-      location: 'Office', 
-      state: 'Issued',
-      stateColor: 'bg-blue-100 text-blue-700 border-blue-200',
-      lastUpdated: '01 Feb',
-      value: '₹45,000',
-      assignedTo: 'Mr. Sharma',
-      repairDays: 0
-    },
-    { 
-      id: 'INV-245', 
-      name: 'Basketball', 
-      category: 'Sports', 
-      location: 'Sports Room', 
-      state: 'Available',
-      stateColor: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-      lastUpdated: '30 Jan',
-      value: '₹1,200',
-      assignedTo: null,
-      repairDays: 0
-    },
-    { 
-      id: 'INV-189', 
-      name: 'Desktop Computer', 
-      category: 'IT Equipment', 
-      location: 'Computer Lab', 
-      state: 'Damaged',
-      stateColor: 'bg-rose-100 text-rose-700 border-rose-200',
-      lastUpdated: '25 Jan',
-      value: '₹38,000',
-      assignedTo: null,
-      repairDays: 0
-    },
-    { 
-      id: 'INV-156', 
-      name: 'Whiteboard', 
-      category: 'Furniture', 
-      location: 'Block B', 
-      state: 'Available',
-      stateColor: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-      lastUpdated: '29 Jan',
-      value: '₹5,500',
-      assignedTo: null,
-      repairDays: 0
-    },
-    { 
-      id: 'INV-203', 
-      name: 'Lab Burner', 
-      category: 'Lab Equipment', 
-      location: 'Lab 1', 
-      state: 'Under Repair',
-      stateColor: 'bg-orange-100 text-orange-700 border-orange-200',
-      lastUpdated: '20 Jan',
-      value: '₹8,500',
-      assignedTo: null,
-      repairDays: 33
-    },
-    { 
-      id: 'INV-092', 
-      name: 'Cricket Bat', 
-      category: 'Sports', 
-      location: 'Sports Room', 
-      state: 'Lost',
-      stateColor: 'bg-red-100 text-red-800 border-red-300',
-      lastUpdated: '15 Jan',
-      value: '₹2,800',
-      assignedTo: 'Sports Dept',
-      repairDays: 0
-    },
-  ];
+interface Stat {
+  title: string;
+  value: string;
+  change: string;
+  trend: 'up' | 'down';
+  icon: any;
+  bgColor: string;
+  iconColor: string;
+}
 
-  // Alerts Data
-  const alerts = [
-    { 
-      type: 'warning', 
-      message: '5 items under repair for more than 30 days', 
-      priority: 'high',
-      icon: Clock,
-      action: 'Review Now'
+export default function InventoryDepartmentSystem() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
+  const [activeMenu, setActiveMenu] = useState<string>('overview');
+  const [expandedMenus, setExpandedMenus] = useState<string[]>(['inventory']);
+
+  const toggleSubmenu = (menuId: string) => {
+    setExpandedMenus(prev =>
+      prev.includes(menuId)
+        ? prev.filter(id => id !== menuId)
+        : [...prev, menuId]
+    );
+  };
+
+  const navItems: NavItem[] = [
+    { id: 'overview', icon: BarChart3, label: 'Dashboard Overview', badge: null },
+    {
+      id: 'inventory',
+      icon: Package,
+      label: 'Inventory Management',
+      // badge: 8,
+      subItems: [
+        { id: 'all-items', label: 'All Items', icon: Boxes },
+        { id: 'add-item', label: 'Add New Item', icon: PackagePlus },
+        { id: 'categories', label: 'Categories', icon: Layers },
+        { id: 'stock-levels', label: 'Stock Levels', icon: BarChart3 }
+      ]
     },
-    { 
-      type: 'error', 
-      message: '3 issued items overdue for return', 
-      priority: 'high',
-      icon: AlertOctagon,
-      action: 'Send Reminder'
-    },
-    { 
-      type: 'error', 
-      message: '2 high-value items marked damaged', 
-      priority: 'medium',
-      icon: AlertTriangle,
-      action: 'View Details'
-    },
-    { 
-      type: 'info', 
-      message: '12 items approaching end of life', 
-      priority: 'low',
+    {
+      id: 'stock',
       icon: Archive,
-      action: 'Plan Replacement'
+      label: 'Stock Management',
+      subItems: [
+        { id: 'stock-in', label: 'Stock In', icon: PackageCheck },
+        { id: 'stock-out', label: 'Stock Out', icon: PackageX },
+        { id: 'stock-transfer', label: 'Stock Transfer', icon: ArrowUpDown },
+        { id: 'stock-adjustment', label: 'Stock Adjustment', icon: RefreshCw }
+      ]
     },
+    {
+      id: 'orders',
+      icon: ShoppingCart,
+      label: 'Orders Management',
+      // badge: 5,
+      subItems: [
+        { id: 'purchase-orders', label: 'Purchase Orders', icon: ShoppingBag },
+        { id: 'create-order', label: 'Create Order', icon: Plus },
+        { id: 'order-history', label: 'Order History', icon: Clock },
+        { id: 'suppliers', label: 'Suppliers', icon: Truck }
+      ]
+    },
+    {
+      id: 'warehouse',
+      icon: Warehouse,
+      label: 'Warehouse Management',
+      subItems: [
+        { id: 'warehouses', label: 'All Warehouses', icon: Warehouse },
+        { id: 'locations', label: 'Storage Locations', icon: MapPin },
+        { id: 'capacity', label: 'Capacity Planning', icon: Target }
+      ]
+    },
+    {
+      id: 'alerts',
+      icon: AlertTriangle,
+      label: 'Alerts & Notifications',
+      // badge: 12,
+      subItems: [
+        { id: 'low-stock', label: 'Low Stock Alerts', icon: TrendingDown },
+        { id: 'expiry-alerts', label: 'Expiry Alerts', icon: CalendarDays },
+        { id: 'reorder-points', label: 'Reorder Points', icon: RefreshCw }
+      ]
+    },
+    {
+      id: 'reports',
+      icon: FileText,
+      label: 'Reports & Analytics',
+      subItems: [
+        { id: 'inventory-reports', label: 'Inventory Reports', icon: BarChart3 },
+        { id: 'valuation-reports', label: 'Valuation Reports', icon: DollarSign },
+        { id: 'movement-reports', label: 'Movement Reports', icon: Activity },
+        { id: 'abc-analysis', label: 'ABC Analysis', icon: PieChart }
+      ]
+    },
+    {
+      id: 'users',
+      icon: Users,
+      label: 'User Management',
+      subItems: [
+        { id: 'all-users', label: 'All Users', icon: Users },
+        { id: 'add-user', label: 'Add User', icon: Plus },
+        { id: 'roles', label: 'Roles & Permissions', icon: Shield }
+      ]
+    },
+    {
+      id: 'settings',
+      icon: Settings,
+      label: 'Settings',
+      subItems: [
+        { id: 'general-settings', label: 'General Settings', icon: Settings },
+        { id: 'barcode-settings', label: 'Barcode Settings', icon: Tags },
+        { id: 'integration', label: 'Integration', icon: RefreshCw }
+      ]
+    }
   ];
 
-  // State Distribution Data
-  const stateDistribution = [
-    { state: 'Available', count: 820, percentage: 70, color: 'bg-emerald-500' },
-    { state: 'Issued', count: 240, percentage: 20.5, color: 'bg-blue-500' },
-    { state: 'Under Repair', count: 36, percentage: 3.1, color: 'bg-orange-500' },
-    { state: 'Damaged', count: 18, percentage: 1.5, color: 'bg-rose-500' },
-    { state: 'Lost', count: 7, percentage: 0.6, color: 'bg-red-600' },
-    { state: 'Disposed', count: 42, percentage: 3.6, color: 'bg-gray-500' },
-  ];
-
-  // Category Damage Data
-  const categoryDamageData = [
-    { category: 'Lab Equipment', damaged: 8, total: 156, percentage: 5.1 },
-    { category: 'Electronics', damaged: 5, total: 89, percentage: 5.6 },
-    { category: 'Furniture', damaged: 3, total: 425, percentage: 0.7 },
-    { category: 'Sports', damaged: 2, total: 178, percentage: 1.1 },
-    { category: 'IT Equipment', damaged: 6, total: 134, percentage: 4.5 },
-  ];
-
-  const getAlertStyle = (type: 'error' | 'warning' | 'info') => {
-    switch(type) {
-      case 'error':
-        return 'bg-red-50 border-red-200';
-      case 'warning':
-        return 'bg-amber-50 border-amber-200';
-      default:
-        return 'bg-blue-50 border-blue-200';
+  const renderContent = () => {
+    switch(activeMenu) {
+      case 'overview': return <DashboardOverview />;
+      case 'all-items': return <AllItems />;
+      case 'add-item': return <AddItem />;
+      case 'categories': return <Categories />;
+      case 'stock-levels': return <StockLevels />;
+      case 'stock-in': return <StockIn />;
+      case 'stock-out': return <StockOut />;
+      case 'stock-transfer': return <StockTransfer />;
+      case 'stock-adjustment': return <StockAdjustment />;
+      case 'purchase-orders': return <PurchaseOrders />;
+      case 'create-order': return <CreateOrder />;
+      case 'order-history': return <OrderHistory />;
+      case 'suppliers': return <Suppliers />;
+      case 'warehouses': return <Warehouses />;
+      case 'locations': return <StorageLocations />;
+      case 'capacity': return <CapacityPlanning />;
+      case 'low-stock': return <LowStockAlerts />;
+      case 'expiry-alerts': return <ExpiryAlerts />;
+      case 'reorder-points': return <ReorderPoints />;
+      case 'inventory-reports': return <InventoryReports />;
+      case 'valuation-reports': return <ValuationReports />;
+      case 'movement-reports': return <MovementReports />;
+      case 'abc-analysis': return <ABCAnalysis />;
+      case 'all-users': return <AllUsers />;
+      case 'add-user': return <AddUser />;
+      case 'roles': return <RolesPermissions />;
+      case 'general-settings': return <GeneralSettings />;
+      case 'barcode-settings': return <BarcodeSettings />;
+      case 'integration': return <Integration />;
+      default: return <DashboardOverview />;
     }
   };
 
-  const getAlertIconColor = (type: 'error' | 'warning' | 'info') => {
-    switch(type) {
-      case 'error':
-        return 'text-red-600';
-      case 'warning':
-        return 'text-amber-600';
-      default:
-        return 'text-blue-600';
-    }
-  };
+ 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      {/* HEADER SECTION */}
-      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-xl">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="p-3 bg-white bg-opacity-20 rounded-2xl backdrop-blur-sm shadow-lg">
-                  <Package className="w-8 h-8" />
+    <div className="min-h-screen bg-slate-50 flex">
+      {/* Sidebar */}
+      <aside className={`bg-gradient-to-b from-slate-900 to-blue-900 text-white transition-all duration-300 ${
+        isSidebarOpen ? 'w-72' : 'w-20'
+      } flex flex-col`}>
+        <div className="p-4 border-b border-slate-800">
+          {isSidebarOpen ? (
+            <div className="flex items-center justify-between mb-4">
+             
+              <button onClick={() => setIsSidebarOpen(false)} className="p-2 hover:bg-slate-800 rounded-lg">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          ) : (
+            <button onClick={() => setIsSidebarOpen(true)} className="mx-auto p-2 hover:bg-slate-800 rounded-lg">
+              <Menu className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+
+       
+
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {navItems.map((item) => (
+            <div key={item.id}>
+              <button
+                onClick={() => {
+                  setActiveMenu(item.id);
+                  if (item.subItems) toggleSubmenu(item.id);
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-medium ${
+                  activeMenu === item.id
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg'
+                    : 'hover:bg-slate-800'
+                } ${!isSidebarOpen && 'justify-center'}`}
+              >
+                <item.icon className="w-5 h-5 flex-shrink-0" />
+                {isSidebarOpen && (
+                  <>
+                    <span className="flex-1 text-left">{item.label}</span>
+                    {item.badge && <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">{item.badge}</span>}
+                    {item.subItems && <ChevronDown className={`w-4 h-4 transition-transform ${expandedMenus.includes(item.id) ? 'rotate-180' : ''}`} />}
+                  </>
+                )}
+              </button>
+
+              {isSidebarOpen && item.subItems && expandedMenus.includes(item.id) && (
+                <div className="mt-2 ml-4 space-y-1">
+                  {item.subItems.map((subItem) => (
+                    <button
+                      key={subItem.id}
+                      onClick={() => setActiveMenu(subItem.id)}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all ${
+                        activeMenu === subItem.id
+                          ? 'bg-slate-800 text-blue-300'
+                          : 'text-blue-200 hover:bg-slate-800 hover:text-white'
+                      }`}
+                    >
+                      <subItem.icon className="w-4 h-4" />
+                      {subItem.label}
+                    </button>
+                  ))}
                 </div>
-                <div>
-                  <h1 className="text-3xl font-bold">📦 Inventory State Management</h1>
-                  <p className="text-indigo-100 mt-1">Monitor asset conditions, track repairs & manage inventory lifecycle</p>
-                </div>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        <div className="p-4 border-t border-slate-800">
+          <button
+            onClick={() => setIsLoggedIn(false)}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-900/30 text-red-300 transition-all ${
+              !isSidebarOpen && 'justify-center'
+            }`}
+          >
+            <LogOut className="w-5 h-5" />
+            {isSidebarOpen && <span>Logout</span>}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+     
+
+        <div className="flex-1 overflow-y-auto p-8">
+          {renderContent()}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+// Page Components
+function DashboardOverview() {
+  const stats: Stat[] = [
+    { title: 'Total Items', value: '15,234', change: '+234 this month', trend: 'up', icon: Package, bgColor: 'bg-blue-50', iconColor: 'text-blue-600' },
+    { title: 'Total Value', value: '$2.4M', change: '+12% this quarter', trend: 'up', icon: DollarSign, bgColor: 'bg-green-50', iconColor: 'text-green-600' },
+    { title: 'Low Stock Items', value: '48', change: '-5 from yesterday', trend: 'down', icon: AlertTriangle, bgColor: 'bg-amber-50', iconColor: 'text-amber-600' },
+    { title: 'Pending Orders', value: '23', change: '+7 today', trend: 'up', icon: ShoppingCart, bgColor: 'bg-purple-50', iconColor: 'text-purple-600' }
+  ];
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {stats.map((stat, idx) => (
+          <div key={idx} className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+            <div className="flex items-start justify-between mb-4">
+              <div className={`${stat.bgColor} p-3 rounded-lg`}>
+                <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
+              </div>
+              <div className={`text-sm font-medium ${stat.trend === 'up' ? 'text-green-600' : 'text-amber-600'}`}>
+                {stat.change}
               </div>
             </div>
-            <div className="flex gap-3">
-              <button className="px-5 py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl font-medium transition-all flex items-center gap-2 backdrop-blur-sm">
-                <RefreshCw className="w-4 h-4" />
-                Refresh
+            <div className="text-3xl font-bold text-slate-900 mb-1">{stat.value}</div>
+            <div className="text-sm text-slate-600">{stat.title}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h2 className="text-xl font-bold text-slate-900 mb-6">Recent Stock Movements</h2>
+          <div className="space-y-4">
+            {[
+              { item: 'Laptop - Dell XPS 15', type: 'Stock In', quantity: '+50', time: '2 hours ago', status: 'completed' },
+              { item: 'Office Chair - Ergonomic', type: 'Stock Out', quantity: '-25', time: '4 hours ago', status: 'completed' },
+              { item: 'Printer - HP LaserJet', type: 'Stock Transfer', quantity: '15', time: '6 hours ago', status: 'in-progress' }
+            ].map((movement, idx) => (
+              <div key={idx} className="border border-slate-200 rounded-lg p-4 hover:border-blue-300 transition-colors">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-slate-900 mb-1">{movement.item}</h3>
+                    <div className="flex items-center gap-4 text-sm text-slate-600">
+                      <span className="flex items-center gap-1">
+                        <ArrowUpDown className="w-4 h-4" />{movement.type}
+                      </span>
+                      <span className={movement.quantity.startsWith('+') ? 'text-green-600' : 'text-red-600'}>
+                        {movement.quantity} units
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />{movement.time}
+                      </span>
+                    </div>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    movement.status === 'completed' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                  }`}>
+                    {movement.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h2 className="text-xl font-bold text-slate-900 mb-6">Quick Actions</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { icon: PackagePlus, label: 'Add Item', color: 'blue' },
+              { icon: ShoppingCart, label: 'Create Order', color: 'purple' },
+              { icon: PackageCheck, label: 'Stock In', color: 'green' },
+              { icon: PackageX, label: 'Stock Out', color: 'red' },
+              { icon: ArrowUpDown, label: 'Transfer Stock', color: 'amber' },
+              { icon: FileText, label: 'Generate Report', color: 'indigo' }
+            ].map((action, idx) => (
+              <button key={idx} className={`flex flex-col items-center gap-2 p-4 rounded-lg bg-${action.color}-50 hover:bg-${action.color}-100 text-${action.color}-700 transition-colors`}>
+                <action.icon className="w-6 h-6" />
+                <span className="text-sm font-medium">{action.label}</span>
               </button>
-              <button className="px-5 py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl font-medium transition-all flex items-center gap-2 backdrop-blur-sm">
-                <Download className="w-4 h-4" />
-                Export Report
-              </button>
-              <button className="px-5 py-3 bg-white hover:bg-gray-50 text-indigo-700 rounded-xl font-semibold transition-all flex items-center gap-2 shadow-lg">
-                <Settings className="w-4 h-4" />
-                Manage States
-              </button>
-            </div>
+            ))}
           </div>
         </div>
       </div>
+    </>
+  );
+}
 
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        {/* TOP SUMMARY CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
-          {statusSummary.map((item, idx) => (
-            <div 
-              key={idx}
-              onClick={() => setSelectedStatus(item.status.toLowerCase())}
-              className={`${item.bgColor} rounded-2xl p-5 border-2 ${item.borderColor} hover:shadow-xl transition-all cursor-pointer group ${selectedStatus === item.status.toLowerCase() ? 'ring-4 ring-indigo-300 scale-105' : ''}`}
-            >
-              <div className="flex items-start justify-between mb-3">
-                <div className={`p-3 bg-gradient-to-br ${item.color} rounded-xl shadow-lg group-hover:scale-110 transition-transform`}>
-                  <item.icon className="w-6 h-6 text-white" />
-                </div>
-                <TrendingUp className={`w-4 h-4 ${item.iconColor} opacity-60`} />
-              </div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{item.count}</h3>
-              <p className="text-sm font-semibold text-gray-800 mb-2">{item.status}</p>
-              <p className="text-xs text-gray-600">{item.trend}</p>
-            </div>
-          ))}
+function AllItems() {
+  const items = [
+    { sku: 'LAP-001', name: 'Dell XPS 15 Laptop', category: 'Electronics', stock: 125, value: '$1,875', status: 'In Stock' },
+    { sku: 'CHA-002', name: 'Ergonomic Office Chair', category: 'Furniture', stock: 45, value: '$13,500', status: 'In Stock' },
+    { sku: 'PRI-003', name: 'HP LaserJet Printer', category: 'Electronics', stock: 8, value: '$2,400', status: 'Low Stock' },
+    { sku: 'DSK-004', name: 'Standing Desk', category: 'Furniture', stock: 0, value: '$0', status: 'Out of Stock' }
+  ];
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-slate-900">Inventory Items</h2>
+        <div className="flex gap-3">
+          <input type="search" placeholder="Search items..." className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" />
+          <button className="px-4 py-2 border border-slate-300 rounded-lg hover:bg-slate-50 flex items-center gap-2">
+            <Filter className="w-4 h-4" />Filter
+          </button>
+          <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 flex items-center gap-2">
+            <Plus className="w-4 h-4" />Add Item
+          </button>
         </div>
-
-        {/* FILTER BAR */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-2">Status Filter</label>
-              <select title="Filter by status" className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
-                <option>All Status</option>
-                <option>Available</option>
-                <option>Issued</option>
-                <option>Under Repair</option>
-                <option>Damaged</option>
-                <option>Lost</option>
-                <option>Disposed</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-2">Category</label>
-              <select title="Filter by category" className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
-                <option>All Categories</option>
-                <option>Lab Equipment</option>
-                <option>Electronics</option>
-                <option>Furniture</option>
-                <option>Sports</option>
-                <option>IT Equipment</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-2">Location</label>
-              <select title="Filter by location" className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all">
-                <option>All Locations</option>
-                <option>Block A</option>
-                <option>Block B</option>
-                <option>Lab 1</option>
-                <option>Lab 2</option>
-                <option>Sports Room</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-2">Date Range</label>
-              <input 
-                type="date"
-                title="Select date"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-2">Search</label>
-              <div className="relative">
-                <input 
-                  type="text"
-                  title="Search items"
-                  placeholder="Item Code / Name" 
-                  className="w-full px-4 py-2.5 pl-10 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
-                />
-                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3.5" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* MAIN CONTENT GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* LEFT COLUMN - INVENTORY TABLE */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* INVENTORY STATE TABLE */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                    <Activity className="w-6 h-6 text-indigo-600" />
-                    Inventory Status Table
-                  </h2>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="bg-slate-50 border-y border-slate-200">
+            <tr>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">SKU</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Item Name</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Category</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Stock</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Value</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-slate-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-200">
+            {items.map((item, idx) => (
+              <tr key={idx} className="hover:bg-slate-50">
+                <td className="px-4 py-4 text-sm font-medium text-slate-900">{item.sku}</td>
+                <td className="px-4 py-4 text-sm text-slate-700">{item.name}</td>
+                <td className="px-4 py-4 text-sm text-slate-600">{item.category}</td>
+                <td className="px-4 py-4 text-sm text-slate-600">{item.stock}</td>
+                <td className="px-4 py-4 text-sm text-slate-600">{item.value}</td>
+                <td className="px-4 py-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    item.status === 'In Stock' ? 'bg-green-100 text-green-700' : 
+                    item.status === 'Low Stock' ? 'bg-amber-100 text-amber-700' : 
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {item.status}
+                  </span>
+                </td>
+                <td className="px-4 py-4">
                   <div className="flex gap-2">
-                    <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-                      <Filter className="w-4 h-4" />
-                      Advanced Filter
-                    </button>
+                    <button className="p-2 hover:bg-blue-50 rounded text-blue-600"><Eye className="w-4 h-4" /></button>
+                    <button className="p-2 hover:bg-indigo-50 rounded text-indigo-600"><Edit3 className="w-4 h-4" /></button>
+                    <button className="p-2 hover:bg-red-50 rounded text-red-600"><Trash2 className="w-4 h-4" /></button>
                   </div>
-                </div>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gradient-to-r from-indigo-50 to-purple-50 border-b-2 border-indigo-200">
-                    <tr>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Item Code</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Item Name</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Category</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Location</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Current State</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Last Updated</th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {inventoryItems.map((item) => (
-                      <tr key={item.id} className="hover:bg-indigo-50 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-2">
-                            <div className="p-2 bg-indigo-100 rounded-lg">
-                              <Box className="w-4 h-4 text-indigo-600" />
-                            </div>
-                            <span className="font-semibold text-gray-900">{item.id}</span>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div>
-                            <p className="font-medium text-gray-900">{item.name}</p>
-                            <p className="text-xs text-gray-500">{item.value}</p>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-semibold rounded-full">
-                            {item.category}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-1 text-sm text-gray-700">
-                            <MapPin className="w-3.5 h-3.5 text-gray-500" />
-                            {item.location}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div>
-                            <span className={`px-3 py-1 text-xs font-bold rounded-full border ${item.stateColor}`}>
-                              {item.state === 'Available' && '🟢 '}
-                              {item.state === 'Issued' && '🔵 '}
-                              {item.state === 'Under Repair' && '🟠 '}
-                              {item.state === 'Damaged' && '🔴 '}
-                              {item.state === 'Lost' && '🔴 '}
-                              {item.state}
-                            </span>
-                            {item.repairDays > 30 && (
-                              <p className="text-xs text-red-600 font-semibold mt-1">{item.repairDays} days!</p>
-                            )}
-                            {item.assignedTo && (
-                              <p className="text-xs text-gray-500 mt-1">To: {item.assignedTo}</p>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 text-gray-400" />
-                            {item.lastUpdated}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex gap-1">
-                            <button className="p-2 hover:bg-blue-100 rounded-lg transition-colors group" title="View Details">
-                              <Eye className="w-4 h-4 text-gray-600 group-hover:text-blue-600" />
-                            </button>
-                            <button className="p-2 hover:bg-purple-100 rounded-lg transition-colors group" title="History">
-                              <History className="w-4 h-4 text-gray-600 group-hover:text-purple-600" />
-                            </button>
-                            {item.state === 'Available' && (
-                              <button className="px-2 py-1 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-lg text-xs font-semibold transition-colors">
-                                Repair
-                              </button>
-                            )}
-                            {item.state === 'Under Repair' && (
-                              <button className="px-2 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 rounded-lg text-xs font-semibold transition-colors">
-                                Fixed
-                              </button>
-                            )}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* CATEGORY DAMAGE CHART */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-rose-600" />
-                Category-wise Damage Analysis
-              </h3>
-              <div className="space-y-4">
-                {categoryDamageData.map((item, idx) => (
-                  <div key={idx}>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-semibold text-gray-700">{item.category}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-gray-500">{item.damaged} / {item.total}</span>
-                        <span className="text-xs font-bold text-rose-600">{item.percentage}%</span>
-                      </div>
-                    </div>
-                    <div className="flex gap-1">
-                      <div className="flex-1 bg-gray-200 rounded-full h-3 overflow-hidden">
-                        <div className="flex h-full">
-                          <div 
-                            className="bg-rose-500 transition-all duration-500 inventory-progress-segment"
-                            style={{ width: `${item.percentage}%` }}
-                          ></div>
-                          <div 
-                            className="bg-emerald-500 transition-all duration-500 inventory-progress-segment"
-                            style={{ width: `${100 - item.percentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN - ALERTS & CHARTS */}
-          <div className="space-y-6">
-            {/* ALERTS & WARNINGS PANEL */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                  <Bell className="w-5 h-5 text-rose-600" />
-                  Alerts & Warnings
-                </h3>
-                <span className="px-3 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-full">
-                  {alerts.filter(a => a.priority === 'high').length} Critical
-                </span>
-              </div>
-              <div className="space-y-3">
-                {alerts.map((alert, idx) => (
-                  <div 
-                    key={idx}
-                    className={`border-2 rounded-xl p-4 ${getAlertStyle(alert.type as 'warning' | 'error' | 'info')}`}
-                  >
-                    <div className="flex items-start gap-3 mb-3">
-                      <alert.icon className={`w-5 h-5 ${getAlertIconColor(alert.type as 'warning' | 'error' | 'info')}`} />
-                      <div className="flex-1">
-                        <p className="text-sm font-bold text-gray-900 mb-1">{alert.message}</p>
-                        <span className={`text-xs font-semibold px-2 py-1 rounded ${
-                          alert.priority === 'high' ? 'bg-red-200 text-red-800' :
-                          alert.priority === 'medium' ? 'bg-amber-200 text-amber-800' :
-                          'bg-blue-200 text-blue-800'
-                        }`}>
-                          {alert.priority.toUpperCase()}
-                        </span>
-                      </div>
-                    </div>
-                    <button className="w-full py-2 bg-white hover:bg-gray-50 border border-gray-300 rounded-lg text-sm font-semibold text-gray-700 transition-colors">
-                      {alert.action}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* STATE DISTRIBUTION PIE CHART */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <PieChart className="w-5 h-5 text-indigo-600" />
-                State Distribution
-              </h3>
-              <div className="space-y-3">
-                {stateDistribution.map((item, idx) => (
-                  <div key={idx}>
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-4 h-4 ${item.color} rounded-full`}></div>
-                        <span className="text-sm font-semibold text-gray-700">{item.state}</span>
-                      </div>
-                      <span className="text-sm font-bold text-gray-900">{item.count}</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                      <div 
-                        className={`${item.color} h-2.5 rounded-full transition-all duration-500`}
-                        style={{ width: `${item.percentage}%` }}
-                      ></div>
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1 text-right">{item.percentage.toFixed(1)}%</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* QUICK ACTIONS */}
-            <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl shadow-xl p-6 text-white">
-              <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <Zap className="w-5 h-5" />
-                Quick Actions
-              </h3>
-              <div className="space-y-2">
-                <button className="w-full py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl text-sm font-semibold transition-all backdrop-blur-sm flex items-center justify-between px-4">
-                  <span className="flex items-center gap-2">
-                    <Wrench className="w-4 h-4" />
-                    Mark as Under Repair
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <button className="w-full py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl text-sm font-semibold transition-all backdrop-blur-sm flex items-center justify-between px-4">
-                  <span className="flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4" />
-                    Mark as Damaged
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <button className="w-full py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl text-sm font-semibold transition-all backdrop-blur-sm flex items-center justify-between px-4">
-                  <span className="flex items-center gap-2">
-                    <Trash2 className="w-4 h-4" />
-                    Send to Disposal
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <button className="w-full py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl text-sm font-semibold transition-all backdrop-blur-sm flex items-center justify-between px-4">
-                  <span className="flex items-center gap-2">
-                    <History className="w-4 h-4" />
-                    View Item History
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <button className="w-full py-3 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl text-sm font-semibold transition-all backdrop-blur-sm flex items-center justify-between px-4">
-                  <span className="flex items-center gap-2">
-                    <Target className="w-4 h-4" />
-                    Track Issued Items
-                  </span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
-};
+}
 
-export default InventoryStatusDashboard;
+function AddItem() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Add New Inventory Item</h2>
+      <div className="grid grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">SKU / Item Code</label>
+          <input type="text" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter SKU" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Item Name</label>
+          <input type="text" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Enter item name" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Category</label>
+          <select className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+            <option>Electronics</option>
+            <option>Furniture</option>
+            <option>Office Supplies</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Unit Price</label>
+          <input type="number" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0.00" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Initial Stock</label>
+          <input type="number" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">Reorder Level</label>
+          <input type="number" className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" placeholder="0" />
+        </div>
+        <div className="col-span-2">
+          <label className="block text-sm font-medium text-slate-700 mb-2">Description</label>
+          <textarea className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" rows={4} placeholder="Enter item description..."></textarea>
+        </div>
+      </div>
+      <div className="mt-6 flex gap-4">
+        <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700">
+          <Save className="w-4 h-4 inline mr-2" />Add Item
+        </button>
+        <button className="px-6 py-2 border border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50">Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+function Categories() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-slate-900">Categories</h2>
+        <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg flex items-center gap-2">
+          <Plus className="w-4 h-4" />Add Category
+        </button>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { name: 'Electronics', items: 1245, icon: Box, color: 'blue' },
+          { name: 'Furniture', items: 456, icon: Archive, color: 'green' },
+          { name: 'Office Supplies', items: 2340, icon: ClipboardList, color: 'purple' },
+          { name: 'IT Equipment', items: 890, icon: Package, color: 'indigo' }
+        ].map((cat, idx) => (
+          <div key={idx} className={`border border-slate-200 rounded-lg p-6 hover:border-${cat.color}-300 hover:shadow-md transition-all`}>
+            <cat.icon className={`w-10 h-10 text-${cat.color}-600 mb-4`} />
+            <h3 className="font-semibold text-slate-900 mb-1">{cat.name}</h3>
+            <p className="text-sm text-slate-600">{cat.items} items</p>
+            <button className="mt-4 w-full px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium text-sm">View Items</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StockLevels() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Stock Levels Overview</h2>
+      <div className="grid grid-cols-3 gap-6 mb-8">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+          <div className="text-3xl font-bold text-green-700 mb-2">8,456</div>
+          <div className="text-sm text-green-600">Adequate Stock</div>
+        </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6">
+          <div className="text-3xl font-bold text-amber-700 mb-2">48</div>
+          <div className="text-sm text-amber-600">Low Stock</div>
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+          <div className="text-3xl font-bold text-red-700 mb-2">12</div>
+          <div className="text-sm text-red-600">Out of Stock</div>
+        </div>
+      </div>
+      <div className="text-center py-12 text-slate-500">Stock level charts and analytics</div>
+    </div>
+  );
+}
+
+function StockIn() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Stock In Entry</h2>
+      <div className="grid grid-cols-2 gap-6">
+        <div><label className="block text-sm font-medium text-slate-700 mb-2">Select Item</label><select className="w-full px-4 py-2 border border-slate-300 rounded-lg"><option>Dell XPS 15 Laptop</option></select></div>
+        <div><label className="block text-sm font-medium text-slate-700 mb-2">Quantity</label><input type="number" className="w-full px-4 py-2 border border-slate-300 rounded-lg" /></div>
+        <div><label className="block text-sm font-medium text-slate-700 mb-2">Supplier</label><select className="w-full px-4 py-2 border border-slate-300 rounded-lg"><option>Tech Suppliers Inc</option></select></div>
+        <div><label className="block text-sm font-medium text-slate-700 mb-2">Date</label><input type="date" className="w-full px-4 py-2 border border-slate-300 rounded-lg" /></div>
+      </div>
+      <div className="mt-6 flex gap-4">
+        <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold">Process Stock In</button>
+      </div>
+    </div>
+  );
+}
+
+function StockOut() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Stock Out Entry</h2>
+      <div className="text-center py-12 text-slate-500">Stock out processing interface</div>
+    </div>
+  );
+}
+
+function StockTransfer() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Stock Transfer</h2>
+      <div className="text-center py-12 text-slate-500">Stock transfer between warehouses</div>
+    </div>
+  );
+}
+
+function StockAdjustment() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Stock Adjustment</h2>
+      <div className="text-center py-12 text-slate-500">Stock adjustment interface</div>
+    </div>
+  );
+}
+
+function PurchaseOrders() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Purchase Orders</h2>
+      <div className="text-center py-12 text-slate-500">Purchase orders list</div>
+    </div>
+  );
+}
+
+function CreateOrder() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Create Purchase Order</h2>
+      <div className="text-center py-12 text-slate-500">Order creation form</div>
+    </div>
+  );
+}
+
+function OrderHistory() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Order History</h2>
+      <div className="text-center py-12 text-slate-500">Historical orders archive</div>
+    </div>
+  );
+}
+
+function Suppliers() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Suppliers Directory</h2>
+      <div className="text-center py-12 text-slate-500">Supplier management</div>
+    </div>
+  );
+}
+
+function Warehouses() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Warehouses</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {['Main Warehouse', 'Regional Warehouse A', 'Regional Warehouse B'].map((wh, idx) => (
+          <div key={idx} className="border border-slate-200 rounded-lg p-6 hover:border-blue-300">
+            <Warehouse className="w-10 h-10 text-blue-600 mb-4" />
+            <h3 className="font-semibold text-slate-900 mb-2">{wh}</h3>
+            <p className="text-sm text-slate-600">Capacity: 5,000 items</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function StorageLocations() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Storage Locations</h2>
+      <div className="text-center py-12 text-slate-500">Storage location management</div>
+    </div>
+  );
+}
+
+function CapacityPlanning() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Capacity Planning</h2>
+      <div className="text-center py-12 text-slate-500">Warehouse capacity analytics</div>
+    </div>
+  );
+}
+
+function LowStockAlerts() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Low Stock Alerts</h2>
+      <div className="text-center py-12 text-slate-500">Low stock notifications</div>
+    </div>
+  );
+}
+
+function ExpiryAlerts() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Expiry Alerts</h2>
+      <div className="text-center py-12 text-slate-500">Product expiry tracking</div>
+    </div>
+  );
+}
+
+function ReorderPoints() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Reorder Points</h2>
+      <div className="text-center py-12 text-slate-500">Reorder point management</div>
+    </div>
+  );
+}
+
+function InventoryReports() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Inventory Reports</h2>
+      <div className="text-center py-12 text-slate-500">Comprehensive inventory reports</div>
+    </div>
+  );
+}
+
+function ValuationReports() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Valuation Reports</h2>
+      <div className="text-center py-12 text-slate-500">Inventory valuation analytics</div>
+    </div>
+  );
+}
+
+function MovementReports() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Movement Reports</h2>
+      <div className="text-center py-12 text-slate-500">Stock movement analytics</div>
+    </div>
+  );
+}
+
+function ABCAnalysis() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">ABC Analysis</h2>
+      <div className="text-center py-12 text-slate-500">ABC classification analytics</div>
+    </div>
+  );
+}
+
+function AllUsers() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">User Directory</h2>
+      <div className="text-center py-12 text-slate-500">User management interface</div>
+    </div>
+  );
+}
+
+function AddUser() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Add New User</h2>
+      <div className="text-center py-12 text-slate-500">User registration form</div>
+    </div>
+  );
+}
+
+function RolesPermissions() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Roles & Permissions</h2>
+      <div className="text-center py-12 text-slate-500">Role management interface</div>
+    </div>
+  );
+}
+
+function GeneralSettings() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">General Settings</h2>
+      <div className="text-center py-12 text-slate-500">System configuration</div>
+    </div>
+  );
+}
+
+function BarcodeSettings() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Barcode Settings</h2>
+      <div className="text-center py-12 text-slate-500">Barcode configuration</div>
+    </div>
+  );
+}
+
+function Integration() {
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+      <h2 className="text-2xl font-bold text-slate-900 mb-6">Integration Settings</h2>
+      <div className="text-center py-12 text-slate-500">Third-party integrations</div>
+    </div>
+  );
+}

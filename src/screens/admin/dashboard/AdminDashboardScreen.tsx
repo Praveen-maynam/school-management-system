@@ -7,16 +7,19 @@ import UpcomingEventsWidget from '../../../components/widgets/UpcomingEventsWidg
 import QuickActionsWidget from '../../../components/widgets/QuickActionsWidget';
 import BarChart from '../../../components/charts/BarChart';
 import PieChart from '../../../components/charts/PieChart';
+import { Book, BookOpen, User, Users,CalendarCheck } from 'lucide-react';
 
 const AdminDashboardScreen = () => {
     return (
         <div className="p-6 space-y-6">
             {/* Top Row: Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <DashboardCard title="Total Students" value={1200} icon="students" />
-                <DashboardCard title="Total Teachers" value={80} icon="teachers" />
-                <DashboardCard title="Classes" value={30} icon="classes" />
-                <DashboardCard title="Attendance Today" value="97%" icon="attendance" />
+                      
+
+                <DashboardCard title="Total Students" value={1200} icon={Users} />
+                <DashboardCard title="Total Teachers" value={80} icon={User} />
+                <DashboardCard title="Classes" value={30} icon={BookOpen} />
+                <DashboardCard title="Attendance Today" value="97%" icon={CalendarCheck} />
             </div>
 
             {/* Middle Row: Charts & Widgets */}
@@ -47,3 +50,4 @@ const AdminDashboardScreen = () => {
 };
 
 export default AdminDashboardScreen;
+

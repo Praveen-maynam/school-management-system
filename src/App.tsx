@@ -20,12 +20,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AttendanceProvider } from "./context/AttendanceContext";
 import Layout from "./components/layout/AppLayout";
 import TeacherDashboard from "./screens/teacher/dashboard/TeacherDashboardScreen";
-import MarkAttendanceScreen from "./screens/teacher/attendance/MarkAttendanceScreen";
 import CreateHomeWorkScreen from "./screens/teacher/homework/CreateHomeWorkScreen";
 import ClassScreen from "./screens/teacher/class/ClassScreen";
 import AddHomeWorkScreen from "./screens/teacher/homework/AddHomeWorkScreen";
 import AnnouncementScreen from "./screens/teacher/announcements/AnnouncementScreen";
 import CreateAnnouncement from "./screens/teacher/announcements/CreateAnnouncementScreen";
+
+import HolidayListScreen from "./screens/teacher/holiday/HolidayListScreen";
+import ViewAttendenceScreen from "./screens/teacher/attendance/ViewAttendanceScreen";
+import MarkAttendanceScreen from "./screens/teacher/attendance/MarkAttendanceScreen";
 import TeacherTimetable from "./screens/teacher/timetable/TeacherTimetableScreen";
 import TeacherProfileScreen from "./screens/teacher/dashboard/TeacherProfileScreen";
 import PaySlipsPage from "./screens/teacher/payroll/PayslipHistoryScreen";
@@ -49,6 +52,14 @@ import Homework from "./screens/parent/HomeWork";
 import ExamsScreen from "./screens/parent/ExamsScreen";
 import FeeDetails from "./screens/parent/FeeDetails";
 import ParentProfile from "./screens/parent/Profile";
+import Subjects from "./screens/parent/subject";
+
+import Reports from "./screens/parent/Reports";
+import Leaves from "./screens/parent/ManageLeaves"
+import AcademicCalendar from "./screens/parent/AcademicCalendar";
+import Result from "./screens/parent/Result";
+import TimeTable from "./screens/parent/TimeTable";
+import TeacherScreen from "./screens/parent/TeacherScreen"
 import Ticketmodel from "./screens/teacher/privacy/Ticketmodel";
 import FeeReportsScreen from "./screens/admin/reports/FeeReportsScreen";
 import BookListScreen from "./screens/admin/library/BookListScreen";
@@ -66,8 +77,12 @@ import LibraryFinance from "./screens/admin/finance/LibraryFinance";
 import SecurityFinance from "./screens/admin/finance/SecurityFinance";
 import StudentDuesDetail from "./screens/admin/finance/StudentDuesDetail";
 import TeachingStaffDetails from "./screens/admin/finance/TeachingStaffDetails";
-
-
+import AnnouncementListScreen from "./screens/admin/announcements/AnnouncementListScreen";
+import SportsManagement from "./screens/non-teaching-staff/sports/SportsManagement";
+import AthleteScreen from "./screens/non-teaching-staff/sports/Athelet";
+import Events from "./screens/non-teaching-staff/sports/Events";
+import Achievement from "./screens/non-teaching-staff/sports/Achievement";
+import Equipment from "./screens/non-teaching-staff/sports/Equipment";
 function App() {
     return (
         <AttendanceProvider>
@@ -89,11 +104,17 @@ function App() {
                                         <Route path="classes" element={<ClassListScreen />} />
                                         <Route path="users" element={<UserManagementScreen />} />
                                         <Route path="attendance" element={<AttendanceReportsScreen />} />
-                                        <Route path="non-teaching-staff" element={<StaffListScreen />} />
+                                        <Route path="announcements" element={<AnnouncementListScreen />} />
+                                        <Route path="non-teaching-staf" element={<StaffListScreen />} />
                                         <Route path="non-teaching-staff/examination" element={<ExaminationScreen />} />
                                         <Route path="non-teaching-staff/inventory" element={<InventoryScreen />} />
                                         <Route path="non-teaching-staff/sports" element={<SportsScreen />} />
                                         <Route path="non-teaching-staff/security" element={<SecurityScreen />} />
+                                        <Route path="non-teaching-staff/sports/sportsmanagement" element={<SportsManagement />} />
+                                        <Route path="non-teaching-staff/sports/Athlete" element={<AthleteScreen />} />
+                                        <Route path="non-teaching-staff/sports/events" element={<Events />} />
+                                        <Route path="non-teaching-staff/sports/achievements" element={<Achievement />} />
+                                        <Route path="non-teaching-staff/sports/equipment" element={<Equipment />} />
                                         <Route path="exams/schedule" element={<ExamSchedule />} />
                                         <Route path="exams/marks" element={<MarksControl />} />
                                         <Route path="exams/grade-config" element={<GradeConfiguration />} />
@@ -115,6 +136,8 @@ function App() {
                     <Route path="homework" element={<CreateHomeWorkScreen />} />
                     <Route path="class" element={<ClassScreen />} />
                     <Route path="homework/create" element={<CreateHomeWorkScreen />} />
+                    <Route path="attendance/view" element={<ViewAttendenceScreen />} />
+                    <Route path="attendance/holiday" element={<HolidayListScreen />} />
                     <Route path="homework/add" element={<AddHomeWorkScreen />} />
                     <Route path="announcements" element={<AnnouncementScreen />} />
                     <Route path ="announcements/create" element={<CreateAnnouncement />} />
@@ -141,8 +164,15 @@ function App() {
                     <Route path="dashboard" element={<ParentDashboardScreen />} />
                     <Route path="attendance" element={<AttendanceScreen />} />
                     <Route path="fee-details" element={<FeeDetails />} />
+                    <Route path="subjects" element={<Subjects />} />
+                    <Route path="teacher" element={<TeacherScreen />} />
                     <Route path="homework" element={<Homework />} />
+                    <Route path="timetable" element={<TimeTable />} />
+                    <Route path="academic-calendar" element={<AcademicCalendar />} />
                     <Route path="exams" element={<ExamsScreen />} />
+                        <Route path="leave" element={<Leaves />} />
+                    <Route path="reports" element={<Reports />} />
+                    <Route path="result" element={<Result />} />
                     <Route path="profile" element={<ParentProfile />} />
                     <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="about-us" element={<AboutUsPage />} />

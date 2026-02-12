@@ -1,53 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Table } from './Table';
 
-interface Column<T> {
+export type Column<T> = {
   key: keyof T;
   label: string;
-}
+};
 
-interface TableProps<T extends object> {
+export type TableProps<T> = {
   columns: Column<T>[];
   data: T[];
-}
+};
 
-function Table<T extends object>({ columns, data }: TableProps<T>) {
-  return (
-    <table className="w-full border-collapse border border-gray-300">
-      <thead>
-        <tr className="bg-gray-100">
-          {columns.map(col => (
-            <th key={String(col.key)} className="border border-gray-300 p-2 text-left">
-              {col.label}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row, idx) => (
-          <tr key={idx}>
-            {columns.map(col => (
-              <td key={String(col.key)} className="border border-gray-300 p-2">
-                {String(row[col.key])}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
-
-export function FilterableTable<T extends object>({
+export function Filtertable<T extends Record<string, any>>({
   columns,
   data
 }: TableProps<T>) {
-  const [query, setQuery] = React.useState('')
+  const [query, setQuery] = useState('');
 
   const filtered = data.filter((row: T) =>
     Object.values(row).some(val =>
       String(val).toLowerCase().includes(query.toLowerCase())
     )
-  )
+  );
 
   return (
     <>
@@ -58,5 +32,5 @@ export function FilterableTable<T extends object>({
       />
       <Table columns={columns} data={filtered} />
     </>
-  )
+  );
 }

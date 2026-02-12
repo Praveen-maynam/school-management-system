@@ -1,917 +1,12 @@
-// // import React from 'react';
 
-// // interface StaffMember {
-// // 	id: string;
-// // 	name: string;
-// // 	position: string;
-// // 	department: string;
-// // 	contact: string;
-// // 	status: string;
-// // }
-
-// // const nonTeachingStaff: StaffMember[] = [
-// // 	{
-// // 		id: 'NTS-001',
-// // 		name: 'John Doe',
-// // 		position: 'Accountant',
-// // 		department: 'Finance',
-// // 		contact: '+1 234-567-8901',
-// // 		status: 'Active',
-// // 	},
-// // 	{
-// // 		id: 'NTS-002',
-// // 		name: 'Jane Smith',
-// // 		position: 'Librarian',
-// // 		department: 'Library',
-// // 		contact: '+1 234-567-8902',
-// // 		status: 'Active',
-// // 	},
-// // 	{
-// // 		id: 'NTS-003',
-// // 		name: 'Robert Brown',
-// // 		position: 'Receptionist',
-// // 		department: 'Administration',
-// // 		contact: '+1 234-567-8903',
-// // 		status: 'On Leave',
-// // 	},
-// // ];
-
-// // const StaffListScreen: React.FC = () => {
-// // 	return (
-// // 		<div className="p-6">
-// // 			<h2 className="text-2xl font-bold mb-4">Non-Teaching Staff</h2>
-// // 			<div className="overflow-x-auto">
-// // 				<table className="min-w-full bg-white rounded shadow">
-// // 					<thead>
-// // 						<tr>
-// // 							<th className="py-2 px-4 border-b">ID</th>
-// // 							<th className="py-2 px-4 border-b">Name</th>
-// // 							<th className="py-2 px-4 border-b">Position</th>
-// // 							<th className="py-2 px-4 border-b">Department</th>
-// // 							<th className="py-2 px-4 border-b">Contact</th>
-// // 							<th className="py-2 px-4 border-b">Status</th>
-// // 						</tr>
-// // 					</thead>
-// // 					<tbody>
-// // 						{nonTeachingStaff.map((staff) => (
-// // 							<tr key={staff.id} className="hover:bg-gray-100">
-// // 								<td className="py-2 px-4 border-b">{staff.id}</td>
-// // 								<td className="py-2 px-4 border-b">{staff.name}</td>
-// // 								<td className="py-2 px-4 border-b">{staff.position}</td>
-// // 								<td className="py-2 px-4 border-b">{staff.department}</td>
-// // 								<td className="py-2 px-4 border-b">{staff.contact}</td>
-// // 								<td className="py-2 px-4 border-b">{staff.status}</td>
-// // 							</tr>
-// // 						))}
-// // 					</tbody>
-// // 				</table>
-// // 			</div>
-// // 		</div>
-// // 	);
-// // };
-
-// // export default StaffListScreen;
-
-
-
-// import React, { useState, useMemo } from 'react';
-// import { Search, Filter, Download, Plus, Eye, Edit2, Trash2, MoreVertical, X, Upload, ChevronDown, Users, UserCheck, Briefcase, Clock, Calendar, Phone, Mail, MapPin, Award, FileText, DollarSign } from 'lucide-react';
-
-// interface StaffMember {
-//   id: string;
-//   name: string;
-//   email: string;
-//   avatar: string;
-//   designation: string;
-//   department: string;
-//   phone: string;
-//   joinDate: string;
-//   salary: string;
-//   status: string;
-//   employmentType: string;
-//   address: string;
-//   emergencyContact: string;
-//   qualification: string;
-//   experience: string;
-//   shift: string;
-// }
-
-// const NonTeachingStaffManagement = () => {
-//   const [staff, setStaff] = useState<StaffMember[]>([
-//     {
-//       id: 'NTS-2024-001',
-//       name: 'John Anderson',
-//       email: 'john.anderson@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
-//       designation: 'Administrative Assistant',
-//       department: 'Administration',
-//       phone: '+1 234-567-8901',
-//       joinDate: '2020-01-15',
-//       salary: '$45,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '123 Oak Street, Springfield',
-//       emergencyContact: '+1 234-567-8911',
-//       qualification: 'Bachelor in Business Administration',
-//       experience: '8 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-002',
-//       name: 'Sarah Mitchell',
-//       email: 'sarah.mitchell@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
-//       designation: 'Librarian',
-//       department: 'Library',
-//       phone: '+1 234-567-8902',
-//       joinDate: '2019-08-20',
-//       salary: '$42,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '456 Pine Avenue, Springfield',
-//       emergencyContact: '+1 234-567-8912',
-//       qualification: 'Master in Library Science',
-//       experience: '10 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-003',
-//       name: 'Robert Chen',
-//       email: 'robert.chen@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Robert',
-//       designation: 'Lab Technician',
-//       department: 'Science Lab',
-//       phone: '+1 234-567-8903',
-//       joinDate: '2021-03-10',
-//       salary: '$38,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '789 Maple Drive, Springfield',
-//       emergencyContact: '+1 234-567-8913',
-//       qualification: 'Bachelor in Chemistry',
-//       experience: '5 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-004',
-//       name: 'Maria Garcia',
-//       email: 'maria.garcia@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Maria',
-//       designation: 'Accountant',
-//       department: 'Finance',
-//       phone: '+1 234-567-8904',
-//       joinDate: '2018-06-15',
-//       salary: '$52,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '321 Elm Street, Springfield',
-//       emergencyContact: '+1 234-567-8914',
-//       qualification: 'MBA in Finance',
-//       experience: '12 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-005',
-//       name: 'David Wilson',
-//       email: 'david.wilson@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
-//       designation: 'IT Support Specialist',
-//       department: 'IT Department',
-//       phone: '+1 234-567-8905',
-//       joinDate: '2022-01-20',
-//       salary: '$48,000',
-//       status: 'On Leave',
-//       employmentType: 'Full-time',
-//       address: '654 Birch Lane, Springfield',
-//       emergencyContact: '+1 234-567-8915',
-//       qualification: 'Bachelor in Computer Science',
-//       experience: '6 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-006',
-//       name: 'Lisa Thompson',
-//       email: 'lisa.thompson@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa',
-//       designation: 'Receptionist',
-//       department: 'Front Desk',
-//       phone: '+1 234-567-8906',
-//       joinDate: '2023-04-01',
-//       salary: '$35,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '987 Cedar Court, Springfield',
-//       emergencyContact: '+1 234-567-8916',
-//       qualification: 'High School Diploma',
-//       experience: '3 years',
-//       shift: 'Morning'
-//     },
-//     {
-//       id: 'NTS-2024-007',
-//       name: 'James Brown',
-//       email: 'james.brown@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=James',
-//       designation: 'Security Officer',
-//       department: 'Security',
-//       phone: '+1 234-567-8907',
-//       joinDate: '2020-09-15',
-//       salary: '$36,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '147 Walnut Street, Springfield',
-//       emergencyContact: '+1 234-567-8917',
-//       qualification: 'Security Certification',
-//       experience: '7 years',
-//       shift: 'Evening'
-//     },
-//     {
-//       id: 'NTS-2024-008',
-//       name: 'Patricia Davis',
-//       email: 'patricia.davis@school.com',
-//       avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Patricia',
-//       designation: 'Nurse',
-//       department: 'Health Services',
-//       phone: '+1 234-567-8908',
-//       joinDate: '2019-11-10',
-//       salary: '$50,000',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '258 Spruce Avenue, Springfield',
-//       emergencyContact: '+1 234-567-8918',
-//       qualification: 'Bachelor of Nursing',
-//       experience: '9 years',
-//       shift: 'Morning'
-//     }
-//   ]);
-
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
-//   const [selectedStatus, setSelectedStatus] = useState('All Status');
-//   const [selectedEmploymentType, setSelectedEmploymentType] = useState('All Types');
-//   const [viewMode, setViewMode] = useState('grid');
-//   const [selectedStaff, setSelectedStaff] = useState<string[]>([]);
-//   const [showFilters, setShowFilters] = useState(false);
-//   const [showStaffModal, setShowStaffModal] = useState(false);
-//   const [modalMode, setModalMode] = useState<'add' | 'edit' | 'view'>('add');
-//   const [currentStaff, setCurrentStaff] = useState<StaffMember | null>(null);
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const itemsPerPage = 6;
-
-//   // Stats calculation
-//   const stats = useMemo(() => ({
-//     total: staff.length,
-//     active: staff.filter(s => s.status === 'Active').length,
-//     onLeave: staff.filter(s => s.status === 'On Leave').length,
-//     departments: Array.from(new Set(staff.map(s => s.department))).length
-//   }), [staff]);
-
-//   // Filter and search logic
-//   const filteredStaff = useMemo(() => {
-//     return staff.filter(member => {
-//       const matchesSearch = member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//                           member.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//                           member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//                           member.designation.toLowerCase().includes(searchTerm.toLowerCase());
-//       const matchesDepartment = selectedDepartment === 'All Departments' || member.department === selectedDepartment;
-//       const matchesStatus = selectedStatus === 'All Status' || member.status === selectedStatus;
-//       const matchesType = selectedEmploymentType === 'All Types' || member.employmentType === selectedEmploymentType;
-//       return matchesSearch && matchesDepartment && matchesStatus && matchesType;
-//     });
-//   }, [staff, searchTerm, selectedDepartment, selectedStatus, selectedEmploymentType]);
-
-//   // Pagination
-//   const totalPages = Math.ceil(filteredStaff.length / itemsPerPage);
-//   const paginatedStaff = filteredStaff.slice(
-//     (currentPage - 1) * itemsPerPage,
-//     currentPage * itemsPerPage
-//   );
-
-//   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.checked) {
-//       setSelectedStaff(paginatedStaff.map(s => s.id));
-//     } else {
-//       setSelectedStaff([]);
-//     }
-//   };
-
-//   const handleSelectStaff = (id: string) => {
-//     setSelectedStaff(prev =>
-//       prev.includes(id) ? prev.filter(sid => sid !== id) : [...prev, id]
-//     );
-//   };
-
-//   const handleAddStaff = () => {
-//     setModalMode('add');
-//     setCurrentStaff(null);
-//     setShowStaffModal(true);
-//   };
-
-//   const handleEditStaff = (member: any) => {
-//     setModalMode('edit');
-//     setCurrentStaff(member);
-//     setShowStaffModal(true);
-//   };
-
-//   const handleViewStaff = (member: any) => {
-//     setModalMode('view');
-//     setCurrentStaff(member);
-//     setShowStaffModal(true);
-//   };
-
-//   const handleDeleteStaff = (id: string) => {
-//     if (window.confirm('Are you sure you want to remove this staff member?')) {
-//       setStaff(prev => prev.filter(s => s.id !== id));
-//     }
-//   };
-
-//   const handleSaveStaff = (staffData: any) => {
-//     if (modalMode === 'add') {
-//       const newStaff = {
-//         ...staffData,
-//         id: `NTS-2024-${String(staff.length + 1).padStart(3, '0')}`,
-//         avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${staffData.name}`
-//       };
-//       setStaff(prev => [...prev, newStaff]);
-//     } else if (modalMode === 'edit' && currentStaff) {
-//       setStaff(prev => prev.map(s => s.id === currentStaff.id ? { ...s, ...staffData } : s));
-//     }
-//     setShowStaffModal(false);
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50">
-//       {/* Header */}
-//       <div className="bg-white border-b border-gray-200 px-6 py-4">
-//         <div className="flex items-center justify-between mb-6">
-//           <div>
-//             <h1 className="text-2xl font-bold text-gray-900">Non-Teaching Staff Management</h1>
-//             <p className="text-sm text-gray-500 mt-1">Manage administrative and support staff</p>
-//           </div>
-//         </div>
-
-//         {/* Stats Cards */}
-//         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-//           <StatCard
-//             title="Total Staff"
-//             value={stats.total.toLocaleString()}
-//             change="+5% from last month"
-//             icon={<Users className="w-5 h-5" />}
-//             iconBg="bg-blue-100"
-//             iconColor="text-blue-600"
-//           />
-//           <StatCard
-//             title="Active Staff"
-//             value={stats.active.toLocaleString()}
-//             change="+2% from last month"
-//             icon={<UserCheck className="w-5 h-5" />}
-//             iconBg="bg-green-100"
-//             iconColor="text-green-600"
-//           />
-//           <StatCard
-//             title="On Leave"
-//             value={stats.onLeave}
-//             change="Currently"
-//             icon={<Clock className="w-5 h-5" />}
-//             iconBg="bg-yellow-100"
-//             iconColor="text-yellow-600"
-//           />
-//           <StatCard
-//             title="Departments"
-//             value={stats.departments}
-//             change="Active departments"
-//             icon={<Briefcase className="w-5 h-5" />}
-//             iconBg="bg-purple-100"
-//             iconColor="text-purple-600"
-//           />
-//         </div>
-//       </div>
-
-//       {/* Filters and Actions */}
-//       <div className="bg-white border-b border-gray-200 px-6 py-4">
-//         <div className="flex flex-wrap gap-3 items-center justify-between">
-//           <div className="flex flex-wrap gap-3 items-center flex-1">
-//             <select
-//               value={selectedDepartment}
-//               onChange={(e) => setSelectedDepartment(e.target.value)}
-//               className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//             >
-//               <option>All Departments</option>
-//               <option>Administration</option>
-//               <option>Library</option>
-//               <option>Science Lab</option>
-//               <option>Finance</option>
-//               <option>IT Department</option>
-//               <option>Front Desk</option>
-//               <option>Security</option>
-//               <option>Health Services</option>
-//             </select>
-
-//             <select
-//               value={selectedStatus}
-//               onChange={(e) => setSelectedStatus(e.target.value)}
-//               className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//             >
-//               <option>All Status</option>
-//               <option>Active</option>
-//               <option>On Leave</option>
-//               <option>Inactive</option>
-//             </select>
-
-//             <select
-//               value={selectedEmploymentType}
-//               onChange={(e) => setSelectedEmploymentType(e.target.value)}
-//               className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//             >
-//               <option>All Types</option>
-//               <option>Full-time</option>
-//               <option>Part-time</option>
-//               <option>Contract</option>
-//             </select>
-
-//             <button
-//               onClick={() => setShowFilters(!showFilters)}
-//               className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50"
-//             >
-//               <Filter className="w-4 h-4" />
-//               More Filters
-//             </button>
-//           </div>
-
-//           <div className="flex gap-3">
-//             <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50">
-//               <Download className="w-4 h-4" />
-//               Export
-//             </button>
-//             <button
-//               onClick={handleAddStaff}
-//               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm hover:bg-indigo-700"
-//             >
-//               <Plus className="w-4 h-4" />
-//               Add Staff
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="px-6 py-6">
-//         {/* Search and View Toggle */}
-//         <div className="flex items-center justify-between mb-6">
-//           <div className="flex items-center gap-4">
-//             <h2 className="text-lg font-semibold text-gray-900">All Staff Members</h2>
-//             <div className="relative">
-//               <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-//               <input
-//                 type="text"
-//                 placeholder="Search staff..."
-//                 value={searchTerm}
-//                 onChange={(e) => setSearchTerm(e.target.value)}
-//                 className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-80"
-//               />
-//             </div>
-//           </div>
-
-//           <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
-//             <button
-//               onClick={() => setViewMode('list')}
-//               className={`p-2 rounded ${viewMode === 'list' ? 'bg-white shadow' : 'hover:bg-gray-200'}`}
-//             >
-//               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-//               </svg>
-//             </button>
-//             <button
-//               onClick={() => setViewMode('grid')}
-//               className={`p-2 rounded ${viewMode === 'grid' ? 'bg-white shadow' : 'hover:bg-gray-200'}`}
-//             >
-//               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-//               </svg>
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Staff Display */}
-//         {viewMode === 'grid' ? (
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-//             {paginatedStaff.map(member => (
-//               <StaffCard
-//                 key={member.id}
-//                 staff={member}
-//                 isSelected={selectedStaff.includes(member.id)}
-//                 onSelect={() => handleSelectStaff(member.id)}
-//                 onView={() => handleViewStaff(member)}
-//                 onEdit={() => handleEditStaff(member)}
-//                 onDelete={() => handleDeleteStaff(member.id)}
-//               />
-//             ))}
-//           </div>
-//         ) : (
-//           <StaffTable
-//             staff={paginatedStaff}
-//             selectedStaff={selectedStaff}
-//             onSelectAll={handleSelectAll}
-//             onSelect={handleSelectStaff}
-//             onView={handleViewStaff}
-//             onEdit={handleEditStaff}
-//             onDelete={handleDeleteStaff}
-//           />
-//         )}
-
-//         {/* Pagination */}
-//         <div className="mt-6 flex items-center justify-between">
-//           <p className="text-sm text-gray-600">
-//             Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredStaff.length)} of {filteredStaff.length} staff members
-//           </p>
-//           <div className="flex gap-2">
-//             <button
-//               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-//               disabled={currentPage === 1}
-//               className="px-4 py-2 border border-gray-300 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-//             >
-//               Previous
-//             </button>
-//             {[...Array(Math.min(5, totalPages))].map((_, i) => (
-//               <button
-//                 key={i}
-//                 onClick={() => setCurrentPage(i + 1)}
-//                 className={`px-4 py-2 rounded-lg text-sm ${
-//                   currentPage === i + 1
-//                     ? 'bg-indigo-600 text-white'
-//                     : 'border border-gray-300 hover:bg-gray-50'
-//                 }`}
-//               >
-//                 {i + 1}
-//               </button>
-//             ))}
-//             {totalPages > 5 && <span className="px-2 py-2 text-gray-500">...</span>}
-//             <button
-//               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-//               disabled={currentPage === totalPages}
-//               className="px-4 py-2 border border-gray-300 rounded-lg text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-//             >
-//               Next
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Staff Modal */}
-//       {showStaffModal && (
-//         <StaffModal
-//           mode={modalMode}
-//           staff={currentStaff}
-//           onClose={() => setShowStaffModal(false)}
-//           onSave={handleSaveStaff}
-//         />
-//       )}
-//     </div>
-//   );
-// };
-
-// interface StatCardProps {
-//   title: string;
-//   value: string | number;
-//   change: string;
-//   icon: React.ReactNode;
-//   iconBg: string;
-//   iconColor: string;
-// }
-
-// const StatCard: React.FC<StatCardProps> = ({ title, value, change, icon, iconBg, iconColor }) => (
-//   <div className="bg-white rounded-lg border border-gray-200 p-4">
-//     <div className="flex items-center justify-between mb-2">
-//       <span className="text-sm text-gray-600">{title}</span>
-//       <div className={`${iconBg} ${iconColor} p-2 rounded-lg`}>
-//         {icon}
-//       </div>
-//     </div>
-//     <div className="text-2xl font-bold text-gray-900 mb-1">{value}</div>
-//     <div className="text-xs text-green-600">{change}</div>
-//   </div>
-// );
-
-// interface StaffCardProps {
-//   staff: StaffMember;
-//   isSelected: boolean;
-//   onSelect: () => void;
-//   onView: () => void;
-//   onEdit: () => void;
-//   onDelete: () => void;
-// }
-
-// const StaffCard: React.FC<StaffCardProps> = ({ staff, isSelected, onSelect, onView, onEdit, onDelete }) => (
-//   <div className="bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-shadow">
-//     <div className="flex items-start justify-between mb-3">
-//       <div className="flex items-center gap-3">
-//         <input
-//           type="checkbox"
-//           checked={isSelected}
-//           onChange={onSelect}
-//           className="w-4 h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
-//         />
-//         <img src={staff.avatar} alt={staff.name} className="w-12 h-12 rounded-full" />
-//         <div>
-//           <h3 className="font-semibold text-gray-900">{staff.name}</h3>
-//           <p className="text-sm text-gray-500">{staff.designation}</p>
-//         </div>
-//       </div>
-//     </div>
-
-//     <div className="space-y-2 mb-3">
-//       <div className="flex items-center gap-2 text-sm text-gray-600">
-//         <Briefcase className="w-4 h-4" />
-//         <span>{staff.department}</span>
-//       </div>
-//       <div className="flex items-center gap-2 text-sm text-gray-600">
-//         <Phone className="w-4 h-4" />
-//         <span>{staff.phone}</span>
-//       </div>
-//       <div className="flex items-center gap-2 text-sm text-gray-600">
-//         <Mail className="w-4 h-4" />
-//         <span>{staff.email}</span>
-//       </div>
-//       <div className="flex items-center gap-2 text-sm text-gray-600">
-//         <Calendar className="w-4 h-4" />
-//         <span>Joined: {new Date(staff.joinDate).toLocaleDateString()}</span>
-//       </div>
-//       <div className="flex justify-between items-center">
-//         <span className="text-sm text-gray-600">Status:</span>
-//         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-//           staff.status === 'Active' ? 'bg-green-100 text-green-700' : 
-//           staff.status === 'On Leave' ? 'bg-yellow-100 text-yellow-700' : 
-//           'bg-gray-100 text-gray-700'
-//         }`}>
-//           {staff.status}
-//         </span>
-//       </div>
-//     </div>
-
-//     <div className="flex gap-2 pt-3 border-t border-gray-200">
-//       <button
-//         onClick={onView}
-//         className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg border border-gray-300"
-//       >
-//         <Eye className="w-4 h-4" />
-//         View
-//       </button>
-//       <button
-//         onClick={onEdit}
-//         className="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-sm text-indigo-600 hover:bg-indigo-50 rounded-lg border border-indigo-300"
-//       >
-//         <Edit2 className="w-4 h-4" />
-//         Edit
-//       </button>
-//       <button
-//         onClick={onDelete}
-//         className="flex items-center justify-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg border border-red-300"
-//       >
-//         <Trash2 className="w-4 h-4" />
-//       </button>
-//     </div>
-//   </div>
-// );
-
-// interface StaffTableProps {
-//   staff: any[];
-//   selectedStaff: string[];
-//   onSelectAll: (e: React.ChangeEvent<HTMLInputElement>) => void;
-//   onSelect: (id: string) => void;
-//   onView: (member: any) => void;
-//   onEdit: (member: any) => void;
-//   onDelete: (id: string) => void;
-// }
-
-// const StaffTable: React.FC<StaffTableProps> = ({ staff, selectedStaff, onSelectAll, onSelect, onView, onEdit, onDelete }) => (
-//   <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-//     <div className="overflow-x-auto">
-//       <table className="w-full">
-//         <thead className="bg-gray-50 border-b border-gray-200">
-//           <tr>
-//             <th className="px-4 py-3 text-left">
-//               <input
-//                 type="checkbox"
-//                 onChange={onSelectAll}
-//                 checked={staff.length > 0 && selectedStaff.length === staff.length}
-//                 className="w-4 h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
-//               />
-//             </th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Staff ID</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Designation</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Department</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Contact</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
-//             <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 uppercase">Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody className="divide-y divide-gray-200">
-//           {staff.map(member => (
-//             <tr key={member.id} className="hover:bg-gray-50">
-//               <td className="px-4 py-3">
-//                 <input
-//                   type="checkbox"
-//                   checked={selectedStaff.includes(member.id)}
-//                   onChange={() => onSelect(member.id)}
-//                   className="w-4 h-4 text-indigo-600 rounded focus:ring-2 focus:ring-indigo-500"
-//                 />
-//               </td>
-//               <td className="px-4 py-3 text-sm text-gray-900">{member.id}</td>
-//               <td className="px-4 py-3">
-//                 <div className="flex items-center gap-3">
-//                   <img src={member.avatar} alt={member.name} className="w-8 h-8 rounded-full" />
-//                   <div>
-//                     <div className="text-sm font-medium text-gray-900">{member.name}</div>
-//                     <div className="text-xs text-gray-500">{member.email}</div>
-//                   </div>
-//                 </div>
-//               </td>
-//               <td className="px-4 py-3 text-sm text-gray-900">{member.designation}</td>
-//               <td className="px-4 py-3 text-sm text-gray-900">{member.department}</td>
-//               <td className="px-4 py-3 text-sm text-gray-900">{member.phone}</td>
-//               <td className="px-4 py-3">
-//                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-//                   member.status === 'Active' ? 'bg-green-100 text-green-700' : 
-//                   member.status === 'On Leave' ? 'bg-yellow-100 text-yellow-700' : 
-//                   'bg-gray-100 text-gray-700'
-//                 }`}>
-//                   {member.status}
-//                 </span>
-//               </td>
-//               <td className="px-4 py-3">
-//                 <div className="flex items-center gap-2">
-//                   <button onClick={() => onView(member)} className="p-1 text-gray-600 hover:text-indigo-600">
-//                     <Eye className="w-4 h-4" />
-//                   </button>
-//                   <button onClick={() => onEdit(member)} className="p-1 text-gray-600 hover:text-indigo-600">
-//                     <Edit2 className="w-4 h-4" />
-//                   </button>
-//                   <button onClick={() => onDelete(member.id)} className="p-1 text-gray-600 hover:text-red-600">
-//                                     <Trash2 className="w-4 h-4" />
-//                 </button>
-//               </div>
-//             </td>
-//           </tr>
-//         ))}
-//       </tbody>
-//     </table>
-//   </div>
-// </div>
-// );
-
-// /* ================= STAFF MODAL ================= */
-
-// interface StaffModalProps {
-//   mode: 'add' | 'edit' | 'view';
-//   staff: StaffMember | null;
-//   onClose: () => void;
-//   onSave: (staffData: Partial<StaffMember>) => void;
-// }
-
-// const StaffModal: React.FC<StaffModalProps> = ({ mode, staff, onClose, onSave }) => {
-//   type StaffFormData = Omit<StaffMember, 'id' | 'avatar'> & Partial<Pick<StaffMember, 'id' | 'avatar'>>;
-//   const [formData, setFormData] = useState<StaffFormData>(
-//     staff || {
-//       name: '',
-//       email: '',
-//       designation: '',
-//       department: '',
-//       phone: '',
-//       joinDate: '',
-//       salary: '',
-//       status: 'Active',
-//       employmentType: 'Full-time',
-//       address: '',
-//       emergencyContact: '',
-//       qualification: '',
-//       experience: '',
-//       shift: 'Morning'
-//     }
-//   );
-
-//   const isView = mode === 'view';
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   return (
-//     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-//       <div className="bg-white rounded-xl w-full max-w-4xl p-6 max-h-[90vh] overflow-y-auto">
-//         <div className="flex justify-between items-center mb-6">
-//           <h2 className="text-xl font-semibold">
-//             {mode === 'add' && 'Add Staff'}
-//             {mode === 'edit' && 'Edit Staff'}
-//             {mode === 'view' && 'Staff Details'}
-//           </h2>
-//           <X className="cursor-pointer" onClick={onClose} />
-//         </div>
-
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//           {([
-//             ['name', 'Full Name'],
-//             ['email', 'Email'],
-//             ['designation', 'Designation'],
-//             ['department', 'Department'],
-//             ['phone', 'Phone'],
-//             ['joinDate', 'Join Date', 'date'],
-//             ['salary', 'Salary'],
-//             ['qualification', 'Qualification'],
-//             ['experience', 'Experience'],
-//             ['emergencyContact', 'Emergency Contact'],
-//             ['address', 'Address'],
-//           ] as [keyof StaffMember, string, string?][]).map(([key, label, type]) => (
-//             <div key={key}>
-//               <label className="text-sm text-gray-600">{label}</label>
-//               <input
-//                 type={type || 'text'}
-//                 name={key}
-//                 value={formData[key as keyof typeof formData] || ''}
-//                 disabled={isView}
-//                 onChange={handleChange}
-//                 className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-100"
-//               />
-//             </div>
-//           ))}
-
-//           <div>
-//             <label className="text-sm text-gray-600">Status</label>
-//             <select
-//               name="status"
-//               value={formData.status}
-//               disabled={isView}
-//               onChange={handleChange}
-//               className="w-full mt-1 px-3 py-2 border rounded-lg"
-//             >
-//               <option>Active</option>
-//               <option>On Leave</option>
-//               <option>Inactive</option>
-//             </select>
-//           </div>
-
-//           <div>
-//             <label className="text-sm text-gray-600">Employment Type</label>
-//             <select
-//               name="employmentType"
-//               value={formData.employmentType}
-//               disabled={isView}
-//               onChange={handleChange}
-//               className="w-full mt-1 px-3 py-2 border rounded-lg"
-//             >
-//               <option>Full-time</option>
-//               <option>Part-time</option>
-//               <option>Contract</option>
-//             </select>
-//           </div>
-
-//           <div>
-//             <label className="text-sm text-gray-600">Shift</label>
-//             <select
-//               name="shift"
-//               value={formData.shift}
-//               disabled={isView}
-//               onChange={handleChange}
-//               className="w-full mt-1 px-3 py-2 border rounded-lg"
-//             >
-//               <option>Morning</option>
-//               <option>Evening</option>
-//               <option>Night</option>
-//             </select>
-//           </div>
-//         </div>
-
-//         {/* Actions */}
-//         <div className="flex justify-end gap-3 mt-6">
-//           <button
-//             onClick={onClose}
-//             className="px-4 py-2 border rounded-lg"
-//           >
-//             Close
-//           </button>
-
-//           {!isView && (
-//             <button
-//               onClick={() => onSave(formData)}
-//               className="px-5 py-2 bg-indigo-600 text-white rounded-lg"
-//             >
-//               Save
-//             </button>
-//           )}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default NonTeachingStaffManagement;
 
 
 
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, Package, UserCog, Briefcase, Phone, Mail, MapPin, Award, Calendar as CalendarIcon, DollarSign, Clock, Building, Shield, Wrench, Bus, Utensils, Stethoscope, Home } from 'lucide-react';
+import { Search, Plus, Edit, Trash2, Eye, ChevronRight, UserCog, Briefcase, Phone, Mail, Award, Clock, Building, Shield, Wrench, Bus, Utensils, Stethoscope, Home } from 'lucide-react';
 
 const SchoolAdminDashboard = () => {
-  const [activeScreen, setActiveScreen] = useState('dashboard');
+  // Removed unused activeScreen state
   type Department = typeof departmentsData[number];
   const [selectedDepartment, setSelectedDepartment] = useState<Department | null>(null);
   type Staff = {
@@ -1320,11 +415,59 @@ const SchoolAdminDashboard = () => {
 
   // Department Staff View
   const DepartmentStaffView = () => {
+    // Add Staff modal state and form
+    const [showAddStaffModal, setShowAddStaffModal] = useState(false);
+    const [addStaffForm, setAddStaffForm] = useState({
+      name: '',
+      position: '',
+      empId: '',
+      phone: '',
+      email: '',
+      joinDate: '',
+      salary: '',
+      shift: '',
+      status: 'Active',
+      experience: '',
+      address: '',
+      qualification: ''
+    });
+    const [addStaffError, setAddStaffError] = useState<string | null>(null);
+    const [addStaffSuccess, setAddStaffSuccess] = useState<string | null>(null);
+
+    const handleAddStaffChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setAddStaffForm({ ...addStaffForm, [e.target.name]: e.target.value });
+    };
+
+    const handleAddStaffSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      setAddStaffError(null);
+      setAddStaffSuccess(null);
+      if (!addStaffForm.name.trim() || !addStaffForm.position.trim() || !addStaffForm.empId.trim()) {
+        setAddStaffError('Name, Position, and Emp ID are required.');
+        return;
+      }
+      setAddStaffSuccess('Staff added successfully!');
+      setTimeout(() => {
+        setShowAddStaffModal(false);
+        setAddStaffSuccess(null);
+      }, 1200);
+      setAddStaffForm({
+        name: '', position: '', empId: '', phone: '', email: '', joinDate: '', salary: '', shift: '', status: 'Active', experience: '', address: '', qualification: ''
+      });
+    };
+    const [selectedDate, setSelectedDate] = useState(() => {
+      const today = new Date();
+      return today.toISOString().split('T')[0];
+    });
     const staff =
       selectedDepartment && typeof selectedDepartment.id === 'number'
         ? staffData[selectedDepartment.id as keyof typeof staffData] || []
         : [];
-    
+    // Demo attendance logic: alternate present/absent by empId and date
+    const getAttendanceStatus = (empId: string) => {
+      const hash = empId.charCodeAt(0) + selectedDate.charCodeAt(selectedDate.length - 1);
+      return hash % 2 === 0 ? 'Present' : 'Absent';
+    };
     return (
       <div>
         <div className="mb-6">
@@ -1336,7 +479,7 @@ const SchoolAdminDashboard = () => {
           </button>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className={`p-4 rounded-lg border ${selectedDepartment ? colorClasses[selectedDepartment.color] : ''}`}>
+              <div className={`p-4 rounded-lg border ${selectedDepartment ? colorClasses[selectedDepartment.color] : ''}`}> 
                 {selectedDepartment && selectedDepartment.icon}
               </div>
               <div>
@@ -1344,7 +487,16 @@ const SchoolAdminDashboard = () => {
                 <p className="text-gray-500 mt-1">Head: {selectedDepartment?.headOfDepartment} • {selectedDepartment?.totalStaff} Staff Members</p>
               </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-center">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Date</span>
+                <input
+                  type="date"
+                  value={selectedDate}
+                  onChange={e => setSelectedDate(e.target.value)}
+                  className="border border-gray-200 rounded-lg px-3 py-2 text-sm w-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
               <div className="relative">
                 <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -1355,10 +507,96 @@ const SchoolAdminDashboard = () => {
                   className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <button
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                onClick={() => setShowAddStaffModal(true)}
+              >
                 <Plus className="w-4 h-4" />
                 Add Staff
               </button>
+                  {/* Add Staff Modal */}
+                  {showAddStaffModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
+                        <button
+                          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+                          onClick={() => setShowAddStaffModal(false)}
+                        >✕</button>
+                        <h3 className="text-xl font-bold mb-4 text-gray-900">Add Staff</h3>
+                        <form onSubmit={handleAddStaffSubmit}>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Name *</label>
+                            <input name="name" value={addStaffForm.name} onChange={handleAddStaffChange} required className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Position *</label>
+                            <input name="position" value={addStaffForm.position} onChange={handleAddStaffChange} required className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Emp ID *</label>
+                            <input name="empId" value={addStaffForm.empId} onChange={handleAddStaffChange} required className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Phone</label>
+                            <input name="phone" value={addStaffForm.phone} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Email</label>
+                            <input name="email" value={addStaffForm.email} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Join Date</label>
+                            <input name="joinDate" value={addStaffForm.joinDate} onChange={handleAddStaffChange} type="date" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Salary</label>
+                            <input name="salary" value={addStaffForm.salary} onChange={handleAddStaffChange} type="number" min="0" className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Shift</label>
+                            <input name="shift" value={addStaffForm.shift} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Status</label>
+                            <select name="status" value={addStaffForm.status} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                              <option value="Active">Active</option>
+                              <option value="Inactive">Inactive</option>
+                              <option value="On Leave">On Leave</option>
+                            </select>
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Experience</label>
+                            <input name="experience" value={addStaffForm.experience} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Address</label>
+                            <input name="address" value={addStaffForm.address} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-700 font-medium mb-1">Qualification</label>
+                            <input name="qualification" value={addStaffForm.qualification} onChange={handleAddStaffChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                          </div>
+                          {addStaffError && <div className="mb-2 text-red-600 text-sm">{addStaffError}</div>}
+                          {addStaffSuccess && <div className="mb-2 text-green-600 text-sm">{addStaffSuccess}</div>}
+                          <div className="flex justify-end gap-2 mt-4">
+                            <button
+                              type="button"
+                              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                              onClick={() => setShowAddStaffModal(false)}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 font-semibold"
+                            >
+                              Add Staff
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  )}
             </div>
           </div>
         </div>
@@ -1373,6 +611,7 @@ const SchoolAdminDashboard = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Shift</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Attendance</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
@@ -1386,7 +625,7 @@ const SchoolAdminDashboard = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                        {member.name.split(' ').map(n => n[0]).join('')}
+                        {member.name.split(' ').map((n: string) => n[0]).join('')}
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">{member.name}</p>
@@ -1414,6 +653,11 @@ const SchoolAdminDashboard = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{member.salary.toLocaleString()}</td>
+                  <td className="px-6 py-4">
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${getAttendanceStatus(member.empId) === 'Present' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {getAttendanceStatus(member.empId)}
+                    </span>
+                  </td>
                   <td className="px-6 py-4">
                     <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
                       {member.status}
