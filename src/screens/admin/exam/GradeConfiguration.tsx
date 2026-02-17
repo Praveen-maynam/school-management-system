@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { MoreVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const GradeConfiguration = () => {
+  const navigate = useNavigate();
   const [showPrimaryMenu, setShowPrimaryMenu] = useState(false);
   const [showIBMenu, setShowIBMenu] = useState(false);
 
@@ -26,6 +28,14 @@ const GradeConfiguration = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-6 flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-gray-700"
+        >
+          <span className="text-lg">&#8592;</span>
+          <span>Back</span>
+        </button>
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">

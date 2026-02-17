@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import Pagination from '../../../components/ui/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, BookOpen, Search, Plus, Filter, Download, Edit, Trash2, Eye, ChevronRight, BookMarked, UserCheck, RefreshCw, AlertCircle } from 'lucide-react';
 const SchoolAdminDashboard = () => {
@@ -33,6 +34,10 @@ const SchoolAdminDashboard = () => {
   
   const [selectedBook, setSelectedBook] = useState<LibraryBook | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Pagination state for books
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5; // You can adjust this for production
 
   // Library Data
   const [libraryBooks, setLibraryBooks] = useState<LibraryBook[]>([
@@ -411,161 +416,214 @@ const SchoolAdminDashboard = () => {
     </div>
   );
 
-  const BooksManagement = () => (
-    <div>
-      
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Books Management</h2>
-        <div className="flex gap-3">
-          <div className="relative">
-            <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search books..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-            <Filter className="w-4 h-4" />
-            Filter
-          </button>
-          <button
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            onClick={() => setShowAddBookModal(true)}
-          >
-            <Plus className="w-4 h-4" />
-            Add Book
-          </button>
-        </div>
-      </div>
+  const BooksManagement = () => {
+    // Filtered and paginated books
+    const filteredBooks = libraryBooks.filter(book =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const totalBooks = filteredBooks.length;
+    const totalPages = Math.ceil(totalBooks / pageSize);
+    const paginatedBooks = filteredBooks.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-      <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Book Details</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ISBN</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Copies</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Available</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {libraryBooks.filter(book => 
-              book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              book.author.toLowerCase().includes(searchTerm.toLowerCase())
-            ).map((book) => (
-              <tr key={book.id} className="hover:bg-gray-50">
-                <td className="px-6 py-4">
-                  <div>
-                    <p className="font-medium text-gray-900">{book.title}</p>
-                    <p className="text-sm text-gray-500">{book.author}</p>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-900">{book.isbn}</td>
-                <td className="px-6 py-4">
-                  <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
-                    {book.category}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-900">{book.copies}</td>
-                <td className="px-6 py-4">
-                  <span className={`font-medium ${book.available > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                    {book.available}
-                  </span>
-                </td>
-                <td className="px-6 py-4">
-                  <div className="flex gap-2">
-                    <button onClick={() => setSelectedBook(book)} className="p-1 hover:bg-gray-100 rounded">
-                      <Eye className="w-4 h-4 text-gray-600" />
-                    </button>
-                    <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
-                      setAddBookForm({
-                        title: book.title,
-                        author: book.author,
-                        isbn: book.isbn,
-                        category: book.category,
-                        copies: String(book.copies),
-                        available: String(book.available),
-                      });
-                      setShowAddBookModal(true);
-                    }}>
-                      <Edit className="w-4 h-4 text-blue-600" />
-                    </button>
-                    <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
-                      if (window.confirm(`Are you sure you want to delete '${book.title}'?`)) {
-                        setLibraryBooks(prev => prev.filter(b => b.id !== book.id));
-                      }
-                    }}>
-                      <Trash2 className="w-4 h-4 text-red-600" />
-                    </button>
-                  </div>
-                </td>
+    // Reset to first page if search changes and current page is out of range
+    React.useEffect(() => {
+      if ((currentPage - 1) * pageSize >= totalBooks) {
+        setCurrentPage(1);
+      }
+    }, [searchTerm, totalBooks]);
+
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <button
+              className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+              onClick={() => setActiveLibrarySection('overview')}
+              aria-label="Back to Library Overview"
+            >
+              <ChevronRight className="w-4 h-4 rotate-180" />
+              Back
+            </button>
+            <h2 className="text-2xl font-bold text-gray-900 mb-0">Books Management</h2>
+          </div>
+          <div className="flex gap-3">
+            <div className="relative">
+              <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search books..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <Filter className="w-4 h-4" />
+              Filter
+            </button>
+            <button
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              onClick={() => setShowAddBookModal(true)}
+            >
+              <Plus className="w-4 h-4" />
+              Add Book
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Book Details</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ISBN</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Copies</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Available</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {paginatedBooks.map((book) => (
+                <tr key={book.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <div>
+                      <p className="font-medium text-gray-900">{book.title}</p>
+                      <p className="text-sm text-gray-500">{book.author}</p>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{book.isbn}</td>
+                  <td className="px-6 py-4">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                      {book.category}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">{book.copies}</td>
+                  <td className="px-6 py-4">
+                    <span className={`font-medium ${book.available > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {book.available}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex gap-2">
+                      <button onClick={() => setSelectedBook(book)} className="p-1 hover:bg-gray-100 rounded">
+                        <Eye className="w-4 h-4 text-gray-600" />
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
+                        setAddBookForm({
+                          title: book.title,
+                          author: book.author,
+                          isbn: book.isbn,
+                          category: book.category,
+                          copies: String(book.copies),
+                          available: String(book.available),
+                        });
+                        setShowAddBookModal(true);
+                      }}>
+                        <Edit className="w-4 h-4 text-blue-600" />
+                      </button>
+                      <button className="p-1 hover:bg-gray-100 rounded" onClick={() => {
+                        if (window.confirm(`Are you sure you want to delete '${book.title}'?`)) {
+                          setLibraryBooks(prev => prev.filter(b => b.id !== book.id));
+                        }
+                      }}>
+                        <Trash2 className="w-4 h-4 text-red-600" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      {selectedBook && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-gray-900">Book Details</h3>
-              <button onClick={() => setSelectedBook(null)} className="text-gray-400 hover:text-gray-600">
-                ✕
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">Title</p>
-                  <p className="font-medium text-gray-900">{selectedBook.title}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Author</p>
-                  <p className="font-medium text-gray-900">{selectedBook.author}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">ISBN</p>
-                  <p className="font-medium text-gray-900">{selectedBook.isbn}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Category</p>
-                  <p className="font-medium text-gray-900">{selectedBook.category}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Total Copies</p>
-                  <p className="font-medium text-gray-900">{selectedBook.copies}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Available</p>
-                  <p className="font-medium text-green-600">{selectedBook.available}</p>
-                </div>
+        {/* Pagination Controls */}
+        <div className="flex justify-end mt-4">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+
+        {selectedBook && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg max-w-2xl w-full p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Book Details</h3>
+                <button onClick={() => setSelectedBook(null)} className="text-gray-400 hover:text-gray-600">
+                  ✕
+                </button>
               </div>
-              <div className="flex gap-3 mt-6">
-                <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                  Issue Book
-                </button>
-                <button className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-                  Edit Details
-                </button>
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Title</p>
+                    <p className="font-medium text-gray-900">{selectedBook.title}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Author</p>
+                    <p className="font-medium text-gray-900">{selectedBook.author}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">ISBN</p>
+                    <p className="font-medium text-gray-900">{selectedBook.isbn}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Category</p>
+                    <p className="font-medium text-gray-900">{selectedBook.category}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Total Copies</p>
+                    <p className="font-medium text-gray-900">{selectedBook.copies}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Available</p>
+                    <p className="font-medium text-green-600">{selectedBook.available}</p>
+                  </div>
+                </div>
+                <div className="flex gap-3 mt-6">
+                  <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Issue Book
+                  </button>
+                  <button className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                    Edit Details
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  };
 
   const [memberSearch, setMemberSearch] = useState("");
+  // Pagination for members
+  const [membersPage, setMembersPage] = useState(1);
+  const membersPageSize = 3; // Set to 10 for production
+  const filteredMembers = libraryMembers.filter(member =>
+    member.name.toLowerCase().includes(memberSearch.toLowerCase())
+  );
+  const totalMembers = filteredMembers.length;
+  const totalMembersPages = Math.ceil(totalMembers / membersPageSize);
+  const paginatedMembers = filteredMembers.slice((membersPage - 1) * membersPageSize, membersPage * membersPageSize);
+
   const MembersManagement = () => (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Library Members</h2>
+        <div className="flex items-center gap-4">
+          <button
+            className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+            onClick={() => setActiveLibrarySection('overview')}
+            aria-label="Back to Library Overview"
+          >
+            <ChevronRight className="w-4 h-4 rotate-180" />
+            Back
+          </button>
+          <h2 className="text-2xl font-bold text-gray-900 mb-0">Library Members</h2>
+        </div>
         <button
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           onClick={() => {
@@ -585,7 +643,10 @@ const SchoolAdminDashboard = () => {
           className="w-full max-w-xs border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search by member name..."
           value={memberSearch}
-          onChange={e => setMemberSearch(e.target.value)}
+          onChange={e => {
+            setMemberSearch(e.target.value);
+            setMembersPage(1); // Reset to first page on search
+          }}
         />
       </div>
 
@@ -602,44 +663,73 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {libraryMembers
-              .filter(member =>
-                member.name.toLowerCase().includes(memberSearch.toLowerCase())
-              )
-              .map((member) => (
-                <tr key={member.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 font-medium text-gray-900">{member.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{member.class}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{member.roll}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{member.booksIssued}</td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
-                      {member.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex gap-2">
-                      <button className="p-1 hover:bg-gray-100 rounded">
-                        <Eye className="w-4 h-4 text-gray-600" />
-                      </button>
-                      <button className="p-1 hover:bg-gray-100 rounded">
-                        <Edit className="w-4 h-4 text-blue-600" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+            {paginatedMembers.map((member) => (
+              <tr key={member.id} className="hover:bg-gray-50">
+                <td className="px-6 py-4 font-medium text-gray-900">{member.name}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.class}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.roll}</td>
+                <td className="px-6 py-4 text-sm text-gray-900">{member.booksIssued}</td>
+                <td className="px-6 py-4">
+                  <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                    {member.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex gap-2">
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Eye className="w-4 h-4 text-gray-600" />
+                    </button>
+                    <button className="p-1 hover:bg-gray-100 rounded">
+                      <Edit className="w-4 h-4 text-blue-600" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
+      </div>
+      {/* Pagination Controls for Members */}
+      <div className="flex justify-end mt-4">
+        <Pagination
+          currentPage={membersPage}
+          totalPages={totalMembersPages}
+          onPageChange={setMembersPage}
+        />
       </div>
       {showAddMemberModal && <AddMemberModal />}
     </div>
   );
 
+  // Pagination for Issue/Return
+  const [issueReturnPage, setIssueReturnPage] = React.useState(1);
+  const issueReturnPageSize = 3; // Production-level page size
+  const filteredIssueRecords = issueRecords.filter(record =>
+    record.student.toLowerCase().includes(issueReturnSearch.toLowerCase())
+  );
+  const totalIssueRecords = filteredIssueRecords.length;
+  const totalIssueReturnPages = Math.ceil(totalIssueRecords / issueReturnPageSize);
+  const paginatedIssueRecords = filteredIssueRecords.slice((issueReturnPage - 1) * issueReturnPageSize, issueReturnPage * issueReturnPageSize);
+
+  // Reset to first page if search changes
+  React.useEffect(() => {
+    setIssueReturnPage(1);
+  }, [issueReturnSearch]);
+
   const IssueReturn = () => (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Issue & Return Records</h2>
+        <div className="flex items-center gap-4">
+          <button
+            className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700"
+            onClick={() => setActiveLibrarySection('overview')}
+            aria-label="Back to Library Overview"
+          >
+            <ChevronRight className="w-4 h-4 rotate-180" />
+            Back
+          </button>
+          <h2 className="text-2xl font-bold text-gray-900 mb-0">Issue & Return Records</h2>
+        </div>
         <div className="flex gap-3 items-center">
           <div className="relative">
             <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -770,11 +860,7 @@ const SchoolAdminDashboard = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {issueRecords
-              .filter(record =>
-                record.student.toLowerCase().includes(issueReturnSearch.toLowerCase())
-              )
-              .map((record) => (
+            {paginatedIssueRecords.map((record) => (
               <tr key={record.id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 font-medium text-gray-900">{record.student}</td>
                 <td className="px-6 py-4 text-sm text-gray-900">{record.book}</td>
@@ -810,61 +896,69 @@ const SchoolAdminDashboard = () => {
                       Return
                     </button>
                   )}
-                      {/* Return Book Modal */}
-                      {showReturnBookModal && returnBookRecord && (
-                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                          <div className="bg-white rounded-lg max-w-md w-full p-6">
-                            <div className="flex items-center justify-between mb-4">
-                              <h3 className="text-lg font-bold text-gray-900">Return Book</h3>
-                              <button onClick={() => setShowReturnBookModal(false)} className="text-gray-400 hover:text-gray-600">✕</button>
-                            </div>
-                            <div className="mb-4">
-                              <p className="text-gray-700 mb-2">Are you sure you want to mark <span className="font-semibold">{returnBookRecord.book}</span> as returned for <span className="font-semibold">{returnBookRecord.student}</span>?</p>
-                            </div>
-                            {returnBookError && <div className="mb-2 text-red-600 text-sm">{returnBookError}</div>}
-                            {returnBookSuccess && <div className="mb-2 text-green-600 text-sm">{returnBookSuccess}</div>}
-                            <div className="flex justify-end gap-2 mt-4">
-                              <button
-                                type="button"
-                                className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
-                                onClick={() => setShowReturnBookModal(false)}
-                                disabled={returnBookLoading}
-                              >
-                                Cancel
-                              </button>
-                              <button
-                                type="button"
-                                className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 font-semibold"
-                                disabled={returnBookLoading}
-                                onClick={() => {
-                                  setReturnBookError(null);
-                                  setReturnBookSuccess(null);
-                                  setReturnBookLoading(true);
-                                  // Simulate API call
-                                  setTimeout(() => {
-                                    // Mark as returned in issueRecords (if stateful, update state)
-                                    setIssueRecords((prev: any[]) => prev.map(r => r.id === returnBookRecord.id ? { ...r, status: 'Returned' } : r));
-                                    setReturnBookSuccess('Book marked as returned.');
-                                    setReturnBookLoading(false);
-                                    setTimeout(() => {
-                                      setShowReturnBookModal(false);
-                                      setReturnBookRecord(null);
-                                      setReturnBookSuccess(null);
-                                    }, 1200);
-                                  }, 1000);
-                                }}
-                              >
-                                {returnBookLoading ? 'Returning...' : 'Confirm Return'}
-                              </button>
-                            </div>
-                          </div>
+                  {/* Return Book Modal */}
+                  {showReturnBookModal && returnBookRecord && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+                      <div className="bg-white rounded-lg max-w-md w-full p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h3 className="text-lg font-bold text-gray-900">Return Book</h3>
+                          <button onClick={() => setShowReturnBookModal(false)} className="text-gray-400 hover:text-gray-600">✕</button>
                         </div>
-                      )}
+                        <div className="mb-4">
+                          <p className="text-gray-700 mb-2">Are you sure you want to mark <span className="font-semibold">{returnBookRecord.book}</span> as returned for <span className="font-semibold">{returnBookRecord.student}</span>?</p>
+                        </div>
+                        {returnBookError && <div className="mb-2 text-red-600 text-sm">{returnBookError}</div>}
+                        {returnBookSuccess && <div className="mb-2 text-green-600 text-sm">{returnBookSuccess}</div>}
+                        <div className="flex justify-end gap-2 mt-4">
+                          <button
+                            type="button"
+                            className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100"
+                            onClick={() => setShowReturnBookModal(false)}
+                            disabled={returnBookLoading}
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="button"
+                            className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 font-semibold"
+                            disabled={returnBookLoading}
+                            onClick={() => {
+                              setReturnBookError(null);
+                              setReturnBookSuccess(null);
+                              setReturnBookLoading(true);
+                              // Simulate API call
+                              setTimeout(() => {
+                                // Mark as returned in issueRecords (if stateful, update state)
+                                setIssueRecords((prev: any[]) => prev.map(r => r.id === returnBookRecord.id ? { ...r, status: 'Returned' } : r));
+                                setReturnBookSuccess('Book marked as returned.');
+                                setReturnBookLoading(false);
+                                setTimeout(() => {
+                                  setShowReturnBookModal(false);
+                                  setReturnBookRecord(null);
+                                  setReturnBookSuccess(null);
+                                }, 1200);
+                              }, 1000);
+                            }}
+                          >
+                            {returnBookLoading ? 'Returning...' : 'Confirm Return'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      {/* Pagination Controls for Issue/Return */}
+      <div className="flex justify-end mt-4">
+        <Pagination
+          currentPage={issueReturnPage}
+          totalPages={totalIssueReturnPages}
+          onPageChange={setIssueReturnPage}
+        />
       </div>
     </div>
   );

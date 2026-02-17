@@ -4,6 +4,7 @@
 
 
 import React, { useState, useEffect } from 'react';
+import Pagination from '../../../components/ui/Pagination';
 import { Bus, MapPin, Users, Clock, AlertCircle, CheckCircle, Settings, Plus, Edit2, Trash2, Eye, Download, Upload, Filter, Search, Phone, Mail, Navigation, Calendar, FileText, TrendingUp, Activity, User, Route, Map, Fuel, Wrench, X, Save } from 'lucide-react';
 
 const AdminTransportSystem = () => {
@@ -383,6 +384,38 @@ const AdminTransportSystem = () => {
     },
     {
       id: 4,
+      name: 'David Miller',
+      phone: '+91 98765 43240',
+      email: 'david.miller@school.com',
+      licenseNo: 'DL-4567890123',
+      licenseExpiry: '2028-03-25',
+      experience: 10,
+      rating: 4.7,
+      assignedBus: 'BUS-004',
+      status: 'active',
+      address: '321 Rajouri Garden, New Delhi',
+      emergencyContact: '+91 98765 43241',
+      joiningDate: '2020-09-05',
+      totalTrips: 1100
+    },
+        {
+      id: 5,
+      name: 'David Miller',
+      phone: '+91 98765 43240',
+      email: 'david.miller@school.com',
+      licenseNo: 'DL-4567890123',
+      licenseExpiry: '2028-03-25',
+      experience: 10,
+      rating: 4.7,
+      assignedBus: 'BUS-004',
+      status: 'active',
+      address: '321 Rajouri Garden, New Delhi',
+      emergencyContact: '+91 98765 43241',
+      joiningDate: '2020-09-05',
+      totalTrips: 1100
+    },
+        {
+      id: 6,
       name: 'David Miller',
       phone: '+91 98765 43240',
       email: 'david.miller@school.com',
@@ -858,6 +891,14 @@ const AdminTransportSystem = () => {
         });
         const [formError, setFormError] = useState('');
 
+        // Pagination state for drivers
+        const [currentPage, setCurrentPage] = useState<number>(1);
+        const pageSize = 4;
+        const totalPages = Math.ceil(drivers.length / pageSize);
+        const paginatedDrivers = drivers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+
+
         const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
           setFormData({ ...formData, [e.target.name]: e.target.value });
         };
@@ -889,6 +930,7 @@ const AdminTransportSystem = () => {
       2: { '2026-02-04': 'absent', '2026-02-03': 'present' },
       3: { '2026-02-04': 'present', '2026-02-03': 'present' },
       4: { '2026-02-04': 'absent', '2026-02-03': 'absent' }
+
     };
 
     interface AttendanceStatus {
@@ -943,15 +985,17 @@ const AdminTransportSystem = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {drivers.map(driver => {
-                const attendance = getAttendanceStatus(driver.id);
-                return (
-                  <tr key={driver.id} className="hover:bg-gray-50">
+                {paginatedDrivers.map((driver: typeof drivers[0]) => {
+                  const attendance = getAttendanceStatus(driver.id);
+                  return (
+                    <tr key={driver.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                           <User className="w-5 h-5 text-blue-600" />
                         </div>
+                          
+                        
                         <div>
                           <p className="font-medium text-gray-900">{driver.name}</p>
                           <p className="text-sm text-gray-500">ID: {driver.id}</p>
@@ -1012,12 +1056,23 @@ const AdminTransportSystem = () => {
             </tbody>
           </table>
         </div>
+          <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={page => setCurrentPage(page)}
+                          />
       </div>
     );
   };
 
   // Students Tab
   const StudentsTab = () => {
+    // Pagination state for students
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const pageSize = 3;
+    const totalPages = Math.ceil(students.length / pageSize);
+    const paginatedStudents = students.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -1054,7 +1109,7 @@ const AdminTransportSystem = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {students.map(student => (
+              {paginatedStudents.map((student: typeof students[0]) => (
                 <tr key={student.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <div>
@@ -1096,12 +1151,24 @@ const AdminTransportSystem = () => {
             </tbody>
           </table>
         </div>
+        {/* Pagination component below table */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={page => setCurrentPage(page)}
+        />
       </div>
     );
   };
 
   // Maintenance Tab
   const MaintenanceTab = () => {
+    // Pagination state for maintenance records
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const pageSize = 3;
+    const totalPages = Math.ceil(maintenanceRecords.length / pageSize);
+    const paginatedRecords = maintenanceRecords.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -1170,7 +1237,7 @@ const AdminTransportSystem = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {maintenanceRecords.map(record => (
+              {paginatedRecords.map((record: typeof maintenanceRecords[0]) => (
                 <tr key={record.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">
                     <span className="px-2 py-1 bg-blue-100 text-blue-700 text-sm font-medium rounded">
@@ -1211,6 +1278,12 @@ const AdminTransportSystem = () => {
             </tbody>
           </table>
         </div>
+        {/* Pagination component below table */}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={page => setCurrentPage(page)}
+        />
       </div>
     );
   };

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Search, Filter, Download, Plus, BookOpen } from 'lucide-react';
 
 const LibraryFinance = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  // Pagination state for books table
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
 
   // Static data for 10 books with various categories
   const books = [
@@ -128,6 +133,11 @@ const LibraryFinance = () => {
     }
   ];
 
+  // Calculate totals
+  const totalBooks = books.reduce((sum, book) => sum + book.quantity, 0);
+  const totalInvestment = books.reduce((sum, book) => sum + parseFloat(book.totalCost.replace(/[$,]/g, '')), 0);
+  const totalCategories = Array.from(new Set(books.map(book => book.category))).length;
+
   // Filter books based on search
   const filteredBooks = books.filter(book =>
     book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -136,10 +146,12 @@ const LibraryFinance = () => {
     book.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Calculate totals
-  const totalBooks = books.reduce((sum, book) => sum + book.quantity, 0);
-  const totalInvestment = books.reduce((sum, book) => sum + parseFloat(book.totalCost.replace('$', '').replace(',', '')), 0);
-  const totalCategories = Array.from(new Set(books.map(book => book.category))).length;
+  // Pagination logic
+  const totalPages = Math.ceil(filteredBooks.length / itemsPerPage);
+  const paginatedBooks = filteredBooks.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const getCategoryColor = (category: string) => {
     switch(category) {
@@ -175,7 +187,15 @@ const LibraryFinance = () => {
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900 font-medium">Books Inventory</span>
         </div>
-        
+        {/* Back Button */}
+        <button
+          className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 mb-4"
+          onClick={() => navigate('/admin/finance')}
+          aria-label="Back to Finance Dashboard"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+          Back
+        </button>
         <div className="flex items-center gap-4">
           <div className="p-3 bg-orange-100 rounded-lg">
             <BookOpen className="w-8 h-8 text-orange-600" />
@@ -270,7 +290,10 @@ const LibraryFinance = () => {
                 type="text"
                 placeholder="Search by title, author, category, or ID..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1); // Reset to first page on search
+                }}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
@@ -309,34 +332,40 @@ const LibraryFinance = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filteredBooks.map((book) => (
-                <tr key={book.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{book.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900 max-w-xs">
-                    <div className="font-medium">{book.title}</div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{book.author}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(book.category)}`}>
-                      {book.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">{book.quantity}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{book.unitCost}</td>
-                  <td className="px-6 py-4 text-sm font-bold text-orange-600">{book.totalCost}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{book.purchaseDate}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getConditionColor(book.condition)}`}>
-                      {book.condition}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-                      {book.status}
-                    </span>
-                  </td>
+              {paginatedBooks.length === 0 ? (
+                <tr>
+                  <td colSpan={10} className="text-center py-4">No books found.</td>
                 </tr>
-              ))}
+              ) : (
+                paginatedBooks.map((book) => (
+                  <tr key={book.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{book.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs">
+                      <div className="font-medium">{book.title}</div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{book.author}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(book.category)}`}>
+                        {book.category}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm font-semibold text-gray-900">{book.quantity}</td>
+                    <td className="px-6 py-4 text-sm text-gray-700">{book.unitCost}</td>
+                    <td className="px-6 py-4 text-sm font-bold text-orange-600">{book.totalCost}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{book.purchaseDate}</td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getConditionColor(book.condition)}`}>
+                        {book.condition}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-flex px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                        {book.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
             <tfoot className="bg-gray-50 border-t-2 border-gray-300">
               <tr>
@@ -349,6 +378,28 @@ const LibraryFinance = () => {
             </tfoot>
           </table>
         </div>
+        {/* Pagination Controls */}
+        {filteredBooks.length > itemsPerPage && (
+          <div className="flex justify-end items-center mt-4 gap-2">
+            <button
+              className="px-3 py-1 rounded border bg-white hover:bg-gray-100 disabled:opacity-50"
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="mx-2">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className="px-3 py-1 rounded border bg-white hover:bg-gray-100 disabled:opacity-50"
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Additional Info */}

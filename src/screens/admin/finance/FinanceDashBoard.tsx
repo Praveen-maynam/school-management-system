@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bell, Settings, Plus, Filter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+// Simple Modal Component
+const Modal = ({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+        <button onClick={onClose} className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const FinanceDashboard = () => {
   const navigate = useNavigate();
@@ -86,6 +98,38 @@ const FinanceDashboard = () => {
     }
   ];
 
+  // Modal state
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState({
+    date: '',
+    category: '',
+    subcategory: '',
+    description: '',
+    amount: '',
+    status: 'Paid',
+  });
+  const [formError, setFormError] = useState('');
+
+  // Handle form change
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submit (stub for production integration)
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Basic validation
+    if (!form.date || !form.category || !form.description || !form.amount) {
+      setFormError('Please fill all required fields.');
+      return;
+    }
+    setFormError('');
+    // TODO: Integrate with transaction API
+    // await createTransaction(form)
+    setShowModal(false);
+    // Optionally, refresh transactions list
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
      
@@ -99,10 +143,52 @@ const FinanceDashboard = () => {
               <h2 className="text-2xl font-bold text-gray-900">Finance Categories</h2>
               <p className="text-sm text-gray-600 mt-1">Manage all financial aspects of your institution</p>
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <button
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              onClick={() => setShowModal(true)}
+            >
               <Plus className="w-4 h-4" />
               Add Transaction
             </button>
+                {/* Add Transaction Modal */}
+                <Modal open={showModal} onClose={() => setShowModal(false)}>
+                  <h3 className="text-lg font-bold mb-4">Add Transaction</h3>
+                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Date<span className="text-red-500">*</span></label>
+                      <input type="date" name="date" value={form.date} onChange={handleFormChange} className="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Category<span className="text-red-500">*</span></label>
+                      <input type="text" name="category" value={form.category} onChange={handleFormChange} className="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Subcategory</label>
+                      <input type="text" name="subcategory" value={form.subcategory} onChange={handleFormChange} className="w-full border rounded px-3 py-2" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Description<span className="text-red-500">*</span></label>
+                      <input type="text" name="description" value={form.description} onChange={handleFormChange} className="w-full border rounded px-3 py-2" required />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Amount<span className="text-red-500">*</span></label>
+                      <input type="number" name="amount" value={form.amount} onChange={handleFormChange} className="w-full border rounded px-3 py-2" required min="0" step="0.01" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium mb-1">Status</label>
+                      <select name="status" value={form.status} onChange={handleFormChange} className="w-full border rounded px-3 py-2">
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Failed">Failed</option>
+                      </select>
+                    </div>
+                    {formError && <div className="text-red-500 text-sm">{formError}</div>}
+                    <div className="flex justify-end gap-2">
+                      <button type="button" className="px-4 py-2 bg-gray-200 rounded" onClick={() => setShowModal(false)}>Cancel</button>
+                      <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add</button>
+                    </div>
+                  </form>
+                </Modal>
           </div>
 
           <div className="grid grid-cols-3 gap-6">

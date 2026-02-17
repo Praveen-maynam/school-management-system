@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Search, Filter, Download } from 'lucide-react';
 
 const StudentDuesDetail = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const studentsPerPage = 15;
@@ -100,7 +102,15 @@ const StudentDuesDetail = () => {
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900 font-medium">Due Details</span>
         </div>
-        
+        {/* Back Button */}
+        <button
+          className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 mb-4"
+          onClick={() => navigate('/admin/finance')}
+          aria-label="Back to Finance Dashboard"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Back
+        </button>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">Students Payment Details</h1>
         <p className="text-gray-600">Track tuition fees, scholarships, and payment status</p>
       </div>

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Users, TrendingUp, Trophy, Filter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // ==================== TYPES ====================
 interface StudentMarks {
@@ -36,6 +37,7 @@ const calculateGrade = (percentage: number): string => {
 };
 
 const ExamResultsBoard = () => {
+  const navigate = useNavigate();
   const [selectedClass, setSelectedClass] = useState('All Classes');
   const [subjectFilters, setSubjectFilters] = useState<{
     math: number | null;
@@ -324,6 +326,15 @@ const ExamResultsBoard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-6 flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-gray-700"
+      >
+        <span className="text-lg">&#8592;</span>
+        <span>Back</span>
+      </button>
+
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-lg shadow-sm p-8">
           {/* Header */}

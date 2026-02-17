@@ -85,6 +85,8 @@ import Events from "./screens/non-teaching-staff/sports/Events";
 import Achievement from "./screens/non-teaching-staff/sports/Achievement";
 import Equipment from "./screens/non-teaching-staff/sports/Equipment";
 import CertificateIdCardScreen from "./screens/admin/CertificateIdCardScreen";
+
+import ExamCreationForm from "./screens/admin/exam/ExamCreationForm";
 function App() {
     return (
         <AttendanceProvider>
@@ -119,6 +121,7 @@ function App() {
                                         <Route path="non-teaching-staff/sports/equipment" element={<Equipment />} />
                                         <Route path="exams/schedule" element={<ExamSchedule />} />
                                         <Route path="exams/marks" element={<MarksControl />} />
+                                        <Route path="exams/exams-creation" element={<ExamCreationForm />} />
                                         <Route path="exams/grade-config" element={<GradeConfiguration />} />
                                         <Route path="exams/results" element={<ExamResultsBoard />} />
                                         <Route path="finance" element={<FinanceDashboard />} />

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { CloudUpload } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ScheduleUploadPage = () => {
+  const navigate = useNavigate();
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedTerm, setSelectedTerm] = useState('');
   const [selectedYear, setSelectedYear] = useState('2024-2025');
@@ -41,6 +43,14 @@ const ScheduleUploadPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-6 flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-gray-700"
+        >
+          <span className="text-lg">&#8592;</span>
+          <span>Back</span>
+        </button>
         {/* Upload Schedule Section */}
         <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
           <div className="flex items-center justify-between mb-6">

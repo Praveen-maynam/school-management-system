@@ -1,7 +1,11 @@
-
-
 import React, { useState } from 'react';
 import { Bar } from '../../../lib/chartjs';
+import { 
+  CreditCard, DollarSign, TrendingUp, Users, Calendar, 
+  MoreVertical, Download, Search, Filter, Plus, Edit, 
+  Trash2, CheckCircle, XCircle, AlertCircle, ArrowUpRight,
+  ArrowDownRight, Eye, RefreshCw, FileText, Bell
+} from 'lucide-react';
 
 // Production-level RevenueBarChart component
 const RevenueBarChart: React.FC = () => {
@@ -45,12 +49,6 @@ const RevenueBarChart: React.FC = () => {
   };
   return <Bar data={data} options={options} className="w-full h-full" />;
 };
-import { 
-  CreditCard, DollarSign, TrendingUp, Users, Calendar, 
-  MoreVertical, Download, Search, Filter, Plus, Edit, 
-  Trash2, CheckCircle, XCircle, AlertCircle, ArrowUpRight,
-  ArrowDownRight, Eye, RefreshCw, FileText, Bell
-} from 'lucide-react';
 
 // TypeScript Interfaces
 interface Plan {
@@ -337,6 +335,15 @@ const SuperAdminBillingPlans: React.FC = () => {
     }
   ];
 
+  const [transactionsPage, setTransactionsPage] = useState(1);
+  const transactionsPerPage = 3;
+
+  const totalTransactionsPages = Math.ceil(transactions.length / transactionsPerPage);
+  const paginatedTransactions = transactions.slice(
+    (transactionsPage - 1) * transactionsPerPage,
+    transactionsPage * transactionsPerPage
+  );
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -520,8 +527,8 @@ const SuperAdminBillingPlans: React.FC = () => {
 
           {/* Create Plan Modal */}
           {showCreatePlanModal && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
-              <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-lg relative">
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30 p-2 sm:p-4 overflow-y-auto">
+              <div className="bg-white rounded-xl shadow-lg w-full max-w-lg p-4 sm:p-8 relative flex flex-col max-h-[95vh] overflow-y-auto">
                 <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-700" onClick={() => setShowCreatePlanModal(false)}>
                   <span className="text-2xl">×</span>
                 </button>
@@ -1125,7 +1132,7 @@ const SuperAdminBillingPlans: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
-                    {transactions.map(txn => (
+                    {paginatedTransactions.map(txn => (
                       <tr key={txn.id} className="hover:bg-gray-50 transition-colors">
                         <td className="py-4 px-6">
                           <p className="font-mono text-sm font-semibold text-gray-900">{txn.invoice}</p>
@@ -1179,6 +1186,29 @@ const SuperAdminBillingPlans: React.FC = () => {
                 </table>
               </div>
             </div>
+
+            {/* Pagination Controls */}
+            {transactions.length > transactionsPerPage && (
+              <div className="flex justify-end items-center mt-4 gap-2">
+                <button
+                  className="px-3 py-1 rounded border bg-white hover:bg-gray-100 disabled:opacity-50"
+                  onClick={() => setTransactionsPage(prev => Math.max(prev - 1, 1))}
+                  disabled={transactionsPage === 1}
+                >
+                  Previous
+                </button>
+                <span className="mx-2">
+                  Page {transactionsPage} of {totalTransactionsPages}
+                </span>
+                <button
+                  className="px-3 py-1 rounded border bg-white hover:bg-gray-100 disabled:opacity-50"
+                  onClick={() => setTransactionsPage(prev => Math.min(prev + 1, totalTransactionsPages))}
+                  disabled={transactionsPage === totalTransactionsPages}
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Search, Filter, Download, Plus } from 'lucide-react';
 
 const TeachingStaffDetails = () => {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const teachersPerPage = 15;
@@ -72,7 +74,15 @@ const TeachingStaffDetails = () => {
           <ChevronRight className="w-4 h-4" />
           <span className="text-gray-900 font-medium">Salary Details</span>
         </div>
-        
+        {/* Back Button */}
+        <button
+          className="flex items-center gap-1 px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 mb-4"
+          onClick={() => navigate('/admin/finance')}
+          aria-label="Back to Finance Dashboard"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Back
+        </button>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">Teaching Staff Salary Details</h1>
         <p className="text-gray-600">Salaries, bonuses, and benefits for teachers based on experience and qualifications</p>
       </div>

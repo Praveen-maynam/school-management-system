@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Eye, EyeOff, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import usersData from '../../data/users.json';
@@ -11,6 +11,7 @@ function LoginScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const students = [
     { id: 1, name: 'John Doe', class: 'Class 6-A', rollNo: '22' },
@@ -188,6 +189,11 @@ function LoginScreen() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-600"
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  passwordInputRef.current?.focus();
+                }
+              }}
             />
           </div>
 
@@ -195,6 +201,7 @@ function LoginScreen() {
             <label className="block text-gray-700 font-medium mb-2">Password</label>
             <div className="relative">
               <input
+                ref={passwordInputRef}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
                 value={password}
@@ -318,17 +325,18 @@ export default LoginScreen;
 
 
 
-// import React, { useState } from 'react';
+// import React, { useState, useRef } from 'react';
 // import { Eye, EyeOff, X } from 'lucide-react';
 
 // function LoginScreen() {
+//   const navigate = useNavigate();
 //   const [email, setEmail] = useState('');
 //   const [password, setPassword] = useState('');
 //   const [showPassword, setShowPassword] = useState(false);
 //   const [modalVisible, setModalVisible] = useState(false);
+//   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
 //   const [errorMessage, setErrorMessage] = useState('');
-// const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
-
+//   const passwordInputRef = useRef<HTMLInputElement>(null);
 
 //   const students = [
 //     { id: 1, name: 'Alex Brown', class: 'Class 8-A', rollNo: '10', initial: 'A' },
@@ -427,6 +435,11 @@ export default LoginScreen;
 //               value={email}
 //               onChange={(e) => setEmail(e.target.value)}
 //               className="w-full px-4 py-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-600"
+//               onKeyDown={e => {
+//                 if (e.key === 'Enter') {
+//                   passwordInputRef.current?.focus();
+//                 }
+//               }}
 //             />
 //           </div>
 
@@ -434,6 +447,7 @@ export default LoginScreen;
 //             <label className="block text-gray-700 font-medium mb-2">Password</label>
 //             <div className="relative">
 //               <input
+//                 ref={passwordInputRef}
 //                 type={showPassword ? 'text' : 'password'}
 //                 placeholder="Enter your password"
 //                 value={password}

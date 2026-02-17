@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import Pagination from '../../../components/ui/Pagination';
 import { Users, UserPlus, Shield, Settings, BarChart3, BookOpen, Calendar, FileText, ChevronRight, Search, Filter, Edit, Trash2, Lock, X, Check } from 'lucide-react';
 
 
@@ -76,6 +77,26 @@ const SchoolAdminSystem = () => {
       status: 'active',
       lastLogin: '2026-01-23',
       permissions: ['view_students', 'view_reports']
+    },
+    {
+      id: 5,
+      name: 'Emily Brown',
+      email: 'emily.b@school.edu',
+      role: 'staff',
+      department: 'Library',
+      status: 'active',
+      lastLogin: '2026-01-23',
+      permissions: ['view_students', 'view_reports']
+    },
+    {
+      id: 6,
+      name: 'Emily Brown',
+      email: 'emily.b@school.edu',
+      role: 'staff',
+      department: 'Library',
+      status: 'active',
+      lastLogin: '2026-01-23',
+      permissions: ['view_students', 'view_reports']
     }
   ]);
 
@@ -115,10 +136,19 @@ const SchoolAdminSystem = () => {
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = filterRole === 'all' || user.role === filterRole;
     return matchesSearch && matchesRole;
   });
+
+  // Pagination state for users table
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5; // Production-level: adjust as needed
+  const totalPages = Math.ceil(filteredUsers.length / pageSize);
+  const paginatedUsers = filteredUsers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  // Reset to first page when filters/search change
+  React.useEffect(() => { setCurrentPage(1); }, [searchTerm, filterRole, users.length]);
 
   const getRoleBadgeColor = (role: keyof typeof colors | string) => {
     const colors = {
@@ -361,7 +391,7 @@ const SchoolAdminSystem = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {filteredUsers.map(user => (
+                  {paginatedUsers.map(user => (
                     <tr key={user.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4">
                         <div>
@@ -417,7 +447,16 @@ const SchoolAdminSystem = () => {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+                </table>
+                {/* Pagination Controls */}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              {/* Pagination Controls */}
+              
+            {/* End table and pagination block */}
             </div>
           </div>
         </div>

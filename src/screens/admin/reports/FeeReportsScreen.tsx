@@ -1,8 +1,74 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, Users, GraduationCap, Calendar, BarChart3, Settings, ChevronRight, Download, Filter, Search } from 'lucide-react';
+import Pagination from '../../../components/ui/Pagination';
+import { Users, GraduationCap, Calendar, BarChart3, ChevronRight, Download, Filter } from 'lucide-react';
+
+type ReportViewerProps = {
+  reportId: string;
+  sampleData: { [key: string]: Record<string, any>[] };
+};
+const ReportViewer: React.FC<ReportViewerProps> = ({ reportId, sampleData }) => {
+  const data = sampleData[reportId];
+  const [currentPage, setCurrentPage] = React.useState(1);
+  // Custom page size for key reports, default for others
+  const pageSize = reportId === 'student-performance' ? 2
+    : reportId === 'grade-distribution' ? 2
+    : reportId === 'subject-analysis' ? 2
+    : reportId === 'daily-attendance' ? 2
+    : reportId === 'monthly-trends' ? 2
+    : reportId === 'student-attendance' ? 2
+    : reportId === 'enrollment-stats' ? 2
+    : reportId === 'class-distribution' ? 2
+    : reportId === 'demographic-data' ? 2
+    : reportId === 'fee-collection' ? 2
+    : reportId === 'outstanding-dues' ? 2
+    : reportId === 'revenue-analysis' ? 2
+    : 10;
+  React.useEffect(() => { setCurrentPage(1); }, [reportId]);
+  if (!data) {
+    return (
+      <div className="text-center py-12">
+        <BarChart3 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+        <p className="text-gray-500">Report data will be displayed here</p>
+      </div>
+    );
+  }
+  const totalPages = Math.ceil(data.length / pageSize);
+  const paginatedData = data.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            {Object.keys(data[0]).map((key) => (
+              <th key={key} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                {key.replace(/([A-Z])/g, ' $1').trim()}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {paginatedData.map((row: Record<string, any>, idx: number) => (
+            <tr key={idx} className="hover:bg-gray-50">
+              {Object.values(row).map((value, i) => (
+                <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {typeof value === 'number' && value > 1000 ? `₹${value.toLocaleString()}` : String(value)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+    </div>
+  );
+};
 
 const SchoolAdminDashboard = () => {
-  const [activeScreen, setActiveScreen] = useState('dashboard');
+  const [activeScreen] = useState('dashboard');
   const [selectedReport, setSelectedReport] = useState<{ id: string; name: string; description: string } | null>(null);
 
   const reportCategories = [
@@ -84,6 +150,7 @@ const SchoolAdminDashboard = () => {
     'enrollment-stats': [
       { year: 2024, enrolled: 320, graduated: 60, dropped: 5 },
       { year: 2025, enrolled: 340, graduated: 65, dropped: 3 },
+          { year: 2025, enrolled: 340, graduated: 65, dropped: 3 },
     ],
     'class-distribution': [
       { class: '9-A', students: 35 },
@@ -115,45 +182,7 @@ const SchoolAdminDashboard = () => {
     ],
   };
 
-  const ReportViewer: React.FC<{ reportId: string }> = ({ reportId }) => {
-    const data = sampleData[reportId];
-    
-    if (!data) {
-      return (
-        <div className="text-center py-12">
-          <BarChart3 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">Report data will be displayed here</p>
-        </div>
-      );
-    }
 
-    return (
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              {Object.keys(data[0]).map((key) => (
-                <th key={key} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((row, idx) => (
-              <tr key={idx} className="hover:bg-gray-50">
-                {Object.values(row).map((value, i) => (
-                  <td key={i} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {typeof value === 'number' && value > 1000 ? `₹${value.toLocaleString()}` : String(value)}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
 
   // Print and Download handlers for selected report
   const handlePrint = () => {
@@ -270,7 +299,7 @@ const SchoolAdminDashboard = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <ReportViewer reportId={selectedReport.id} />
+                  <ReportViewer reportId={selectedReport.id} sampleData={sampleData} />
                 </div>
               </div>
             )}
@@ -347,7 +376,7 @@ const SchoolAdminDashboard = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <ReportViewer reportId={selectedReport.id} />
+                  <ReportViewer reportId={selectedReport.id} sampleData={sampleData} />
                 </div>
               </div>
             )}
@@ -370,7 +399,7 @@ const SchoolAdminDashboard = () => {
         </div>
       </div>
     </div>
-  );;
+  );
 };
 
 export default SchoolAdminDashboard;

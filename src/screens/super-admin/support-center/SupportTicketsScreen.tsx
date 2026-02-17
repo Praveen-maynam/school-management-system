@@ -1,181 +1,6 @@
 
-// import React, { useState } from 'react';
-// import Modal from '../../../components/ui/Modal';
-// import Avatar from '../../../components/ui/Avatar';
-// import Badge from '../../../components/ui/Badge';
-// import Button from '../../../components/ui/Button';
-// // import Dropdown from '../../../components/ui/Dropdown'; // Placeholder, not used in this mock
-
-// // Mock ticket data
-// type TicketStatus = 'Open' | 'In Progress' | 'Closed';
-// type TicketPriority = 'Low' | 'Medium' | 'High' | 'Urgent';
-
-// interface SupportTicket {
-//   id: string;
-//   subject: string;
-//   status: TicketStatus;
-//   priority: TicketPriority;
-//   assignedTo?: string;
-//   createdAt: string;
-//   requester: string;
-// }
-
-// const mockTickets: SupportTicket[] = [
-//   {
-//     id: 'TCK-1001',
-//     subject: 'Unable to login',
-//     status: 'Open',
-//     priority: 'High',
-//     assignedTo: 'Support Agent 1',
-//     createdAt: '2026-01-27 10:15',
-//     requester: 'admin@school.com',
-//   },
-//   {
-//     id: 'TCK-1002',
-//     subject: 'Billing issue',
-//     status: 'In Progress',
-//     priority: 'Medium',
-//     assignedTo: 'Support Agent 2',
-//     createdAt: '2026-01-26 14:30',
-//     requester: 'parent1@example.com',
-//   },
-//   {
-//     id: 'TCK-1003',
-//     subject: 'Feature request: Dark mode',
-//     status: 'Closed',
-//     priority: 'Low',
-//     assignedTo: 'Support Agent 3',
-//     createdAt: '2026-01-25 09:00',
-//     requester: 'teacher1@example.com',
-//   },
-// ];
-
-// const statusColor = {
-//   Open: 'bg-blue-100 text-blue-700',
-//   'In Progress': 'bg-yellow-100 text-yellow-800',
-//   Closed: 'bg-green-100 text-green-700',
-// };
-
-// const priorityColor = {
-//   Low: 'bg-gray-100 text-gray-700',
-//   Medium: 'bg-yellow-100 text-yellow-800',
-//   High: 'bg-orange-100 text-orange-800',
-//   Urgent: 'bg-red-100 text-red-700',
-// };
-
-// const SupportTicketsScreen: React.FC = () => {
-//   const [selectedTicket, setSelectedTicket] = useState<SupportTicket | null>(null);
-//   const [modalOpen, setModalOpen] = useState(false);
-
-//   const handleView = (ticket: SupportTicket) => {
-//     setSelectedTicket(ticket);
-//     setModalOpen(true);
-//   };
-
-//   const handleCloseModal = () => {
-//     setModalOpen(false);
-//     setSelectedTicket(null);
-//   };
-
-//   return (
-//     <div className="p-6">
-//       <div className="flex items-center justify-between mb-6">
-//         <h1 className="text-2xl font-bold">Support Tickets</h1>
-//         <Button /> {/* Replace with real button for creating new ticket if needed */}
-//       </div>
-//       <div className="overflow-x-auto bg-white rounded-lg shadow">
-//         <table className="min-w-full divide-y divide-gray-200">
-//           <thead className="bg-gray-50">
-//             <tr>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Ticket ID</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subject</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Priority</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Assigned To</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Requester</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created At</th>
-//               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-//             </tr>
-//           </thead>
-//           <tbody className="bg-white divide-y divide-gray-200">
-//             {mockTickets.map((ticket) => (
-//               <tr key={ticket.id} className="hover:bg-gray-50">
-//                 <td className="px-6 py-4 whitespace-nowrap font-mono">{ticket.id}</td>
-//                 <td className="px-6 py-4 whitespace-nowrap">{ticket.subject}</td>
-//                 <td className="px-6 py-4 whitespace-nowrap">
-//                   <span className={`px-2 py-1 rounded text-xs font-semibold ${statusColor[ticket.status]}`}>{ticket.status}</span>
-//                 </td>
-//                 <td className="px-6 py-4 whitespace-nowrap">
-//                   <span className={`px-2 py-1 rounded text-xs font-semibold ${priorityColor[ticket.priority]}`}>{ticket.priority}</span>
-//                 </td>
-//                 <td className="px-6 py-4 whitespace-nowrap">{ticket.assignedTo || <span className="text-gray-400">Unassigned</span>}</td>
-//                 <td className="px-6 py-4 whitespace-nowrap flex items-center gap-2">
-//                   <Avatar size={24} />
-//                   <span>{ticket.requester}</span>
-//                 </td>
-//                 <td className="px-6 py-4 whitespace-nowrap">{ticket.createdAt}</td>
-//                 <td className="px-6 py-4 whitespace-nowrap">
-//                   <button
-//                     className="text-blue-600 hover:underline mr-2"
-//                     onClick={() => handleView(ticket)}
-//                   >
-//                     View
-//                   </button>
-//                   <button className="text-green-600 hover:underline">Assign</button>
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       {/* Ticket Details Modal */}
-//       <Modal isOpen={modalOpen} onClose={handleCloseModal} title={selectedTicket ? `Ticket: ${selectedTicket.id}` : ''} widthClass="max-w-2xl">
-//         {selectedTicket && (
-//           <div>
-//             <div className="mb-4">
-//               <div className="font-semibold">Subject:</div>
-//               <div>{selectedTicket.subject}</div>
-//             </div>
-//             <div className="mb-4 flex gap-4">
-//               <div>
-//                 <div className="font-semibold">Status:</div>
-//                 <span className={`px-2 py-1 rounded text-xs font-semibold ${statusColor[selectedTicket.status]}`}>{selectedTicket.status}</span>
-//               </div>
-//               <div>
-//                 <div className="font-semibold">Priority:</div>
-//                 <span className={`px-2 py-1 rounded text-xs font-semibold ${priorityColor[selectedTicket.priority]}`}>{selectedTicket.priority}</span>
-//               </div>
-//               <div>
-//                 <div className="font-semibold">Assigned To:</div>
-//                 <span>{selectedTicket.assignedTo || <span className="text-gray-400">Unassigned</span>}</span>
-//               </div>
-//             </div>
-//             <div className="mb-4">
-//               <div className="font-semibold">Requester:</div>
-//               <div className="flex items-center gap-2">
-//                 <Avatar size={24} />
-//                 <span>{selectedTicket.requester}</span>
-//               </div>
-//             </div>
-//             <div className="mb-4">
-//               <div className="font-semibold">Created At:</div>
-//               <div>{selectedTicket.createdAt}</div>
-//             </div>
-//             {/* TODO: Add ticket conversation, notes, and response form */}
-//             <div className="flex justify-end gap-2 mt-6">
-//               <Button /> {/* Replace with real action buttons: Respond, Close, etc. */}
-//               <Button />
-//             </div>
-//           </div>
-//         )}
-//       </Modal>
-//     </div>
-//   );
-// };
-
-// export default SupportTicketsScreen;
 import React, { useState } from 'react';
+import Modal from '../../../components/ui/Modal';
 import { 
   MessageSquare, AlertCircle, CheckCircle, Clock, User, Calendar,
   Search, Filter, MoreVertical, Send, Paperclip, Phone, Mail,
@@ -253,6 +78,8 @@ const SuperAdminSupportCenter: React.FC = () => {
   const [filterPriority, setFilterPriority] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'priority'>('newest');
+    const [showAddAgentModal, setShowAddAgentModal] = useState(false);
+    const [addAgentForm, setAddAgentForm] = useState({ name: '', email: '', status: 'online', avatar: '', activeTickets: 0, resolvedToday: 0, avgResponseTime: 0, satisfaction: 5 });
 
   // Mock Data
   const stats: SupportStats = {
@@ -969,10 +796,76 @@ const SuperAdminSupportCenter: React.FC = () => {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-900">Support Team</h3>
-                <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2">
+                <button
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                  onClick={() => setShowAddAgentModal(true)}
+                >
                   <User className="w-4 h-4" />
                   Add Agent
                 </button>
+                <Modal
+                  isOpen={showAddAgentModal}
+                  onClose={() => setShowAddAgentModal(false)}
+                  title="Add New Agent"
+                  widthClass="max-w-lg"
+                >
+                  <form
+                    className="space-y-6 max-h-[70vh] overflow-y-auto"
+                    onSubmit={e => {
+                      e.preventDefault();
+                      // Add agent logic here (e.g., push to agents array or API call)
+                      setShowAddAgentModal(false);
+                    }}
+                  >
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Name</label>
+                      <input
+                        type="text"
+                        value={addAgentForm.name}
+                        onChange={e => setAddAgentForm({ ...addAgentForm, name: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                      <input
+                        type="email"
+                        value={addAgentForm.email}
+                        onChange={e => setAddAgentForm({ ...addAgentForm, email: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                      <select
+                        value={addAgentForm.status}
+                        onChange={e => setAddAgentForm({ ...addAgentForm, status: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="online">Online</option>
+                        <option value="away">Away</option>
+                        <option value="offline">Offline</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">Avatar (Initials)</label>
+                      <input
+                        type="text"
+                        value={addAgentForm.avatar}
+                        onChange={e => setAddAgentForm({ ...addAgentForm, avatar: e.target.value })}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        maxLength={2}
+                        required
+                      />
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <button type="button" className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors" onClick={() => setShowAddAgentModal(false)}>Cancel</button>
+                      <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors">Add Agent</button>
+                    </div>
+                  </form>
+                </Modal>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

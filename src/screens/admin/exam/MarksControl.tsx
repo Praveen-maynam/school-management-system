@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Download, Save } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const MarksControl = () => {
+  const navigate = useNavigate();
   const [selectedClass, setSelectedClass] = useState('Class 5');
   const [selectedSection, setSelectedSection] = useState('Section A');
   const [selectedExamType, setSelectedExamType] = useState('Mid Term');
@@ -100,6 +102,15 @@ const MarksControl = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-6 flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-100 text-gray-700"
+      >
+        <span className="text-lg">&#8592;</span>
+        <span>Back</span>
+      </button>
+
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-lg shadow-sm p-8">
           {/* Header */}

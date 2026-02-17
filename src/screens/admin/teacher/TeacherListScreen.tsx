@@ -37,6 +37,25 @@ type Teacher = {
 };
 
 const SchoolAdminPanel = () => {
+    // Big Avatar Modal State (top-level)
+    const [showBigAvatarModal, setShowBigAvatarModal] = useState(false);
+
+    // Big Avatar Modal (top-level)
+    const BigAvatarModal = () => (
+      <Modal isOpen={showBigAvatarModal} onClose={() => setShowBigAvatarModal(false)} title={selectedTeacher ? selectedTeacher.name : ''} size="max-w-md">
+        {selectedTeacher && (
+          <div className="flex flex-col items-center justify-center py-8">
+            <div className={`${selectedTeacher.color} w-48 h-48 rounded-3xl flex items-center justify-center text-white font-extrabold text-7xl shadow-2xl mb-6`}>
+              {selectedTeacher.avatar}
+            </div>
+            <div className="text-center">
+              <h4 className="text-2xl font-bold text-gray-900 mb-2">{selectedTeacher.name}</h4>
+              <p className="text-lg text-gray-600">{selectedTeacher.subject} • {selectedTeacher.department}</p>
+            </div>
+          </div>
+        )}
+      </Modal>
+    );
   const [currentScreen, setCurrentScreen] = useState('teachers');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -1298,9 +1317,17 @@ const SchoolAdminPanel = () => {
                     />
                   </td>
                   <td className="p-4 flex items-center gap-3">
-                    <div className={`${teacher.color} w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold`}>
+                    <button
+                      type="button"
+                      className={`${teacher.color} w-10 h-10 rounded-lg flex items-center justify-center text-white font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500 hover:scale-105 transition-transform`}
+                      title={`View ${teacher.name} Avatar`}
+                      onClick={() => {
+                        setSelectedTeacher(teacher);
+                        setShowBigAvatarModal(true);
+                      }}
+                    >
                       {teacher.avatar}
-                    </div>
+                    </button>
                     <div>
                       <p className="font-semibold">{teacher.name}</p>
                       <p className="text-xs text-gray-500">{teacher.subject}</p>
@@ -1378,6 +1405,7 @@ const SchoolAdminPanel = () => {
         <TeacherFormModal isEdit />
         <PayslipManagementModal />
         <AddPayslipModal />
+        {/* Only render BigAvatarModal at the top level, not here */}
       </div>
     );
   };
@@ -1386,6 +1414,7 @@ const SchoolAdminPanel = () => {
     <div className="min-h-screen bg-gray-100">
       <main className="p-6">
         {currentScreen === 'teachers' && <TeachersScreen />}
+        <BigAvatarModal />
       </main>
     </div>
   );

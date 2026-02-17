@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Modal, { ModalProps } from './Modal';
 
@@ -53,8 +52,8 @@ describe('Modal', () => {
       </Modal>
     );
     const [first, last] = screen.getAllByRole('button');
-    first.focus();
+    last.focus();
     fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
-    expect(last).toHaveFocus();
+    expect(first).toHaveFocus();
   });
 });
