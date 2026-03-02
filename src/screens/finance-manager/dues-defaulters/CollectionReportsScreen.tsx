@@ -383,7 +383,7 @@ export default function CollectionReportsScreen() {
                 </button>
                 <button 
                   onClick={() => setShowCloseYearModal(true)}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 transition-all shadow-md hover:shadow-lg font-medium"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 transition-all shadow-md hover:shadow-lg font-medium"
                 >
                   <Lock className="w-4 h-4" />
                   Close Financial Year
@@ -428,7 +428,7 @@ export default function CollectionReportsScreen() {
                     // Handle close year logic
                     setShowCloseYearModal(false);
                   }}
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 transition-all shadow-md font-medium"
+                  className="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:from-red-700 hover:to-orange-700 transition-all shadow-md font-medium"
                 >
                   Confirm Close
                 </button>

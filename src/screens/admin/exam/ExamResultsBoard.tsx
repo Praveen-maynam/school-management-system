@@ -320,7 +320,7 @@ const ExamResultsBoard = () => {
       onChange={(e) => handleMarkChange(studentId, subject, e.target.value)}
       title={`Enter ${subject} marks (0-100)`}
       placeholder="0-100"
-      className="w-16 px-2 py-1 text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+      className="w-10 px-1 py-0.5 text-[10px] text-center border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
     />
   );
 
@@ -555,41 +555,44 @@ const ExamResultsBoard = () => {
             {/* Right Content - Stats and Table */}
             <div className="flex-1">
               {/* Stats Cards */}
-              <div className="grid grid-cols-3 gap-6 mb-8">
-                <div className="bg-blue-50 rounded-xl p-6 relative overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+                <div className="bg-blue-50 rounded-xl p-5 relative overflow-hidden">
                   <div className="flex items-start justify-between">
-                    <div>
+                    <div className="min-w-0 pr-2">
                       <div className="text-sm font-medium text-blue-700 mb-2">Total Students</div>
-                      <div className="text-4xl font-bold text-blue-900 mb-1">{stats.totalStudents}</div>
+                      <div className="text-3xl lg:text-4xl font-bold text-blue-900 mb-1 leading-tight">{stats.totalStudents}</div>
                       <div className="text-sm text-blue-600">Across all classes</div>
                     </div>
-                    <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Users className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-green-50 rounded-xl p-6 relative overflow-hidden">
+                <div className="bg-green-50 rounded-xl p-5 relative overflow-hidden">
                   <div className="flex items-start justify-between">
-                    <div>
+                    <div className="min-w-0 pr-2">
                       <div className="text-sm font-medium text-green-700 mb-2">Pass Rate</div>
-                      <div className="text-4xl font-bold text-green-900 mb-1">{stats.passRate}%</div>
+                      <div className="text-3xl lg:text-4xl font-bold text-green-900 mb-1 leading-tight">{stats.passRate}%</div>
                       <div className="text-sm text-green-600">Students passed</div>
                     </div>
-                    <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       <TrendingUp className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-purple-50 rounded-xl p-6 relative overflow-hidden">
+                <div className="bg-purple-50 rounded-xl p-5 relative overflow-hidden">
                   <div className="flex items-start justify-between">
-                    <div>
+                    <div className="min-w-0 pr-2">
                       <div className="text-sm font-medium text-purple-700 mb-2">Average Score</div>
-                      <div className="text-4xl font-bold text-purple-900 mb-1">{stats.averageScore}/{TOTAL_MARKS}</div>
+                      <div className="text-2xl lg:text-3xl xl:text-4xl font-bold text-purple-900 mb-1 leading-tight whitespace-nowrap">
+                        {stats.averageScore}
+                        <span className="text-xl lg:text-2xl xl:text-3xl font-semibold">/{TOTAL_MARKS}</span>
+                      </div>
                       <div className="text-sm text-purple-600">Class average score</div>
                     </div>
-                    <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Trophy className="w-6 h-6 text-white" />
                     </div>
                   </div>
@@ -597,87 +600,87 @@ const ExamResultsBoard = () => {
               </div>
 
               {/* Results Table */}
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="w-full overflow-hidden">
+                <table className="w-full table-fixed text-[11px]">
                   <thead>
                     <tr className="border-b-2 border-gray-200">
-                      <th className="text-left py-4 px-3 font-semibold text-gray-700">Rank</th>
-                      <th className="text-left py-4 px-3 font-semibold text-gray-700">Student Name</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Class</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Math</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Science</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">English</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Social</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Hindi</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Total</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Percentage</th>
-                      <th className="text-center py-4 px-3 font-semibold text-gray-700">Grade</th>
+                      <th className="w-[6%] text-left py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Rank</th>
+                      <th className="w-[22%] text-left py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Student Name</th>
+                      <th className="w-[7%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Class</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Math</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Science</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">English</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Social</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Hindi</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Total</th>
+                      <th className="w-[9%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Percentage</th>
+                      <th className="w-[8%] text-center py-1.5 px-1 font-semibold text-[10px] text-gray-700 whitespace-nowrap">Grade</th>
                     </tr>
                   </thead>
                   <tbody>
                     {resultsList.map((result) => (
                       <tr key={result.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                         {/* Rank Badge */}
-                        <td className="py-4 px-3">
+                        <td className="py-1.5 px-1">
                           <div
                             className={`w-8 h-8 ${getRankBadgeColor(
                               result.rank
-                            )} rounded-full flex items-center justify-center font-bold text-sm`}
+                            )} rounded-full flex items-center justify-center font-bold text-xs`}
                           >
                             {result.rank}
                           </div>
                         </td>
 
                         {/* Student Name */}
-                        <td className="py-4 px-3">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl">
+                        <td className="py-1.5 px-1">
+                          <div className="flex items-center space-x-2 min-w-0">
+                            <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center text-sm flex-shrink-0">
                               {result.avatar}
                             </div>
-                            <span className="font-medium text-gray-900">{result.name}</span>
+                            <span className="font-medium text-gray-900 text-[11px] truncate" title={result.name}>{result.name}</span>
                           </div>
                         </td>
 
                         {/* Class */}
-                        <td className="py-4 px-3 text-center text-gray-700 font-medium">
+                        <td className="py-1.5 px-1 text-center text-gray-700 font-medium text-[11px] whitespace-nowrap">
                           {result.class}
                         </td>
 
                         {/* Subject Marks - Editable Input Boxes */}
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           {renderMarkInput(result.id, 'math', result.math)}
                         </td>
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           {renderMarkInput(result.id, 'science', result.science)}
                         </td>
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           {renderMarkInput(result.id, 'english', result.english)}
                         </td>
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           {renderMarkInput(result.id, 'social', result.social)}
                         </td>
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           {renderMarkInput(result.id, 'hindi', result.hindi)}
                         </td>
 
                         {/* Total Marks (Auto-calculated) */}
-                        <td className="py-4 px-3 text-center">
-                          <span className="font-bold text-gray-900 bg-blue-50 px-3 py-1 rounded-md">
+                        <td className="py-1.5 px-1 text-center">
+                          <span className="font-bold text-gray-900 bg-blue-50 px-1.5 py-0.5 rounded-md text-[11px] whitespace-nowrap">
                             {result.total}
                           </span>
                         </td>
 
                         {/* Percentage (Auto-calculated) */}
-                        <td className="py-4 px-3 text-center">
-                          <span className="font-semibold text-blue-600">
+                        <td className="py-1.5 px-1 text-center">
+                          <span className="font-semibold text-blue-600 text-[11px] whitespace-nowrap">
                             {result.percentage.toFixed(1)}%
                           </span>
                         </td>
 
                         {/* Grade (Auto-assigned) */}
-                        <td className="py-4 px-3 text-center">
+                        <td className="py-1.5 px-1 text-center">
                           <span
-                            className={`px-3 py-1 rounded-full text-sm font-semibold ${getGradeColor(
+                            className={`px-1.5 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap ${getGradeColor(
                               result.grade
                             )}`}
                           >

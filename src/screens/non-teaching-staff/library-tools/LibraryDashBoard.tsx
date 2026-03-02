@@ -1,412 +1,259 @@
+
+
+
 import React, { useState } from 'react';
 import { ChevronRight, Search, Filter, Download, Plus, BookOpen } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
-const LibraryDashBoard = () => {
-  const navigate = useNavigate();
+const books = [
+  { id: 'BK001', title: 'Advanced Mathematics for Class 12', author: 'R.D. Sharma', category: 'Textbook', quantity: 50, unitCost: '$25', totalCost: '$1,250', purchaseDate: 'Jan 10, 2024', condition: 'New', status: 'Available' },
+  { id: 'BK002', title: "Harry Potter and the Philosopher's Stone", author: 'J.K. Rowling', category: 'Fiction', quantity: 30, unitCost: '$15', totalCost: '$450', purchaseDate: 'Dec 15, 2023', condition: 'Good', status: 'Available' },
+  { id: 'BK003', title: 'Physics: Principles and Practice', author: 'H.C. Verma', category: 'Textbook', quantity: 45, unitCost: '$30', totalCost: '$1,350', purchaseDate: 'Jan 05, 2024', condition: 'New', status: 'Available' },
+  { id: 'BK004', title: 'The Complete Works of Shakespeare', author: 'William Shakespeare', category: 'Literature', quantity: 20, unitCost: '$35', totalCost: '$700', purchaseDate: 'Nov 20, 2023', condition: 'Good', status: 'Available' },
+  { id: 'BK005', title: 'Indian History: Ancient to Modern', author: 'Bipan Chandra', category: 'History', quantity: 40, unitCost: '$22', totalCost: '$880', purchaseDate: 'Jan 12, 2024', condition: 'New', status: 'Available' },
+  { id: 'BK006', title: 'Oxford English Dictionary', author: 'Oxford University Press', category: 'Reference', quantity: 15, unitCost: '$50', totalCost: '$750', purchaseDate: 'Oct 10, 2023', condition: 'Excellent', status: 'Available' },
+  { id: 'BK007', title: 'Wings of Fire', author: 'A.P.J. Abdul Kalam', category: 'Biography', quantity: 35, unitCost: '$18', totalCost: '$630', purchaseDate: 'Dec 01, 2023', condition: 'Good', status: 'Available' },
+  { id: 'BK008', title: 'Organic Chemistry', author: 'Morrison & Boyd', category: 'Textbook', quantity: 38, unitCost: '$32', totalCost: '$1,216', purchaseDate: 'Jan 08, 2024', condition: 'New', status: 'Available' },
+  { id: 'BK009', title: 'The Diary of a Young Girl', author: 'Anne Frank', category: 'Biography', quantity: 25, unitCost: '$12', totalCost: '$300', purchaseDate: 'Nov 15, 2023', condition: 'Good', status: 'Available' },
+  { id: 'BK010', title: 'Computer Science with Python', author: 'Sumita Arora', category: 'Textbook', quantity: 42, unitCost: '$28', totalCost: '$1,176', purchaseDate: 'Jan 15, 2024', condition: 'New', status: 'Available' },
+];
+
+const categoryColors = {
+  Textbook:   'bg-blue-100 text-blue-800',
+  Fiction:    'bg-purple-100 text-purple-800',
+  Literature: 'bg-pink-100 text-pink-800',
+  History:    'bg-orange-100 text-orange-800',
+  Reference:  'bg-green-100 text-green-800',
+  Biography:  'bg-yellow-100 text-yellow-800',
+};
+
+const conditionColors = {
+  New:       'bg-green-100 text-green-800',
+  Excellent: 'bg-blue-100 text-blue-800',
+  Good:      'bg-yellow-100 text-yellow-800',
+};
+
+const getCategoryColor = (c: string): string => categoryColors[c as keyof typeof categoryColors] || 'bg-gray-100 text-gray-800';
+const getConditionColor = (c: string): string => conditionColors[c as keyof typeof conditionColors] || 'bg-gray-100 text-gray-800';
+
+const categoryBreakdown = [
+  { label: 'Textbooks',  count: 175, emoji: '📘', bg: 'bg-blue-50',   text: 'text-blue-600' },
+  { label: 'Fiction',    count: 30,  emoji: '📕', bg: 'bg-purple-50', text: 'text-purple-600' },
+  { label: 'Literature', count: 20,  emoji: '📗', bg: 'bg-pink-50',   text: 'text-pink-600' },
+  { label: 'History',    count: 40,  emoji: '📙', bg: 'bg-orange-50', text: 'text-orange-600' },
+  { label: 'Reference',  count: 15,  emoji: '📓', bg: 'bg-green-50',  text: 'text-green-600' },
+  { label: 'Biography',  count: 60,  emoji: '📔', bg: 'bg-yellow-50', text: 'text-yellow-600' },
+];
+
+export default function LibraryDashBoard() {
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Static data for 10 books with various categories
-  const books = [
-    { 
-      id: 'BK001', 
-      title: 'Advanced Mathematics for Class 12', 
-      author: 'R.D. Sharma', 
-      category: 'Textbook',
-      quantity: 50,
-      unitCost: '$25',
-      totalCost: '$1,250',
-      purchaseDate: 'Jan 10, 2024',
-      condition: 'New',
-      status: 'Available'
-    },
-    { 
-      id: 'BK002', 
-      title: 'Harry Potter and the Philosopher\'s Stone', 
-      author: 'J.K. Rowling', 
-      category: 'Fiction',
-      quantity: 30,
-      unitCost: '$15',
-      totalCost: '$450',
-      purchaseDate: 'Dec 15, 2023',
-      condition: 'Good',
-      status: 'Available'
-    },
-    { 
-      id: 'BK003', 
-      title: 'Physics: Principles and Practice', 
-      author: 'H.C. Verma', 
-      category: 'Textbook',
-      quantity: 45,
-      unitCost: '$30',
-      totalCost: '$1,350',
-      purchaseDate: 'Jan 05, 2024',
-      condition: 'New',
-      status: 'Available'
-    },
-    { 
-      id: 'BK004', 
-      title: 'The Complete Works of Shakespeare', 
-      author: 'William Shakespeare', 
-      category: 'Literature',
-      quantity: 20,
-      unitCost: '$35',
-      totalCost: '$700',
-      purchaseDate: 'Nov 20, 2023',
-      condition: 'Good',
-      status: 'Available'
-    },
-    { 
-      id: 'BK005', 
-      title: 'Indian History: Ancient to Modern', 
-      author: 'Bipan Chandra', 
-      category: 'History',
-      quantity: 40,
-      unitCost: '$22',
-      totalCost: '$880',
-      purchaseDate: 'Jan 12, 2024',
-      condition: 'New',
-      status: 'Available'
-    },
-    { 
-      id: 'BK006', 
-      title: 'Oxford English Dictionary', 
-      author: 'Oxford University Press', 
-      category: 'Reference',
-      quantity: 15,
-      unitCost: '$50',
-      totalCost: '$750',
-      purchaseDate: 'Oct 10, 2023',
-      condition: 'Excellent',
-      status: 'Available'
-    },
-    { 
-      id: 'BK007', 
-      title: 'Wings of Fire', 
-      author: 'A.P.J. Abdul Kalam', 
-      category: 'Biography',
-      quantity: 35,
-      unitCost: '$18',
-      totalCost: '$630',
-      purchaseDate: 'Dec 01, 2023',
-      condition: 'Good',
-      status: 'Available'
-    },
-    { 
-      id: 'BK008', 
-      title: 'Organic Chemistry', 
-      author: 'Morrison & Boyd', 
-      category: 'Textbook',
-      quantity: 38,
-      unitCost: '$32',
-      totalCost: '$1,216',
-      purchaseDate: 'Jan 08, 2024',
-      condition: 'New',
-      status: 'Available'
-    },
-    { 
-      id: 'BK009', 
-      title: 'The Diary of a Young Girl', 
-      author: 'Anne Frank', 
-      category: 'Biography',
-      quantity: 25,
-      unitCost: '$12',
-      totalCost: '$300',
-      purchaseDate: 'Nov 15, 2023',
-      condition: 'Good',
-      status: 'Available'
-    },
-    { 
-      id: 'BK010', 
-      title: 'Computer Science with Python', 
-      author: 'Sumita Arora', 
-      category: 'Textbook',
-      quantity: 42,
-      unitCost: '$28',
-      totalCost: '$1,176',
-      purchaseDate: 'Jan 15, 2024',
-      condition: 'New',
-      status: 'Available'
-    }
-  ];
-
-  // Filter books based on search
-  const filteredBooks = books.filter(book =>
-    book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    book.id.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredBooks = books.filter(b =>
+    b.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    b.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Calculate totals
-  const totalBooks = books.reduce((sum, book) => sum + book.quantity, 0);
-  const totalInvestment = books.reduce((sum, book) => sum + parseFloat(book.totalCost.replace('$', '').replace(',', '')), 0);
-  const totalCategories = Array.from(new Set(books.map(book => book.category))).length;
-
-  const getCategoryColor = (category: string) => {
-    switch(category) {
-      case 'Textbook': return 'bg-blue-100 text-blue-800';
-      case 'Fiction': return 'bg-purple-100 text-purple-800';
-      case 'Literature': return 'bg-pink-100 text-pink-800';
-      case 'History': return 'bg-orange-100 text-orange-800';
-      case 'Reference': return 'bg-green-100 text-green-800';
-      case 'Biography': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getConditionColor = (condition: string) => {
-    switch(condition) {
-      case 'New': return 'bg-green-100 text-green-800';
-      case 'Excellent': return 'bg-blue-100 text-blue-800';
-      case 'Good': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
+  const totalBooks = books.reduce((s, b) => s + b.quantity, 0);
+  const totalInvestment = books.reduce((s, b) => s + parseFloat(b.totalCost.replace('$', '').replace(',', '')), 0);
+  const totalCategories = new Set(books.map(b => b.category)).size;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-          <span>Finance</span>
-          <ChevronRight className="w-4 h-4" />
-          <span>Non-Teaching Staff</span>
-          <ChevronRight className="w-4 h-4" />
-          <span>Library</span>
-          <ChevronRight className="w-4 h-4" />
-          <span className="text-gray-900 font-medium">Books Inventory</span>
+    /* ROOT: full viewport, zero horizontal overflow */
+    <div style={{ minHeight: '100vh', width: '100%', overflowX: 'hidden', backgroundColor: '#f9fafb', boxSizing: 'border-box' }}>
+      <div style={{ maxWidth: '100%', padding: '16px', boxSizing: 'border-box' }}>
+
+        {/* BREADCRUMB */}
+        <div className="flex items-center gap-1 text-xs text-gray-500 mb-4 flex-wrap">
+          {['Finance', 'Non-Teaching Staff', 'Library', 'Books Inventory'].map((item, i, arr) => (
+            <React.Fragment key={item}>
+              <span className={i === arr.length - 1 ? 'text-gray-900 font-semibold' : ''}>{item}</span>
+              {i < arr.length - 1 && <ChevronRight className="w-3 h-3 flex-shrink-0" />}
+            </React.Fragment>
+          ))}
         </div>
-        
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-orange-100 rounded-lg">
-            <BookOpen className="w-8 h-8 text-orange-600" />
+
+        {/* HEADER */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2.5 bg-orange-100 rounded-xl flex-shrink-0">
+            <BookOpen className="w-6 h-6 text-orange-600" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Library Finance - Books Inventory</h1>
-            <p className="text-gray-600">Track book purchases, costs, and library investments</p>
+            <h1 className="text-xl font-bold text-gray-900">Library Finance — Books Inventory</h1>
+            <p className="text-sm text-gray-500 mt-0.5">Track book purchases, costs, and library investments</p>
           </div>
         </div>
-      </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-sm text-gray-600">Total Books</div>
-            <div className="text-2xl">📚</div>
-          </div>
-          <div className="text-3xl font-bold text-gray-900">{totalBooks}</div>
-          <div className="text-xs text-gray-500 mt-1">Across all categories</div>
+        {/* STAT CARDS */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px', marginBottom: '20px' }}>
+          {[
+            { label: 'Total Books', value: totalBooks, sub: 'Across all categories', emoji: '📚', color: '#1e293b' },
+            { label: 'Total Investment', value: `$${totalInvestment.toLocaleString()}`, sub: 'Current fiscal year', emoji: '💰', color: '#ea580c' },
+            { label: 'Book Categories', value: totalCategories, sub: 'Different types', emoji: '📖', color: '#2563eb' },
+            { label: 'Library Staff', value: 12, sub: 'Librarians & assistants', emoji: '👥', color: '#7c3aed' },
+          ].map(s => (
+            <div key={s.label} style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16 }}>
+              <div className="flex items-center justify-between mb-1">
+                <span style={{ fontSize: 12, color: '#64748b' }}>{s.label}</span>
+                <span style={{ fontSize: 20 }}>{s.emoji}</span>
+              </div>
+              <p style={{ fontSize: 26, fontWeight: 700, color: s.color }}>{s.value}</p>
+              <p style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{s.sub}</p>
+            </div>
+          ))}
         </div>
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-sm text-gray-600">Total Investment</div>
-            <div className="text-2xl">💰</div>
-          </div>
-          <div className="text-3xl font-bold text-orange-600">${totalInvestment.toLocaleString()}</div>
-          <div className="text-xs text-gray-500 mt-1">Current fiscal year</div>
-        </div>
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-sm text-gray-600">Book Categories</div>
-            <div className="text-2xl">📖</div>
-          </div>
-          <div className="text-3xl font-bold text-blue-600">{totalCategories}</div>
-          <div className="text-xs text-gray-500 mt-1">Different types</div>
-        </div>
-        <div className="bg-white rounded-lg p-6 border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <div className="text-sm text-gray-600">Library Staff</div>
-            <div className="text-2xl">👥</div>
-          </div>
-          <div className="text-3xl font-bold text-purple-600">12</div>
-          <div className="text-xs text-gray-500 mt-1">Librarians & assistants</div>
-        </div>
-      </div>
 
-      {/* Category Breakdown */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Books by Category</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <div className="bg-blue-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📘</div>
-            <div className="text-sm font-medium text-gray-700">Textbooks</div>
-            <div className="text-2xl font-bold text-blue-600">175</div>
-          </div>
-          <div className="bg-purple-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📕</div>
-            <div className="text-sm font-medium text-gray-700">Fiction</div>
-            <div className="text-2xl font-bold text-purple-600">30</div>
-          </div>
-          <div className="bg-pink-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📗</div>
-            <div className="text-sm font-medium text-gray-700">Literature</div>
-            <div className="text-2xl font-bold text-pink-600">20</div>
-          </div>
-          <div className="bg-orange-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📙</div>
-            <div className="text-sm font-medium text-gray-700">History</div>
-            <div className="text-2xl font-bold text-orange-600">40</div>
-          </div>
-          <div className="bg-green-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📓</div>
-            <div className="text-sm font-medium text-gray-700">Reference</div>
-            <div className="text-2xl font-bold text-green-600">15</div>
-          </div>
-          <div className="bg-yellow-50 rounded-lg p-4 text-center">
-            <div className="text-2xl mb-2">📔</div>
-            <div className="text-sm font-medium text-gray-700">Biography</div>
-            <div className="text-2xl font-bold text-yellow-600">60</div>
+        {/* CATEGORY BREAKDOWN */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 16, marginBottom: 20 }}>
+          <p style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>Books by Category</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: 10 }}>
+            {categoryBreakdown.map(c => (
+              <div key={c.label} className={`${c.bg} rounded-xl p-3 text-center`}>
+                <div style={{ fontSize: 20, marginBottom: 4 }}>{c.emoji}</div>
+                <p style={{ fontSize: 11, color: '#475569', fontWeight: 600, marginBottom: 2 }}>{c.label}</p>
+                <p className={`text-xl font-bold ${c.text}`}>{c.count}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Search and Actions */}
-      <div className="bg-white rounded-lg border border-gray-200 mb-6">
-        <div className="p-6 flex items-center justify-between border-b border-gray-200">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        {/* SEARCH + TABLE CARD */}
+        <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, marginBottom: 20, overflow: 'hidden' }}>
+          {/* Toolbar */}
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <div style={{ position: 'relative', flex: '1 1 180px', minWidth: 0 }}>
+              <Search style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#94a3b8' }} />
               <input
                 type="text"
-                placeholder="Search by title, author, category, or ID..."
+                placeholder="Search title, author, category, ID..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{ width: '100%', paddingLeft: 34, paddingRight: 12, paddingTop: 8, paddingBottom: 8, border: '1px solid #d1d5db', borderRadius: 8, fontSize: 13, outline: 'none', boxSizing: 'border-box' }}
               />
             </div>
-            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-              <Filter className="w-4 h-4" />
-              Filter
-            </button>
+            <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+              <button style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 13, cursor: 'pointer', backgroundColor: '#fff', color: '#374151' }}>
+                <Filter style={{ width: 14, height: 14 }} /> Filter
+              </button>
+              <button style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 13, cursor: 'pointer', backgroundColor: '#fff', color: '#374151' }}>
+                <Download style={{ width: 14, height: 14 }} /> Export
+              </button>
+              <button style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', backgroundColor: '#0c2dea', color: '#fff', border: 'none', borderRadius: 8, fontSize: 13, cursor: 'pointer', fontWeight: 600 }}>
+                <Plus style={{ width: 14, height: 14 }} /> Add Book
+              </button>
+            </div>
           </div>
-          <div className="flex gap-3">
-            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
-              <Download className="w-4 h-4" />
-              Export
-            </button>
-            <button
-              onClick={() => navigate("add-new-book")}
-             className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
-              <Plus className="w-4 h-4" />
-              Add Book
-            </button>
-          </div>
-        </div>
 
-        {/* Books Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Book ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Title</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Author</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Quantity</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Unit Cost</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Total Cost</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Purchase Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Condition</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {filteredBooks.map((book) => (
-                <tr key={book.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{book.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900 max-w-xs">
-                    <div className="font-medium">{book.title}</div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{book.author}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(book.category)}`}>
-                      {book.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">{book.quantity}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{book.unitCost}</td>
-                  <td className="px-6 py-4 text-sm font-bold text-orange-600">{book.totalCost}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{book.purchaseDate}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getConditionColor(book.condition)}`}>
-                      {book.condition}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
-                      {book.status}
-                    </span>
-                  </td>
+          {/* Table */}
+          <div style={{ width: '100%', overflowX: 'hidden' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11, tableLayout: 'fixed' }}>
+              <thead>
+                <tr style={{ backgroundColor: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                  {[
+                    { label: 'Book ID', width: '8%' },
+                    { label: 'Title', width: '19%' },
+                    { label: 'Author', width: '12%' },
+                    { label: 'Category', width: '10%' },
+                    { label: 'Qty', width: '5%' },
+                    { label: 'Unit Cost', width: '8%' },
+                    { label: 'Total Cost', width: '10%' },
+                    { label: 'Purchase Date', width: '12%' },
+                    { label: 'Condition', width: '8%' },
+                    { label: 'Status', width: '8%' },
+                  ].map(h => (
+                    <th key={h.label} style={{ width: h.width, padding: '7px 8px', textAlign: 'left', fontSize: 10, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>{h.label}</th>
+                  ))}
                 </tr>
+              </thead>
+              <tbody>
+                {filteredBooks.length === 0 ? (
+                  <tr><td colSpan={10} style={{ textAlign: 'center', padding: '40px 16px', color: '#94a3b8', fontSize: 13 }}>No books found matching your search.</td></tr>
+                ) : filteredBooks.map((book, idx) => {
+                  const rowBg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
+                  return (
+                    <tr key={book.id} style={{ backgroundColor: rowBg, borderBottom: '1px solid #f1f5f9' }}
+                      onMouseEnter={e => e.currentTarget.style.backgroundColor = '#fff7ed'}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor = rowBg}>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', fontWeight: 600, color: '#374151', overflow: 'hidden', textOverflow: 'ellipsis' }} title={book.id}>{book.id}</td>
+                      <td style={{ padding: '6px 8px', overflow: 'hidden' }}>
+                        <p style={{ fontWeight: 600, color: '#1e293b', fontSize: 11, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={book.title}>{book.title}</p>
+                      </td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', color: '#475569', overflow: 'hidden', textOverflow: 'ellipsis' }} title={book.author}>{book.author}</td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                        <span className={`inline-flex px-1.5 py-0.5 text-[10px] font-semibold rounded-full ${getCategoryColor(book.category)}`}>{book.category}</span>
+                      </td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', fontWeight: 700, color: '#1e293b' }}>{book.quantity}</td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', color: '#475569' }}>{book.unitCost}</td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', fontWeight: 700, color: '#ea580c' }}>{book.totalCost}</td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis' }} title={book.purchaseDate}>{book.purchaseDate}</td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                        <span className={`inline-flex px-1.5 py-0.5 text-[10px] font-semibold rounded-full ${getConditionColor(book.condition)}`}>{book.condition}</span>
+                      </td>
+                      <td style={{ padding: '6px 8px', whiteSpace: 'nowrap' }}>
+                        <span className="inline-flex px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-green-100 text-green-800">{book.status}</span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <tfoot>
+                <tr style={{ backgroundColor: '#f8fafc', borderTop: '2px solid #e2e8f0' }}>
+                  <td colSpan={4} style={{ padding: '7px 8px', fontWeight: 700, fontSize: 11, color: '#1e293b' }}>TOTAL</td>
+                  <td style={{ padding: '7px 8px', fontWeight: 700, fontSize: 11, color: '#1e293b' }}>{totalBooks}</td>
+                  <td style={{ padding: '7px 8px' }} />
+                  <td style={{ padding: '7px 8px', fontWeight: 700, fontSize: 11, color: '#ea580c' }}>${totalInvestment.toLocaleString()}</td>
+                  <td colSpan={3} style={{ padding: '7px 8px' }} />
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          {/* Footer */}
+          <div style={{ padding: '8px 16px', borderTop: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}>
+            <span style={{ fontSize: 12, color: '#94a3b8' }}>Showing {filteredBooks.length} of {books.length} books</span>
+          </div>
+        </div>
+
+        {/* BOTTOM INFO CARDS */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+          {/* Budget Allocation */}
+          <div style={{ backgroundColor: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 12, padding: 16 }}>
+            <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>💡 Library Budget Allocation</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { label: 'Textbooks (54%)', pct: 0.54 },
+                { label: 'Reference Materials (15%)', pct: 0.15 },
+                { label: 'Fiction & Literature (18%)', pct: 0.18 },
+                { label: 'Other Categories (13%)', pct: 0.13 },
+              ].map(item => (
+                <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#374151' }}>
+                  <span>{item.label}</span>
+                  <span style={{ fontWeight: 700 }}>${(totalInvestment * item.pct).toFixed(0)}</span>
+                </div>
               ))}
-            </tbody>
-            <tfoot className="bg-gray-50 border-t-2 border-gray-300">
-              <tr>
-                <td colSpan={4} className="px-6 py-4 text-sm font-bold text-gray-900">TOTAL</td>
-                <td className="px-6 py-4 text-sm font-bold text-gray-900">{totalBooks}</td>
-                <td className="px-6 py-4"></td>
-                <td className="px-6 py-4 text-sm font-bold text-orange-600">${totalInvestment.toLocaleString()}</td>
-                <td colSpan={3}></td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
+            </div>
+          </div>
 
-      {/* Additional Info */}
-      <div className="grid grid-cols-2 gap-6">
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <span>💡</span> Library Budget Allocation
-          </h3>
-          <div className="space-y-2 text-sm text-gray-700">
-            <div className="flex justify-between">
-              <span>Textbooks (54%)</span>
-              <span className="font-semibold">${(totalInvestment * 0.54).toFixed(0)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Reference Materials (15%)</span>
-              <span className="font-semibold">${(totalInvestment * 0.15).toFixed(0)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Fiction & Literature (18%)</span>
-              <span className="font-semibold">${(totalInvestment * 0.18).toFixed(0)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Other Categories (13%)</span>
-              <span className="font-semibold">${(totalInvestment * 0.13).toFixed(0)}</span>
+          {/* Library Stats */}
+          <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 12, padding: 16 }}>
+            <p style={{ fontSize: 14, fontWeight: 700, color: '#1e293b', marginBottom: 12 }}>📊 Library Statistics</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { label: 'Average cost per book', value: `$${(totalInvestment / totalBooks).toFixed(2)}` },
+                { label: 'Most expensive book', value: '$50.00' },
+                { label: 'Books purchased this month', value: '175' },
+                { label: 'Library staff salaries', value: '$28,500/month' },
+              ].map(item => (
+                <div key={item.label} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#374151' }}>
+                  <span>{item.label}</span>
+                  <span style={{ fontWeight: 700 }}>{item.value}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <span>📊</span> Library Statistics
-          </h3>
-          <div className="space-y-2 text-sm text-gray-700">
-            <div className="flex justify-between">
-              <span>Average cost per book</span>
-              <span className="font-semibold">${(totalInvestment / totalBooks).toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Most expensive book</span>
-              <span className="font-semibold">$50.00</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Books purchased this month</span>
-              <span className="font-semibold">175</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Library staff salaries</span>
-              <span className="font-semibold">$28,500/month</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
-};
-
-export default LibraryDashBoard;
+}

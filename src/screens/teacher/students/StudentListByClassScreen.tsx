@@ -53,7 +53,7 @@ export default function MyStudents() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Top Navigation */}
       <nav className="bg-white border-b border-emerald-100 px-6 py-3 shadow-sm">
         <div className="flex items-center justify-between">

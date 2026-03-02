@@ -470,12 +470,12 @@ const DefaulterDueManagementScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 via-amber-50 to-yellow-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
               <AlertCircle className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -487,7 +487,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-xl p-5 shadow-md border-2 border-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Users className="w-6 h-6 text-white" />
@@ -498,7 +498,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
             <p className="text-xs text-red-600 mt-1">Students with pending fees</p>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-5 shadow-md border-2 border-orange-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-500 rounded-xl flex items-center justify-center shadow-lg">
                 <IndianRupee className="w-6 h-6 text-white" />
@@ -509,7 +509,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
             <p className="text-xs text-orange-600 mt-1">Outstanding balance</p>
           </div>
 
-          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-5 shadow-md border-2 border-amber-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Clock className="w-6 h-6 text-white" />
@@ -520,7 +520,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
             <p className="text-xs text-amber-600 mt-1">Critical attention needed</p>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 shadow-md border-2 border-blue-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Mail className="w-6 h-6 text-white" />
@@ -603,15 +603,15 @@ const DefaulterDueManagementScreen: React.FC = () => {
                   <option>&gt; 60 Days</option>
                   <option>&gt; 90 Days</option>
                 </select>
-                <button className="px-4 py-2.5 bg-gradient-to-r from-red-500 to-rose-500 text-white font-semibold hover:from-red-600 hover:to-rose-600 rounded-lg transition-all shadow-md flex items-center gap-2">
+                <button className="px-4 py-2.5 bg-blue-600 text-white font-semibold hover:from-red-600 hover:to-rose-600 rounded-lg transition-all shadow-md flex items-center gap-2">
                   <Download className="w-4 h-4" />
                   Export
                 </button>
               </div>
 
               {/* Table */}
-              <div className="overflow-x-auto rounded-xl border-2 border-red-200 shadow-sm">
-                <table className="w-full">
+              <div className="rounded-xl border-2 border-red-200 shadow-sm overflow-x-visible">
+                <table className="w-full table-fixed break-words">
                   <thead className="bg-gradient-to-r from-red-100 to-rose-100 sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-bold text-red-900 uppercase tracking-wider">Student</th>
@@ -632,7 +632,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                         }}
                         className={`hover:bg-red-50/50 cursor-pointer transition-colors ${idx % 2 === 1 ? 'bg-red-50/20' : ''}`}
                       >
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-rose-100 rounded-full flex items-center justify-center font-semibold text-red-700">
                               {defaulter.student.split(' ').map(n => n[0]).join('')}
@@ -643,13 +643,13 @@ const DefaulterDueManagementScreen: React.FC = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="text-lg font-bold text-red-600">₹{defaulter.dueAmount.toLocaleString()}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="text-sm text-gray-600">{defaulter.lastPaidDate}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <span className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold ${
                             defaulter.overdueDays > 90 ? 'bg-red-100 text-red-700 border-2 border-red-300' :
                             defaulter.overdueDays > 60 ? 'bg-orange-100 text-orange-700 border-2 border-orange-300' :
@@ -660,21 +660,21 @@ const DefaulterDueManagementScreen: React.FC = () => {
                             {defaulter.overdueDays} days
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="flex items-center gap-1 text-sm text-gray-600">
                             <Phone className="w-3.5 h-3.5" />
                             {defaulter.contact}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center gap-2">
+                        <td className="px-6 py-4 break-words align-top">
+                          <div className="flex flex-col gap-2">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedStudent(defaulter);
                                 setShowReminderModal(true);
                               }}
-                              className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm"
+                              className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm w-full"
                             >
                               <Send className="w-3.5 h-3.5 inline mr-1" />
                               Remind
@@ -685,7 +685,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                                 setSelectedStudent(defaulter);
                                 setShowPaymentModal(true);
                               }}
-                              className="px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold hover:from-green-600 hover:to-emerald-600 rounded-lg transition-all shadow-sm"
+                              className="px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold hover:from-green-600 hover:to-emerald-600 rounded-lg transition-all shadow-sm w-full"
                             >
                               <CheckCircle className="w-3.5 h-3.5 inline mr-1" />
                               Mark Paid
@@ -731,8 +731,8 @@ const DefaulterDueManagementScreen: React.FC = () => {
               </div>
 
               {/* Table */}
-              <div className="overflow-x-auto rounded-xl border-2 border-amber-200 shadow-sm">
-                <table className="w-full">
+              <div className="rounded-xl border-2 border-amber-200 shadow-sm overflow-x-visible">
+                <table className="w-full table-fixed break-words">
                   <thead className="bg-gradient-to-r from-amber-100 to-yellow-100 sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-bold text-amber-900 uppercase tracking-wider">Student</th>
@@ -755,7 +755,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                           }}
                           className={`hover:bg-amber-50/50 cursor-pointer transition-colors ${idx % 2 === 1 ? 'bg-amber-50/20' : ''}`}
                         >
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 break-words align-top">
                             <div className="flex items-center gap-3">
                               <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-yellow-100 rounded-full flex items-center justify-center font-semibold text-amber-700">
                                 {item.student.split(' ').map(n => n[0]).join('')}
@@ -766,16 +766,16 @@ const DefaulterDueManagementScreen: React.FC = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 break-words align-top">
                             <div className="text-sm font-semibold text-gray-900">₹{item.totalFee.toLocaleString()}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 break-words align-top">
                             <div className="text-sm font-semibold text-green-600">₹{item.paidAmount.toLocaleString()}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 break-words align-top">
                             <div className="text-lg font-bold text-red-600">₹{item.dueAmount.toLocaleString()}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 break-words align-top">
                             <div className="w-32">
                               <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
                                 <span>{percentage.toFixed(0)}%</span>
@@ -788,15 +788,15 @@ const DefaulterDueManagementScreen: React.FC = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center gap-2">
+                          <td className="px-6 py-4 break-words align-top">
+                            <div className="flex flex-col gap-2">
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setSelectedStudent(item);
                                   setShowReminderModal(true);
                                 }}
-                                className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm"
+                                className="px-3 py-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold hover:from-blue-600 hover:to-indigo-600 rounded-lg transition-all shadow-sm w-full"
                               >
                                 Remind
                               </button>
@@ -806,7 +806,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                                   setSelectedStudent(item);
                                   setShowPaymentModal(true);
                                 }}
-                                className="px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold hover:from-green-600 hover:to-emerald-600 rounded-lg transition-all shadow-sm"
+                                className="px-3 py-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold hover:from-green-600 hover:to-emerald-600 rounded-lg transition-all shadow-sm w-full"
                               >
                                 Mark Paid
                               </button>
@@ -853,8 +853,8 @@ const DefaulterDueManagementScreen: React.FC = () => {
               </div>
 
               {/* Table */}
-              <div className="overflow-x-auto rounded-xl border-2 border-blue-200 shadow-sm">
-                <table className="w-full">
+              <div className="rounded-xl border-2 border-blue-200 shadow-sm overflow-x-visible">
+                <table className="w-full table-fixed break-words">
                   <thead className="bg-gradient-to-r from-blue-100 to-indigo-100 sticky top-0">
                     <tr>
                       <th className="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase tracking-wider">Student</th>
@@ -871,7 +871,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                         key={reminder.id}
                         className={`hover:bg-blue-50/50 transition-colors ${idx % 2 === 1 ? 'bg-blue-50/20' : ''}`}
                       >
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-full flex items-center justify-center font-semibold text-blue-700">
                               {reminder.student.split(' ').map(n => n[0]).join('')}
@@ -882,16 +882,16 @@ const DefaulterDueManagementScreen: React.FC = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="text-base font-bold text-red-600">₹{reminder.dueAmount.toLocaleString()}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           <div className="flex items-center gap-1 text-sm text-gray-600">
                             <Phone className="w-3.5 h-3.5" />
                             {reminder.contact}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           {reminder.channel === 'SMS' && (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 border border-blue-300">
                               <Phone className="w-3 h-3" />
@@ -911,7 +911,7 @@ const DefaulterDueManagementScreen: React.FC = () => {
                             </span>
                           )}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-6 py-4 break-words align-top">
                           {reminder.status === 'Sent' && (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-green-100 text-green-700 border-2 border-green-300">
                               <CheckCircle className="w-3 h-3" />

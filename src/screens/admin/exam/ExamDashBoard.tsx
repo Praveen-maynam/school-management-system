@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
-import { Filter, Copy, Edit, Trash2, Plus, Eye, Monitor, FileText, Clock, Users, CheckCircle, XCircle, Settings, Calendar, Download, Upload, PlayCircle, StopCircle, AlertCircle } from 'lucide-react';
+import { Filter, Copy, Edit, Trash2, Plus, Eye, Monitor, FileText, Clock, Users, CheckCircle, XCircle, PlayCircle, StopCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 type ExamMode = 'offline' | 'online';
@@ -50,7 +50,6 @@ const ExamDashboard = () => {
   const [selectedMode, setSelectedMode] = useState<'all' | 'online' | 'offline'>('all');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [showOnlineConfigModal, setShowOnlineConfigModal] = useState(false);
   const [selectedExam, setSelectedExam] = useState<Exam | null>(null);
   const [createExamMode, setCreateExamMode] = useState<ExamMode>('offline');
 
@@ -1081,107 +1080,107 @@ const ExamDashboard = () => {
 
         {/* Exam Table */}
         <div className="bg-white rounded-lg mb-6 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="w-full overflow-hidden">
+            <table className="w-full table-fixed text-[10px]">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-left w-12">
+                  <th className="w-[3%] px-1 py-1 text-left">
                     <input type="checkbox" className="rounded border-gray-300" />
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Exam Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Mode</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Year/Term</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Classes</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Duration</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Enrollment</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                  <th className="w-[25%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Exam Name</th>
+                  <th className="w-[8%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Mode</th>
+                  <th className="w-[12%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Year/Term</th>
+                  <th className="w-[12%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Classes</th>
+                  <th className="w-[14%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Duration</th>
+                  <th className="w-[10%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Enrollment</th>
+                  <th className="w-[8%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Status</th>
+                  <th className="w-[8%] px-1 py-1 text-left text-[9px] font-medium text-gray-500 uppercase tracking-wide whitespace-nowrap">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredExams.length > 0 ? (
                   filteredExams.map((exam) => (
                     <tr key={exam.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
+                      <td className="px-1 py-1">
                         <input type="checkbox" className="rounded border-gray-300" />
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center space-x-3">
-                          <div className={`w-10 h-10 ${exam.color} rounded flex items-center justify-center text-white font-bold text-lg`}>
+                      <td className="px-1 py-1">
+                        <div className="flex items-center space-x-1 min-w-0">
+                          <div className={`w-6 h-6 ${exam.color} rounded flex items-center justify-center text-white font-bold text-[10px] flex-shrink-0`}>
                             {exam.icon}
                           </div>
-                          <div>
-                            <div className="font-medium text-gray-900">{exam.name}</div>
-                            <div className="text-sm text-gray-500">{exam.type}</div>
+                          <div className="min-w-0">
+                            <div className="font-medium text-gray-900 text-[10px] truncate" title={exam.name}>{exam.name}</div>
+                            <div className="text-[9px] text-gray-500 truncate" title={exam.type}>{exam.type}</div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          {getModeIcon(exam.mode)}
-                          <span className="text-sm text-gray-900 capitalize">{exam.mode}</span>
+                      <td className="px-1 py-1">
+                        <div className="flex items-center gap-1 min-w-0">
+                          <span className="text-gray-400">{getModeIcon(exam.mode)}</span>
+                          <span className="text-[10px] text-gray-900 capitalize truncate">{exam.mode}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{exam.year}</div>
-                        <div className="text-xs text-gray-500">{exam.term}</div>
+                      <td className="px-1 py-1">
+                        <div className="text-[10px] text-gray-900 truncate">{exam.year}</div>
+                        <div className="text-[9px] text-gray-500 truncate">{exam.term}</div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-wrap gap-1">
+                      <td className="px-1 py-1">
+                        <div className="flex flex-wrap gap-0.5 max-w-full">
                           {exam.classes.slice(0, 2).map((cls, idx) => (
-                            <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
+                            <span key={idx} className="px-1 py-0.5 bg-blue-100 text-blue-700 text-[9px] rounded whitespace-nowrap">
                               {cls}
                             </span>
                           ))}
                           {exam.classes.length > 2 && (
-                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                            <span className="px-1 py-0.5 bg-gray-100 text-gray-700 text-[9px] rounded whitespace-nowrap">
                               +{exam.classes.length - 2}
                             </span>
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">{exam.duration}</div>
-                        <div className="text-xs text-gray-500">{exam.days}</div>
+                      <td className="px-1 py-1">
+                        <div className="text-[10px] text-gray-900 truncate" title={exam.duration}>{exam.duration}</div>
+                        <div className="text-[9px] text-gray-500 truncate">{exam.days}</div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-1 text-sm text-gray-900">
-                          <Users className="w-4 h-4 text-gray-400" />
+                      <td className="px-1 py-1">
+                        <div className="flex items-center gap-1 text-[10px] text-gray-900 whitespace-nowrap">
+                          <Users className="w-3 h-3 text-gray-400" />
                           {exam.studentsEnrolled || 0}
                           {exam.mode === 'online' && exam.studentsCompleted !== undefined && (
-                            <span className="text-xs text-gray-500">/ {exam.studentsCompleted}</span>
+                            <span className="text-[9px] text-gray-500">/ {exam.studentsCompleted}</span>
                           )}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(exam.status)}`}>
+                      <td className="px-1 py-1">
+                        <span className={`px-1 py-0.5 rounded-full text-[9px] font-medium whitespace-nowrap ${getStatusColor(exam.status)}`}>
                           {exam.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center space-x-2">
+                      <td className="px-1 py-1">
+                        <div className="flex items-center space-x-0.5">
                           <button 
                             onClick={() => {
                               setSelectedExam(exam);
                               setShowDetailsModal(true);
                             }}
-                            className="p-1.5 hover:bg-gray-100 rounded" 
+                            className="p-0.5 hover:bg-gray-100 rounded" 
                             title="View Details"
                           >
-                            <Eye className="w-4 h-4 text-gray-600" />
+                            <Eye className="w-2.5 h-2.5 text-gray-600" />
                           </button>
-                          <button className="p-1.5 hover:bg-gray-100 rounded" title="Edit">
-                            <Edit className="w-4 h-4 text-gray-600" />
+                          <button className="p-0.5 hover:bg-gray-100 rounded" title="Edit">
+                            <Edit className="w-2.5 h-2.5 text-gray-600" />
                           </button>
-                          <button className="p-1.5 hover:bg-gray-100 rounded" title="Copy">
-                            <Copy className="w-4 h-4 text-gray-600" />
+                          <button className="p-0.5 hover:bg-gray-100 rounded" title="Copy">
+                            <Copy className="w-2.5 h-2.5 text-gray-600" />
                           </button>
                           <button 
                             onClick={() => handleDeleteExam(exam.id)}
-                            className="p-1.5 hover:bg-gray-100 rounded" 
+                            className="p-0.5 hover:bg-gray-100 rounded" 
                             title="Delete"
                           >
-                            <Trash2 className="w-4 h-4 text-gray-600" />
+                            <Trash2 className="w-2.5 h-2.5 text-gray-600" />
                           </button>
                         </div>
                       </td>
@@ -1189,7 +1188,7 @@ const ExamDashboard = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={9} className="px-6 py-12 text-center">
+                    <td colSpan={9} className="px-2 py-10 text-center">
                       <div className="text-gray-500">
                         <p className="text-lg font-medium">No exams found</p>
                         <p className="text-sm mt-1">Try adjusting your filters or create a new exam</p>

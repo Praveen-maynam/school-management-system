@@ -332,7 +332,7 @@ const SuperAdminSchoolManagement = () => {
             <div className="flex items-center gap-5">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-2xl blur-lg opacity-30"></div>
-                <div className="relative p-3 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg">
+                <div className="relative p-3 bg-blue-600 rounded-2xl shadow-lg">
                   <Building2 className="w-8 h-8 text-white" strokeWidth={2.5} />
                 </div>
               </div>
@@ -347,7 +347,7 @@ const SuperAdminSchoolManagement = () => {
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-500/20 transition-all duration-300 hover:scale-105"
+              className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-500/20 transition-all duration-300 hover:scale-105"
             >
               <Plus className="w-5 h-5" />
               Add New School
@@ -450,7 +450,7 @@ const SuperAdminSchoolManagement = () => {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/20'
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >

@@ -301,7 +301,7 @@ const CollectFineModal: React.FC<CollectFineModalProps> = ({ fine, onClose, onCo
 
 // Main Component
 const LibraryFineCollection: React.FC = () => {
-  const [fines, setFines] = useState<Fine[]>(mockFines);
+  const [fines] = useState<Fine[]>(mockFines);
   const [selectedFine, setSelectedFine] = useState<Fine | null>(null);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const [filters, setFilters] = useState({
@@ -517,26 +517,44 @@ const LibraryFineCollection: React.FC = () => {
 
         {/* Fine Collection Table */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+          <div className="w-full overflow-hidden">
+            <table className="w-full table-fixed text-[10px] divide-y divide-gray-200">
+              <colgroup>
+                <col className="w-[6%]" />
+                <col className="w-[8%]" />
+                <col className="w-[4%]" />
+                <col className="w-[4%]" />
+                <col className="w-[10%]" />
+                <col className="w-[7%]" />
+                <col className="w-[6%]" />
+                <col className="w-[6%]" />
+                <col className="w-[6%]" />
+                <col className="w-[4%]" />
+                <col className="w-[5%]" />
+                <col className="w-[6%]" />
+                <col className="w-[5%]" />
+                <col className="w-[5%]" />
+                <col className="w-[6%]" />
+                <col className="w-[12%]" />
+              </colgroup>
               <thead className="bg-gradient-to-r from-indigo-600 to-indigo-700 sticky top-0">
                 <tr>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Student ID</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Student Name</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Class</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Section</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Book Name</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Book ID</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Issue Date</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Due Date</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Return Date</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Late Days</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Fine/Day</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Total Fine</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Paid</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Balance</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Status</th>
-                  <th className="px-4 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Actions</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Student ID</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Student Name</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Class</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Section</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Book Name</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Book ID</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Issue Date</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Due Date</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Return Date</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Late Days</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Fine/Day</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Total Fine</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Paid</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Balance</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Status</th>
+                  <th className="px-1 py-1.5 text-left text-[9px] font-semibold text-white uppercase tracking-wide whitespace-nowrap">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -544,35 +562,36 @@ const LibraryFineCollection: React.FC = () => {
                   const { lateDays, totalFine, balance } = calculateFine(fine);
                   return (
                     <tr key={fine.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{fine.studentId}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.studentName}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.class}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.section}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.bookName}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.bookId}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.issueDate}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.dueDate}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">{fine.returnDate || 'N/A'}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-red-600">{lateDays}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">₹{fine.finePerDay}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">₹{totalFine}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm text-green-600 font-medium">₹{fine.paidAmount}</td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm font-bold text-red-600">₹{balance}</td>
-                      <td className="px-4 py-4 whitespace-nowrap">
-                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full border ${getStatusBadge(fine.status)}`}>
+                      <td className="px-1 py-1 text-[10px] font-medium text-gray-900 truncate" title={fine.studentId}>{fine.studentId}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 truncate" title={fine.studentName}>{fine.studentName}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">{fine.class}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">{fine.section}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 truncate" title={fine.bookName}>{fine.bookName}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 truncate" title={fine.bookId}>{fine.bookId}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">{fine.issueDate}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">{fine.dueDate}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">{fine.returnDate || 'N/A'}</td>
+                      <td className="px-1 py-1 text-[10px] font-semibold text-red-600 whitespace-nowrap">{lateDays}</td>
+                      <td className="px-1 py-1 text-[10px] text-gray-700 whitespace-nowrap">₹{fine.finePerDay}</td>
+                      <td className="px-1 py-1 text-[10px] font-semibold text-gray-900 whitespace-nowrap">₹{totalFine}</td>
+                      <td className="px-1 py-1 text-[10px] text-green-600 font-medium whitespace-nowrap">₹{fine.paidAmount}</td>
+                      <td className="px-1 py-1 text-[10px] font-bold text-red-600 whitespace-nowrap">₹{balance}</td>
+                      <td className="px-1 py-1">
+                        <span className={`px-1 py-0.5 inline-flex text-[9px] leading-3 font-semibold rounded-full border whitespace-nowrap ${getStatusBadge(fine.status)}`}>
                           {fine.status}
                         </span>
                       </td>
-                      <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <div className="flex gap-2">
-                          <button className="text-blue-600 hover:text-blue-800 font-medium">👁️</button>
+                      <td className="px-1 py-1 text-[10px]">
+                        <div className="flex items-center gap-1 whitespace-nowrap">
+                          <button className="text-blue-600 hover:text-blue-800 font-medium text-[10px] leading-none p-0" title="View">👁️</button>
                           <button 
                             onClick={() => handleCollectFine(fine)}
-                            className="text-green-600 hover:text-green-800 font-medium"
+                            className="text-green-600 hover:text-green-800 font-medium text-[10px] leading-none p-0"
+                            title="Collect Fine"
                           >
                             💵
                           </button>
-                          <button className="text-purple-600 hover:text-purple-800 font-medium">📜</button>
+                          <button className="text-purple-600 hover:text-purple-800 font-medium text-[10px] leading-none p-0" title="Receipt">📜</button>
                         </div>
                       </td>
                     </tr>

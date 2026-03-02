@@ -797,7 +797,7 @@ const SuperAdminSupportCenter: React.FC = () => {
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-900">Support Team</h3>
                 <button
-                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2"
                   onClick={() => setShowAddAgentModal(true)}
                 >
                   <User className="w-4 h-4" />
@@ -1047,7 +1047,7 @@ const SuperAdminSupportCenter: React.FC = () => {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-bold text-gray-900">Canned Responses</h3>
-                <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors text-sm">
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors text-sm">
                   Add Response
                 </button>
               </div>

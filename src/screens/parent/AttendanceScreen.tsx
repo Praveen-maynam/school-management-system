@@ -182,7 +182,7 @@ const AttendanceScreen: React.FC = () => {
   const attendanceLabel = getAttendanceLabel(mockMonthData.percentage);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-gradient-to-r from-orange-100 via-amber-50 to-yellow-100 border-b border-orange-200 sticky top-0 z-40 shadow-sm backdrop-blur-sm bg-opacity-90">
         <div className="max-w-7xl mx-auto px-6 py-6">

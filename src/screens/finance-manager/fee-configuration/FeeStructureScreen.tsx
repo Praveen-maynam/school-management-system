@@ -163,7 +163,7 @@ const FeesStructureScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-cream-50 to-teal-50 p-6 lg:p-8">
+    <div className="min-h-screen bg-white p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 animate-slideUp">
@@ -229,7 +229,7 @@ const FeesStructureScreen: React.FC = () => {
               onClick={() => setActiveTab(tab.key)}
               className={`flex-1 px-6 py-3 rounded-xl font-semibold transition-all ${
                 activeTab === tab.key
-                  ? 'bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-lg'
+                  ? 'bg-blue-600 text-white shadow-lg'
                   : 'text-slate-600 hover:bg-slate-50'
               }`}
             >
@@ -246,7 +246,7 @@ const FeesStructureScreen: React.FC = () => {
                 <h2 className="text-2xl font-serif text-slate-800 mb-1">Fee Structure Setup</h2>
                 <p className="text-sm text-slate-600">Define different fee structures applied to students</p>
               </div>
-              <button className="bg-teal-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-teal-700 transition-colors shadow-md hover:shadow-lg">
+              <button className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-teal-700 transition-colors shadow-md hover:shadow-lg">
                 <Plus className="w-5 h-5" />
                 Add Fee Structure
               </button>
@@ -335,7 +335,7 @@ const FeesStructureScreen: React.FC = () => {
                 <h2 className="text-2xl font-serif text-slate-800 mb-1">Fee Category Management</h2>
                 <p className="text-sm text-slate-600">Manage fee types used across the system</p>
               </div>
-              <button className="bg-emerald-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-emerald-700 transition-colors shadow-md hover:shadow-lg">
+              <button className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
                 <Plus className="w-5 h-5" />
                 Add Category
               </button>
@@ -404,7 +404,7 @@ const FeesStructureScreen: React.FC = () => {
                 <h2 className="text-2xl font-serif text-slate-800 mb-1">Discount Rules</h2>
                 <p className="text-sm text-slate-600">Define automatic fee discounts</p>
               </div>
-              <button className="bg-violet-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-violet-700 transition-colors shadow-md hover:shadow-lg">
+              <button className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
                 <Plus className="w-5 h-5" />
                 Add Discount
               </button>
@@ -495,7 +495,7 @@ const FeesStructureScreen: React.FC = () => {
                 <h2 className="text-2xl font-serif text-slate-800 mb-1">Late Fee Configuration</h2>
                 <p className="text-sm text-slate-600">Apply penalties for late payments</p>
               </div>
-              <button className="bg-rose-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-rose-700 transition-colors shadow-md hover:shadow-lg">
+              <button className="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg">
                 <Plus className="w-5 h-5" />
                 Add Late Fee Rule
               </button>

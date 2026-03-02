@@ -146,38 +146,38 @@ const TeachingStaffDetails = () => {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="w-full overflow-hidden">
+          <table className="w-full table-fixed text-xs">
             <thead className="bg-gray-50 border-y border-gray-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Teacher ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Subject</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Classes</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Experience</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Qualification</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Base Salary</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Bonus</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Benefits</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Total</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+                <th className="w-[8%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Teacher ID</th>
+                <th className="w-[16%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Name</th>
+                <th className="w-[10%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Subject</th>
+                <th className="w-[13%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Classes</th>
+                <th className="w-[8%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Experience</th>
+                <th className="w-[10%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Qualification</th>
+                <th className="w-[8%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Base Salary</th>
+                <th className="w-[7%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Bonus</th>
+                <th className="w-[7%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Benefits</th>
+                <th className="w-[6%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Total</th>
+                <th className="w-[7%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {currentTeachers.map((teacher) => (
                 <tr key={teacher.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{teacher.id}</td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{teacher.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{teacher.subject}</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{teacher.classes}</td>
-                  <td className="px-6 py-4 text-sm text-gray-700">{teacher.experience} yrs</td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{teacher.qualification}</td>
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">{teacher.baseSalary}</td>
-                  <td className="px-6 py-4 text-sm text-green-600 font-medium">{teacher.bonus}</td>
-                  <td className="px-6 py-4 text-sm text-blue-600 font-medium">{teacher.benefits}</td>
-                  <td className="px-6 py-4 text-sm font-bold text-purple-600">{teacher.total}</td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                  <td className="px-2 py-2 text-xs font-medium text-gray-900 whitespace-nowrap truncate">{teacher.id}</td>
+                  <td className="px-2 py-2 text-xs text-gray-900 truncate" title={teacher.name}>{teacher.name}</td>
+                  <td className="px-2 py-2 text-xs text-gray-700 truncate" title={teacher.subject}>{teacher.subject}</td>
+                  <td className="px-2 py-2 text-xs text-gray-600 truncate" title={teacher.classes}>{teacher.classes}</td>
+                  <td className="px-2 py-2 text-xs text-gray-700 whitespace-nowrap">{teacher.experience} yrs</td>
+                  <td className="px-2 py-2 text-xs text-gray-600 truncate" title={teacher.qualification}>{teacher.qualification}</td>
+                  <td className="px-2 py-2 text-xs font-semibold text-gray-900 whitespace-nowrap">{teacher.baseSalary}</td>
+                  <td className="px-2 py-2 text-xs text-green-600 font-medium whitespace-nowrap">{teacher.bonus}</td>
+                  <td className="px-2 py-2 text-xs text-blue-600 font-medium whitespace-nowrap">{teacher.benefits}</td>
+                  <td className="px-2 py-2 text-xs font-bold text-purple-600 whitespace-nowrap">{teacher.total}</td>
+                  <td className="px-2 py-2">
+                    <span className="inline-flex px-2 py-0.5 text-[11px] font-medium bg-green-100 text-green-800 rounded-full whitespace-nowrap">
                       {teacher.status}
                     </span>
                   </td>

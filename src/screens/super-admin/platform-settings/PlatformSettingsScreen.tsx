@@ -218,8 +218,8 @@ const TabButton: React.FC<TabButtonProps> = ({ active, icon: Icon, label, onClic
       group relative flex items-center gap-3 px-5 py-3.5 rounded-xl font-bold text-sm
       transition-all duration-200
       ${active 
-        ? 'bg-gradient-to-r from-teal-500 to-cyan-600 text-white shadow-lg shadow-teal-500/30' 
-        : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+        ? 'bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30' 
+        : 'text-blue-700 hover:bg-blue-100 hover:text-blue-900'
       }
     `}
   >
@@ -578,7 +578,7 @@ const PlatformSettings: React.FC = () => {
             <div className="flex items-center gap-5">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-3xl blur opacity-30 animate-pulse" />
-                <div className="relative p-4 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-3xl shadow-lg">
+                <div className="relative p-4 bg-blue-600 rounded-3xl shadow-lg">
                   <Settings className="w-8 h-8 text-white" />
                 </div>
               </div>
@@ -804,12 +804,12 @@ const PlatformSettings: React.FC = () => {
               <div className="flex gap-3">
                 <button
                   onClick={() => handleTestConnection('SMS')}
-                  className="px-6 py-3 bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 rounded-xl font-bold text-slate-900 transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-blue-600 hover:from-blue-600 hover:to-blue-800 text-white border-2 border-blue-700 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2"
                 >
                   <Zap className="w-5 h-5" />
                   Test Connection
                 </button>
-                <button className="px-6 py-3 bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 rounded-xl font-bold text-slate-900 transition-colors flex items-center gap-2">
+                <button className="px-6 py-3 bg-blue-600 hover:from-blue-600 hover:to-blue-800 text-white border-2 border-blue-700 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
                   <ExternalLink className="w-5 h-5" />
                   View Documentation
                 </button>
@@ -1045,12 +1045,12 @@ const PlatformSettings: React.FC = () => {
               <div className="flex gap-3">
                 <button
                   onClick={() => handleTestConnection('Email')}
-                  className="px-6 py-3 bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 rounded-xl font-bold text-slate-900 transition-colors flex items-center gap-2"
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white border-2 border-blue-700 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2"
                 >
                   <Mail className="w-5 h-5" />
                   Send Test Email
                 </button>
-                <button className="px-6 py-3 bg-slate-100 hover:bg-slate-200 border-2 border-slate-200 rounded-xl font-bold text-slate-900 transition-colors flex items-center gap-2">
+                <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white border-2 border-blue-700 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
                   <ExternalLink className="w-5 h-5" />
                   View Documentation
                 </button>

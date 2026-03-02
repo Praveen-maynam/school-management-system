@@ -427,7 +427,7 @@ export default function DeductionManagement() {
             </div>
             <button
               onClick={() => { setModalMode("add"); setEditTarget(null); }}
-              className="flex items-center gap-2.5 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg text-sm font-semibold"
+              className="flex items-center gap-2.5 px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg text-sm font-semibold"
             >
               <Plus className="w-4.5 h-4.5" /> Add Deduction
             </button>

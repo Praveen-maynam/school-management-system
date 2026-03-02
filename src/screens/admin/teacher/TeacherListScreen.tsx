@@ -1284,7 +1284,7 @@ const SchoolAdminPanel = () => {
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            className="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-lg "
           >
             <UserPlus className="w-4 h-4" /> Add Teacher
           </button>

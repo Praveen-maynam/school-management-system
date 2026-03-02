@@ -307,7 +307,7 @@ const LibraryFinance = () => {
               <Download className="w-4 h-4" />
               Export
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
               <Plus className="w-4 h-4" />
               Add Book
             </button>
@@ -315,20 +315,20 @@ const LibraryFinance = () => {
         </div>
 
         {/* Books Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="w-full overflow-hidden">
+          <table className="w-full table-fixed text-xs">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Book ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Title</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Author</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Quantity</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Unit Cost</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Total Cost</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Purchase Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Condition</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">Status</th>
+                <th className="w-[9%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Book ID</th>
+                <th className="w-[22%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Title</th>
+                <th className="w-[13%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Author</th>
+                <th className="w-[11%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Category</th>
+                <th className="w-[8%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Quantity</th>
+                <th className="w-[8%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Unit Cost</th>
+                <th className="w-[9%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Total Cost</th>
+                <th className="w-[10%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Purchase Date</th>
+                <th className="w-[5%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Condition</th>
+                <th className="w-[5%] px-2 py-2 text-left text-[11px] font-medium text-gray-600 uppercase tracking-wide whitespace-nowrap">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -339,27 +339,27 @@ const LibraryFinance = () => {
               ) : (
                 paginatedBooks.map((book) => (
                   <tr key={book.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{book.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs">
-                      <div className="font-medium">{book.title}</div>
+                    <td className="px-2 py-2 text-xs font-medium text-gray-900 whitespace-nowrap truncate">{book.id}</td>
+                    <td className="px-2 py-2 text-xs text-gray-900 truncate" title={book.title}>
+                      <div className="font-medium truncate">{book.title}</div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{book.author}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getCategoryColor(book.category)}`}>
+                    <td className="px-2 py-2 text-xs text-gray-700 truncate" title={book.author}>{book.author}</td>
+                    <td className="px-2 py-2">
+                      <span className={`inline-flex px-2 py-0.5 text-[11px] font-medium rounded-full whitespace-nowrap ${getCategoryColor(book.category)}`}>
                         {book.category}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm font-semibold text-gray-900">{book.quantity}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{book.unitCost}</td>
-                    <td className="px-6 py-4 text-sm font-bold text-orange-600">{book.totalCost}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{book.purchaseDate}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${getConditionColor(book.condition)}`}>
+                    <td className="px-2 py-2 text-xs font-semibold text-gray-900 whitespace-nowrap">{book.quantity}</td>
+                    <td className="px-2 py-2 text-xs text-gray-700 whitespace-nowrap">{book.unitCost}</td>
+                    <td className="px-2 py-2 text-xs font-bold text-orange-600 whitespace-nowrap">{book.totalCost}</td>
+                    <td className="px-2 py-2 text-xs text-gray-600 whitespace-nowrap truncate" title={book.purchaseDate}>{book.purchaseDate}</td>
+                    <td className="px-2 py-2">
+                      <span className={`inline-flex px-2 py-0.5 text-[11px] font-medium rounded-full whitespace-nowrap ${getConditionColor(book.condition)}`}>
                         {book.condition}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="inline-flex px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                    <td className="px-2 py-2">
+                      <span className="inline-flex px-2 py-0.5 text-[11px] font-medium bg-green-100 text-green-800 rounded-full whitespace-nowrap">
                         {book.status}
                       </span>
                     </td>
@@ -369,10 +369,10 @@ const LibraryFinance = () => {
             </tbody>
             <tfoot className="bg-gray-50 border-t-2 border-gray-300">
               <tr>
-                <td colSpan={4} className="px-6 py-4 text-sm font-bold text-gray-900">TOTAL</td>
-                <td className="px-6 py-4 text-sm font-bold text-gray-900">{totalBooks}</td>
-                <td className="px-6 py-4"></td>
-                <td className="px-6 py-4 text-sm font-bold text-orange-600">${totalInvestment.toLocaleString()}</td>
+                <td colSpan={4} className="px-2 py-2 text-xs font-bold text-gray-900">TOTAL</td>
+                <td className="px-2 py-2 text-xs font-bold text-gray-900">{totalBooks}</td>
+                <td className="px-2 py-2"></td>
+                <td className="px-2 py-2 text-xs font-bold text-orange-600">${totalInvestment.toLocaleString()}</td>
                 <td colSpan={3}></td>
               </tr>
             </tfoot>

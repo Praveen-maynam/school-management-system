@@ -225,10 +225,7 @@ const FinanceDashboard = () => {
               <h2 className="text-xl font-bold text-gray-900">Non-Teaching Staff Categories</h2>
               <p className="text-sm text-gray-600 mt-1">Detailed breakdown of non-teaching staff expenses</p>
             </div>
-            <button className="flex items-center gap-2 text-sm text-purple-600 hover:text-purple-700">
-              <Filter className="w-4 h-4" />
-              Filter
-            </button>
+            
           </div>
 
           <div className="grid grid-cols-5 gap-4">

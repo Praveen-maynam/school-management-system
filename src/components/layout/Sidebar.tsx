@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, use, Children } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Bus, Book, Settings, BarChart2, ClipboardList, ChevronLeft, ChevronRight, GraduationCap, ChevronDown, ChevronUp,Megaphone, Package, Trophy, MapPin } from "lucide-react";
+import { Home, Users, User, Calendar, Wallet, BookOpen, FileText, School, Bus, Book, Settings, BarChart2, ClipboardList, ChevronLeft, ChevronRight, GraduationCap, ChevronDown, ChevronUp,Megaphone, Package, Trophy, CalendarDays, Clock3, ClipboardCheck } from "lucide-react";
 import { useSidebar } from "../../context/SidebarContext";
 import Avatar from "../ui/Avatar";
 
@@ -105,23 +105,12 @@ const Sidebar = () => {
        
         { label: 'Defaulter List', path: '/finance-manager/dues-defaulters/defaulters', icon: Users },
        
-        { label: 'Follow Up System', path: '/finance-manager/dues-defaulters/follow-up', icon: Users },
+
         { label: 'Collection Reports', path: '/finance-manager/dues-defaulters/collection-reports', icon: BarChart2 },
-        { label: 'Daily Collection', path: '/finance-manager/financial-reports/daily', icon: BarChart2 },
-        { label: 'Monthly Report', path: '/finance-manager/financial-reports/monthly', icon: BarChart2 },
-        { label: 'Category Breakdown', path: '/finance-manager/financial-reports/category-breakdown', icon: BarChart2 },
-        { label: 'Payment Method Analysis', path: '/finance-manager/financial-reports/payment-method', icon: BarChart2 },
-        { label: 'Export Year End', path: '/finance-manager/financial-reports/export-year-end', icon: BarChart2 },
+        
         { label: 'Salary Calculation', path: '/finance-manager/payroll/salary-calculation', icon: Users },
         { label: 'Deduction Management', path: '/finance-manager/payroll/deduction-management', icon: Users },
-        { label: 'Payslip Generation', path: '/finance-manager/payroll/payslip-generation', icon: Users },
-        { label: 'Salary Payment', path: '/finance-manager/payroll/salary-payment', icon: Users },
-        { label: 'Salary Report', path: '/finance-manager/payroll/salary-report', icon: Users },
-        { label: 'Tax Calculation', path: '/finance-manager/payroll/tax-calculation', icon: Users },
-        { label: 'Bank Reconciliation', path: '/finance-manager/reconciliation/bank', icon: Wallet },
-        { label: 'Cash Book', path: '/finance-manager/reconciliation/cash-book', icon: Wallet },
-        { label: 'Ledger Management', path: '/finance-manager/reconciliation/ledger', icon: Wallet },
-        { label: 'Account Verification', path: '/finance-manager/reconciliation/account-verification', icon: Wallet },
+
       ];
     } else if (location.pathname.startsWith('/teacher')) {
       return [
@@ -157,14 +146,14 @@ const Sidebar = () => {
         { path: "/parent/dashboard", icon: Home, label: "Dashboard" },
         { path: "/parent/attendance", icon: Calendar, label: "Attendance" },
         { path: "/parent/fee-details", icon: Wallet, label: "Fee Details" },
-        { path: "/parent/homework", icon: BookOpen, label: "Homework" },
-        { path: "/parent/subjects", icon: BookOpen, label: "Subjects" },
-        { path: "/parent/teacher", icon: Settings, label: "Teacher" },
-        {path: "/parent/academic-calendar", icon: Settings, label: "Academic Calendar" },
+        { path: "/parent/homework", icon: ClipboardList, label: "Homework" },
+        { path: "/parent/subjects", icon: Book, label: "Subjects" },
+        { path: "/parent/teacher", icon: GraduationCap, label: "Teacher" },
+        {path: "/parent/academic-calendar", icon: CalendarDays, label: "Academic Calendar" },
         {path: "/parent/reports", icon: BarChart2, label: "Reports" },
-        {path: "/parent/timetable", icon: BookOpen, label: "Time Table" },
-        {path: "/parent/leave", icon: Book, label: "Leave" },
-        {path: "/parent/result", icon: Megaphone, label: "Result" },
+        {path: "/parent/timetable", icon: Clock3, label: "Time Table" },
+        {path: "/parent/leave", icon: ClipboardCheck, label: "Leave" },
+        {path: "/parent/result", icon: Trophy, label: "Result" },
         { path: "/parent/exams", icon: FileText, label: "Exams" },
         { path: "/parent/profile", icon: User, label: "Profile" },
       ];
@@ -218,19 +207,35 @@ const Sidebar = () => {
       {/* Logo / Brand and Toggle Button on same line */}
       <div className={`flex items-center justify-between border-b border-[#23265a] ${isOpen ? 'p-2' : 'p-2'}`}>
         <button
-  onClick={toggleSidebar}
-  className="flex absolute -right-3 top-2 bg-blue-600 text-white rounded-full p-1 shadow-lg hover:bg-blue-700 transition-colors z-50 lg:flex"
-  aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
->
-  {isOpen ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
-</button>
+          onClick={toggleSidebar}
+          className="flex absolute -right-3 top-2 bg-blue-600 text-white rounded-full p-1 shadow-lg hover:bg-blue-700 transition-colors z-50 lg:flex"
+          aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+        >
+          {isOpen ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
+        </button>
 
         {isOpen ? (
-          <h1 className="text-lg font-bold text-blue-400 tracking-wide">SchoolApp</h1>
+          <div className="flex items-center gap-2 w-full">
+            <img
+              src={require('../../assets/images/logo.png')}
+              alt="VidyaTrack School Management System Logo"
+              className="h-10 w-auto max-w-[40px] object-contain drop-shadow-md"
+              style={{ minWidth: 32 }}
+              loading="lazy"
+              srcSet={require('../../assets/images/logo.png') + ' 1x'}
+            />
+            <span className="text-lg font-bold text-blue-400 tracking-wide whitespace-nowrap">VidyaTrack</span>
+          </div>
         ) : (
-          <h1 className="text-base font-bold text-blue-400 tracking-wide">S</h1>
+          <img
+            src={require('../../assets/images/logo.png')}
+            alt="VidyaTrack Logo"
+            className="h-8 w-8 object-contain drop-shadow-md mx-auto"
+            style={{ minWidth: 32 }}
+            loading="lazy"
+            srcSet={require('../../assets/images/logo.png') + ' 1x'}
+          />
         )}
-       
       </div>
 
       {/* Navigation */}

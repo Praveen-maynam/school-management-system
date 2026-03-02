@@ -322,7 +322,7 @@ const OnlinePaymentsScreen: React.FC = () => {
                 // Handle save logic
                 setShowAddModal(false);
               }}
-              className="px-5 py-2.5 bg-green-600 text-white font-medium hover:bg-green-700 rounded-lg transition-colors shadow-sm"
+              className="px-5 py-2.5 bg-blue-600 text-white font-medium hover:bg-blue-700 rounded-lg transition-colors shadow-sm"
             >
               Save Payment
             </button>
@@ -482,7 +482,7 @@ const OnlinePaymentsScreen: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 via-indigo-50 to-pink-50">
+    <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -492,7 +492,7 @@ const OnlinePaymentsScreen: React.FC = () => {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl p-5 shadow-md border-2 border-emerald-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-green-500 rounded-xl flex items-center justify-center shadow-lg">
                 <CheckCircle className="w-6 h-6 text-white" />
@@ -503,7 +503,7 @@ const OnlinePaymentsScreen: React.FC = () => {
             <p className="text-xs text-emerald-600 mt-1">All time record</p>
           </div>
 
-          <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-5 shadow-md border-2 border-amber-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
                 <Clock className="w-6 h-6 text-white" />
@@ -514,7 +514,7 @@ const OnlinePaymentsScreen: React.FC = () => {
             <p className="text-xs text-amber-600 mt-1">Awaiting confirmation</p>
           </div>
 
-          <div className="bg-gradient-to-br from-red-50 to-rose-50 rounded-xl p-5 shadow-md border-2 border-red-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-rose-500 rounded-xl flex items-center justify-center shadow-lg">
                 <XCircle className="w-6 h-6 text-white" />
@@ -525,7 +525,7 @@ const OnlinePaymentsScreen: React.FC = () => {
             <p className="text-xs text-red-600 mt-1">Needs attention</p>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 shadow-md border-2 border-blue-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
                 <DollarSign className="w-6 h-6 text-white" />
@@ -539,7 +539,7 @@ const OnlinePaymentsScreen: React.FC = () => {
 
         {/* Additional Metrics Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl p-5 shadow-md border-2 border-purple-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-11 h-11 bg-gradient-to-br from-purple-500 to-violet-500 rounded-lg flex items-center justify-center shadow-lg">
                 <span className="text-xl">💰</span>
@@ -550,7 +550,7 @@ const OnlinePaymentsScreen: React.FC = () => {
             <p className="text-xs text-purple-600 mt-1">Collected this month</p>
           </div>
 
-          <div className="bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl p-5 shadow-md border-2 border-rose-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-11 h-11 bg-gradient-to-br from-rose-500 to-pink-500 rounded-lg flex items-center justify-center shadow-lg">
                 <RefreshCw className="w-5 h-5 text-white" />
@@ -561,7 +561,7 @@ const OnlinePaymentsScreen: React.FC = () => {
             <p className="text-xs text-rose-600 mt-1">Requires processing</p>
           </div>
 
-          <div className="bg-gradient-to-br from-cyan-50 to-teal-50 rounded-xl p-5 shadow-md border-2 border-cyan-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="bg-white rounded-xl p-5 shadow-md border-2 border-black-200 hover:shadow-lg hover:scale-105 transition-all duration-200">
             <div className="flex items-center justify-between mb-3">
               <div className="w-11 h-11 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-lg flex items-center justify-center shadow-lg">
                 <CheckCircle className="w-5 h-5 text-white" />
@@ -732,7 +732,7 @@ const OnlinePaymentsScreen: React.FC = () => {
                 </div>
                 <button
                   onClick={() => setShowAddModal(true)}
-                  className="px-4 py-2 bg-green-600 text-white font-medium hover:bg-green-700 rounded-lg transition-colors text-sm flex items-center gap-2 shadow-sm"
+                  className="px-4 py-2 bg-blue-600 text-white font-medium hover:bg-blue-700 rounded-lg transition-colors text-sm flex items-center gap-2 shadow-sm"
                 >
                   <Plus className="w-4 h-4" />
                   Add Entry
@@ -864,7 +864,7 @@ const OnlinePaymentsScreen: React.FC = () => {
         </div>
 
         {/* Refund Processing Section */}
-        <div className="mt-8 bg-gradient-to-br from-rose-50 to-pink-50 rounded-xl shadow-lg border-2 border-rose-200 overflow-hidden">
+        <div className="mt-8 bg-white rounded-xl shadow-lg border-2 border-rose-200 overflow-hidden">
           <div className="bg-gradient-to-r from-rose-100 to-pink-100 px-6 py-4 border-b-2 border-rose-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -949,7 +949,7 @@ const OnlinePaymentsScreen: React.FC = () => {
         </div>
 
         {/* Payment Verification Queue */}
-        <div className="mt-8 bg-gradient-to-br from-cyan-50 to-teal-50 rounded-xl shadow-lg border-2 border-cyan-200 overflow-hidden">
+        <div className="mt-8 bg-white rounded-xl shadow-lg border-2 border-cyan-200 overflow-hidden">
           <div className="bg-gradient-to-r from-cyan-100 to-teal-100 px-6 py-4 border-b-2 border-cyan-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">

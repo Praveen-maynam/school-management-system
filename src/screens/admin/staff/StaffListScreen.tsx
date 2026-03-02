@@ -1053,7 +1053,7 @@ const SchoolAdminDashboard = () => {
   // Departments Overview
   const DepartmentsOverview = () => (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 ml-4 mr-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Non-Teaching Staff</h2>
           <p className="text-gray-500 mt-1">Manage departments and staff members</p>
@@ -1073,7 +1073,7 @@ const SchoolAdminDashboard = () => {
       </div>
 
       {showAddDepartmentModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 ">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
             <button
               className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
@@ -1112,7 +1112,7 @@ const SchoolAdminDashboard = () => {
                 }, 1200);
               }}
             >
-              <div className="mb-4">
+              <div className="mb-4 ">
                 <label className="block text-gray-700 font-medium mb-1">Department Name</label>
                 <input
                   type="text"
@@ -1178,7 +1178,7 @@ const SchoolAdminDashboard = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 ml-4 mr-4">
         <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
           <UserCog className="w-8 h-8 text-blue-600 mb-3" />
           <p className="text-sm text-gray-600">Total Staff</p>
@@ -1201,8 +1201,8 @@ const SchoolAdminDashboard = () => {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Departments</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <h3 className="text-lg font-semibold text-gray-900 mb-4 ml-4 ">Departments</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 ml-4 mr-4">
         {departmentsData.map((dept) => (
           <div
             key={dept.id}
@@ -1244,7 +1244,7 @@ const SchoolAdminDashboard = () => {
                 <div className={`p-3 rounded-lg border ${colorClasses[dept.color]}`}>
                   {dept.icon}
                 </div>
-                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                {/* <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" /> */}
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-2">{dept.name}</h3>
               <p className="text-sm text-gray-500 mb-4">Head: {dept.headOfDepartment}</p>
@@ -1349,7 +1349,7 @@ const SchoolAdminDashboard = () => {
 
     return (
       <div>
-        <div className="mb-6">
+        <div className="mb-6 ml-4 mr-4">
           <button
             onClick={() => setSelectedDepartment(null)}
             className="text-blue-600 hover:text-blue-700 text-sm font-medium mb-3 flex items-center gap-1"
@@ -1480,88 +1480,100 @@ const SchoolAdminDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
+        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden ml-4 mr-4">
+          <table className="w-full table-fixed text-[8px] divide-y divide-gray-200">
+            <colgroup>
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '12%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '15%' }} />
+              <col style={{ width: '7%' }} />
+              <col style={{ width: '9%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '7%' }} />
+              <col style={{ width: '6%' }} />
+              <col style={{ width: '8%' }} />
+            </colgroup>
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Employee</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Position</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Emp ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contact</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Shift</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Salary</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Attendance</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Payslips</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Employee</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Position</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Emp ID</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Contact</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Shift</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Salary</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Attendance</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Payslips</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Status</th>
+                <th className="px-0.5 py-1 text-left text-[8px] font-semibold text-gray-500 uppercase tracking-wide whitespace-nowrap truncate">Actions</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {paginatedStaff.map((member) => (
                 <tr key={member.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <td className="px-0.5 py-1">
+                    <div className="flex items-center gap-1 min-w-0">
+                      <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-[8px] font-bold flex-shrink-0">
                         {member.name.split(' ').map((n: string) => n[0]).join('')}
                       </div>
-                      <div>
-                        <p className="font-medium text-gray-900">{member.name}</p>
-                        <p className="text-sm text-gray-500">{member.qualification}</p>
+                      <div className="min-w-0">
+                        <p className="font-medium text-gray-900 text-[8px] truncate" title={member.name}>{member.name}</p>
+                        <p className="text-[8px] text-gray-500 truncate" title={member.qualification}>{member.qualification}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-900">{member.position}</td>
-                  <td className="px-6 py-4 text-sm font-medium text-blue-600">{member.empId}</td>
-                  <td className="px-6 py-4">
-                    <div className="text-sm text-gray-900">
-                      <div className="flex items-center gap-1 mb-1">
-                        <Phone className="w-3 h-3 text-gray-400" />
-                        <span>{member.phone}</span>
+                  <td className="px-0.5 py-1 text-[8px] text-gray-900 truncate" title={member.position}>{member.position}</td>
+                  <td className="px-0.5 py-1 text-[8px] font-medium text-blue-600 truncate" title={member.empId}>{member.empId}</td>
+                  <td className="px-0.5 py-1">
+                    <div className="text-[8px] text-gray-900 min-w-0">
+                      <div className="flex items-center gap-1 mb-0.5 min-w-0">
+                        <Phone className="w-2 h-2 text-gray-400" />
+                        <span className="truncate" title={member.phone}>{member.phone}</span>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Mail className="w-3 h-3 text-gray-400" />
-                        <span className="truncate max-w-[150px]">{member.email}</span>
+                      <div className="flex items-center gap-1 min-w-0">
+                        <Mail className="w-2 h-2 text-gray-400" />
+                        <span className="truncate" title={member.email}>{member.email}</span>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                  <td className="px-0.5 py-1">
+                    <span className="px-1 py-0.5 bg-blue-100 text-blue-700 rounded text-[8px] font-medium whitespace-nowrap">
                       {member.shift}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">₹{member.salary.toLocaleString()}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-2 py-1 rounded text-xs font-medium ${getAttendanceStatus(member.empId) === 'Present' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  <td className="px-0.5 py-1 text-[8px] font-medium text-gray-900 whitespace-nowrap">₹{member.salary.toLocaleString()}</td>
+                  <td className="px-0.5 py-1">
+                    <span className={`px-1 py-0.5 rounded text-[8px] font-medium whitespace-nowrap ${getAttendanceStatus(member.empId) === 'Present' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                       {getAttendanceStatus(member.empId)}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-0.5 py-1">
                     <button
                       onClick={() => handleViewPayslips(member)}
-                      className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium"
+                      className="flex items-center gap-0.5 text-[8px] text-blue-600 hover:text-blue-800 font-medium"
                     >
-                      <FileText className="w-4 h-4" />
+                      <FileText className="w-2.5 h-2.5" />
                       {member.payslips?.length || 0}
                     </button>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">
+                  <td className="px-0.5 py-1">
+                    <span className="px-1 py-0.5 bg-green-100 text-green-700 rounded text-[8px] font-medium whitespace-nowrap">
                       {member.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex gap-2">
-                      <button onClick={() => setSelectedStaff(member)} className="p-1 hover:bg-gray-100 rounded" title="View">
-                        <Eye className="w-4 h-4 text-gray-600" />
+                  <td className="px-0.5 py-1">
+                    <div className="flex gap-0.5">
+                      <button onClick={() => setSelectedStaff(member)} className="p-0 hover:bg-gray-100 rounded" title="View">
+                        <Eye className="w-2.5 h-2.5 text-gray-600" />
                       </button>
-                      <button className="p-1 hover:bg-gray-100 rounded" title="Edit">
-                        <Edit className="w-4 h-4 text-blue-600" />
+                      <button className="p-0 hover:bg-gray-100 rounded" title="Edit">
+                        <Edit className="w-2.5 h-2.5 text-blue-600" />
                       </button>
-                      <button onClick={() => handleAddPayslip(member)} className="p-1 hover:bg-blue-100 text-blue-600 rounded" title="Add Payslip">
-                        <Upload className="w-4 h-4" />
+                      <button onClick={() => handleAddPayslip(member)} className="p-0 hover:bg-blue-100 text-blue-600 rounded" title="Add Payslip">
+                        <Upload className="w-2.5 h-2.5" />
                       </button>
-                      <button className="p-1 hover:bg-gray-100 rounded" title="Delete">
-                        <Trash2 className="w-4 h-4 text-red-600" />
+                      <button className="p-0 hover:bg-gray-100 rounded" title="Delete">
+                        <Trash2 className="w-2.5 h-2.5 text-red-600" />
                       </button>
                     </div>
                   </td>

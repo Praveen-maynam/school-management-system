@@ -213,21 +213,21 @@ const SchoolSubscription: React.FC = () => {
   const currentPlan = plans.find(p => p.id === selectedPlan);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-6 px-2 sm:px-4 md:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
             School Management System
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Choose your plan and select the modules you need. Build a customized solution for your institution.
           </p>
         </div>
 
         {/* Progress Steps */}
-        <div className="mb-12">
-          <div className="flex items-center justify-center space-x-4">
+        <div className="mb-8 md:mb-12">
+          <div className="flex flex-col md:flex-row items-center justify-center md:space-x-4 space-y-4 md:space-y-0">
             {[
               { num: 1, label: 'Select Plan' },
               { num: 2, label: 'Choose Modules' },
@@ -263,7 +263,7 @@ const SchoolSubscription: React.FC = () => {
               Select Your Institution Plan
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {plans.map((plan) => (
                 <div
                   key={plan.id}
@@ -318,10 +318,10 @@ const SchoolSubscription: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-6 md:mt-8">
               <button
                 onClick={() => setCurrentStep(2)}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+                className="bg-blue-600 text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg w-full max-w-xs"
               >
                 Continue to Modules
               </button>
@@ -347,7 +347,7 @@ const SchoolSubscription: React.FC = () => {
                 <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm mr-3">Core</span>
                 Essential Modules
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {getModulesByCategory('core').map((module) => (
                   <div
                     key={module.id}
@@ -393,7 +393,7 @@ const SchoolSubscription: React.FC = () => {
                 <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm mr-3">Optional</span>
                 Enhanced Features
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                 {getModulesByCategory('optional').map((module) => (
                   <div
                     key={module.id}
@@ -427,7 +427,7 @@ const SchoolSubscription: React.FC = () => {
                 <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm mr-3">Premium</span>
                 Advanced Features
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
                 {getModulesByCategory('premium').map((module) => (
                   <div
                     key={module.id}
@@ -455,16 +455,16 @@ const SchoolSubscription: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-between mt-8">
+            <div className="flex flex-col md:flex-row justify-between mt-6 md:mt-8 space-y-3 md:space-y-0 md:space-x-4">
               <button
                 onClick={() => setCurrentStep(1)}
-                className="bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+                className="bg-gray-200 text-gray-700 px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors w-full md:w-auto"
               >
                 Back to Plans
               </button>
               <button
                 onClick={() => setCurrentStep(3)}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg"
+                className="bg-blue-600 text-white px-6 md:px-8 py-2 md:py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg w-full md:w-auto"
               >
                 Review & Subscribe
               </button>
@@ -479,7 +479,7 @@ const SchoolSubscription: React.FC = () => {
               Review Your Subscription
             </h2>
 
-            <div className="bg-white rounded-2xl shadow-xl p-8">
+            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6 md:p-8">
               {/* Billing Cycle Toggle */}
               <div className="flex justify-center items-center mb-8 pb-8 border-b">
                 <span className={`text-sm font-medium mr-3 ${billingCycle === 'monthly' ? 'text-gray-900' : 'text-gray-500'}`}>
@@ -609,13 +609,13 @@ const SchoolSubscription: React.FC = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 space-y-4">
-                <button className="w-full bg-blue-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition-colors shadow-lg">
+              <div className="mt-6 md:mt-8 space-y-3">
+                <button className="w-full bg-blue-600 text-white py-3 md:py-4 rounded-lg font-bold text-base md:text-lg hover:bg-blue-700 transition-colors shadow-lg">
                   Subscribe Now
                 </button>
                 <button
                   onClick={() => setCurrentStep(2)}
-                  className="w-full bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
+                  className="w-full bg-gray-100 text-gray-700 py-2 md:py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors"
                 >
                   Modify Selection
                 </button>

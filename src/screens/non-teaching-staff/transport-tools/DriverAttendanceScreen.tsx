@@ -408,33 +408,33 @@ const DriverAttendanceScreen: React.FC = () => {
       {/* Driver Attendance Table */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full text-xs md:text-sm">
             <thead className="bg-gradient-to-r from-gray-50 to-gray-100 sticky top-0">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Driver Details
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Assigned Bus
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Route Name
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Shift
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Attendance Status
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Last Marked
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                <th className="px-3 py-2 text-left font-semibold text-gray-700 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 text-xs md:text-sm">
               {filteredDrivers.map((driver) => {
                 const isAbsentWithoutBackup = driver.attendanceStatus === 'absent' && 
                                                driver.assignedBus && 
@@ -453,59 +453,59 @@ const DriverAttendanceScreen: React.FC = () => {
                     }`}
                   >
                     {/* Driver Details */}
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-2">
                       <div className="flex items-start gap-3">
-                        <div className="bg-blue-100 p-2 rounded-lg">
-                          <Users className="w-5 h-5 text-blue-600" />
+                        <div className="bg-blue-100 p-1 rounded-lg">
+                          <Users className="w-4 h-4 text-blue-600" />
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900">{driver.driverName}</p>
-                          <p className="text-sm text-gray-600">ID: {driver.driverId}</p>
+                          <p className="font-semibold text-gray-900 text-xs md:text-sm">{driver.driverName}</p>
+                          <p className="text-[11px] text-gray-600">ID: {driver.driverId}</p>
                         </div>
                       </div>
                     </td>
 
                     {/* Assigned Bus */}
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-2">
                       {driver.assignedBus ? (
                         <div className={`flex items-center gap-2 ${isAbsentWithoutBackup ? 'text-red-700' : ''}`}>
-                          <Bus className={`w-4 h-4 ${isAbsentWithoutBackup ? 'text-red-600' : 'text-gray-600'}`} />
+                          <Bus className={`w-3 h-3 ${isAbsentWithoutBackup ? 'text-red-600' : 'text-gray-600'}`} />
                           <span className={`font-medium ${isAbsentWithoutBackup ? 'text-red-900' : 'text-gray-900'}`}>
                             {driver.assignedBus}
                           </span>
                           {isAbsentWithoutBackup && (
-                            <AlertTriangle className="w-4 h-4 text-red-600" />
+                            <AlertTriangle className="w-3 h-3 text-red-600" />
                           )}
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <AlertTriangle className="w-4 h-4 text-yellow-600" />
-                          <span className="text-yellow-700 text-sm font-medium">Not Assigned</span>
+                          <AlertTriangle className="w-3 h-3 text-yellow-600" />
+                          <span className="text-yellow-700 text-xs font-medium">Not Assigned</span>
                         </div>
                       )}
                     </td>
 
                     {/* Route Name */}
-                    <td className="px-6 py-4">
+                    <td className="px-3 py-2">
                       {driver.routeName !== 'Not Assigned' ? (
                         <div className="flex items-center gap-2">
-                          <Navigation className="w-4 h-4 text-blue-600" />
-                          <span className="text-gray-700">{driver.routeName}</span>
+                          <Navigation className="w-3 h-3 text-blue-600" />
+                          <span className="text-gray-700 text-xs md:text-sm">{driver.routeName}</span>
                         </div>
                       ) : (
-                        <span className="text-gray-400 text-sm">Not Assigned</span>
+                        <span className="text-gray-400 text-xs">Not Assigned</span>
                       )}
                     </td>
 
                     {/* Shift */}
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-2 whitespace-nowrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getShiftStyle(driver.shift)}`}>
                         {getShiftText(driver.shift)}
                       </span>
                     </td>
 
                     {/* Attendance Status */}
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-2 whitespace-nowrap">
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusStyle(driver.attendanceStatus)}`}>
                         {driver.attendanceStatus === 'present' && <CheckCircle className="w-3 h-3 mr-1" />}
                         {driver.attendanceStatus === 'absent' && <XCircle className="w-3 h-3 mr-1" />}
@@ -514,44 +514,44 @@ const DriverAttendanceScreen: React.FC = () => {
                     </td>
 
                     {/* Last Marked Time */}
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 py-2 whitespace-nowrap">
                       {driver.lastMarkedTime ? (
                         <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-600">{driver.lastMarkedTime}</span>
+                          <Clock className="w-3 h-3 text-gray-400" />
+                          <span className="text-xs text-gray-600">{driver.lastMarkedTime}</span>
                         </div>
                       ) : (
-                        <span className="text-gray-400 text-sm">-</span>
+                        <span className="text-gray-400 text-xs">-</span>
                       )}
                     </td>
 
                     {/* Actions */}
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex gap-2">
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      <div className="flex gap-1 md:gap-2">
                         {driver.attendanceStatus !== 'present' && (
                           <button
                             onClick={() => handleMarkAttendance(driver.id, 'present')}
-                            className="px-3 py-1.5 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1"
+                            className="px-2 py-1 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition-colors flex items-center gap-1"
                           >
-                            <CheckCircle className="w-4 h-4" />
+                            <CheckCircle className="w-3 h-3" />
                             Present
                           </button>
                         )}
                         {driver.attendanceStatus !== 'absent' && (
                           <button
                             onClick={() => handleMarkAttendance(driver.id, 'absent')}
-                            className="px-3 py-1.5 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1"
+                            className="px-2 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-700 transition-colors flex items-center gap-1"
                           >
-                            <XCircle className="w-4 h-4" />
+                            <XCircle className="w-3 h-3" />
                             Absent
                           </button>
                         )}
                         <button
                           onClick={() => handleViewHistory(driver)}
-                          className="px-3 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1"
+                          className="px-2 py-1 bg-blue-600 text-white text-xs rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1"
                           title="View Attendance History"
                         >
-                          <History className="w-4 h-4" />
+                          <History className="w-3 h-3" />
                           History
                         </button>
                       </div>

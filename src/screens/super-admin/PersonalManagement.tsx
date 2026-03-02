@@ -247,7 +247,7 @@ export default function RolesPermissionsManagement() {
         <div className="max-w-[1600px] mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg">
+              <div className="p-3 bg-blue-600 rounded-xl shadow-lg">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -261,7 +261,7 @@ export default function RolesPermissionsManagement() {
             {activeTab === 'roles' && (
               <button
                 onClick={() => setIsCreating(true)}
-                className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl font-semibold flex items-center gap-2"
+                className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl font-semibold flex items-center gap-2"
               >
                 <Plus className="w-5 h-5" />
                 Create New Role
@@ -659,7 +659,7 @@ function RoleEditor({ role, allPermissions, onSave, onCancel }: RoleEditorProps)
         <div className="flex gap-3 pt-6 border-t border-slate-200">
           <button
             type="submit"
-            className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg font-semibold flex items-center gap-2"
+            className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg font-semibold flex items-center gap-2"
           >
             <Check className="w-5 h-5" />
             {role ? 'Save Changes' : 'Create Role'}

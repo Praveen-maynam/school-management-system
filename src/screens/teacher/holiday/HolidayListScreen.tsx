@@ -162,18 +162,28 @@ export default function HolidayManagement() {
 
         {/* HOLIDAY TABLE */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="overflow-x-hidden">
+            <table className="w-full table-fixed text-[10px]">
+              <colgroup>
+                <col style={{ width: '5%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '19%' }} />
+                <col style={{ width: '26%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
+              </colgroup>
               <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">No.</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Date</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Day</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Title</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Type</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider">Actions</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">No.</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Date</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Day</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Title</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Description</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Type</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Status</th>
+                  <th className="px-1.5 py-2 text-left text-[9px] font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap truncate">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
@@ -182,31 +192,31 @@ export default function HolidayManagement() {
                     key={holiday.id} 
                     className={`transition-colors duration-150 hover:bg-blue-50/50 ${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}
                   >
-                    <td className="px-6 py-4 text-sm font-medium text-slate-900">{holiday.id}</td>
-                    <td className="px-6 py-4 text-sm text-slate-700 font-medium">{holiday.date}</td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{holiday.day}</td>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-900">{holiday.title}</td>
-                    <td className="px-6 py-4 text-sm text-slate-600 max-w-xs truncate">{holiday.description}</td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getTypeBadge(holiday.type)}`}>
+                    <td className="px-1.5 py-2 text-[10px] font-medium text-slate-900 whitespace-nowrap">{holiday.id}</td>
+                    <td className="px-1.5 py-2 text-[10px] text-slate-700 font-medium whitespace-nowrap">{holiday.date}</td>
+                    <td className="px-1.5 py-2 text-[10px] text-slate-600 whitespace-nowrap truncate" title={holiday.day}>{holiday.day}</td>
+                    <td className="px-1.5 py-2 text-[10px] font-medium text-slate-900 whitespace-nowrap truncate" title={holiday.title}>{holiday.title}</td>
+                    <td className="px-1.5 py-2 text-[10px] text-slate-600 whitespace-nowrap truncate" title={holiday.description}>{holiday.description}</td>
+                    <td className="px-1.5 py-2 whitespace-nowrap truncate" title={holiday.type}>
+                      <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-medium border ${getTypeBadge(holiday.type)}`}>
                         {holiday.type}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusBadge(holiday.status)}`}>
+                    <td className="px-1.5 py-2 whitespace-nowrap truncate" title={holiday.status}>
+                      <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-medium border ${getStatusBadge(holiday.status)}`}>
                         {holiday.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <button className="p-2 border border-blue-200 text-blue-600 rounded-lg hover:bg-blue-50 transition-all duration-200" title="View">
-                          <Eye className="w-4 h-4" />
+                    <td className="px-1.5 py-2 whitespace-nowrap">
+                      <div className="flex items-center gap-1">
+                        <button className="p-1 border border-blue-200 text-blue-600 rounded-md hover:bg-blue-50 transition-all duration-200" title="View">
+                          <Eye className="w-3 h-3" />
                         </button>
-                        <button className="p-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-all duration-200" title="Edit">
-                          <Edit2 className="w-4 h-4" />
+                        <button className="p-1 border border-slate-200 text-slate-600 rounded-md hover:bg-slate-50 transition-all duration-200" title="Edit">
+                          <Edit2 className="w-3 h-3" />
                         </button>
-                        <button className="p-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 transition-all duration-200" title="Delete">
-                          <Trash2 className="w-4 h-4" />
+                        <button className="p-1 border border-red-200 text-red-600 rounded-md hover:bg-red-50 transition-all duration-200" title="Delete">
+                          <Trash2 className="w-3 h-3" />
                         </button>
                       </div>
                     </td>

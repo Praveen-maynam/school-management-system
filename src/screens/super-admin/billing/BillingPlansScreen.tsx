@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Bar } from '../../../lib/chartjs';
 import { 
-  CreditCard, DollarSign, TrendingUp, Users, Calendar, 
+  CreditCard, DollarSign, TrendingUp, Users, 
   MoreVertical, Download, Search, Filter, Plus, Edit, 
-  Trash2, CheckCircle, XCircle, AlertCircle, ArrowUpRight,
-  ArrowDownRight, Eye, RefreshCw, FileText, Bell
+  CheckCircle, XCircle, AlertCircle, ArrowUpRight,
+  ArrowDownRight, Eye, FileText
 } from 'lucide-react';
 
 // Production-level RevenueBarChart component
@@ -163,7 +163,6 @@ const SuperAdminBillingPlans: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'plans' | 'subscriptions' | 'transactions'>('overview');
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [showPlanModal, setShowPlanModal] = useState(false);
-  const [showSubModal, setShowSubModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [showCreatePlanModal, setShowCreatePlanModal] = useState(false);
@@ -516,7 +515,7 @@ const SuperAdminBillingPlans: React.FC = () => {
                 Export Report
               </button>
               <button
-                className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
                 onClick={handleCreatePlan}
               >
                 <Plus className="w-4 h-4" />
@@ -930,18 +929,18 @@ const SuperAdminBillingPlans: React.FC = () => {
 
             {/* Subscriptions Table */}
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="w-full overflow-hidden">
+                <table className="w-full table-fixed text-xs">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">School</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Plan</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Amount</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Renewal</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Users</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Auto-Renew</th>
-                      <th className="text-right py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Actions</th>
+                      <th className="w-[24%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">School</th>
+                      <th className="w-[10%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Plan</th>
+                      <th className="w-[10%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Amount</th>
+                      <th className="w-[12%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Status</th>
+                      <th className="w-[12%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Renewal</th>
+                      <th className="w-[14%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Users</th>
+                      <th className="w-[10%] text-left py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Auto-Renew</th>
+                      <th className="w-[8%] text-right py-2 px-2 text-[11px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
@@ -950,14 +949,14 @@ const SuperAdminBillingPlans: React.FC = () => {
                       .filter(sub => sub.schoolName.toLowerCase().includes(searchTerm.toLowerCase()))
                       .map(sub => (
                       <tr key={sub.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="py-4 px-6">
-                          <div>
-                            <p className="font-semibold text-gray-900">{sub.schoolName}</p>
-                            <p className="text-sm text-gray-600">{sub.schoolId}</p>
+                        <td className="py-2 px-2">
+                          <div className="min-w-0">
+                            <p className="font-semibold text-gray-900 text-xs truncate" title={sub.schoolName}>{sub.schoolName}</p>
+                            <p className="text-[11px] text-gray-600 truncate">{sub.schoolId}</p>
                           </div>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                        <td className="py-2 px-2">
+                          <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
                             sub.plan === 'Premium' ? 'bg-indigo-100 text-indigo-700' :
                             sub.plan === 'Enterprise' ? 'bg-purple-100 text-purple-700' :
                             'bg-blue-100 text-blue-700'
@@ -965,58 +964,58 @@ const SuperAdminBillingPlans: React.FC = () => {
                             {sub.plan}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
-                          <p className="font-bold text-gray-900">{formatCurrency(sub.amount)}</p>
-                          <p className="text-xs text-gray-600">per month</p>
+                        <td className="py-2 px-2">
+                          <p className="font-bold text-gray-900 text-xs whitespace-nowrap">{formatCurrency(sub.amount)}</p>
+                          <p className="text-[11px] text-gray-600">/mo</p>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(sub.status)}`}>
+                        <td className="py-2 px-2">
+                          <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${getStatusColor(sub.status)}`}>
                             {getStatusIcon(sub.status)}
                             {sub.status.charAt(0).toUpperCase() + sub.status.slice(1)}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
-                          <p className="text-sm text-gray-900 font-medium">{formatDate(sub.renewalDate)}</p>
-                          <p className="text-xs text-gray-600">
+                        <td className="py-2 px-2">
+                          <p className="text-xs text-gray-900 font-medium whitespace-nowrap">{formatDate(sub.renewalDate)}</p>
+                          <p className="text-[11px] text-gray-600 whitespace-nowrap">
                             {Math.ceil((new Date(sub.renewalDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
                           </p>
                         </td>
-                        <td className="py-4 px-6">
-                          <div className="flex items-center gap-3 text-sm">
+                        <td className="py-2 px-2">
+                          <div className="flex items-center gap-2 text-xs whitespace-nowrap">
                             <div>
                               <p className="text-gray-900 font-medium">{sub.students}</p>
-                              <p className="text-gray-600 text-xs">students</p>
+                              <p className="text-gray-600 text-[11px]">students</p>
                             </div>
-                            <div className="w-px h-8 bg-gray-300"></div>
+                            <div className="w-px h-6 bg-gray-300"></div>
                             <div>
                               <p className="text-gray-900 font-medium">{sub.teachers}</p>
-                              <p className="text-gray-600 text-xs">teachers</p>
+                              <p className="text-gray-600 text-[11px]">teachers</p>
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 px-6">
+                        <td className="py-2 px-2">
                           {sub.autoRenew ? (
-                            <span className="inline-flex items-center gap-1 text-green-700 text-sm font-medium">
-                              <CheckCircle className="w-4 h-4" />
+                            <span className="inline-flex items-center gap-1 text-green-700 text-xs font-medium whitespace-nowrap">
+                              <CheckCircle className="w-3.5 h-3.5" />
                               Yes
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-gray-500 text-sm font-medium">
-                              <XCircle className="w-4 h-4" />
+                            <span className="inline-flex items-center gap-1 text-gray-500 text-xs font-medium whitespace-nowrap">
+                              <XCircle className="w-3.5 h-3.5" />
                               No
                             </span>
                           )}
                         </td>
-                        <td className="py-4 px-6">
-                          <div className="flex items-center justify-end gap-2">
-                            <button className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-                              <Eye className="w-4 h-4" />
+                        <td className="py-2 px-2">
+                          <div className="flex items-center justify-end gap-1">
+                            <button className="p-1 text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors">
+                              <Eye className="w-3.5 h-3.5" />
                             </button>
-                            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                              <Edit className="w-4 h-4" />
+                            <button className="p-1 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                              <Edit className="w-3.5 h-3.5" />
                             </button>
-                            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                              <MoreVertical className="w-4 h-4" />
+                            <button className="p-1 text-gray-600 hover:bg-gray-100 rounded-md transition-colors">
+                              <MoreVertical className="w-3.5 h-3.5" />
                             </button>
                           </div>
                         </td>
@@ -1117,31 +1116,31 @@ const SuperAdminBillingPlans: React.FC = () => {
                 </div>
               </div>
               
-              <div className="overflow-x-auto">
-                <table className="w-full">
+              <div className="w-full overflow-hidden">
+                <table className="w-full table-fixed text-[10px]">
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Transaction ID</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">School</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Type</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Amount</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Date</th>
-                      <th className="text-left py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Payment Method</th>
-                      <th className="text-right py-4 px-6 text-xs font-bold text-gray-700 uppercase tracking-wider">Actions</th>
+                      <th className="w-[10%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Transaction ID</th>
+                      <th className="w-[12%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">School</th>
+                      <th className="w-[10%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Type</th>
+                      <th className="w-[8%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Amount</th>
+                      <th className="w-[10%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Status</th>
+                      <th className="w-[8%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Date</th>
+                      <th className="w-[10%] text-left py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Payment Method</th>
+                      <th className="w-[4%] text-right py-1.5 px-1.5 text-[9px] font-bold text-gray-700 uppercase tracking-wide whitespace-nowrap">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {paginatedTransactions.map(txn => (
                       <tr key={txn.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="py-4 px-6">
-                          <p className="font-mono text-sm font-semibold text-gray-900">{txn.invoice}</p>
+                        <td className="py-1.5 px-1.5">
+                          <p className="font-mono text-[10px] font-semibold text-gray-900 truncate" title={txn.invoice}>{txn.invoice}</p>
                         </td>
-                        <td className="py-4 px-6">
-                          <p className="font-semibold text-gray-900">{txn.schoolName}</p>
+                        <td className="py-1.5 px-1.5">
+                          <p className="font-semibold text-gray-900 text-[10px] truncate" title={txn.schoolName}>{txn.schoolName}</p>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                        <td className="py-1.5 px-1.5">
+                          <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap ${
                             txn.type === 'subscription' ? 'bg-blue-100 text-blue-700' :
                             txn.type === 'upgrade' ? 'bg-purple-100 text-purple-700' :
                             txn.type === 'refund' ? 'bg-red-100 text-red-700' :
@@ -1150,33 +1149,33 @@ const SuperAdminBillingPlans: React.FC = () => {
                             {txn.type.charAt(0).toUpperCase() + txn.type.slice(1)}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
-                          <p className={`font-bold ${txn.amount < 0 ? 'text-red-600' : 'text-gray-900'}`}>
+                        <td className="py-1.5 px-1.5">
+                          <p className={`font-bold text-[10px] whitespace-nowrap ${txn.amount < 0 ? 'text-red-600' : 'text-gray-900'}`}>
                             {formatCurrency(Math.abs(txn.amount))}
                           </p>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(txn.status)}`}>
+                        <td className="py-1.5 px-1.5">
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold whitespace-nowrap ${getStatusColor(txn.status)}`}>
                             {getStatusIcon(txn.status)}
                             {txn.status.charAt(0).toUpperCase() + txn.status.slice(1)}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
-                          <p className="text-sm text-gray-900">{formatDate(txn.date)}</p>
+                        <td className="py-1.5 px-1.5">
+                          <p className="text-[10px] text-gray-900 whitespace-nowrap">{formatDate(txn.date)}</p>
                         </td>
-                        <td className="py-4 px-6">
-                          <div className="flex items-center gap-2">
-                            <CreditCard className="w-4 h-4 text-gray-400" />
-                            <p className="text-sm text-gray-700">{txn.paymentMethod}</p>
+                        <td className="py-1.5 px-1.5">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <CreditCard className="w-3 h-3 text-gray-400 flex-shrink-0" />
+                            <p className="text-[10px] text-gray-700 truncate" title={txn.paymentMethod}>{txn.paymentMethod}</p>
                           </div>
                         </td>
-                        <td className="py-4 px-6">
-                          <div className="flex items-center justify-end gap-2">
-                            <button className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" title="View Invoice">
-                              <FileText className="w-4 h-4" />
+                        <td className="py-1.5 px-1.5">
+                          <div className="flex items-center justify-end gap-1">
+                            <button className="p-0.5 text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors" title="View Invoice">
+                              <FileText className="w-3 h-3" />
                             </button>
-                            <button className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Download">
-                              <Download className="w-4 h-4" />
+                            <button className="p-0.5 text-gray-600 hover:bg-gray-100 rounded-md transition-colors" title="Download">
+                              <Download className="w-3 h-3" />
                             </button>
                           </div>
                         </td>

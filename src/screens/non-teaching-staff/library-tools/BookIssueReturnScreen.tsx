@@ -468,8 +468,8 @@ const LibraryIssueReturn: React.FC = () => {
 
         {/* Transactions Table */}
         <div className="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden animate-fade-in" style={{ animationDelay: '0.5s' }}>
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="w-full">
+            <table className="w-full text-xs sm:text-sm md:text-base">
               <thead className="bg-gradient-to-r from-slate-50 to-blue-50 sticky top-0">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase tracking-wider">Transaction ID</th>
@@ -490,16 +490,16 @@ const LibraryIssueReturn: React.FC = () => {
                     className={`table-row-hover ${transaction.status === 'Overdue' ? 'overdue-row' : ''}`}
                     style={{ animationDelay: `${0.6 + idx * 0.05}s` }}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-2 break-words max-w-[100px]">
                       <span className="font-mono text-sm font-semibold text-slate-900">{transaction.id}</span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-2 break-words max-w-[180px]">
                       <div>
                         <p className="font-semibold text-slate-900 text-sm">{transaction.bookTitle}</p>
                         <p className="text-xs text-slate-500 font-mono">{transaction.accessionNo}</p>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-4 py-2 break-words max-w-[120px]">
                       <div>
                         <p className="font-semibold text-slate-900 text-sm">{transaction.userName}</p>
                         <p className="text-xs text-slate-500">
@@ -508,22 +508,22 @@ const LibraryIssueReturn: React.FC = () => {
                         </p>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{transaction.issueDate}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">{transaction.dueDate}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-700">
+                    <td className="px-4 py-2 break-words max-w-[100px] text-sm text-slate-700">{transaction.issueDate}</td>
+                    <td className="px-4 py-2 break-words max-w-[100px] text-sm text-slate-700">{transaction.dueDate}</td>
+                    <td className="px-4 py-2 break-words max-w-[100px] text-sm text-slate-700">
                       {transaction.returnDate || '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-2 break-words max-w-[100px]">
                       <StatusBadge status={transaction.status} />
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-2 break-words max-w-[80px]">
                       {transaction.fineAmount > 0 ? (
                         <span className="text-red-600 font-bold">₹{transaction.fineAmount}</span>
                       ) : (
                         <span className="text-slate-400">-</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                    <td className="px-4 py-2 break-words max-w-[120px] text-right">
                       <div className="flex items-center justify-end gap-2">
                         {transaction.status === 'Issued' || transaction.status === 'Overdue' ? (
                           <button

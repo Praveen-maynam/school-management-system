@@ -540,47 +540,58 @@ const LibraryBookSearch: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+              <div className="w-full overflow-x-hidden">
+                <table className="w-full table-fixed text-[11px] divide-y divide-gray-200">
+                  <colgroup>
+                    <col style={{ width: '10%' }} />
+                    <col style={{ width: '18%' }} />
+                    <col style={{ width: '13%' }} />
+                    <col style={{ width: '11%' }} />
+                    <col style={{ width: '13%' }} />
+                    <col style={{ width: '8%' }} />
+                    <col style={{ width: '8%' }} />
+                    <col style={{ width: '10%' }} />
+                    <col style={{ width: '9%' }} />
+                  </colgroup>
                   <thead className="bg-gradient-to-r from-blue-600 to-indigo-600 sticky top-0 z-10">
                     <tr>
                       <th 
                         onClick={() => handleSort('bookId')}
-                        className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-blue-700 transition-colors"
+                        className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide cursor-pointer hover:bg-blue-700 transition-colors whitespace-nowrap truncate"
                       >
                         Book ID {sortConfig?.key === 'bookId' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                       </th>
                       <th 
                         onClick={() => handleSort('title')}
-                        className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-blue-700 transition-colors"
+                        className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide cursor-pointer hover:bg-blue-700 transition-colors whitespace-nowrap truncate"
                       >
                         Book Title {sortConfig?.key === 'title' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                       </th>
                       <th 
                         onClick={() => handleSort('author')}
-                        className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-blue-700 transition-colors"
+                        className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide cursor-pointer hover:bg-blue-700 transition-colors whitespace-nowrap truncate"
                       >
                         Author {sortConfig?.key === 'author' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide whitespace-nowrap truncate">
                         Subject
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide whitespace-nowrap truncate">
                         ISBN
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide whitespace-nowrap truncate">
                         Rack
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide whitespace-nowrap truncate">
                         Shelf
                       </th>
                       <th 
                         onClick={() => handleSort('status')}
-                        className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider cursor-pointer hover:bg-blue-700 transition-colors"
+                        className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide cursor-pointer hover:bg-blue-700 transition-colors whitespace-nowrap truncate"
                       >
                         Status {sortConfig?.key === 'status' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                       </th>
-                      <th className="px-6 py-4 text-left text-xs font-bold text-white uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-[10px] font-bold text-white uppercase tracking-wide whitespace-nowrap truncate">
                         Actions
                       </th>
                     </tr>
@@ -591,56 +602,56 @@ const LibraryBookSearch: React.FC = () => {
                         key={book.id} 
                         className="hover:bg-blue-50 transition-colors duration-150"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                        <td className="px-2 py-1.5 text-[10px] font-semibold text-gray-900 whitespace-nowrap truncate" title={book.bookId}>
                           {book.bookId}
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900 font-medium max-w-xs">
+                        <td className="px-2 py-1.5 text-[10px] text-gray-900 font-medium whitespace-nowrap truncate" title={book.title}>
                           {book.title}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                        <td className="px-2 py-1.5 text-[10px] text-gray-700 whitespace-nowrap truncate" title={book.author}>
                           {book.author}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-medium">
+                        <td className="px-2 py-1.5 text-[10px] whitespace-nowrap truncate" title={book.subject}>
+                          <span className="inline-block max-w-full px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded-full font-medium text-[10px] whitespace-nowrap truncate align-middle">
                             {book.subject}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-600">
+                        <td className="px-2 py-1.5 text-[10px] font-mono text-gray-600 whitespace-nowrap truncate" title={book.isbn}>
                           {book.isbn}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded font-bold">
+                        <td className="px-2 py-1.5 text-[10px] whitespace-nowrap truncate" title={book.rackNumber}>
+                          <span className="inline-block max-w-full px-1.5 py-0.5 bg-purple-100 text-purple-800 rounded font-bold text-[10px] whitespace-nowrap truncate align-middle">
                             {book.rackNumber}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded font-bold">
+                        <td className="px-2 py-1.5 text-[10px] whitespace-nowrap truncate" title={book.shelfNumber}>
+                          <span className="inline-block max-w-full px-1.5 py-0.5 bg-purple-100 text-purple-800 rounded font-bold text-[10px] whitespace-nowrap truncate align-middle">
                             {book.shelfNumber}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-2 py-1.5 text-[10px] whitespace-nowrap truncate">
                           <div className="group relative inline-block">
-                            <span className={`px-3 py-1.5 inline-flex text-xs leading-5 font-bold rounded-full border-2 ${getStatusBadge(book.status)}`}>
+                            <span className={`px-1.5 py-0.5 inline-flex text-[10px] leading-4 font-bold rounded-full border ${getStatusBadge(book.status)}`}>
                               {book.status}
                             </span>
                             {book.issuedTo && (
-                              <div className="hidden group-hover:block absolute z-10 w-48 p-2 mt-2 text-xs text-white bg-gray-900 rounded-lg shadow-lg">
+                              <div className="hidden group-hover:block absolute z-10 w-44 p-2 mt-2 text-[10px] text-white bg-gray-900 rounded-lg shadow-lg">
                                 Issued to: {book.issuedTo}
                               </div>
                             )}
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <div className="flex gap-2">
+                        <td className="px-2 py-1.5 text-[10px] whitespace-nowrap">
+                          <div className="flex items-center gap-1 whitespace-nowrap">
                             <button
                               onClick={() => handleViewDetails(book)}
-                              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors text-xs"
+                              className="px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors text-[10px] leading-none"
                             >
-                              👁️ View
+                              👁️
                             </button>
                             {book.status === 'Available' && (
-                              <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium transition-colors text-xs">
-                                📤 Issue
+                              <button className="px-2 py-1 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium transition-colors text-[10px] leading-none">
+                                📤 
                               </button>
                             )}
                           </div>
@@ -652,19 +663,19 @@ const LibraryBookSearch: React.FC = () => {
               </div>
 
               {/* Pagination */}
-              <div className="bg-gray-50 px-6 py-4 flex items-center justify-between border-t-2 border-gray-200">
-                <div className="text-sm text-gray-700">
+              <div className="bg-gray-50 px-3 py-2.5 flex items-center justify-between border-t border-gray-200">
+                <div className="text-xs text-gray-700">
                   Showing <span className="font-bold">1</span> to <span className="font-bold">{filteredBooks.length}</span> of{' '}
                   <span className="font-bold">{filteredBooks.length}</span> results
                 </div>
                 <div className="flex gap-2">
-                  <button className="px-5 py-2.5 border-2 border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 transition-colors" disabled>
+                  <button className="px-3 py-1.5 border border-gray-300 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 transition-colors" disabled>
                     Previous
                   </button>
-                  <button className="px-5 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors">
+                  <button className="px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors">
                     1
                   </button>
-                  <button className="px-5 py-2.5 border-2 border-gray-300 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 transition-colors" disabled>
+                  <button className="px-3 py-1.5 border border-gray-300 rounded-md text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50 transition-colors" disabled>
                     Next
                   </button>
                 </div>

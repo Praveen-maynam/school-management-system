@@ -70,7 +70,7 @@ export default function SuperAdminDashboard() {
           </p>
         </div>
         <button
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium "
           onClick={handleGenerateReport}
         >
           Generate Report
@@ -131,7 +131,7 @@ export default function SuperAdminDashboard() {
                 <button
                   type="button"
                   onClick={handleDownload}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg  font-medium"
                 >
                   Download Report
                 </button>
